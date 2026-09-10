@@ -1,0 +1,6 @@
+'use strict';
+(function(){
+  const $=s=>document.querySelector(s),cfg=window.LAB_CONFIG;if(new URLSearchParams(location.search).get('deleted')==='1'){$('#deleteDone').classList.remove('hidden');$('#deleteFormWrap').classList.add('hidden');return}if(!window.supabase){$('#deleteMessage').textContent='네트워크 연결을 확인해 주세요.';return}const db=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_PUBLISHABLE_KEY);
+  $('#deletePhrase').addEventListener('input',e=>$('#externalDeleteBtn').disabled=e.target.value.trim()!=='삭제합니다');
+  $('#externalDeleteBtn').addEventListener('click',async()=>{const btn=$('#externalDeleteBtn'),email=$('#deleteEmail').value.trim(),password=$('#deletePassword').value;if(!email||!password){$('#deleteMessage').textContent='이메일과 비밀번호를 입력해 주세요.';return}btn.disabled=true;btn.textContent='본인 확인 중…';try{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;btn.textContent='삭제 중…';const {error:fnError}=await db.functions.invoke('delete-account',{body:{confirm:true}});if(fnError)throw fnError;await db.auth.signOut().catch(()=>{});location.replace('./delete-account.html?deleted=1')}catch(e){$('#deleteMessage').textContent='삭제 실패: '+(e.message||e);btn.disabled=false;btn.textContent='계정과 데이터 영구 삭제'}});
+})();

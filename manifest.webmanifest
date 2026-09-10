@@ -1,0 +1,12 @@
+{
+  "name": "나의 연구실",
+  "short_name": "연구실",
+  "description": "나의 기록, 프로젝트, 작업물과 성장을 쌓는 개인 연구실",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f4f1",
+  "theme_color": "#17201c",
+  "lang": "ko-KR",
+  "icons": []
+}
