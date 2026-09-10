@@ -1,5 +1,5 @@
 const CACHE='personal-lab-shell-v10';
-const SHELL=['./','./index.html','./public.html','./privacy.html','./terms.html','./delete-account.html','./assets/styles.css','./js/config.js','./js/drafts.js','./js/db.js','./js/storage.js','./js/app.js','./js/public.js','./js/delete-account.js','./manifest.webmanifest'];
+const SHELL=['./','./index.html','./public.html','./privacy.html','./terms.html','./delete-account.html','./assets/styles.css','./js/config.js','./js/drafts.js','./js/db.js','./js/storage.js','./js/app.js','./js/project-files-ui.js','./js/public.js','./js/delete-account.js','./manifest.webmanifest'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL.filter(Boolean))).catch(()=>{})));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))));
 self.addEventListener('fetch',event=>{
