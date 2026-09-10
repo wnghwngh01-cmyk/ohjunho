@@ -93,3 +93,6 @@ html[data-stage="3"] #publicProfileToggle { opacity:.45; cursor:not-allowed; }
 .stage-placeholder{padding:34px;border:1px dashed var(--line);border-radius:18px;background:var(--surface);text-align:center;color:var(--muted)}
 .stage-placeholder strong{display:block;color:var(--text);font-size:16px;margin-bottom:8px}
 .stage-placeholder p{margin:0;line-height:1.65}
+
+/* Multi-day event bars connect across adjacent calendar cells. */
+.day-event.range-start{border-radius:4px 0 0 4px;margin-right:-6px;position:relative;z-index:1}.day-event.range-mid{border-radius:0;margin-left:-6px;margin-right:-6px;position:relative;z-index:1}.day-event.range-end{border-radius:0 4px 4px 0;margin-left:-6px;position:relative;z-index:1}.day-event.range-start.range-end{border-radius:4px;margin:0}.day-event.range-mid span,.day-event.range-end span{visibility:hidden}
