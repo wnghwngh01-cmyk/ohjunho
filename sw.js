@@ -1,5 +1,5 @@
-const CACHE='personal-lab-shell-v12';
-const SHELL=['./','./index.html','./public.html','./privacy.html','./terms.html','./delete-account.html','./assets/styles.css','./js/config.js','./js/drafts.js','./js/db.js','./js/storage.js','./js/app.js','./js/project-files-ui.js','./js/public.js','./js/delete-account.js','./manifest.webmanifest'];
+const CACHE='personal-lab-shell-v13';
+const SHELL=['./','./index.html','./public.html','./privacy.html','./terms.html','./delete-account.html','./assets/styles.css?v=20260911-stage4','./js/config.js?v=20260911-stage4','./js/drafts.js?v=20260911-stage4','./js/db.js?v=20260911-stage4','./js/storage.js?v=20260911-stage4','./js/app.js?v=20260911-stage4','./js/project-files-ui.js?v=20260911-stage4','./js/public.js','./js/delete-account.js','./manifest.webmanifest'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL.filter(Boolean))).then(()=>self.skipWaiting()).catch(()=>{})));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{
