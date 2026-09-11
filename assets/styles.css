@@ -17,6 +17,14 @@ html[data-theme="dark"] .nav-btn.active,html[data-theme="dark"] .nav-btn:hover,h
 html[data-theme="dark"] .mini-item,html[data-theme="dark"] .empty,html[data-theme="dark"] .photo-picker,html[data-theme="dark"] .transaction-list,html[data-theme="dark"] .money-card:not(.primary),html[data-theme="dark"] .memory-card,html[data-theme="dark"] .daily-note,html[data-theme="dark"] .searchbox{background:var(--card);border-color:var(--line)}
 html[data-theme="dark"] .searchbox input,html[data-theme="dark"] .lab-brand strong,html[data-theme="dark"] .day.range-day .day-event{color:var(--ink)}
 html[data-theme="dark"] .day.range-day .day-event{background:#2a3b31;color:#d7e7dc}
+html[data-theme="dark"] .daily-note blockquote,html[data-theme="dark"] .memory-card p,html[data-theme="dark"] .record-card p,html[data-theme="dark"] .project-card p,html[data-theme="dark"] .idea-card p,html[data-theme="dark"] .work-card p,html[data-theme="dark"] .pub-card p,html[data-theme="dark"] .square-intro p,html[data-theme="dark"] .feature-card p,html[data-theme="dark"] .settings-pane>p,html[data-theme="dark"] .field>span,html[data-theme="dark"] .field>label,html[data-theme="dark"] .link-btn{color:var(--muted)}
+html[data-theme="dark"] .mini-item button.check{background:#18201b;color:var(--ink);border-color:var(--line)}
+html[data-theme="dark"] .module-tab,html[data-theme="dark"] .square-tab,html[data-theme="dark"] .quick-choice{background:var(--card);color:var(--muted);border-color:var(--line)}
+html[data-theme="dark"] .module-tab.active,html[data-theme="dark"] .square-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+html[data-theme="dark"] .day:hover,html[data-theme="dark"] .day.selected{background:#26342d}
+html[data-theme="dark"] .bottom-nav{background:rgba(19,24,21,.96);border-color:var(--line)}
+html[data-theme="dark"] .bottom-nav button.active{background:var(--soft);color:var(--ink)}
+html[data-theme="dark"] .record-tools{background:var(--bg)}
 .focus-summary{margin-top:14px;padding:16px}.focus-summary p{font-size:11px;color:var(--muted);margin:4px 0 10px}
 .lightbox #lightboxPrev,.lightbox #lightboxNext{top:50%;transform:translateY(-50%);font-size:30px}.lightbox #lightboxPrev{left:18px;right:auto}.lightbox #lightboxNext{right:18px}
 .record-tools .searchbox{min-width:240px}@media(max-width:720px){.record-tools .searchbox{min-width:0}}
