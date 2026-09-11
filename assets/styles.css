@@ -11,6 +11,12 @@ html[data-theme="dark"] .field input,html[data-theme="dark"] .field textarea,htm
 html[data-theme="dark"] .side-rail{background:rgba(22,29,25,.94)}
 html[data-theme="dark"] .btn.secondary,html[data-theme="dark"] .btn.ghost,html[data-theme="dark"] .icon-btn{background:#202a24;color:var(--ink);border-color:var(--line)}
 html[data-theme="dark"] .composer,html[data-theme="dark"] .calendar-card,html[data-theme="dark"] .day-detail,html[data-theme="dark"] .module-add,html[data-theme="dark"] .auth-card{background:var(--card);border-color:var(--line)}html[data-theme="dark"] .day{background:#1b241f;color:var(--ink);border-color:var(--line)}html[data-theme="dark"] .day.outside{background:#17201b;color:#718078}html[data-theme="dark"] .day-event{background:#2a3b31;color:#d7e7dc}html[data-theme="dark"] .searchbox{background:var(--card);border-color:var(--line)}
+html[data-theme="dark"] .topbar{background:rgba(19,24,21,.92);border-color:var(--line)}
+html[data-theme="dark"] .lab-brand,html[data-theme="dark"] .topbar-title{color:var(--ink)}
+html[data-theme="dark"] .nav-btn.active,html[data-theme="dark"] .nav-btn:hover,html[data-theme="dark"] .settings-menu button.active{background:var(--soft);color:var(--ink)}
+html[data-theme="dark"] .mini-item,html[data-theme="dark"] .empty,html[data-theme="dark"] .photo-picker,html[data-theme="dark"] .transaction-list,html[data-theme="dark"] .money-card:not(.primary),html[data-theme="dark"] .memory-card,html[data-theme="dark"] .daily-note,html[data-theme="dark"] .searchbox{background:var(--card);border-color:var(--line)}
+html[data-theme="dark"] .searchbox input,html[data-theme="dark"] .lab-brand strong,html[data-theme="dark"] .day.range-day .day-event{color:var(--ink)}
+html[data-theme="dark"] .day.range-day .day-event{background:#2a3b31;color:#d7e7dc}
 .focus-summary{margin-top:14px;padding:16px}.focus-summary p{font-size:11px;color:var(--muted);margin:4px 0 10px}
 .lightbox #lightboxPrev,.lightbox #lightboxNext{top:50%;transform:translateY(-50%);font-size:30px}.lightbox #lightboxPrev{left:18px;right:auto}.lightbox #lightboxNext{right:18px}
 .record-tools .searchbox{min-width:240px}@media(max-width:720px){.record-tools .searchbox{min-width:0}}
