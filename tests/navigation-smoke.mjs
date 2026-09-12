@@ -27,5 +27,8 @@ for(const id of ['financePrevMonth','financeNextMonth','financeThisMonth','finan
 for(const behavior of ['moveFinanceMonth(-1)','moveFinanceMonth(1)','renderFinance()']){
   if(!app.includes(behavior))throw new Error(`Finance month behavior is missing: ${behavior}`);
 }
+for(const behavior of ['data-move-event','shiftDay(','moveEventNext(']){
+  if(!app.includes(behavior))throw new Error(`Event rollover behavior is missing: ${behavior}`);
+}
 
 console.log('navigation-smoke: PASS');
