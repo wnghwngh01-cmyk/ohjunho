@@ -8,7 +8,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data: blob: https://kplhezgrxuiuswsbhpdw.supabase.co; connect-src 'self' https://kplhezgrxuiuswsbhpdw.supabase.co wss://kplhezgrxuiuswsbhpdw.supabase.co; font-src 'self' data:; media-src 'self' blob: https://kplhezgrxuiuswsbhpdw.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
   <title>나의 연구실</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./assets/styles.css?v=20260911-stage4-3">
+  <link rel="stylesheet" href="./assets/styles.css?v=20260912-daily-preview-1">
 </head>
 <body>
   <section id="authShell" class="auth-shell">
@@ -75,8 +75,7 @@
         <button class="nav-btn active" data-go="today"><span class="nav-icon">⌂</span>오늘</button>
         <button class="nav-btn" data-go="records"><span class="nav-icon">✎</span>기록</button>
         <button class="nav-btn" data-go="calendar"><span class="nav-icon">□</span>캘린더</button>
-        <button class="nav-btn" data-go="personal"><span class="nav-icon">●</span>개인 공간</button><button class="nav-btn" data-go="lab"><span class="nav-icon">◇</span>포트폴리오</button>
-        <button class="nav-btn" data-go="square"><span class="nav-icon">◎</span>광장</button>
+        <button class="nav-btn" data-go="personal"><span class="nav-icon">●</span>개인 공간</button><button class="nav-btn" data-go="lab"><span class="nav-icon">◇</span>아이디어</button>
       </nav>
       <div class="side-bottom">
         <button class="nav-btn" data-go="settings"><span class="nav-icon">⚙</span>설정</button>
@@ -96,7 +95,7 @@
           <section class="greeting">
             <small id="todayDate">TODAY</small>
             <h2 id="greetingTitle">오늘의 연구실</h2>
-            <p>오늘 해야 할 일을 확인하고, 작은 기록 하나를 남겨보세요. 다른 사람의 광장보다 내 연구실이 먼저입니다.</p>
+            <p>오늘 할 일과 공부 계획을 체크하고, 작은 기록 하나를 남겨보세요.</p>
             <div class="hero-focus">
               <div class="hero-focus-line"><span>FINAL GOAL</span><strong id="todayFinalGoal">아직 최종 목표가 없습니다.</strong></div>
               <div class="hero-focus-line"><span>MONTHLY FOCUS</span><strong id="todayMonthlyGoal">이번 달 목표를 정해보세요.</strong></div>
@@ -108,9 +107,9 @@
           </div>
         </div>
         <div class="today-grid">
-          <section class="card"><div class="card-head"><h3>오늘 체크리스트</h3><button class="link-btn" data-go="calendar">관리 →</button></div><div id="todayHabits" class="list"></div></section>
+          <section class="card"><div class="card-head"><h3>오늘 할 일</h3><small id="todayTodoCount">0/0 완료</small></div><div class="todo-entry"><input id="todayTodoInput" class="input" maxlength="120" placeholder="예: 영어 단어 30개 외우기"><button id="todayTodoAdd" class="btn primary small">추가</button></div><div id="todayTodos" class="list"></div></section>
           <section class="card"><div class="card-head"><h3>오늘 일정</h3><button class="link-btn" data-go="calendar">캘린더 →</button></div><div id="todayEvents" class="list"></div></section>
-          <section class="card"><div class="card-head"><h3>진행 중 프로젝트</h3><button class="link-btn" data-go="lab" data-lab-tab="projects">전체 →</button></div><div id="todayProjects" class="list"></div></section>
+          <section class="card"><div class="card-head"><h3>반복 습관</h3><button class="link-btn" data-go="calendar">관리 →</button></div><div id="todayHabits" class="list"></div></section>
         </div>
         <section id="memoryCard" class="memory-card hidden"><div class="memory-icon">↶</div><div><strong id="memoryTitle">과거의 오늘</strong><p id="memoryBody"></p></div><button id="memoryOpen" class="btn secondary small">다시 보기</button></section>
       </section>
@@ -151,18 +150,18 @@
 
       <section id="page-personal" class="page wide" data-page="personal"><div class="page-head"><div><p class="eyebrow">PRIVATE SPACE</p><h1>개인 공간</h1><p>일상 기록, 일정, 습관과 가계부를 보관하는 사적인 공간입니다.</p></div></div><div id="personalFinanceHost"></div></section>
       <section id="page-lab" class="page wide" data-page="lab">
-        <div class="page-head"><div><p class="eyebrow">MY PORTFOLIO LAB</p><h1>포트폴리오</h1><p>아이디어가 프로젝트가 되고, 프로젝트가 결과물로 남는 작업 공간입니다.</p></div></div>
-        <label class="searchbox lab-search"><span class="sr-only">포트폴리오 검색</span><input id="labSearch" placeholder="프로젝트, 아이디어, 작업물 검색"></label><div class="module-tabs" id="labTabs"><button class="module-tab active" data-module="all">전체</button><button class="module-tab" data-module="projects">프로젝트</button><button class="module-tab" data-module="ideas">아이디어</button><button class="module-tab" data-module="works">작업물</button><button class="module-tab hidden" data-module="finance">가계부</button></div>
-        <section id="module-all" class="module-pane active"><div id="labSearchResults" class="lab-grid"></div></section>
-        <section id="module-projects" class="module-pane active">
+        <div class="page-head"><div><p class="eyebrow">IDEA NOTE</p><h1>아이디어</h1><p>떠오른 생각을 부담 없이 짧게 저장하는 공간입니다.</p></div></div>
+        <label class="searchbox lab-search"><span class="sr-only">아이디어 검색</span><input id="labSearch" placeholder="아이디어 검색"></label><div class="module-tabs hidden" id="labTabs"><button class="module-tab" data-module="all">전체</button><button class="module-tab" data-module="projects">프로젝트</button><button class="module-tab active" data-module="ideas">아이디어</button><button class="module-tab" data-module="works">작업물</button><button class="module-tab hidden" data-module="finance">가계부</button></div>
+        <section id="module-all" class="module-pane hidden"><div id="labSearchResults" class="lab-grid"></div></section>
+        <section id="module-projects" class="module-pane hidden">
           <details class="module-add"><summary>＋ 새 프로젝트</summary><div class="stack"><div class="two-col"><label class="field"><span>프로젝트 이름</span><input id="projectTitle" maxlength="120"></label><label class="field"><span>상태</span><select id="projectStatus"><option value="active">진행 중</option><option value="paused">일시정지</option><option value="completed">완료</option></select></label></div><label class="field"><span>한 줄 설명</span><input id="projectSummary" maxlength="400"></label><button id="projectAdd" class="btn primary">프로젝트 만들기</button></div></details>
           <div id="projectList" class="lab-grid"></div>
         </section>
-        <section id="module-ideas" class="module-pane">
-          <details class="module-add"><summary>＋ 새 아이디어</summary><div class="stack"><label class="field"><span>제목</span><input id="ideaTitle" maxlength="120"></label><label class="field"><span>메모</span><textarea id="ideaBody" maxlength="5000"></textarea></label><label class="field"><span>다음 행동</span><input id="ideaNext" maxlength="300" placeholder="예: 비슷한 서비스 3개 조사"></label><button id="ideaAdd" class="btn primary">아이디어 저장</button></div></details>
+        <section id="module-ideas" class="module-pane active">
+          <details class="module-add" open><summary>＋ 새 아이디어</summary><div class="stack"><label class="field"><span>제목</span><input id="ideaTitle" maxlength="120" placeholder="아이디어 제목"></label><label class="field"><span>간단한 메모</span><textarea id="ideaBody" maxlength="5000" placeholder="생각난 내용을 자유롭게 적어보세요."></textarea></label><input id="ideaNext" class="hidden" maxlength="300"><button id="ideaAdd" class="btn primary">아이디어 저장</button></div></details>
           <div id="ideaList" class="lab-grid"></div>
         </section>
-        <section id="module-works" class="module-pane">
+        <section id="module-works" class="module-pane hidden">
           <details class="module-add"><summary>＋ 새 작업물</summary><div class="stack"><div class="two-col"><label class="field"><span>제목</span><input id="workTitle" maxlength="120"></label><label class="field"><span>분류</span><select id="workCategory"><option>과제</option><option>발표자료</option><option>보고서</option><option>글</option><option>기타</option></select></label></div><label class="field"><span>설명</span><input id="workDescription" maxlength="500"></label><label class="field"><span>관련 링크 · 선택</span><input id="workLink" type="url" placeholder="https://"></label><label class="photo-picker">문서 파일 추가 · 최대 20MB<input id="workFile" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.hwp,.hwpx"></label><button id="workAdd" class="btn primary">작업물 저장</button></div></details>
           <div id="workList" class="lab-grid"></div>
         </section>
@@ -202,12 +201,12 @@
       <button class="active" data-go="today"><span class="ico">⌂</span><span>오늘</span></button>
       <button data-go="records"><span class="ico">✎</span><span>기록</span></button>
       <button id="quickMain" class="quick-main" aria-label="빠른 추가"><span class="ico">＋</span></button>
-      <button data-go="lab"><span class="ico">◇</span><span>포트폴리오</span></button>
-      <button data-go="square"><span class="ico">◎</span><span>광장</span></button>
+      <button data-go="calendar"><span class="ico">□</span><span>캘린더</span></button>
+      <button data-go="lab" data-lab-tab="ideas"><span class="ico">◇</span><span>아이디어</span></button>
     </nav>
   </div>
 
-  <div id="quickModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">QUICK ADD</small><h2>무엇을 남길까요?</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="quickModal">×</button></div><div class="quick-grid"><button class="quick-choice" data-quick="record"><b>✎ 기록</b><span>오늘의 생각과 사진</span></button><button class="quick-choice" data-quick="event"><b>□ 일정</b><span>해야 할 일과 날짜</span></button><button class="quick-choice" data-quick="idea"><b>◇ 아이디어</b><span>떠오른 생각 보관</span></button><button class="quick-choice" data-quick="project"><b>→ 프로젝트</b><span>실행할 일로 전환</span></button><button class="quick-choice" data-quick="finance"><b>₩ 가계부</b><span>수입·지출·잔액</span></button></div></div></div>
+  <div id="quickModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">QUICK ADD</small><h2>무엇을 남길까요?</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="quickModal">×</button></div><div class="quick-grid"><button class="quick-choice" data-quick="record"><b>✎ 기록</b><span>오늘의 생각과 사진</span></button><button class="quick-choice" data-quick="event"><b>□ 일정</b><span>날짜가 있는 일정</span></button><button class="quick-choice" data-quick="idea"><b>◇ 아이디어</b><span>떠오른 생각 보관</span></button><button class="quick-choice" data-quick="finance"><b>₩ 가계부</b><span>수입·지출·잔액</span></button></div></div></div>
 
   <div id="publishModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">SHARE TO SQUARE</small><h2>광장에 공유</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="publishModal">×</button></div><p>원본은 개인 연구실에 그대로 남고, 광장에는 현재 내용의 공개용 사본만 만들어집니다.</p><div class="stack"><label class="field"><span>공개 범위</span><select id="publishAudience"><option value="public">전체 공개</option><option value="followers">팔로워 공개</option></select></label><label class="row"><input id="publishMedia" type="checkbox" checked><span style="font-size:11px">대표 사진/파일이 있으면 함께 공개</span></label><button id="publishConfirm" class="btn primary">공유하기</button></div></div></div>
 
@@ -231,7 +230,7 @@
   <script src="./js/drafts.js?v=20260911-stage4-2"></script>
   <script src="./js/db.js?v=20260911-stage4-2"></script>
   <script src="./js/storage.js?v=20260911-stage4-2"></script>
-  <script src="./js/app.js?v=20260911-stage4-3"></script>
+  <script src="./js/app.js?v=20260912-daily-preview-1"></script>
   <script src="./js/project-files-ui.js?v=20260911-stage4-2"></script>
 </body>
 </html>
