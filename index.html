@@ -8,7 +8,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data: blob: https://kplhezgrxuiuswsbhpdw.supabase.co; connect-src 'self' https://kplhezgrxuiuswsbhpdw.supabase.co wss://kplhezgrxuiuswsbhpdw.supabase.co; font-src 'self' data:; media-src 'self' blob: https://kplhezgrxuiuswsbhpdw.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
   <title>하루를 담다</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./assets/styles.css?v=20260912-daily-life-v1">
+  <link rel="stylesheet" href="./assets/styles.css?v=20260912-daily-life-v2">
 </head>
 <body>
   <section id="authShell" class="auth-shell">
@@ -131,7 +131,7 @@
             <div class="composer-actions"><span id="draftState" class="autosave">임시저장 준비</span><button id="recordSave" class="btn primary">저장</button></div>
           </aside>
           <div>
-            <div class="record-tools"><label class="searchbox"><span class="sr-only">기록 검색</span><input id="recordSearch" placeholder="내용, 태그 검색"></label><select id="recordFilter" class="input"><option>전체</option><option>즐겨찾기</option></select><select id="recordSort" class="input" aria-label="기록 정렬"><option value="newest">최신순</option><option value="oldest">오래된순</option></select></div>
+            <div class="record-tools"><label class="searchbox"><span class="sr-only">기록 검색</span><input id="recordSearch" placeholder="내용, 태그 검색"></label><select id="recordFilter" class="input"><option value="전체">전체</option><option value="즐겨찾기">즐겨찾기</option></select><select id="recordSort" class="input" aria-label="기록 정렬"><option value="newest">최신순</option><option value="oldest">오래된순</option></select></div>
             <div id="recordList" class="record-list"></div>
           </div>
         </div>
@@ -220,7 +220,7 @@
 
       <section id="page-square" class="page" data-page="square">
         <div class="page-head"><div><p class="eyebrow">OPTIONAL COMMUNITY</p><h1>광장</h1><p>내 하루 공간이 먼저입니다. 여기에는 사용자가 직접 공유한 내용만 나타납니다.</p></div></div>
-        <section class="square-intro"><div class="symbol">◎</div><div><h3>서로의 결과와 과정을 가볍게 나누는 곳</h3><p>좋아요와 팔로우는 연결을 돕지만, 숫자가 포트폴리오의 가치를 대신하지 않도록 작게 다룹니다.</p></div></section>
+        <section class="square-intro"><div class="symbol">◎</div><div><h3>서로의 하루와 생각을 가볍게 나누는 곳</h3><p>좋아요와 팔로우는 일상의 연결을 돕되, 숫자가 사용의 중심이 되지 않도록 작게 다룹니다.</p></div></section>
         <div id="squareTabs" class="square-tabs"><button class="square-tab active" data-square="discover">발견</button><button class="square-tab" data-square="following">팔로잉</button><button class="square-tab" data-square="feedback">앱 개선</button></div>
         <section id="squareDiscover" class="square-pane"><div id="squareFeed" class="feed"></div></section>
         <section id="squareFeedback" class="square-pane hidden">
@@ -236,7 +236,7 @@
         <div class="settings-grid">
           <nav id="settingsMenu" class="settings-menu"><button class="active" data-settings="profile">프로필</button><button data-settings="privacy">공개 · 보안</button><button data-settings="data">데이터</button><button data-settings="account">계정</button></nav>
           <section id="settings-profile" class="settings-pane active"><h3>프로필과 연구실</h3><p>앱 안의 내 공간 이름과 공개 프로필 주소를 설정합니다.</p><div class="stack"><label class="field"><span>이름</span><input id="settingsName" maxlength="30"></label><label class="field"><span>공간 이름</span><input id="settingsLabName" maxlength="50"></label><label class="field"><span>공개 주소 ID</span><input id="settingsSlug" maxlength="40" placeholder="junho-lab"></label><label class="field"><span>소개</span><textarea id="settingsBio" maxlength="500"></textarea></label><div class="two-col"><label class="field"><span>화면 테마</span><select id="settingsTheme"><option value="system">기기 설정</option><option value="light">밝게</option><option value="dark">어둡게</option></select></label><label class="field"><span>표시 시간대</span><input id="settingsTimezone" placeholder="Asia/Seoul" autocomplete="off"></label></div><small class="muted">시간대는 IANA 형식(예: Asia/Seoul)으로 입력합니다. 이 기기에 저장됩니다.</small><button id="profileSave" class="btn primary">프로필 저장</button></div></section>
-          <section id="settings-privacy" class="settings-pane"><h3>공개와 보안</h3><p>비공개가 기본값입니다. 공개 포트폴리오와 광장은 이후 단계에서 활성화합니다.</p><div class="setting-row"><div class="copy"><strong>공개 공간 프로필</strong><p>현재 3단계에서는 잠겨 있습니다. 개인 핵심 기능 검증 후 공개 단계를 엽니다.</p></div><button id="publicProfileToggle" class="switch" aria-label="공개 프로필 전환" disabled></button></div><div class="setting-row"><div class="copy"><strong>개인 원본 데이터</strong><p>기록·일정·가계부·아이디어 원본은 RLS로 본인 계정만 접근합니다.</p></div><span class="chip private">항상 비공개</span></div><div class="divider"></div><div class="setting-row"><div class="copy"><strong>차단한 사용자</strong><p>차단하면 서로의 광장 게시물과 상호작용이 앱에서 숨겨집니다.</p></div></div><div id="blockedUsers" class="blocked-list"><div class="empty">차단한 사용자가 없습니다.</div></div><div class="divider"></div><a class="btn secondary" href="./privacy.html">개인정보처리방침 보기</a></section>
+          <section id="settings-privacy" class="settings-pane"><h3>공개와 보안</h3><p>개인 자료는 기본 비공개이며, 사용자가 광장에 공유한 사본만 공개됩니다.</p><div class="setting-row"><div class="copy"><strong>공개 공간 프로필</strong><p>광장에 항목을 공유하면 공개 프로필이 함께 활성화됩니다.</p></div><button id="publicProfileToggle" class="switch" aria-label="공개 프로필 전환"></button></div><div class="setting-row"><div class="copy"><strong>개인 원본 데이터</strong><p>기록·일정·가계부·아이디어 원본은 RLS로 본인 계정만 접근합니다.</p></div><span class="chip private">항상 비공개</span></div><div class="divider"></div><div class="setting-row"><div class="copy"><strong>차단한 사용자</strong><p>차단하면 서로의 광장 게시물과 상호작용이 앱에서 숨겨집니다.</p></div></div><div id="blockedUsers" class="blocked-list"><div class="empty">차단한 사용자가 없습니다.</div></div><div class="divider"></div><a class="btn secondary" href="./privacy.html">개인정보처리방침 보기</a></section>
           <section id="settings-data" class="settings-pane"><h3>내 데이터</h3><p>서비스에 묶이지 않도록 내 데이터를 직접 내보낼 수 있습니다.</p><div class="setting-row"><div class="copy"><strong>JSON 내보내기</strong><p>현재 단계의 개인 데이터(기록, 일정, 습관, 목표, 프로젝트, 아이디어, 작업물, 가계부)를 한 파일로 저장합니다.</p></div><button id="exportData" class="btn secondary small">내보내기</button></div></section>
           <section id="settings-account" class="settings-pane"><h3>계정</h3><p>로그아웃 또는 계정과 연결된 데이터를 삭제합니다.</p><div class="setting-row"><div class="copy"><strong id="settingsEmail">계정 이메일</strong><p>현재 기기의 로그인 세션을 종료합니다.</p></div><button id="logoutBtn" class="btn secondary small">로그아웃</button></div><div class="setting-row"><div class="copy"><strong>계정 및 데이터 삭제</strong><p>되돌릴 수 없습니다. 개인 데이터와 업로드 파일을 함께 삭제합니다.</p></div><button id="deleteAccountOpen" class="btn danger small">삭제</button></div><p class="muted">외부에서도 <a href="./delete-account.html">계정 삭제 페이지</a>를 이용할 수 있습니다.</p></section>
         </div>
@@ -272,11 +272,11 @@
   <div id="toastStack" class="toast-stack" aria-live="polite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
-  <script src="./js/config.js?v=20260912-daily-life-v1"></script>
-  <script src="./js/drafts.js?v=20260912-daily-life-v1"></script>
-  <script src="./js/db.js?v=20260912-daily-life-v1"></script>
-  <script src="./js/storage.js?v=20260912-daily-life-v1"></script>
-  <script src="./js/app.js?v=20260912-daily-life-v1"></script>
-  <script src="./js/project-files-ui.js?v=20260912-daily-life-v1"></script>
+  <script src="./js/config.js?v=20260912-daily-life-v2"></script>
+  <script src="./js/drafts.js?v=20260912-daily-life-v2"></script>
+  <script src="./js/db.js?v=20260912-daily-life-v2"></script>
+  <script src="./js/storage.js?v=20260912-daily-life-v2"></script>
+  <script src="./js/app.js?v=20260912-daily-life-v2"></script>
+  <script src="./js/project-files-ui.js?v=20260912-daily-life-v2"></script>
 </body>
 </html>
