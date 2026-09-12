@@ -4,31 +4,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#17201c">
-  <meta name="description" content="나의 기록, 프로젝트, 작업물과 성장을 쌓는 개인 연구실">
+  <meta name="description" content="오늘의 일정과 기록을 한곳에 담는 일상 앱">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data: blob: https://kplhezgrxuiuswsbhpdw.supabase.co; connect-src 'self' https://kplhezgrxuiuswsbhpdw.supabase.co wss://kplhezgrxuiuswsbhpdw.supabase.co; font-src 'self' data:; media-src 'self' blob: https://kplhezgrxuiuswsbhpdw.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
-  <title>나의 연구실</title>
+  <title>하루를 담다</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./assets/styles.css?v=20260912-life-prototype-2">
+  <link rel="stylesheet" href="./assets/styles.css?v=20260912-daily-life-v1">
 </head>
 <body>
   <section id="authShell" class="auth-shell">
     <div class="auth-story">
       <div>
-        <div class="wordmark">PERSONAL LAB</div>
-        <h1>나를 쌓아가는<br>나만의 연구실.</h1>
-        <p>기록, 일정, 아이디어, 프로젝트와 결과물을 한곳에 모으고 필요할 때만 세상과 공유하세요. 광장은 선택이고, 중심은 언제나 나의 연구실입니다.</p>
+        <div class="wordmark">HARU</div>
+        <h1>하루의 계획부터<br>기억까지.</h1>
+        <p>오늘의 일정과 기록, 일기와 생활을 한곳에 담아보세요. 개인 자료는 나만 보고, 광장에서는 원할 때만 다른 사람과 소통합니다.</p>
         <div class="auth-values">
           <div class="auth-value"><b>Private first</b>개인 기록은 기본 비공개</div>
-          <div class="auth-value"><b>Portfolio</b>과정과 결과를 한 흐름으로</div>
+          <div class="auth-value"><b>Everyday</b>계획과 기억을 한 흐름으로</div>
           <div class="auth-value"><b>Square</b>원할 때만 공개하고 교류</div>
         </div>
       </div>
-      <small class="muted">개인의 공간을 먼저 지키는 포트폴리오 앱</small>
+      <small class="muted">나의 하루를 안전하게 담는 일상 앱</small>
     </div>
     <div class="auth-panel">
       <div class="auth-card">
-        <div class="row"><div><small class="muted">PERSONAL LAB</small><h2>연구실 입장</h2></div></div>
-        <p>로그인하면 어느 기기에서든 내 연구실을 이어갈 수 있어요.</p>
+        <div class="row"><div><small class="muted">HARU</small><h2>하루를 담다</h2></div></div>
+        <p>로그인하면 어느 기기에서든 나의 하루를 이어갈 수 있어요.</p>
         <div class="auth-tabs">
           <button class="auth-tab active" data-auth-mode="signin">로그인</button>
           <button class="auth-tab" data-auth-mode="signup">회원가입</button>
@@ -42,7 +42,7 @@
           <button id="authSubmit" class="btn primary" type="submit">로그인</button>
         </form>
         <div id="authMessage" class="auth-message" aria-live="polite"></div>
-        <p class="muted">개인 연구실은 기본 비공개입니다. 공개 기능은 이후 단계에서 열립니다. 개인 연구실은 계속 비공개로 사용할 수 있습니다. <a href="./privacy.html">개인정보처리방침</a> · <a href="./terms.html">이용약관</a></p>
+        <p class="muted">개인 자료는 기본 비공개입니다. 광장에는 직접 공유한 내용만 표시됩니다. <a href="./privacy.html">개인정보처리방침</a> · <a href="./terms.html">이용약관</a></p>
       </div>
     </div>
   </section>
@@ -50,18 +50,18 @@
   <section id="onboardingShell" class="onboarding-shell hidden" aria-labelledby="onboardingTitle">
     <div class="onboarding-card">
       <div class="onboarding-step">STEP 2 · CREATE YOUR LAB</div>
-      <h1 id="onboardingTitle">내 연구실을 만들어볼까요?</h1>
+      <h1 id="onboardingTitle">내 하루 공간을 만들어볼까요?</h1>
       <p>이름을 정하면 개인 공간이 만들어집니다. 기록과 일정, 프로젝트는 기본적으로 나만 볼 수 있어요.</p>
       <div class="onboarding-preview" aria-live="polite">
         <small>YOUR PERSONAL LAB</small>
-        <strong id="onboardingPreviewName">나의 연구실</strong>
+        <strong id="onboardingPreviewName">하루를 담다</strong>
         <span>비공개로 시작 · 공개는 나중에 선택</span>
       </div>
       <form id="onboardingForm" class="stack" novalidate>
         <label class="field"><span>내 이름</span><input id="onboardingName" maxlength="30" autocomplete="name" placeholder="예: 준호" required></label>
-        <label class="field"><span>연구실 이름</span><input id="onboardingLabName" maxlength="50" placeholder="예: 준호의 연구실" required></label>
-        <p class="onboarding-help">연구실 이름은 설정에서 언제든 바꿀 수 있어요.</p>
-        <button id="onboardingSubmit" class="btn primary" type="submit">내 연구실 시작하기</button>
+        <label class="field"><span>공간 이름</span><input id="onboardingLabName" maxlength="50" placeholder="예: 준호의 하루" required></label>
+        <p class="onboarding-help">공간 이름은 설정에서 언제든 바꿀 수 있어요.</p>
+        <button id="onboardingSubmit" class="btn primary" type="submit">내 하루 공간 시작하기</button>
       </form>
       <div id="onboardingMessage" class="auth-message" aria-live="polite"></div>
       <button id="onboardingLogout" class="link-btn onboarding-logout" type="button">다른 계정으로 로그인</button>
@@ -70,12 +70,12 @@
 
   <div id="appShell" class="app-shell hidden">
     <aside class="side-rail">
-      <button class="lab-brand" data-go="today"><small>PERSONAL LAB</small><strong id="sideLabName">나의 연구실</strong></button>
+      <button class="lab-brand" data-go="today"><small>HARU</small><strong id="sideLabName">하루를 담다</strong></button>
       <nav class="side-nav" aria-label="주 메뉴">
         <button class="nav-btn active" data-go="today"><span class="nav-icon">⌂</span>오늘</button>
         <button class="nav-btn" data-go="calendar"><span class="nav-icon">□</span>캘린더</button>
-        <button class="nav-btn" data-go="diary"><span class="nav-icon">✎</span>일기</button>
         <button class="nav-btn" data-go="personal"><span class="nav-icon">₩</span>가계부</button>
+        <button class="nav-btn" data-go="square"><span class="nav-icon">◎</span>광장</button>
         <button class="nav-btn" data-go="more"><span class="nav-icon">☷</span>더보기</button>
       </nav>
       <div class="side-bottom">
@@ -88,14 +88,14 @@
       <header class="topbar">
         <div><div id="topbarTitle" class="topbar-title">오늘</div><div id="topbarSub" class="topbar-sub"></div></div>
         <div id="syncState" class="sync-state"><i></i><span>연결됨</span></div>
-        <button class="icon-btn" data-go="settings" aria-label="설정">⚙</button>
+        <button class="icon-btn" data-go="notifications" aria-label="알림함">♢</button>
       </header>
 
       <section id="page-today" class="page active wide" data-page="today">
         <div class="today-hero">
           <section class="greeting">
             <small id="todayDate">TODAY</small>
-            <h2 id="greetingTitle">오늘의 연구실</h2>
+            <h2 id="greetingTitle">오늘의 하루</h2>
             <p>오늘 할 일과 공부 계획을 체크하고, 작은 기록 하나를 남겨보세요.</p>
             <div class="hero-focus">
               <div class="hero-focus-line"><span>FINAL GOAL</span><strong id="todayFinalGoal">아직 최종 목표가 없습니다.</strong></div>
@@ -103,7 +103,7 @@
             </div>
           </section>
           <div class="today-side">
-            <section class="card daily-note"><div class="card-head"><h3>오늘의 문장</h3><small id="quoteDate"></small></div><div class="mark">“</div><blockquote id="dailyQuote">작은 기록이 긴 시간을 설명해 준다.</blockquote><footer>연구실 노트</footer></section>
+            <section class="card daily-note"><div class="card-head"><h3>오늘의 문장</h3><small id="quoteDate"></small></div><div class="mark">“</div><blockquote id="dailyQuote">작은 기록이 긴 시간을 설명해 준다.</blockquote><footer>하루 노트</footer></section>
             <section class="card quick-record"><div class="card-head"><h3>빠른 기록</h3><small>나만 보기</small></div><textarea id="quickRecordText" class="input" placeholder="지금 떠오른 생각을 짧게 남겨보세요."></textarea><button id="quickRecordSave" class="btn primary small">기록 남기기</button></section>
           </div>
         </div>
@@ -111,23 +111,19 @@
           <section class="card"><div class="card-head"><h3>오늘 할 일</h3><small id="todayTodoCount">0/0 완료</small></div><div class="todo-entry"><input id="todayTodoInput" class="input" maxlength="120" placeholder="예: 영어 단어 30개 외우기"><button id="todayTodoAdd" class="btn primary small">추가</button></div><div id="todayTodos" class="list"></div></section>
           <section class="card"><div class="card-head"><h3>오늘 일정</h3><button class="link-btn" data-go="calendar">캘린더 →</button></div><div id="todayEvents" class="list"></div></section>
           <section class="card"><div class="card-head"><h3>반복 습관</h3><button class="link-btn" data-go="calendar">관리 →</button></div><div id="todayHabits" class="list"></div></section>
+          <section class="card"><div class="card-head"><h3>중요한 날짜</h3><button class="link-btn" data-go="calendar">캘린더 →</button></div><div id="todayCountdowns" class="list"></div></section>
         </div>
         <section id="memoryCard" class="memory-card hidden"><div class="memory-icon">↶</div><div><strong id="memoryTitle">과거의 오늘</strong><p id="memoryBody"></p></div><button id="memoryOpen" class="btn secondary small">다시 보기</button></section>
       </section>
 
       <section id="page-records" class="page" data-page="records">
-        <div class="page-head"><div><p class="eyebrow">PRIVATE RECORDS</p><h1>기록</h1><p>기본은 나만 보기. 3단계에서는 기록과 사진을 개인 DB·비공개 Storage에 안정적으로 연결합니다.</p></div><div class="head-actions"><button id="recordNewBtn" class="btn primary">새 기록</button></div></div>
+        <div class="page-head"><div><p class="eyebrow">PRIVATE NOTES</p><h1>기록</h1><p>형식 없이 떠오르는 내용을 자유롭게 남깁니다.</p></div><div class="head-actions"><button id="recordNewBtn" class="btn primary">새 기록</button></div></div>
         <div class="record-layout">
           <aside class="composer" id="recordComposer">
             <div class="row"><h3 id="recordComposerTitle">새 기록</h3><span class="spacer"></span><button id="recordCancelEdit" class="link-btn hidden">편집 취소</button></div>
             <div class="form-grid">
-              <div class="two-col">
-                <label class="field"><span>분류</span><select id="recordCategory"><option>일상</option><option>생각</option><option>독서</option><option>회고</option></select></label>
-                <label class="field"><span>기분 · 선택</span><select id="recordMood"><option value="">선택 안 함</option><option>🙂 좋음</option><option>😌 평온</option><option>😐 보통</option><option>😔 아쉬움</option><option>😤 힘듦</option></select></label>
-              </div>
               <label class="field"><span>날짜</span><input id="recordDate" type="date"></label>
-              <label class="field"><span>제목</span><input id="recordTitle" maxlength="120" placeholder="오늘의 한 줄"></label>
-              <label class="field"><span>내용</span><textarea id="recordBody" maxlength="12000" placeholder="오늘 있었던 일, 떠오른 생각, 배운 것을 자유롭게 적어보세요."></textarea></label>
+              <label class="field"><span>내용</span><textarea id="recordBody" maxlength="12000" placeholder="지금 떠오르는 내용을 자유롭게 적어보세요."></textarea></label>
               <label class="field"><span>태그 · 쉼표로 구분</span><input id="recordTags" maxlength="250" placeholder="예: 학교, 운동, 취업"></label>
               <label class="photo-picker">사진 추가 · 최대 6장<input id="recordImages" type="file" accept="image/jpeg,image/png,image/webp" multiple></label>
               <div id="recordPhotoPreview" class="photo-preview"></div>
@@ -135,7 +131,7 @@
             <div class="composer-actions"><span id="draftState" class="autosave">임시저장 준비</span><button id="recordSave" class="btn primary">저장</button></div>
           </aside>
           <div>
-            <div class="record-tools"><label class="searchbox"><span class="sr-only">기록 검색</span><input id="recordSearch" placeholder="제목, 내용, 태그 검색"></label><select id="recordFilter" class="input"><option>전체</option><option>일상</option><option>생각</option><option>독서</option><option>회고</option></select><select id="recordSort" class="input" aria-label="기록 정렬"><option value="newest">최신순</option><option value="oldest">오래된순</option><option value="title">제목순</option></select></div>
+            <div class="record-tools"><label class="searchbox"><span class="sr-only">기록 검색</span><input id="recordSearch" placeholder="내용, 태그 검색"></label><select id="recordFilter" class="input"><option>전체</option><option>즐겨찾기</option></select><select id="recordSort" class="input" aria-label="기록 정렬"><option value="newest">최신순</option><option value="oldest">오래된순</option></select></div>
             <div id="recordList" class="record-list"></div>
           </div>
         </div>
@@ -145,7 +141,7 @@
         <div class="page-head"><div><p class="eyebrow">TIME MANAGEMENT</p><h1>캘린더</h1><p>모바일에서도 안정적으로 쓸 수 있도록 날짜 범위 입력 방식으로 일정을 관리합니다.</p></div><div class="head-actions"><button id="calPrev" class="btn secondary small">‹ 이전</button><button id="calToday" class="btn secondary small">오늘</button><button id="calNext" class="btn secondary small">다음 ›</button></div></div>
         <div class="calendar-shell">
           <section class="calendar-card"><div class="month-head"><button id="calPrevMobile" class="icon-btn">‹</button><h3 id="calendarMonth">2026년 9월</h3><button id="calNextMobile" class="icon-btn">›</button></div><div class="week"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div><div id="calendarDays" class="days"></div></section>
-          <aside class="day-detail"><h3 id="selectedDayTitle">오늘</h3><div id="selectedEvents"></div><div class="section-label">일정 추가</div><div class="stack"><label class="field"><span>일정</span><input id="eventName" placeholder="예: 헬스 19:00 / 과제 제출"></label><div class="date-range"><label class="field"><span>시작일</span><input id="eventStart" type="date"></label><label class="field"><span>종료일</span><input id="eventEnd" type="date"></label></div><div class="row"><button id="eventAdd" class="btn primary">일정 추가</button><button id="eventCancel" class="btn ghost hidden" type="button">취소</button></div></div><div class="section-label">오늘의 체크리스트</div><div id="selectedHabits" class="list"></div><details class="module-add"><summary>체크리스트 항목 설정</summary><div id="habitTemplateList" class="stack"></div><div class="stack"><input id="habitNewName" class="input" placeholder="예: 운동하기"><div class="two-col"><label class="field"><span>반복</span><select id="habitSchedule"><option value="daily">매일</option><option value="weekdays">평일</option><option value="weekly_n">주 N회</option></select></label><label id="habitWeeklyCountWrap" class="field hidden"><span>횟수</span><input id="habitWeeklyCount" type="number" min="1" max="7" value="3"></label></div><div class="row"><button id="habitAdd" class="btn secondary small">추가</button><button id="habitCancel" class="btn ghost small hidden" type="button">취소</button></div></div></details><div class="section-label">목표</div><div class="stack"><label class="field"><span>최종 목표</span><input id="finalGoalInput" placeholder="예: 원하는 회사 최종 합격"></label><label class="field"><span>목표일 · 선택</span><input id="finalGoalDeadline" type="date"></label><label class="field"><span>이번 달 목표</span><input id="monthlyGoalInput" placeholder="이번 달의 한 단계"></label><button id="goalSave" class="btn secondary">목표 저장</button></div></aside>
+          <aside class="day-detail"><h3 id="selectedDayTitle">오늘</h3><div id="selectedEvents"></div><div class="section-label">일정 추가</div><div class="stack"><label class="field"><span>일정</span><input id="eventName" placeholder="예: 헬스 19:00 / 과제 제출"></label><div class="date-range"><label class="field"><span>시작일</span><input id="eventStart" type="date"></label><label class="field"><span>종료일</span><input id="eventEnd" type="date"></label></div><label class="consent compact"><input id="eventImportant" type="checkbox"><span>중요한 날짜로 표시하고 D-Day 보기</span></label><div class="row"><button id="eventAdd" class="btn primary">일정 추가</button><button id="eventCancel" class="btn ghost hidden" type="button">취소</button></div></div><div class="section-label">오늘의 체크리스트</div><div id="selectedHabits" class="list"></div><details class="module-add"><summary>체크리스트 항목 설정</summary><div id="habitTemplateList" class="stack"></div><div class="stack"><input id="habitNewName" class="input" placeholder="예: 운동하기"><div class="two-col"><label class="field"><span>반복</span><select id="habitSchedule"><option value="daily">매일</option><option value="weekdays">평일</option><option value="weekly_n">주 N회</option></select></label><label id="habitWeeklyCountWrap" class="field hidden"><span>횟수</span><input id="habitWeeklyCount" type="number" min="1" max="7" value="3"></label></div><div class="row"><button id="habitAdd" class="btn secondary small">추가</button><button id="habitCancel" class="btn ghost small hidden" type="button">취소</button></div></div></details></aside>
         </div>
       </section>
 
@@ -177,12 +173,12 @@
 
       <section id="page-diary" class="page" data-page="diary">
         <div class="page-head"><div><p class="eyebrow">DAILY DIARY</p><h1>일기</h1><p>하루의 기분과 이야기를 날짜별로 남깁니다.</p></div></div>
-        <div class="simple-layout"><aside class="card simple-form"><div class="stack"><label class="field"><span>날짜</span><input id="diaryDate" type="date"></label><label class="field"><span>기분</span><select id="diaryMood"><option value="">선택 안 함</option><option>🙂 좋음</option><option>😌 평온</option><option>😐 보통</option><option>😔 아쉬움</option><option>😤 힘듦</option></select></label><label class="field"><span>오늘의 제목</span><input id="diaryTitle" maxlength="120" placeholder="오늘을 한 줄로"></label><label class="field"><span>내용</span><textarea id="diaryBody" maxlength="12000" placeholder="오늘 있었던 일을 적어보세요."></textarea></label><button id="diarySave" class="btn primary">일기 저장</button></div></aside><div id="diaryList" class="record-list"></div></div>
+        <div class="simple-layout"><aside class="card simple-form"><div class="stack"><label class="field"><span>날짜</span><input id="diaryDate" type="date"></label><label class="field"><span>기분</span><select id="diaryMood"><option value="">선택 안 함</option><option>🙂 좋음</option><option>😌 평온</option><option>😐 보통</option><option>😔 슬픔</option><option>😤 힘듦</option></select></label><label class="field"><span>오늘의 제목</span><input id="diaryTitle" maxlength="120" placeholder="오늘을 한 줄로"></label><label class="field"><span>내용</span><textarea id="diaryBody" maxlength="12000" placeholder="오늘 있었던 일을 적어보세요."></textarea></label><label class="photo-picker">사진 추가 · 최대 6장<input id="diaryImages" type="file" accept="image/jpeg,image/png,image/webp" multiple></label><div id="diaryPhotoPreview" class="photo-preview"></div><div class="row"><span id="diaryDraftState" class="autosave">임시저장 준비</span><span class="spacer"></span><button id="diaryCancel" class="btn ghost small hidden">취소</button><button id="diarySave" class="btn primary">일기 저장</button></div></div></aside><div id="diaryList" class="record-list"></div></div>
       </section>
 
       <section id="page-books" class="page" data-page="books">
         <div class="page-head"><div><p class="eyebrow">READING LOG</p><h1>독서록</h1><p>읽고 싶은 책부터 완독한 책까지 한곳에 정리합니다.</p></div></div>
-        <div class="simple-layout"><aside class="card simple-form"><div class="stack"><label class="field"><span>책 제목</span><input id="bookTitle" maxlength="120"></label><label class="field"><span>저자</span><input id="bookAuthor" maxlength="100"></label><div class="two-col"><label class="field"><span>상태</span><select id="bookStatus"><option>읽고 싶음</option><option>읽는 중</option><option>완독</option><option>중단</option></select></label><label class="field"><span>평점 · 선택</span><select id="bookRating"><option value="">없음</option><option value="1">★</option><option value="2">★★</option><option value="3">★★★</option><option value="4">★★★★</option><option value="5">★★★★★</option></select></label></div><label class="field"><span>감상과 기억할 문장</span><textarea id="bookNote" maxlength="10000"></textarea></label><button id="bookSave" class="btn primary">독서록 저장</button></div></aside><div><label class="searchbox"><span class="sr-only">독서록 검색</span><input id="bookSearch" placeholder="책 제목, 저자, 감상 검색"></label><div id="bookList" class="record-list spaced-list"></div></div></div>
+        <div class="simple-layout"><aside class="card simple-form"><div class="stack"><label class="field"><span>책 제목</span><input id="bookTitle" maxlength="120"></label><label class="field"><span>저자</span><input id="bookAuthor" maxlength="100"></label><div class="two-col"><label class="field"><span>상태</span><select id="bookStatus"><option>읽고 싶음</option><option>읽는 중</option><option>완독</option><option>중단</option></select></label><label class="field"><span>평점 · 선택</span><select id="bookRating"><option value="">없음</option><option value="1">★</option><option value="2">★★</option><option value="3">★★★</option><option value="4">★★★★</option><option value="5">★★★★★</option></select></label></div><label class="field"><span>감상과 기억할 문장</span><textarea id="bookNote" maxlength="10000"></textarea></label><div class="row"><button id="bookSave" class="btn primary">독서록 저장</button><button id="bookCancel" class="btn ghost hidden">취소</button></div></div></aside><div><label class="searchbox"><span class="sr-only">독서록 검색</span><input id="bookSearch" placeholder="책 제목, 저자, 감상 검색"></label><div id="bookList" class="record-list spaced-list"></div></div></div>
       </section>
 
       <section id="page-search" class="page" data-page="search">
@@ -192,6 +188,20 @@
 
       <section id="page-notifications" class="page" data-page="notifications">
         <div class="page-head"><div><p class="eyebrow">NOTIFICATIONS</p><h1>알림함</h1><p>일정과 할 일, 광장 소식을 확인합니다.</p></div><button id="notificationReadAll" class="btn secondary small">모두 읽음</button></div><div id="notificationList" class="record-list"></div>
+      </section>
+
+      <section id="page-goals" class="page" data-page="goals">
+        <div class="page-head"><div><p class="eyebrow">MY GOALS</p><h1>목표 설정</h1><p>오래 바라볼 목표와 이번 달에 실천할 일을 정합니다.</p></div></div>
+        <section class="card narrow-card"><div class="stack">
+          <h3>최종 목표</h3>
+          <label class="field"><span>이루고 싶은 목표</span><input id="finalGoalInput" maxlength="200" placeholder="예: 내가 원하는 분야의 전문가가 되기"></label>
+          <label class="field"><span>이 목표를 이루고 싶은 이유</span><textarea id="finalGoalReason" maxlength="1000"></textarea></label>
+          <label class="field"><span>목표 날짜 · 선택</span><input id="finalGoalDeadline" type="date"></label>
+          <div class="divider"></div><h3>이번 달 목표</h3>
+          <label class="field"><span>이번 달에 이루고 싶은 것</span><input id="monthlyGoalInput" maxlength="200" placeholder="예: 책 2권 읽기"></label>
+          <label class="field"><span>구체적인 행동</span><textarea id="monthlyGoalAction" maxlength="1000" placeholder="예: 평일마다 20분씩 읽기"></textarea></label>
+          <button id="goalSave" class="btn primary">목표 저장</button>
+        </div></section>
       </section>
 
       <section id="page-bug" class="page" data-page="bug">
@@ -204,29 +214,29 @@
 
       <section id="page-more" class="page" data-page="more">
         <div class="page-head"><div><p class="eyebrow">ALL MENU</p><h1>더보기</h1><p>앱의 모든 기능으로 이동합니다.</p></div></div><div class="more-grid">
-          <button data-go="today"><b>⌂</b><span>오늘</span></button><button data-go="calendar"><b>□</b><span>캘린더</span></button><button data-go="diary"><b>✎</b><span>일기</span></button><button data-go="personal"><b>₩</b><span>가계부</span></button><button data-go="records"><b>▤</b><span>기록</span></button><button data-go="books"><b>▣</b><span>독서록</span></button><button data-go="lab"><b>◇</b><span>아이디어</span></button><button data-go="square"><b>◎</b><span>광장</span></button><button data-go="notifications"><b>♢</b><span>알림함</span></button><button data-go="search"><b>⌕</b><span>통합 검색</span></button><button data-go="bug"><b>!</b><span>버그 제보</span></button><button data-go="support"><b>♥</b><span>후원</span></button><button data-go="settings"><b>⚙</b><span>설정</span></button>
+          <button data-go="today"><b>⌂</b><span>오늘</span></button><button data-go="calendar"><b>□</b><span>캘린더</span></button><button data-go="diary"><b>✎</b><span>일기</span></button><button data-go="personal"><b>₩</b><span>가계부</span></button><button data-go="records"><b>▤</b><span>기록</span></button><button data-go="books"><b>▣</b><span>독서록</span></button><button data-go="lab"><b>◇</b><span>아이디어</span></button><button data-go="goals"><b>◎</b><span>목표 설정</span></button><button data-go="square"><b>◉</b><span>광장</span></button><button data-go="search"><b>⌕</b><span>통합 검색</span></button><button data-go="bug"><b>!</b><span>버그 제보</span></button><button data-go="support"><b>♥</b><span>후원</span></button><button data-go="settings"><b>⚙</b><span>설정</span></button>
         </div>
       </section>
 
       <section id="page-square" class="page" data-page="square">
-        <div class="page-head"><div><p class="eyebrow">OPTIONAL COMMUNITY</p><h1>광장</h1><p>내 연구실이 먼저입니다. 여기에는 사용자가 직접 공유한 내용만 나타납니다.</p></div></div>
+        <div class="page-head"><div><p class="eyebrow">OPTIONAL COMMUNITY</p><h1>광장</h1><p>내 하루 공간이 먼저입니다. 여기에는 사용자가 직접 공유한 내용만 나타납니다.</p></div></div>
         <section class="square-intro"><div class="symbol">◎</div><div><h3>서로의 결과와 과정을 가볍게 나누는 곳</h3><p>좋아요와 팔로우는 연결을 돕지만, 숫자가 포트폴리오의 가치를 대신하지 않도록 작게 다룹니다.</p></div></section>
-        <div id="squareTabs" class="square-tabs"><button class="square-tab active" data-square="discover">발견</button><button class="square-tab" data-square="following">팔로잉</button><button class="square-tab" data-square="feedback">연구실 개선</button></div>
+        <div id="squareTabs" class="square-tabs"><button class="square-tab active" data-square="discover">발견</button><button class="square-tab" data-square="following">팔로잉</button><button class="square-tab" data-square="feedback">앱 개선</button></div>
         <section id="squareDiscover" class="square-pane"><div id="squareFeed" class="feed"></div></section>
         <section id="squareFeedback" class="square-pane hidden">
           <div class="feedback-board">
-            <aside class="card"><div class="card-head"><h3>개선 제안</h3><small>함께 만드는 연구실</small></div><div class="stack"><label class="field"><span>제목</span><input id="featureTitle" maxlength="120" placeholder="어떤 점이 더 좋아졌으면 하나요?"></label><label class="field"><span>설명</span><textarea id="featureBody" maxlength="3000" placeholder="사용 중 불편했던 상황이나 원하는 동작을 알려주세요."></textarea></label><button id="featureSubmit" class="btn primary">제안 올리기</button></div><div class="security-note">보안 취약점의 구체적인 공격 방법이나 개인정보는 공개 제안에 쓰지 마세요. 아래의 비공개 보안 제보를 이용해 주세요.</div><button id="securityReportOpen" class="btn secondary small" style="margin-top:10px">비공개 보안 제보</button></aside>
+            <aside class="card"><div class="card-head"><h3>개선 제안</h3><small>함께 만드는 하루</small></div><div class="stack"><label class="field"><span>제목</span><input id="featureTitle" maxlength="120" placeholder="어떤 점이 더 좋아졌으면 하나요?"></label><label class="field"><span>설명</span><textarea id="featureBody" maxlength="3000" placeholder="사용 중 불편했던 상황이나 원하는 동작을 알려주세요."></textarea></label><button id="featureSubmit" class="btn primary">제안 올리기</button></div><div class="security-note">보안 취약점의 구체적인 공격 방법이나 개인정보는 공개 제안에 쓰지 마세요. 아래의 비공개 보안 제보를 이용해 주세요.</div><button id="securityReportOpen" class="btn secondary small" style="margin-top:10px">비공개 보안 제보</button></aside>
             <div id="featureList" class="feature-list"></div>
           </div>
         </section>
       </section>
 
       <section id="page-settings" class="page" data-page="settings">
-        <div class="page-head"><div><p class="eyebrow">SETTINGS</p><h1>설정</h1><p>연구실 이름, 공개 범위, 데이터와 계정을 관리합니다.</p></div></div>
+        <div class="page-head"><div><p class="eyebrow">SETTINGS</p><h1>설정</h1><p>공간 이름, 공개 범위, 데이터와 계정을 관리합니다.</p></div></div>
         <div class="settings-grid">
           <nav id="settingsMenu" class="settings-menu"><button class="active" data-settings="profile">프로필</button><button data-settings="privacy">공개 · 보안</button><button data-settings="data">데이터</button><button data-settings="account">계정</button></nav>
-          <section id="settings-profile" class="settings-pane active"><h3>프로필과 연구실</h3><p>앱 안의 내 공간 이름과 공개 프로필 주소를 설정합니다.</p><div class="stack"><label class="field"><span>이름</span><input id="settingsName" maxlength="30"></label><label class="field"><span>연구실 이름</span><input id="settingsLabName" maxlength="50"></label><label class="field"><span>공개 주소 ID</span><input id="settingsSlug" maxlength="40" placeholder="junho-lab"></label><label class="field"><span>소개</span><textarea id="settingsBio" maxlength="500"></textarea></label><div class="two-col"><label class="field"><span>화면 테마</span><select id="settingsTheme"><option value="system">기기 설정</option><option value="light">밝게</option><option value="dark">어둡게</option></select></label><label class="field"><span>표시 시간대</span><input id="settingsTimezone" placeholder="Asia/Seoul" autocomplete="off"></label></div><small class="muted">시간대는 IANA 형식(예: Asia/Seoul)으로 입력합니다. 이 기기에 저장됩니다.</small><button id="profileSave" class="btn primary">프로필 저장</button></div></section>
-          <section id="settings-privacy" class="settings-pane"><h3>공개와 보안</h3><p>비공개가 기본값입니다. 공개 포트폴리오와 광장은 이후 단계에서 활성화합니다.</p><div class="setting-row"><div class="copy"><strong>공개 연구실 프로필</strong><p>현재 3단계에서는 잠겨 있습니다. 개인 핵심 기능 검증 후 공개 단계를 엽니다.</p></div><button id="publicProfileToggle" class="switch" aria-label="공개 프로필 전환" disabled></button></div><div class="setting-row"><div class="copy"><strong>개인 원본 데이터</strong><p>기록·일정·가계부·아이디어 원본은 RLS로 본인 계정만 접근합니다.</p></div><span class="chip private">항상 비공개</span></div><div class="divider"></div><div class="setting-row"><div class="copy"><strong>차단한 사용자</strong><p>차단하면 서로의 광장 게시물과 상호작용이 앱에서 숨겨집니다.</p></div></div><div id="blockedUsers" class="blocked-list"><div class="empty">차단한 사용자가 없습니다.</div></div><div class="divider"></div><a class="btn secondary" href="./privacy.html">개인정보처리방침 보기</a></section>
+          <section id="settings-profile" class="settings-pane active"><h3>프로필과 연구실</h3><p>앱 안의 내 공간 이름과 공개 프로필 주소를 설정합니다.</p><div class="stack"><label class="field"><span>이름</span><input id="settingsName" maxlength="30"></label><label class="field"><span>공간 이름</span><input id="settingsLabName" maxlength="50"></label><label class="field"><span>공개 주소 ID</span><input id="settingsSlug" maxlength="40" placeholder="junho-lab"></label><label class="field"><span>소개</span><textarea id="settingsBio" maxlength="500"></textarea></label><div class="two-col"><label class="field"><span>화면 테마</span><select id="settingsTheme"><option value="system">기기 설정</option><option value="light">밝게</option><option value="dark">어둡게</option></select></label><label class="field"><span>표시 시간대</span><input id="settingsTimezone" placeholder="Asia/Seoul" autocomplete="off"></label></div><small class="muted">시간대는 IANA 형식(예: Asia/Seoul)으로 입력합니다. 이 기기에 저장됩니다.</small><button id="profileSave" class="btn primary">프로필 저장</button></div></section>
+          <section id="settings-privacy" class="settings-pane"><h3>공개와 보안</h3><p>비공개가 기본값입니다. 공개 포트폴리오와 광장은 이후 단계에서 활성화합니다.</p><div class="setting-row"><div class="copy"><strong>공개 공간 프로필</strong><p>현재 3단계에서는 잠겨 있습니다. 개인 핵심 기능 검증 후 공개 단계를 엽니다.</p></div><button id="publicProfileToggle" class="switch" aria-label="공개 프로필 전환" disabled></button></div><div class="setting-row"><div class="copy"><strong>개인 원본 데이터</strong><p>기록·일정·가계부·아이디어 원본은 RLS로 본인 계정만 접근합니다.</p></div><span class="chip private">항상 비공개</span></div><div class="divider"></div><div class="setting-row"><div class="copy"><strong>차단한 사용자</strong><p>차단하면 서로의 광장 게시물과 상호작용이 앱에서 숨겨집니다.</p></div></div><div id="blockedUsers" class="blocked-list"><div class="empty">차단한 사용자가 없습니다.</div></div><div class="divider"></div><a class="btn secondary" href="./privacy.html">개인정보처리방침 보기</a></section>
           <section id="settings-data" class="settings-pane"><h3>내 데이터</h3><p>서비스에 묶이지 않도록 내 데이터를 직접 내보낼 수 있습니다.</p><div class="setting-row"><div class="copy"><strong>JSON 내보내기</strong><p>현재 단계의 개인 데이터(기록, 일정, 습관, 목표, 프로젝트, 아이디어, 작업물, 가계부)를 한 파일로 저장합니다.</p></div><button id="exportData" class="btn secondary small">내보내기</button></div></section>
           <section id="settings-account" class="settings-pane"><h3>계정</h3><p>로그아웃 또는 계정과 연결된 데이터를 삭제합니다.</p><div class="setting-row"><div class="copy"><strong id="settingsEmail">계정 이메일</strong><p>현재 기기의 로그인 세션을 종료합니다.</p></div><button id="logoutBtn" class="btn secondary small">로그아웃</button></div><div class="setting-row"><div class="copy"><strong>계정 및 데이터 삭제</strong><p>되돌릴 수 없습니다. 개인 데이터와 업로드 파일을 함께 삭제합니다.</p></div><button id="deleteAccountOpen" class="btn danger small">삭제</button></div><p class="muted">외부에서도 <a href="./delete-account.html">계정 삭제 페이지</a>를 이용할 수 있습니다.</p></section>
         </div>
@@ -237,16 +247,16 @@
       <button class="active" data-go="today"><span class="ico">⌂</span><span>오늘</span></button>
       <button data-go="calendar"><span class="ico">□</span><span>캘린더</span></button>
       <button class="quick-main" data-go="more"><span class="ico">☷</span><span>더보기</span></button>
-      <button data-go="diary"><span class="ico">✎</span><span>일기</span></button>
       <button data-go="personal"><span class="ico">₩</span><span>가계부</span></button>
+      <button data-go="square"><span class="ico">◎</span><span>광장</span></button>
     </nav>
   </div>
 
   <div id="quickModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">QUICK ADD</small><h2>무엇을 남길까요?</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="quickModal">×</button></div><div class="quick-grid"><button class="quick-choice" data-quick="record"><b>✎ 기록</b><span>오늘의 생각과 사진</span></button><button class="quick-choice" data-quick="event"><b>□ 일정</b><span>날짜가 있는 일정</span></button><button class="quick-choice" data-quick="idea"><b>◇ 아이디어</b><span>떠오른 생각 보관</span></button><button class="quick-choice" data-quick="finance"><b>₩ 가계부</b><span>수입·지출·잔액</span></button></div></div></div>
 
-  <div id="publishModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">SHARE TO SQUARE</small><h2>광장에 공유</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="publishModal">×</button></div><p>원본은 개인 연구실에 그대로 남고, 광장에는 현재 내용의 공개용 사본만 만들어집니다.</p><div class="stack"><label class="field"><span>공개 범위</span><select id="publishAudience"><option value="public">전체 공개</option><option value="followers">팔로워 공개</option></select></label><label class="row"><input id="publishMedia" type="checkbox" checked><span style="font-size:11px">대표 사진/파일이 있으면 함께 공개</span></label><button id="publishConfirm" class="btn primary">공유하기</button></div></div></div>
+  <div id="publishModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">SHARE TO SQUARE</small><h2>광장에 공유</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="publishModal">×</button></div><p>원본은 개인 공간에 그대로 남고, 광장에는 현재 내용의 공개용 사본만 만들어집니다.</p><div class="stack"><label class="field"><span>공개 범위</span><select id="publishAudience"><option value="public">전체 공개</option><option value="followers">팔로워 공개</option></select></label><label class="row"><input id="publishMedia" type="checkbox" checked><span style="font-size:11px">대표 사진/파일이 있으면 함께 공개</span></label><button id="publishConfirm" class="btn primary">공유하기</button></div></div></div>
 
-  <div id="communityTermsModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">COMMUNITY TERMS</small><h2>광장 이용 전 확인</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="communityTermsModal">×</button></div><p>개인 연구실은 그대로 비공개로 사용할 수 있습니다. 광장에 공개·댓글·팔로우·좋아요·개선 제안을 하려면 커뮤니티 운영정책에 동의해 주세요.</p><label class="consent"><input id="communityTermsCheck" type="checkbox"><span><a href="./terms.html" target="_blank" rel="noopener">이용약관과 커뮤니티 운영정책</a>을 읽었고 동의합니다.</span></label><button id="communityTermsAccept" class="btn primary" disabled>동의하고 광장 사용</button></div></div>
+  <div id="communityTermsModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">COMMUNITY TERMS</small><h2>광장 이용 전 확인</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="communityTermsModal">×</button></div><p>개인 공간은 그대로 비공개로 사용할 수 있습니다. 광장에 공개·댓글·팔로우·좋아요·개선 제안을 하려면 커뮤니티 운영정책에 동의해 주세요.</p><label class="consent"><input id="communityTermsCheck" type="checkbox"><span><a href="./terms.html" target="_blank" rel="noopener">이용약관과 커뮤니티 운영정책</a>을 읽었고 동의합니다.</span></label><button id="communityTermsAccept" class="btn primary" disabled>동의하고 광장 사용</button></div></div>
 
   <div id="reportModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">REPORT</small><h2>신고하기</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="reportModal">×</button></div><p id="reportTargetLabel">광장 콘텐츠 또는 사용자를 신고합니다.</p><div class="stack"><label class="field"><span>신고 사유</span><select id="reportReason"><option value="spam">스팸 · 반복 홍보</option><option value="harassment">괴롭힘 · 공격</option><option value="hate">혐오 · 차별</option><option value="sexual">성적 콘텐츠</option><option value="violence">폭력 · 위협</option><option value="privacy">개인정보 침해</option><option value="copyright">저작권 · 권리 침해</option><option value="illegal">불법 행위</option><option value="other">기타</option></select></label><label class="field"><span>설명 · 선택</span><textarea id="reportDetails" maxlength="3000" placeholder="확인에 필요한 내용을 적어 주세요. 민감한 개인정보는 최소한으로 작성해 주세요."></textarea></label><label id="reportBlockRow" class="consent"><input id="reportBlockUser" type="checkbox"><span>이 사용자를 함께 차단하기</span></label><button id="reportSubmit" class="btn danger">신고 접수</button></div></div></div>
 
@@ -262,11 +272,11 @@
   <div id="toastStack" class="toast-stack" aria-live="polite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
-  <script src="./js/config.js?v=20260911-stage4-2"></script>
-  <script src="./js/drafts.js?v=20260911-stage4-2"></script>
-  <script src="./js/db.js?v=20260911-stage4-2"></script>
-  <script src="./js/storage.js?v=20260911-stage4-2"></script>
-  <script src="./js/app.js?v=20260912-life-prototype-2"></script>
-  <script src="./js/project-files-ui.js?v=20260911-stage4-2"></script>
+  <script src="./js/config.js?v=20260912-daily-life-v1"></script>
+  <script src="./js/drafts.js?v=20260912-daily-life-v1"></script>
+  <script src="./js/db.js?v=20260912-daily-life-v1"></script>
+  <script src="./js/storage.js?v=20260912-daily-life-v1"></script>
+  <script src="./js/app.js?v=20260912-daily-life-v1"></script>
+  <script src="./js/project-files-ui.js?v=20260912-daily-life-v1"></script>
 </body>
 </html>

@@ -115,3 +115,12 @@ html[data-stage="3"] #publicProfileToggle { opacity:.45; cursor:not-allowed; }
 
 /* Multi-day event bars connect across adjacent calendar cells. */
 .day-event.range-start{border-radius:4px 0 0 4px;margin-right:-6px;position:relative;z-index:1}.day-event.range-mid{border-radius:0;margin-left:-6px;margin-right:-6px;position:relative;z-index:1}.day-event.range-end{border-radius:0 4px 4px 0;margin-left:-6px;position:relative;z-index:1}.day-event.range-start.range-end{border-radius:4px;margin:0}.day-event.range-mid span,.day-event.range-end span{visibility:hidden}
+
+/* Daily-life calendar signals */
+.day{position:relative}
+.day-mood{position:absolute;top:7px;right:7px;width:8px;height:8px;border-radius:50%;box-shadow:0 0 0 2px var(--paper)}
+.mood-good{background:#e58d55}.mood-calm{background:#74a58a}.mood-normal{background:#b7a98f}.mood-sad{background:#6e94bd}.mood-hard{background:#877c98}
+.day-event.important{font-weight:700;box-shadow:inset 3px 0 #d58b4b}
+.important-star{color:#c97732}
+.countdown-item{align-items:center}
+.countdown-badge{min-width:54px;padding:7px 8px;border-radius:999px;background:#f4e5d2;color:#8a4f24;font-size:10px;font-weight:800;text-align:center}

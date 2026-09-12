@@ -31,7 +31,7 @@
     if(data)return data;
     const name=String(u.user_metadata?.display_name||u.email?.split('@')[0]||'사용자').slice(0,30);
     const slug=`lab-${u.id.replaceAll('-','').slice(0,12)}`;
-    ({data,error}=await client.from('profiles').insert({id:u.id,display_name:name,lab_name:`${name}의 연구실`,slug}).select().single());
+    ({data,error}=await client.from('profiles').insert({id:u.id,display_name:name,lab_name:`${name}의 하루`,slug}).select().single());
     fail(error,'프로필 만들기');return data;
   }
   async function updateProfile(patch){
@@ -47,9 +47,9 @@
   async function completeOnboarding(displayName,labName){
     const name=String(displayName||'').trim().slice(0,30),lab=String(labName||'').trim().slice(0,50);
     if(!name)throw new Error('이름을 입력해 주세요.');
-    if(!lab)throw new Error('연구실 이름을 입력해 주세요.');
+    if(!lab)throw new Error('공간 이름을 입력해 주세요.');
     const {data,error}=await client.from('profiles').update({display_name:name,lab_name:lab,onboarding_completed_at:new Date().toISOString()}).eq('id',uid()).select().single();
-    fail(error,'연구실 만들기');return data;
+    fail(error,'하루 공간 만들기');return data;
   }
 
   async function acceptTerms(version='2026-09-09'){
@@ -80,8 +80,9 @@
   async function reorderRecordMedia(recordId,orderedIds){const rows=(orderedIds||[]).map((id,index)=>({id,sort_order:index}));for(const row of rows){const {error}=await client.from('record_media').update({sort_order:row.sort_order}).eq('id',row.id).eq('record_id',recordId).eq('user_id',uid());fail(error,'사진 순서 저장')}return rows}
 
   async function listEventsForMonth(start,end){const {data,error}=await client.from('events').select('*').eq('user_id',uid()).lte('start_date',end).gte('end_date',start).order('start_date');fail(error,'일정 불러오기');return data||[]}
-  async function addEvent(name,startDate,endDate){const clean=String(name||'').trim().slice(0,300);if(!clean)throw new Error('일정 내용을 입력해 주세요.');const end=endDate||startDate;if(!startDate||!end||end<startDate)throw new Error('일정 날짜 범위를 확인해 주세요.');const {data,error}=await client.from('events').insert({user_id:uid(),name:clean,start_date:startDate,end_date:end}).select().single();fail(error,'일정 추가');return data}
-  async function updateEvent(id,name,startDate,endDate){const clean=String(name||'').trim().slice(0,300);const end=endDate||startDate;if(!clean)throw new Error('일정 내용을 입력해 주세요.');if(!startDate||!end||end<startDate)throw new Error('일정 날짜 범위를 확인해 주세요.');const {data,error}=await client.from('events').update({name:clean,start_date:startDate,end_date:end}).eq('id',id).eq('user_id',uid()).select().single();fail(error,'일정 수정');return data}
+  async function addEvent(name,startDate,endDate,important=false){const clean=String(name||'').trim().slice(0,300);if(!clean)throw new Error('일정 내용을 입력해 주세요.');const end=endDate||startDate;if(!startDate||!end||end<startDate)throw new Error('일정 날짜 범위를 확인해 주세요.');const {data,error}=await client.from('events').insert({user_id:uid(),name:clean,start_date:startDate,end_date:end,important:!!important}).select().single();fail(error,'일정 추가');return data}
+  async function updateEvent(id,name,startDate,endDate,important=false){const clean=String(name||'').trim().slice(0,300);const end=endDate||startDate;if(!clean)throw new Error('일정 내용을 입력해 주세요.');if(!startDate||!end||end<startDate)throw new Error('일정 날짜 범위를 확인해 주세요.');const {data,error}=await client.from('events').update({name:clean,start_date:startDate,end_date:end,important:!!important}).eq('id',id).eq('user_id',uid()).select().single();fail(error,'일정 수정');return data}
+  async function listImportantEvents(start,end){const {data,error}=await client.from('events').select('*').eq('user_id',uid()).eq('important',true).eq('done',false).gte('start_date',start).lte('start_date',end).order('start_date').limit(20);fail(error,'중요 일정 불러오기');return data||[]}
   async function toggleEvent(id,done){const {data,error}=await client.from('events').update({done:!!done}).eq('id',id).eq('user_id',uid()).select().single();fail(error,'일정 변경');return data}
   async function deleteEvent(id){const {error}=await client.from('events').delete().eq('id',id).eq('user_id',uid());fail(error,'일정 삭제')}
 
@@ -93,8 +94,8 @@
   async function setHabitCheck(habitId,day,completed){const {data,error}=await client.from('habit_checks').upsert({user_id:uid(),habit_id:habitId,day,completed:!!completed},{onConflict:'habit_id,day'}).select().single();fail(error,'체크 저장');return data}
 
   async function loadGoals(d=new Date()){const mk=monthKey(d);const {data,error}=await client.from('goals').select('*').eq('user_id',uid()).or(`and(kind.eq.final,period_key.eq.),and(kind.eq.monthly,period_key.eq.${mk})`);fail(error,'목표 불러오기');return data||[]}
-  async function saveGoals(finalTitle,deadline,monthlyTitle,d=new Date()){
-    const mk=monthKey(d),rows=[{user_id:uid(),kind:'final',period_key:'',title:finalTitle||'',deadline:deadline||null},{user_id:uid(),kind:'monthly',period_key:mk,title:monthlyTitle||'',deadline:null}];
+  async function saveGoals(finalTitle,deadline,monthlyTitle,d=new Date(),finalNote='',monthlyNote=''){
+    const mk=monthKey(d),rows=[{user_id:uid(),kind:'final',period_key:'',title:finalTitle||'',note:finalNote||'',deadline:deadline||null},{user_id:uid(),kind:'monthly',period_key:mk,title:monthlyTitle||'',note:monthlyNote||'',deadline:null}];
     const {data,error}=await client.from('goals').upsert(rows,{onConflict:'user_id,kind,period_key'}).select();fail(error,'목표 저장');return data||[];
   }
 
@@ -191,5 +192,5 @@
     const {error:pe}=await client.from('profiles').update({legacy_migrated_at:new Date().toISOString()}).eq('id',uid());fail(pe,'마이그레이션 완료 표시');return summary;
   }
 
-  window.LabDB={client,getSession,onAuthChange,signIn,signUp,signOut,ensureProfile,updateProfile,completeOnboarding,acceptTerms,dashboard,listRecords,createRecord,updateRecord,deleteRecord,addRecordMedia,removeRecordMedia,reorderRecordMedia,listEventsForMonth,addEvent,updateEvent,toggleEvent,deleteEvent,listHabits,addHabit,updateHabit,deleteHabit,checksForRange,setHabitCheck,loadGoals,saveGoals,listProjects,addProject,updateProject,deleteProject,listProjectFiles,addProjectFile,deleteProjectFile,listIdeas,addIdea,deleteIdea,convertIdea,listWorks,addWork,updateWork,deleteWork,listFinance,addFinance,updateFinance,deleteFinance,getSource,upsertPublication,getPublicationForSource,listOwnPublications,unpublish,feed,toggleFollow,toggleLike,comments,addComment,deleteComment,blockUser,unblockUser,blockedUsers,reportContent,features,addFeature,toggleFeatureVote,submitSecurityReport,exportData,deleteAccount,legacyAvailable,migrateLegacy,user:()=>currentUser,today,dateKey,monthKey};
+  window.LabDB={client,getSession,onAuthChange,signIn,signUp,signOut,ensureProfile,updateProfile,completeOnboarding,acceptTerms,dashboard,listRecords,createRecord,updateRecord,deleteRecord,addRecordMedia,removeRecordMedia,reorderRecordMedia,listEventsForMonth,listImportantEvents,addEvent,updateEvent,toggleEvent,deleteEvent,listHabits,addHabit,updateHabit,deleteHabit,checksForRange,setHabitCheck,loadGoals,saveGoals,listProjects,addProject,updateProject,deleteProject,listProjectFiles,addProjectFile,deleteProjectFile,listIdeas,addIdea,deleteIdea,convertIdea,listWorks,addWork,updateWork,deleteWork,listFinance,addFinance,updateFinance,deleteFinance,getSource,upsertPublication,getPublicationForSource,listOwnPublications,unpublish,feed,toggleFollow,toggleLike,comments,addComment,deleteComment,blockUser,unblockUser,blockedUsers,reportContent,features,addFeature,toggleFeatureVote,submitSecurityReport,exportData,deleteAccount,legacyAvailable,migrateLegacy,user:()=>currentUser,today,dateKey,monthKey};
 })();
