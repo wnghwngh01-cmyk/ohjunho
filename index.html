@@ -8,7 +8,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data: blob: https://kplhezgrxuiuswsbhpdw.supabase.co; connect-src 'self' https://kplhezgrxuiuswsbhpdw.supabase.co wss://kplhezgrxuiuswsbhpdw.supabase.co; font-src 'self' data:; media-src 'self' blob: https://kplhezgrxuiuswsbhpdw.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
   <title>나의 연구실</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./assets/styles.css?v=20260912-daily-preview-2">
+  <link rel="stylesheet" href="./assets/styles.css?v=20260912-life-prototype-1">
 </head>
 <body>
   <section id="authShell" class="auth-shell">
@@ -73,9 +73,10 @@
       <button class="lab-brand" data-go="today"><small>PERSONAL LAB</small><strong id="sideLabName">나의 연구실</strong></button>
       <nav class="side-nav" aria-label="주 메뉴">
         <button class="nav-btn active" data-go="today"><span class="nav-icon">⌂</span>오늘</button>
-        <button class="nav-btn" data-go="records"><span class="nav-icon">✎</span>기록</button>
         <button class="nav-btn" data-go="calendar"><span class="nav-icon">□</span>캘린더</button>
-        <button class="nav-btn" data-go="personal"><span class="nav-icon">●</span>개인 공간</button><button class="nav-btn" data-go="lab"><span class="nav-icon">◇</span>아이디어</button>
+        <button class="nav-btn" data-go="diary"><span class="nav-icon">✎</span>일기</button>
+        <button class="nav-btn" data-go="personal"><span class="nav-icon">₩</span>가계부</button>
+        <button class="nav-btn" data-go="more"><span class="nav-icon">☷</span>더보기</button>
       </nav>
       <div class="side-bottom">
         <button class="nav-btn" data-go="settings"><span class="nav-icon">⚙</span>설정</button>
@@ -148,7 +149,7 @@
         </div>
       </section>
 
-      <section id="page-personal" class="page wide" data-page="personal"><div class="page-head"><div><p class="eyebrow">PRIVATE SPACE</p><h1>개인 공간</h1><p>일상 기록, 일정, 습관과 가계부를 보관하는 사적인 공간입니다.</p></div></div><div id="personalFinanceHost"></div></section>
+      <section id="page-personal" class="page wide" data-page="personal"><div class="page-head"><div><p class="eyebrow">MY MONEY</p><h1>가계부</h1><p>수입과 지출을 기록하고 월별 흐름을 확인합니다.</p></div></div><div id="personalFinanceHost"></div></section>
       <section id="page-lab" class="page wide" data-page="lab">
         <div class="page-head"><div><p class="eyebrow">IDEA NOTE</p><h1>아이디어</h1><p>떠오른 생각을 부담 없이 짧게 저장하는 공간입니다.</p></div></div>
         <label class="searchbox lab-search"><span class="sr-only">아이디어 검색</span><input id="labSearch" placeholder="아이디어 검색"></label><div class="module-tabs hidden" id="labTabs"><button class="module-tab" data-module="all">전체</button><button class="module-tab" data-module="projects">프로젝트</button><button class="module-tab active" data-module="ideas">아이디어</button><button class="module-tab" data-module="works">작업물</button><button class="module-tab hidden" data-module="finance">가계부</button></div>
@@ -166,10 +167,45 @@
           <div id="workList" class="lab-grid"></div>
         </section>
         <section id="module-finance" class="module-pane">
-          <div class="finance-overview"><div class="money-card primary"><span>현재 잔액</span><strong id="financeBalance">₩0</strong></div><div class="money-card"><span>이번 달 수입</span><strong id="financeIncome">₩0</strong></div><div class="money-card"><span>이번 달 지출</span><strong id="financeExpense">₩0</strong></div><div class="money-card"><span>이번 달 순흐름</span><strong id="financeNet">₩0</strong></div></div>
+          <div class="finance-period"><button id="financePrevMonth" class="icon-btn" aria-label="이전 달">‹</button><strong id="financeMonthLabel"></strong><button id="financeNextMonth" class="icon-btn" aria-label="다음 달">›</button><button id="financeThisMonth" class="btn secondary small">이번 달</button></div>
+          <div class="finance-overview"><div class="money-card primary"><span>현재 잔액</span><strong id="financeBalance">₩0</strong></div><div class="money-card"><span>선택한 달 수입</span><strong id="financeIncome">₩0</strong></div><div class="money-card"><span>선택한 달 지출</span><strong id="financeExpense">₩0</strong></div><div class="money-card"><span>선택한 달 순흐름</span><strong id="financeNet">₩0</strong></div></div>
           <details class="module-add"><summary>＋ 거래 또는 잔액 기록</summary><div class="stack"><div class="two-col"><label class="field"><span>종류</span><select id="financeType"><option value="expense">지출</option><option value="income">수입</option><option value="balance">잔액 기록</option></select></label><label class="field"><span>날짜</span><input id="financeDate" type="date"></label></div><label class="field"><span>내용 / 잔액 이름</span><input id="financeTitle" maxlength="120" placeholder="예: 점심 / 국민은행"></label><label class="field"><span>금액</span><input id="financeAmount" inputmode="numeric" placeholder="0"></label><label class="field"><span>분류</span><select id="financeCategory"><option>식비</option><option>교통</option><option>쇼핑</option><option>생활</option><option>교육</option><option>급여</option><option>용돈</option><option>기타</option></select></label><button id="financeAdd" class="btn primary">저장</button></div></details>
+          <div id="financeCategorySummary" class="finance-category-summary"></div>
           <div id="transactionList" class="transaction-list"></div>
         </section>
+      </section>
+
+      <section id="page-diary" class="page" data-page="diary">
+        <div class="page-head"><div><p class="eyebrow">DAILY DIARY</p><h1>일기</h1><p>하루의 기분과 이야기를 날짜별로 남깁니다.</p></div></div>
+        <div class="simple-layout"><aside class="card simple-form"><div class="stack"><label class="field"><span>날짜</span><input id="diaryDate" type="date"></label><label class="field"><span>기분</span><select id="diaryMood"><option value="">선택 안 함</option><option>🙂 좋음</option><option>😌 평온</option><option>😐 보통</option><option>😔 아쉬움</option><option>😤 힘듦</option></select></label><label class="field"><span>오늘의 제목</span><input id="diaryTitle" maxlength="120" placeholder="오늘을 한 줄로"></label><label class="field"><span>내용</span><textarea id="diaryBody" maxlength="12000" placeholder="오늘 있었던 일을 적어보세요."></textarea></label><button id="diarySave" class="btn primary">일기 저장</button></div></aside><div id="diaryList" class="record-list"></div></div>
+      </section>
+
+      <section id="page-books" class="page" data-page="books">
+        <div class="page-head"><div><p class="eyebrow">READING LOG</p><h1>독서록</h1><p>읽고 싶은 책부터 완독한 책까지 한곳에 정리합니다.</p></div></div>
+        <div class="simple-layout"><aside class="card simple-form"><div class="stack"><label class="field"><span>책 제목</span><input id="bookTitle" maxlength="120"></label><label class="field"><span>저자</span><input id="bookAuthor" maxlength="100"></label><div class="two-col"><label class="field"><span>상태</span><select id="bookStatus"><option>읽고 싶음</option><option>읽는 중</option><option>완독</option><option>중단</option></select></label><label class="field"><span>평점 · 선택</span><select id="bookRating"><option value="">없음</option><option value="1">★</option><option value="2">★★</option><option value="3">★★★</option><option value="4">★★★★</option><option value="5">★★★★★</option></select></label></div><label class="field"><span>감상과 기억할 문장</span><textarea id="bookNote" maxlength="10000"></textarea></label><button id="bookSave" class="btn primary">독서록 저장</button></div></aside><div><label class="searchbox"><span class="sr-only">독서록 검색</span><input id="bookSearch" placeholder="책 제목, 저자, 감상 검색"></label><div id="bookList" class="record-list spaced-list"></div></div></div>
+      </section>
+
+      <section id="page-search" class="page" data-page="search">
+        <div class="page-head"><div><p class="eyebrow">SEARCH</p><h1>통합 검색</h1><p>내 일정과 기록, 일기, 독서록, 아이디어를 함께 찾습니다.</p></div></div>
+        <label class="searchbox global-search"><span class="sr-only">전체 검색</span><input id="globalSearch" placeholder="찾고 싶은 내용을 입력하세요"></label><div id="globalSearchResults" class="record-list"></div>
+      </section>
+
+      <section id="page-notifications" class="page" data-page="notifications">
+        <div class="page-head"><div><p class="eyebrow">NOTIFICATIONS</p><h1>알림함</h1><p>일정과 할 일, 광장 소식을 확인합니다.</p></div><button id="notificationReadAll" class="btn secondary small">모두 읽음</button></div><div id="notificationList" class="record-list"></div>
+      </section>
+
+      <section id="page-bug" class="page" data-page="bug">
+        <div class="page-head"><div><p class="eyebrow">BUG REPORT</p><h1>버그 제보</h1><p>불편했던 상황을 알려주면 개선에 반영할 수 있습니다.</p></div></div><section class="card narrow-card"><div class="stack"><label class="field"><span>문제가 발생한 화면</span><select id="bugScreen"><option>오늘</option><option>캘린더</option><option>일기</option><option>가계부</option><option>기록</option><option>독서록</option><option>아이디어</option><option>광장</option><option>기타</option></select></label><label class="field"><span>문제 제목</span><input id="bugTitle" maxlength="120"></label><label class="field"><span>문제와 재현 방법</span><textarea id="bugBody" maxlength="3000" placeholder="어떤 행동을 했을 때 무엇이 잘못됐는지 적어주세요."></textarea></label><button id="bugSubmit" class="btn primary">제보 보내기</button></div></section>
+      </section>
+
+      <section id="page-support" class="page" data-page="support">
+        <div class="page-head"><div><p class="eyebrow">SUPPORT</p><h1>후원</h1><p>앱이 오래 유지되고 개선될 수 있도록 응원할 수 있습니다.</p></div></div><section class="card narrow-card"><h3>개발 응원하기</h3><p class="muted-copy">후원 여부와 관계없이 모든 사용자는 같은 기능을 이용합니다. 결제는 Google Play 출시 준비가 끝난 뒤 안전하게 연결합니다.</p><div class="support-options"><button data-support-amount="1000">₩1,000</button><button data-support-amount="3000">₩3,000</button><button data-support-amount="5000">₩5,000</button></div><button id="supportContinue" class="btn primary" disabled>금액을 선택해 주세요</button></section>
+      </section>
+
+      <section id="page-more" class="page" data-page="more">
+        <div class="page-head"><div><p class="eyebrow">ALL MENU</p><h1>더보기</h1><p>앱의 모든 기능으로 이동합니다.</p></div></div><div class="more-grid">
+          <button data-go="today"><b>⌂</b><span>오늘</span></button><button data-go="calendar"><b>□</b><span>캘린더</span></button><button data-go="diary"><b>✎</b><span>일기</span></button><button data-go="personal"><b>₩</b><span>가계부</span></button><button data-go="records"><b>▤</b><span>기록</span></button><button data-go="books"><b>▣</b><span>독서록</span></button><button data-go="lab"><b>◇</b><span>아이디어</span></button><button data-go="square"><b>◎</b><span>광장</span></button><button data-go="notifications"><b>♢</b><span>알림함</span></button><button data-go="search"><b>⌕</b><span>통합 검색</span></button><button data-go="bug"><b>!</b><span>버그 제보</span></button><button data-go="support"><b>♥</b><span>후원</span></button><button data-go="settings"><b>⚙</b><span>설정</span></button>
+        </div>
       </section>
 
       <section id="page-square" class="page" data-page="square">
@@ -199,10 +235,10 @@
 
     <nav class="bottom-nav" aria-label="하단 메뉴">
       <button class="active" data-go="today"><span class="ico">⌂</span><span>오늘</span></button>
-      <button data-go="records"><span class="ico">✎</span><span>기록</span></button>
       <button data-go="calendar"><span class="ico">□</span><span>캘린더</span></button>
-      <button data-go="personal"><span class="ico">●</span><span>개인 공간</span></button>
-      <button data-go="lab" data-lab-tab="ideas"><span class="ico">◇</span><span>아이디어</span></button>
+      <button class="quick-main" data-go="more"><span class="ico">☷</span><span>더보기</span></button>
+      <button data-go="diary"><span class="ico">✎</span><span>일기</span></button>
+      <button data-go="personal"><span class="ico">₩</span><span>가계부</span></button>
     </nav>
   </div>
 
@@ -230,7 +266,7 @@
   <script src="./js/drafts.js?v=20260911-stage4-2"></script>
   <script src="./js/db.js?v=20260911-stage4-2"></script>
   <script src="./js/storage.js?v=20260911-stage4-2"></script>
-  <script src="./js/app.js?v=20260912-daily-preview-2"></script>
+  <script src="./js/app.js?v=20260912-life-prototype-1"></script>
   <script src="./js/project-files-ui.js?v=20260911-stage4-2"></script>
 </body>
 </html>
