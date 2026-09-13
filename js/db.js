@@ -86,6 +86,12 @@
   async function toggleEvent(id,done){const {data,error}=await client.from('events').update({done:!!done}).eq('id',id).eq('user_id',uid()).select().single();fail(error,'일정 변경');return data}
   async function deleteEvent(id){const {error}=await client.from('events').delete().eq('id',id).eq('user_id',uid());fail(error,'일정 삭제')}
 
+  async function listTodos(day=today()){const {data,error}=await client.from('daily_todos').select('*').eq('user_id',uid()).eq('todo_date',day).order('created_at');fail(error,'오늘 할 일 불러오기');return data||[]}
+  async function addTodo(title,day=today()){const clean=String(title||'').trim().slice(0,120);if(!clean)throw new Error('오늘 할 일을 입력해 주세요.');const {data,error}=await client.from('daily_todos').insert({user_id:uid(),todo_date:day,title:clean}).select().single();fail(error,'오늘 할 일 추가');return data}
+  async function toggleTodo(id,completed){const {data,error}=await client.from('daily_todos').update({completed:!!completed,updated_at:new Date().toISOString()}).eq('id',id).eq('user_id',uid()).select().single();fail(error,'오늘 할 일 변경');return data}
+  async function moveTodo(id,day){const {data,error}=await client.from('daily_todos').update({todo_date:day,completed:false,updated_at:new Date().toISOString()}).eq('id',id).eq('user_id',uid()).select().single();fail(error,'오늘 할 일 이동');return data}
+  async function deleteTodo(id){const {error}=await client.from('daily_todos').delete().eq('id',id).eq('user_id',uid());fail(error,'오늘 할 일 삭제')}
+
   async function listHabits(){const {data,error}=await client.from('habits').select('*').eq('user_id',uid()).eq('active',true).order('created_at');fail(error,'체크리스트 불러오기');return data||[]}
   async function addHabit(name,schedule={type:'daily'}){const clean=String(name||'').trim().slice(0,120);if(!clean)throw new Error('체크리스트 이름을 입력해 주세요.');const {data,error}=await client.from('habits').insert({user_id:uid(),name:clean,schedule,active:true}).select().single();fail(error,'체크리스트 추가');return data}
   async function updateHabit(id,name,schedule){const clean=String(name||'').trim().slice(0,120);if(!clean)throw new Error('체크리스트 이름을 입력해 주세요.');const {data,error}=await client.from('habits').update({name:clean,schedule}).eq('id',id).eq('user_id',uid()).select().single();fail(error,'체크리스트 수정');return data}
@@ -157,7 +163,7 @@
 
   async function exportData(){
     const specs=[
-      ['profiles','id'],['records','user_id'],['record_media','user_id'],['events','user_id'],['habits','user_id'],['habit_checks','user_id'],['goals','user_id'],['projects','user_id'],['ideas','user_id'],['works','user_id'],['finance_transactions','user_id']
+      ['profiles','id'],['records','user_id'],['record_media','user_id'],['events','user_id'],['daily_todos','user_id'],['habits','user_id'],['habit_checks','user_id'],['goals','user_id'],['projects','user_id'],['ideas','user_id'],['works','user_id'],['finance_transactions','user_id']
     ];
     const out={exported_at:new Date().toISOString(),version:2};
     for(const [table,key] of specs){const {data,error}=await client.from(table).select('*').eq(key,uid());fail(error,`${table} 내보내기`);out[table]=data||[]}
@@ -192,5 +198,5 @@
     const {error:pe}=await client.from('profiles').update({legacy_migrated_at:new Date().toISOString()}).eq('id',uid());fail(pe,'마이그레이션 완료 표시');return summary;
   }
 
-  window.LabDB={client,getSession,onAuthChange,signIn,signUp,signOut,ensureProfile,updateProfile,completeOnboarding,acceptTerms,dashboard,listRecords,createRecord,updateRecord,deleteRecord,addRecordMedia,removeRecordMedia,reorderRecordMedia,listEventsForMonth,listImportantEvents,addEvent,updateEvent,toggleEvent,deleteEvent,listHabits,addHabit,updateHabit,deleteHabit,checksForRange,setHabitCheck,loadGoals,saveGoals,listProjects,addProject,updateProject,deleteProject,listProjectFiles,addProjectFile,deleteProjectFile,listIdeas,addIdea,deleteIdea,convertIdea,listWorks,addWork,updateWork,deleteWork,listFinance,addFinance,updateFinance,deleteFinance,getSource,upsertPublication,getPublicationForSource,listOwnPublications,unpublish,feed,toggleFollow,toggleLike,comments,addComment,deleteComment,blockUser,unblockUser,blockedUsers,reportContent,features,addFeature,toggleFeatureVote,submitSecurityReport,exportData,deleteAccount,legacyAvailable,migrateLegacy,user:()=>currentUser,today,dateKey,monthKey};
+  window.LabDB={client,getSession,onAuthChange,signIn,signUp,signOut,ensureProfile,updateProfile,completeOnboarding,acceptTerms,dashboard,listRecords,createRecord,updateRecord,deleteRecord,addRecordMedia,removeRecordMedia,reorderRecordMedia,listEventsForMonth,listImportantEvents,addEvent,updateEvent,toggleEvent,deleteEvent,listTodos,addTodo,toggleTodo,moveTodo,deleteTodo,listHabits,addHabit,updateHabit,deleteHabit,checksForRange,setHabitCheck,loadGoals,saveGoals,listProjects,addProject,updateProject,deleteProject,listProjectFiles,addProjectFile,deleteProjectFile,listIdeas,addIdea,deleteIdea,convertIdea,listWorks,addWork,updateWork,deleteWork,listFinance,addFinance,updateFinance,deleteFinance,getSource,upsertPublication,getPublicationForSource,listOwnPublications,unpublish,feed,toggleFollow,toggleLike,comments,addComment,deleteComment,blockUser,unblockUser,blockedUsers,reportContent,features,addFeature,toggleFeatureVote,submitSecurityReport,exportData,deleteAccount,legacyAvailable,migrateLegacy,user:()=>currentUser,today,dateKey,monthKey};
 })();
