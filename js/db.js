@@ -146,20 +146,20 @@
   async function toggleFollow(target,currently){if(currently){const {error}=await client.from('follows').delete().eq('follower_id',uid()).eq('following_id',target);fail(error,'팔로우 취소');return false}else{const {error}=await client.from('follows').insert({follower_id:uid(),following_id:target});fail(error,'팔로우');return true}}
   async function toggleLike(pubId,currently){if(currently){const {error}=await client.from('publication_likes').delete().eq('publication_id',pubId).eq('user_id',uid());fail(error,'좋아요 취소');return false}else{const {error}=await client.from('publication_likes').insert({publication_id:pubId,user_id:uid()});fail(error,'좋아요');return true}}
   async function comments(pubId){const {data,error}=await client.rpc('get_publication_comments',{p_publication:pubId});fail(error,'피드백 불러오기');return data||[]}
-  async function addComment(pubId,body){const {data,error}=await client.from('publication_comments').insert({publication_id:pubId,user_id:uid(),body}).select().single();fail(error,'피드백 등록');return data}
+  async function addComment(pubId,body){const {error}=await client.from('publication_comments').insert({publication_id:pubId,user_id:uid(),body});fail(error,'피드백 등록')}
   async function deleteComment(id){const {error}=await client.from('publication_comments').delete().eq('id',id);fail(error,'피드백 삭제')}
   async function blockUser(targetUserId){const target=String(targetUserId||'');if(!target||target===uid())throw new Error('차단할 수 없는 사용자입니다.');const {error}=await client.from('blocks').insert({blocker_id:uid(),blocked_id:target});if(error&&error.code!=='23505')fail(error,'사용자 차단');return true}
   async function unblockUser(targetUserId){const {error}=await client.from('blocks').delete().eq('blocker_id',uid()).eq('blocked_id',targetUserId);fail(error,'차단 해제');return true}
   async function blockedUsers(){const {data,error}=await client.rpc('get_blocked_users');fail(error,'차단 목록 불러오기');return data||[]}
   async function reportContent(payload){
     const row={reporter_id:uid(),target_type:payload.target_type,target_id:payload.target_id||null,target_user_id:payload.target_user_id||null,reason:payload.reason||'other',details:String(payload.details||'').slice(0,3000)};
-    const {data,error}=await client.from('content_reports').insert(row).select().single();fail(error,'신고 접수');return data;
+    const {error}=await client.from('content_reports').insert(row);fail(error,'신고 접수');
   }
 
   async function features(){const {data,error}=await client.rpc('get_feature_feed',{p_limit:100});fail(error,'개선 제안 불러오기');return data||[]}
-  async function addFeature(title,body){const {data,error}=await client.from('feature_requests').insert({user_id:uid(),title,body}).select().single();fail(error,'개선 제안 등록');return data}
+  async function addFeature(title,body){const {error}=await client.from('feature_requests').insert({user_id:uid(),title,body});fail(error,'개선 제안 등록')}
   async function toggleFeatureVote(featureId,currently){if(currently){const {error}=await client.from('feature_votes').delete().eq('feature_id',featureId).eq('user_id',uid());fail(error,'공감 취소');return false}else{const {error}=await client.from('feature_votes').insert({feature_id:featureId,user_id:uid()});fail(error,'공감');return true}}
-  async function submitSecurityReport(title,body){const {data,error}=await client.from('security_reports').insert({user_id:uid(),title,body}).select().single();fail(error,'보안 제보');return data}
+  async function submitSecurityReport(title,body){const {error}=await client.from('security_reports').insert({user_id:uid(),title,body});fail(error,'보안 제보')}
 
   async function exportData(){
     const specs=[
