@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const db=fs.readFileSync(new URL('../js/db.js',import.meta.url),'utf8');
 const migration=fs.readFileSync(new URL('../supabase/step7_data_ownership.sql',import.meta.url),'utf8');
 const deletion=fs.readFileSync(new URL('../supabase/functions/delete-account/index.ts',import.meta.url),'utf8');
+const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 
 if(!db.includes("client.rpc('export_my_data')"))throw new Error('Client does not use the owner-only export RPC');
 
@@ -18,5 +19,6 @@ for(const token of ["getUser()","body?.confirm !== true","'lab-private'", "'lab-
   if(!deletion.includes(token))throw new Error(`Delete function is missing: ${token}`);
 }
 if(deletion.indexOf("for (const bucket")>deletion.indexOf('admin.auth.admin.deleteUser'))throw new Error('Account is deleted before storage cleanup');
+if(!html.includes('기록, 일기, 일정, 목표, 가계부, 업로드 파일과 광장 활동'))throw new Error('Account deletion copy does not describe the current app data');
 
 console.log('data-ownership-contract: PASS');
