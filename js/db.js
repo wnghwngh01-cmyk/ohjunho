@@ -162,12 +162,10 @@
   async function submitSecurityReport(title,body){const {error}=await client.from('security_reports').insert({user_id:uid(),title,body});fail(error,'보안 제보')}
 
   async function exportData(){
-    const specs=[
-      ['profiles','id'],['records','user_id'],['record_media','user_id'],['events','user_id'],['daily_todos','user_id'],['habits','user_id'],['habit_checks','user_id'],['goals','user_id'],['projects','user_id'],['ideas','user_id'],['works','user_id'],['finance_transactions','user_id']
-    ];
-    const out={exported_at:new Date().toISOString(),version:2};
-    for(const [table,key] of specs){const {data,error}=await client.from(table).select('*').eq(key,uid());fail(error,`${table} 내보내기`);out[table]=data||[]}
-    return out;
+    const {data,error}=await client.rpc('export_my_data');
+    fail(error,'내 데이터 내보내기');
+    if(!data||typeof data!=='object')throw new Error('내보낼 데이터를 만들지 못했습니다.');
+    return data;
   }
   async function deleteAccount(){const {data,error}=await client.functions.invoke('delete-account',{body:{confirm:true}});fail(error,'계정 삭제');return data}
 
