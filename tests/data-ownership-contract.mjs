@@ -14,7 +14,7 @@ for(const [table,predicate] of Object.entries(exportsByOwner)){
 }
 if(!migration.includes('security definer')||!migration.includes('grant execute on function public.export_my_data() to authenticated'))throw new Error('Export RPC permissions are incomplete');
 
-for(const token of ["getUser()","body?.confirm !== true","'lab-private'", "'lab-public'",'admin.auth.admin.deleteUser(user.id)']){
+for(const token of ["getUser()","body?.confirm !== true","'lab-private'", "'lab-public'",'https://test1.ohjunho.com','https://test2.ohjunho.com','admin.auth.admin.deleteUser(user.id)']){
   if(!deletion.includes(token))throw new Error(`Delete function is missing: ${token}`);
 }
 if(deletion.indexOf("for (const bucket")>deletion.indexOf('admin.auth.admin.deleteUser'))throw new Error('Account is deleted before storage cleanup');

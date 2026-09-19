@@ -1,9 +1,14 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
 
-const corsHeaders = {
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-};
+const allowedOrigins = new Set(['https://ohjunho.com', 'https://test1.ohjunho.com', 'https://test2.ohjunho.com']);
+function corsHeaders(origin: string | null) {
+  return {
+    'Access-Control-Allow-Origin': origin && allowedOrigins.has(origin) ? origin : 'https://ohjunho.com',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Vary': 'Origin',
+  };
+}
 
 async function listPaths(client: ReturnType<typeof createClient>, bucket: string, prefix: string): Promise<string[]> {
   const paths: string[] = [];
@@ -15,7 +20,7 @@ async function listPaths(client: ReturnType<typeof createClient>, bucket: string
       const { data, error } = await client.storage.from(bucket).list(folder, { limit: 100, offset });
       if (error) throw error;
       for (const item of data ?? []) {
-        const path = `${folder}/${item.name}`;
+        const path = folder + '/' + item.name;
         if (item.id) paths.push(path);
         else queue.push(path);
       }
@@ -26,9 +31,10 @@ async function listPaths(client: ReturnType<typeof createClient>, bucket: string
   return paths;
 }
 
-Deno.serve(async (request) => {
-  if (request.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
-  if (request.method !== 'POST') return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+export default { async fetch(request: Request) {
+  const cors = corsHeaders(request.headers.get('Origin'));
+  if (request.method === 'OPTIONS') return new Response('ok', { headers: cors });
+  if (request.method !== 'POST') return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405, headers: { ...cors, 'Content-Type': 'application/json' } });
 
   try {
     const authorization = request.headers.get('Authorization');
@@ -56,9 +62,9 @@ Deno.serve(async (request) => {
 
     const { error: deleteError } = await admin.auth.admin.deleteUser(user.id);
     if (deleteError) throw deleteError;
-    return new Response(JSON.stringify({ deleted: true }), { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ deleted: true }), { status: 200, headers: { ...cors, 'Content-Type': 'application/json' } });
   } catch (error) {
     console.error('delete-account failed', error);
-    return new Response(JSON.stringify({ error: error instanceof Error ? error.message : '계정 삭제에 실패했습니다.' }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ error: error instanceof Error ? error.message : '계정 삭제에 실패했습니다.' }), { status: 400, headers: { ...cors, 'Content-Type': 'application/json' } });
   }
-});
+} };
