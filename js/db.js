@@ -23,6 +23,11 @@
   function onAuthChange(cb){return client.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;cb&&cb(session)})}
   async function signIn(email,password){const {data,error}=await client.auth.signInWithPassword({email,password});fail(error,'로그인');currentUser=data.user;return data}
   async function signUp(email,password,displayName,acceptedTerms=false){const {data,error}=await client.auth.signUp({email,password,options:{data:{display_name:displayName,terms_accepted:acceptedTerms?'true':'false',terms_version:acceptedTerms?'2026-09-09':''}}});fail(error,'회원가입');currentUser=data.user||null;return data}
+  async function requestPasswordReset(email){
+    const redirectTo=new URL('./reset-password.html',location.href).href;
+    const {data,error}=await client.auth.resetPasswordForEmail(email,{redirectTo});
+    fail(error,'비밀번호 재설정 메일 요청');return data;
+  }
   async function signOut(){const {error}=await client.auth.signOut();fail(error,'로그아웃');currentUser=null}
   async function ensureProfile(){
     const u=user();
@@ -196,5 +201,5 @@
     const {error:pe}=await client.from('profiles').update({legacy_migrated_at:new Date().toISOString()}).eq('id',uid());fail(pe,'마이그레이션 완료 표시');return summary;
   }
 
-  window.LabDB={client,getSession,onAuthChange,signIn,signUp,signOut,ensureProfile,updateProfile,completeOnboarding,acceptTerms,dashboard,listRecords,createRecord,updateRecord,deleteRecord,addRecordMedia,removeRecordMedia,reorderRecordMedia,listEventsForMonth,listImportantEvents,addEvent,updateEvent,toggleEvent,deleteEvent,listTodos,addTodo,toggleTodo,moveTodo,deleteTodo,listHabits,addHabit,updateHabit,deleteHabit,checksForRange,setHabitCheck,loadGoals,saveGoals,listProjects,addProject,updateProject,deleteProject,listProjectFiles,addProjectFile,deleteProjectFile,listIdeas,addIdea,deleteIdea,convertIdea,listWorks,addWork,updateWork,deleteWork,listFinance,addFinance,updateFinance,deleteFinance,getSource,upsertPublication,getPublicationForSource,listOwnPublications,unpublish,feed,toggleFollow,toggleLike,comments,addComment,deleteComment,blockUser,unblockUser,blockedUsers,reportContent,features,addFeature,toggleFeatureVote,submitSecurityReport,exportData,deleteAccount,legacyAvailable,migrateLegacy,user:()=>currentUser,today,dateKey,monthKey};
+  window.LabDB={client,getSession,onAuthChange,signIn,signUp,requestPasswordReset,signOut,ensureProfile,updateProfile,completeOnboarding,acceptTerms,dashboard,listRecords,createRecord,updateRecord,deleteRecord,addRecordMedia,removeRecordMedia,reorderRecordMedia,listEventsForMonth,listImportantEvents,addEvent,updateEvent,toggleEvent,deleteEvent,listTodos,addTodo,toggleTodo,moveTodo,deleteTodo,listHabits,addHabit,updateHabit,deleteHabit,checksForRange,setHabitCheck,loadGoals,saveGoals,listProjects,addProject,updateProject,deleteProject,listProjectFiles,addProjectFile,deleteProjectFile,listIdeas,addIdea,deleteIdea,convertIdea,listWorks,addWork,updateWork,deleteWork,listFinance,addFinance,updateFinance,deleteFinance,getSource,upsertPublication,getPublicationForSource,listOwnPublications,unpublish,feed,toggleFollow,toggleLike,comments,addComment,deleteComment,blockUser,unblockUser,blockedUsers,reportContent,features,addFeature,toggleFeatureVote,submitSecurityReport,exportData,deleteAccount,legacyAvailable,migrateLegacy,user:()=>currentUser,today,dateKey,monthKey};
 })();
