@@ -8,7 +8,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data: blob: https://kplhezgrxuiuswsbhpdw.supabase.co; connect-src 'self' https://kplhezgrxuiuswsbhpdw.supabase.co wss://kplhezgrxuiuswsbhpdw.supabase.co; font-src 'self' data:; media-src 'self' blob: https://kplhezgrxuiuswsbhpdw.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
   <title>하루를 담다</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./assets/styles.css?v=20260918-community-inserts-v1">
+  <link rel="stylesheet" href="./assets/styles.css?v=20260919-password-recovery-v1">
 </head>
 <body>
   <section id="authShell" class="auth-shell">
@@ -37,6 +37,7 @@
           <label id="signupNameField" class="field hidden"><span>이름</span><input id="authName" autocomplete="name" maxlength="30" placeholder="예: 오준호"></label>
           <label class="field"><span>이메일</span><input id="authEmail" type="email" autocomplete="email" required placeholder="name@example.com"></label>
           <label class="field"><span>비밀번호</span><input id="authPassword" type="password" autocomplete="current-password" minlength="8" required placeholder="8자 이상"></label>
+          <button id="forgotPassword" class="link-btn auth-forgot" type="button">비밀번호를 잊으셨나요?</button>
           <label id="signupPasswordConfirmField" class="field hidden"><span>비밀번호 확인</span><input id="authPasswordConfirm" type="password" autocomplete="new-password" minlength="8" placeholder="비밀번호를 한 번 더 입력"></label>
           <label id="signupTermsField" class="consent hidden"><input id="authTerms" type="checkbox"><span><a href="./terms.html" target="_blank" rel="noopener">서비스 이용약관 · 커뮤니티 운영정책</a>과 <a href="./privacy.html" target="_blank" rel="noopener">개인정보처리방침</a>을 확인했고 동의합니다.</span></label>
           <button id="authSubmit" class="btn primary" type="submit">로그인</button>
@@ -274,9 +275,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
   <script src="./js/config.js?v=20260918-community-inserts-v1"></script>
   <script src="./js/drafts.js?v=20260918-community-inserts-v1"></script>
-  <script src="./js/db.js?v=20260919-data-ownership-v1"></script>
+  <script src="./js/db.js?v=20260919-password-recovery-v1"></script>
   <script src="./js/storage.js?v=20260918-community-inserts-v1"></script>
-  <script src="./js/app.js?v=20260918-community-inserts-v1"></script>
+  <script src="./js/app.js?v=20260919-password-recovery-v1"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>
