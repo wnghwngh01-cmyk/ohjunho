@@ -26,7 +26,7 @@
   function updateNetwork(){state.networkOnline=navigator.onLine;syncUI(state.networkOnline?'연결됨':'오프라인',state.networkOnline)}
   window.addEventListener('online',updateNetwork);window.addEventListener('offline',updateNetwork);
 
-  async function withError(fn,context='작업'){try{syncUI('동기화 중…');const v=await fn();syncUI('연결됨');return v}catch(e){console.error(context,e);syncUI('오류',false);const message=e.message||`${context}에 실패했습니다.`;const retryable=/불러오기|확인|조회|내보내기/.test(context);toast(message,retryable?{label:'다시 시도',run:async()=>{try{await withError(fn,context)}catch{}}}:null);throw e}}
+  async function withError(fn,context='작업'){try{syncUI('동기화 중…');const v=await fn();syncUI('연결됨');return v}catch(e){console.error(context,e);void window.LabTelemetry?.report(context,e);syncUI('오류',false);const message=e.message||`${context}에 실패했습니다.`;const retryable=/불러오기|확인|조회|내보내기/.test(context);toast(message,retryable?{label:'다시 시도',run:async()=>{try{await withError(fn,context)}catch{}}}:null);throw e}}
 
   function hasCommunityTerms(){return !!state.profile?.terms_accepted_at}
   function ensureCommunityTerms(){if(hasCommunityTerms())return true;$('#communityTermsCheck').checked=false;$('#communityTermsAccept').disabled=true;openModal('communityTermsModal');return false}

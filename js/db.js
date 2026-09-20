@@ -167,10 +167,12 @@
   async function submitSecurityReport(title,body){const {error}=await client.from('security_reports').insert({user_id:uid(),title,body});fail(error,'보안 제보')}
 
   async function exportData(){
-    const {data,error}=await client.rpc('export_my_data');
-    fail(error,'내 데이터 내보내기');
+    const [{data,error},{data:errorLogs,error:errorLogsError}]=await Promise.all([
+      client.rpc('export_my_data'),client.rpc('export_my_error_logs')
+    ]);
+    fail(error,'내 데이터 내보내기');fail(errorLogsError,'오류 기록 내보내기');
     if(!data||typeof data!=='object')throw new Error('내보낼 데이터를 만들지 못했습니다.');
-    return data;
+    return {...data,client_error_logs:Array.isArray(errorLogs)?errorLogs:[]};
   }
   async function deleteAccount(){const {data,error}=await client.functions.invoke('delete-account',{body:{confirm:true}});fail(error,'계정 삭제');return data}
 
