@@ -8,7 +8,8 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data: blob: https://kplhezgrxuiuswsbhpdw.supabase.co; connect-src 'self' https://kplhezgrxuiuswsbhpdw.supabase.co wss://kplhezgrxuiuswsbhpdw.supabase.co; font-src 'self' data:; media-src 'self' blob: https://kplhezgrxuiuswsbhpdw.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
   <title>하루를 담다</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./assets/styles.css?v=20260919-password-recovery-v1">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/styles.css?v=20260920-mobile-csp-v1">
 </head>
 <body>
   <section id="authShell" class="auth-shell">
@@ -226,7 +227,7 @@
         <section id="squareDiscover" class="square-pane"><div id="squareFeed" class="feed"></div></section>
         <section id="squareFeedback" class="square-pane hidden">
           <div class="feedback-board">
-            <aside class="card"><div class="card-head"><h3>개선 제안</h3><small>함께 만드는 하루</small></div><div class="stack"><label class="field"><span>제목</span><input id="featureTitle" maxlength="120" placeholder="어떤 점이 더 좋아졌으면 하나요?"></label><label class="field"><span>설명</span><textarea id="featureBody" maxlength="3000" placeholder="사용 중 불편했던 상황이나 원하는 동작을 알려주세요."></textarea></label><button id="featureSubmit" class="btn primary">제안 올리기</button></div><div class="security-note">보안 취약점의 구체적인 공격 방법이나 개인정보는 공개 제안에 쓰지 마세요. 아래의 비공개 보안 제보를 이용해 주세요.</div><button id="securityReportOpen" class="btn secondary small" style="margin-top:10px">비공개 보안 제보</button></aside>
+            <aside class="card"><div class="card-head"><h3>개선 제안</h3><small>함께 만드는 하루</small></div><div class="stack"><label class="field"><span>제목</span><input id="featureTitle" maxlength="120" placeholder="어떤 점이 더 좋아졌으면 하나요?"></label><label class="field"><span>설명</span><textarea id="featureBody" maxlength="3000" placeholder="사용 중 불편했던 상황이나 원하는 동작을 알려주세요."></textarea></label><button id="featureSubmit" class="btn primary">제안 올리기</button></div><div class="security-note">보안 취약점의 구체적인 공격 방법이나 개인정보는 공개 제안에 쓰지 마세요. 아래의 비공개 보안 제보를 이용해 주세요.</div><button id="securityReportOpen" class="btn secondary small security-report-open">비공개 보안 제보</button></aside>
             <div id="featureList" class="feature-list"></div>
           </div>
         </section>
@@ -255,7 +256,7 @@
 
   <div id="quickModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">QUICK ADD</small><h2>무엇을 남길까요?</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="quickModal">×</button></div><div class="quick-grid"><button class="quick-choice" data-quick="record"><b>✎ 기록</b><span>오늘의 생각과 사진</span></button><button class="quick-choice" data-quick="event"><b>□ 일정</b><span>날짜가 있는 일정</span></button><button class="quick-choice" data-quick="idea"><b>◇ 아이디어</b><span>떠오른 생각 보관</span></button><button class="quick-choice" data-quick="finance"><b>₩ 가계부</b><span>수입·지출·잔액</span></button></div></div></div>
 
-  <div id="publishModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">SHARE TO SQUARE</small><h2>광장에 공유</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="publishModal">×</button></div><p>원본은 개인 공간에 그대로 남고, 광장에는 현재 내용의 공개용 사본만 만들어집니다.</p><div class="stack"><label class="field"><span>공개 범위</span><select id="publishAudience"><option value="public">전체 공개</option><option value="followers">팔로워 공개</option></select></label><label class="row"><input id="publishMedia" type="checkbox" checked><span style="font-size:11px">대표 사진/파일이 있으면 함께 공개</span></label><button id="publishConfirm" class="btn primary">공유하기</button></div></div></div>
+  <div id="publishModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">SHARE TO SQUARE</small><h2>광장에 공유</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="publishModal">×</button></div><p>원본은 개인 공간에 그대로 남고, 광장에는 현재 내용의 공개용 사본만 만들어집니다.</p><div class="stack"><label class="field"><span>공개 범위</span><select id="publishAudience"><option value="public">전체 공개</option><option value="followers">팔로워 공개</option></select></label><label class="row"><input id="publishMedia" type="checkbox" checked><span class="publish-media-copy">대표 사진/파일이 있으면 함께 공개</span></label><button id="publishConfirm" class="btn primary">공유하기</button></div></div></div>
 
   <div id="communityTermsModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">COMMUNITY TERMS</small><h2>광장 이용 전 확인</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="communityTermsModal">×</button></div><p>개인 공간은 그대로 비공개로 사용할 수 있습니다. 광장에 공개·댓글·팔로우·좋아요·개선 제안을 하려면 커뮤니티 운영정책에 동의해 주세요.</p><label class="consent"><input id="communityTermsCheck" type="checkbox"><span><a href="./terms.html" target="_blank" rel="noopener">이용약관과 커뮤니티 운영정책</a>을 읽었고 동의합니다.</span></label><button id="communityTermsAccept" class="btn primary" disabled>동의하고 광장 사용</button></div></div>
 
