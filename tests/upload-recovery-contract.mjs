@@ -15,7 +15,7 @@ assert.match(storage,/removePrivatePaths\(\[\.\.\.removable\]\)/,'롤백 가능�
 assert.match(app,/Storage\.uploadProjectFiles\(p\.id,\[\.\.\.inp\.files\]\)/,'프로젝트 화면은 공통 묶음 업로드를 사용해야 합니다.');
 assert.doesNotMatch(app,/for\(const file of \[\.\.\.inp\.files\]\).*Storage\.uploadPrivate/,'화면에서 파일을 개별 저장해 부분 성공을 만들면 안 됩니다.');
 assert.match(index,/js\/storage\.js\?v=20260921-upload-recovery-v1/,'새 업로드 코드가 캐시를 우회해야 합니다.');
-assert.match(worker,/daily-life-shell-v28/,'서비스워커 캐시를 갱신해야 합니다.');
+assert.match(worker,/daily-life-shell-v29/,'서비스워커 캐시를 갱신해야 합니다.');
 assert.match(worker,/js\/storage\.js\?v=20260921-upload-recovery-v1/,'서비스워커에 새 업로드 자산을 포함해야 합니다.');
 
 console.log('upload recovery contract: PASS');

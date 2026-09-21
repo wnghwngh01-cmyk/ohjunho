@@ -174,6 +174,12 @@
     if(!data||typeof data!=='object')throw new Error('내보낼 데이터를 만들지 못했습니다.');
     return {...data,client_error_logs:Array.isArray(errorLogs)?errorLogs:[]};
   }
+  async function restoreData(backup){
+    const {data,error}=await client.rpc('restore_my_data',{p_backup:backup});
+    fail(error,'내 데이터 복원');
+    if(!data||typeof data!=='object')throw new Error('복원 결과를 확인하지 못했습니다.');
+    return data;
+  }
   async function deleteAccount(){const {data,error}=await client.functions.invoke('delete-account',{body:{confirm:true}});fail(error,'계정 삭제');return data}
 
   function legacyValue(snapshot,key,asArray=false){const v=snapshot?.[key];if(v===undefined||v===null)return asArray?[]:'';if(typeof v!=='string')return v;try{return JSON.parse(v)}catch{return asArray?[]:v}}
@@ -203,5 +209,5 @@
     const {error:pe}=await client.from('profiles').update({legacy_migrated_at:new Date().toISOString()}).eq('id',uid());fail(pe,'마이그레이션 완료 표시');return summary;
   }
 
-  window.LabDB={client,getSession,onAuthChange,signIn,signUp,requestPasswordReset,signOut,ensureProfile,updateProfile,completeOnboarding,acceptTerms,dashboard,listRecords,createRecord,updateRecord,deleteRecord,addRecordMedia,removeRecordMedia,reorderRecordMedia,listEventsForMonth,listImportantEvents,addEvent,updateEvent,toggleEvent,deleteEvent,listTodos,addTodo,toggleTodo,moveTodo,deleteTodo,listHabits,addHabit,updateHabit,deleteHabit,checksForRange,setHabitCheck,loadGoals,saveGoals,listProjects,addProject,updateProject,deleteProject,listProjectFiles,addProjectFile,deleteProjectFile,listIdeas,addIdea,deleteIdea,convertIdea,listWorks,addWork,updateWork,deleteWork,listFinance,addFinance,updateFinance,deleteFinance,getSource,upsertPublication,getPublicationForSource,listOwnPublications,unpublish,feed,toggleFollow,toggleLike,comments,addComment,deleteComment,blockUser,unblockUser,blockedUsers,reportContent,features,addFeature,toggleFeatureVote,submitSecurityReport,exportData,deleteAccount,legacyAvailable,migrateLegacy,user:()=>currentUser,today,dateKey,monthKey};
+  window.LabDB={client,getSession,onAuthChange,signIn,signUp,requestPasswordReset,signOut,ensureProfile,updateProfile,completeOnboarding,acceptTerms,dashboard,listRecords,createRecord,updateRecord,deleteRecord,addRecordMedia,removeRecordMedia,reorderRecordMedia,listEventsForMonth,listImportantEvents,addEvent,updateEvent,toggleEvent,deleteEvent,listTodos,addTodo,toggleTodo,moveTodo,deleteTodo,listHabits,addHabit,updateHabit,deleteHabit,checksForRange,setHabitCheck,loadGoals,saveGoals,listProjects,addProject,updateProject,deleteProject,listProjectFiles,addProjectFile,deleteProjectFile,listIdeas,addIdea,deleteIdea,convertIdea,listWorks,addWork,updateWork,deleteWork,listFinance,addFinance,updateFinance,deleteFinance,getSource,upsertPublication,getPublicationForSource,listOwnPublications,unpublish,feed,toggleFollow,toggleLike,comments,addComment,deleteComment,blockUser,unblockUser,blockedUsers,reportContent,features,addFeature,toggleFeatureVote,submitSecurityReport,exportData,restoreData,deleteAccount,legacyAvailable,migrateLegacy,user:()=>currentUser,today,dateKey,monthKey};
 })();
