@@ -26,6 +26,14 @@
   function updateNetwork(){state.networkOnline=navigator.onLine;syncUI(state.networkOnline?'연결됨':'오프라인',state.networkOnline)}
   window.addEventListener('online',updateNetwork);window.addEventListener('offline',updateNetwork);
 
+  function authErrorMessage(error,mode='signin'){
+    const raw=String(error?.message||'').toLowerCase(),status=Number(error?.status||error?.cause?.status||0);
+    if(status===429||/rate limit|too many requests|over.*email|security purposes/.test(raw))return '요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.';
+    if(/network|fetch|offline|failed to fetch/.test(raw))return '네트워크 연결을 확인한 뒤 다시 시도해 주세요.';
+    if(mode==='signup')return '회원가입을 완료하지 못했습니다. 입력 내용을 확인하거나 잠시 후 다시 시도해 주세요.';
+    return '이메일 또는 비밀번호를 확인해 주세요.';
+  }
+
   async function withError(fn,context='작업'){try{syncUI('동기화 중…');const v=await fn();syncUI('연결됨');return v}catch(e){console.error(context,e);void window.LabTelemetry?.report(context,e);syncUI('오류',false);const message=e.message||`${context}에 실패했습니다.`;const retryable=/불러오기|확인|조회|내보내기/.test(context);toast(message,retryable?{label:'다시 시도',run:async()=>{try{await withError(fn,context)}catch{}}}:null);throw e}}
 
   function hasCommunityTerms(){return !!state.profile?.terms_accepted_at}
@@ -39,7 +47,7 @@
     if(!emailInput.checkValidity()){$('#authMessage').textContent='올바른 이메일 주소를 입력해 주세요.';emailInput.focus();return}
     setBusy(btn,true,'요청 중…');
     try{await DB.requestPasswordReset(email);$('#authMessage').textContent='가입 여부와 관계없이, 재설정 가능한 계정이면 이메일로 안내를 보냈습니다.'}
-    catch(err){console.error('비밀번호 재설정 메일 요청',err);$('#authMessage').textContent='메일 요청을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.'}
+    catch(err){console.error('비밀번호 재설정 메일 요청',err);$('#authMessage').textContent=authErrorMessage(err,'reset')}
     finally{setBusy(btn,false)}
   }
   async function submitAuth(e){
@@ -53,7 +61,7 @@
         if(!data.session){$('#authMessage').textContent='가입 확인 메일을 보냈습니다. 이메일 인증 후 로그인해 주세요.';authMode('signin');return}
       }else await DB.signIn(email,password);
       await enterApp();
-    }catch(err){$('#authMessage').textContent=err.message||'로그인에 실패했습니다.'}finally{setBusy(btn,false)}
+    }catch(err){console.error(mode==='signup'?'회원가입':'로그인',err);$('#authMessage').textContent=authErrorMessage(err,mode)}finally{setBusy(btn,false)}
   }
 
   function avatarLetter(name){return String(name||'L').trim().slice(0,1).toUpperCase()||'L'}

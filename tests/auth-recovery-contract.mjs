@@ -10,6 +10,10 @@ assert.match(index,/id="forgotPassword"[^>]*type="button"/,'로그인 화면에 
 assert.match(app,/DB\.requestPasswordReset\(email\)/,'화면 요청이 인증 API에 연결되어야 합니다.');
 assert.match(app,/emailInput\.checkValidity\(\)/,'재설정 요청 전에 이메일 형식을 검사해야 합니다.');
 assert.match(app,/가입 여부와 관계없이/,'계정 존재 여부를 성공 문구로 노출하면 안 됩니다.');
+assert.match(app,/function authErrorMessage\(error,mode='signin'\)/,'인증 오류를 안전한 사용자 문구로 변환해야 합니다.');
+assert.match(app,/status===429\|\|\/rate limit/,'서버 요청 제한 오류를 명확히 안내해야 합니다.');
+assert.match(app,/이메일 또는 비밀번호를 확인해 주세요/,'로그인 실패는 계정 존재 여부를 드러내지 않아야 합니다.');
+assert.doesNotMatch(app,/authMessage'\)\.textContent=err\.message/,'인증 서버의 원문 오류를 화면에 그대로 노출하면 안 됩니다.');
 assert.match(db,/resetPasswordForEmail\(email,\{redirectTo\}\)/,'Supabase 재설정 메일 API를 사용해야 합니다.');
 assert.match(db,/new URL\('\.\/reset-password\.html',location\.href\)/,'현재 배포 도메인의 재설정 화면으로 돌아와야 합니다.');
 
