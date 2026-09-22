@@ -1,0 +1,10 @@
+{
+  "appId": "com.ohjunho.haru",
+  "appName": "하루를 담다",
+  "webDir": "dist",
+  "backgroundColor": "#f4f4f1",
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#f4f4f1"
+  }
+}

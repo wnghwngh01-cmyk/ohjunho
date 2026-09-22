@@ -1,7 +1,7 @@
 {
   "name": "하루를 담다",
   "short_name": "하루",
-  "description": "나의 기록, 프로젝트, 작업물과 성장을 쌓는 개인 공간",
+  "description": "오늘의 계획과 기록, 일기와 생활을 안전하게 담는 개인 공간",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
