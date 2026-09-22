@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .gradle/
+.gradle-cache/
 android/.gradle/
 android/local.properties
 android/app/build/

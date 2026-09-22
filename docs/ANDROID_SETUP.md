@@ -11,11 +11,11 @@
 
 ## 필요한 로컬 도구
 
-1. Android Studio와 포함된 JDK를 설치한다.
+1. Android Studio와 JDK 21을 설치한다. Android Studio에 포함된 JDK가 더 최신이어도 이 프로젝트의 Gradle 빌드에는 JDK 21을 사용한다.
 2. Android Studio SDK Manager에서 Android 16 (API 36), Android SDK Platform-Tools, Android SDK Build-Tools를 설치한다.
 3. 실제 기기 또는 API 36 에뮬레이터를 준비한다.
 
-현재 Codex 실행 환경에는 Java, Android SDK, ADB가 없어 Gradle APK/AAB 빌드와 에뮬레이터 검증은 아직 실행하지 못했다.
+현재 개발 컴퓨터에는 Android Studio, Microsoft OpenJDK 21, Android API 36 SDK, Build Tools, Platform Tools가 준비되어 있다. `assembleDebug`와 `testDebugUnitTest`는 2026-09-22에 실제 통과했다. 에뮬레이터와 실제 기기 검증은 별도 단계로 남아 있다.
 
 ## 동기화와 빌드
 
@@ -23,8 +23,11 @@
 pnpm install
 pnpm run android:sync
 cd android
+$env:JAVA_HOME='C:\Users\wnghw\AppData\Local\Java\microsoft-jdk-21\jdk-21.0.12.1+1'
 .\gradlew.bat assembleDebug
 ```
+
+디버그 APK는 `android/app/build/outputs/apk/debug/app-debug.apk`에 생성된다. 다른 컴퓨터에서는 설치된 JDK 21 경로에 맞게 `JAVA_HOME`을 바꾼다.
 
 Android Studio에서 열 때는 저장소 루트에서 `pnpm run android:open`을 실행한다.
 
