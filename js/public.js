@@ -3,7 +3,7 @@
   const $=s=>document.querySelector(s),esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
   const cfg=window.LAB_CONFIG;if(!window.supabase){$('#publicHero').innerHTML='<p>네트워크 연결을 확인해 주세요.</p>';return}
   const db=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_PUBLISHABLE_KEY),slug=new URLSearchParams(location.search).get('slug')||'';
-  const sourceLabel=t=>t==='record'?'기록':t==='project'?'프로젝트':'작업물';
+  const sourceLabel=t=>t==='record'?'기록':t==='diary'?'일기':t==='book'?'독서록':t==='community'?'자유글':'공유글';
   const publicUrl=path=>path?db.storage.from(cfg.PUBLIC_BUCKET).getPublicUrl(path).data.publicUrl:'';
   async function boot(){
     if(!slug){$('#publicHero').innerHTML='<h1>연구실을 찾을 수 없습니다.</h1><p>공개 주소를 확인해 주세요.</p>';return}

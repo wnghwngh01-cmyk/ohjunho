@@ -22,7 +22,7 @@ assert.match(sql,/>= 60/,'사용자별 시간당 전체 오류 수를 제한해�
 assert.match(sql,/export_my_error_logs\(\)/,'사용자가 자기 오류 기록도 내보낼 수 있어야 합니다.');
 assert.match(sql,/where user_id = auth\.uid\(\)/,'오류 기록 내보내기는 현재 사용자 데이터만 포함해야 합니다.');
 assert.match(db,/client_error_logs:Array\.isArray\(errorLogs\)/,'기존 데이터 내보내기에 오류 기록을 합쳐야 합니다.');
-assert.match(worker,/daily-life-shell-v30/,'새 스크립트 배포 시 서비스워커 캐시를 갱신해야 합니다.');
+assert.match(worker,/daily-life-shell-v32/,'새 스크립트 배포 시 서비스워커 캐시를 갱신해야 합니다.');
 assert.match(worker,/js\/telemetry\.js\?v=20260920-error-logs-v1/,'오류 기록기를 앱 셸에 포함해야 합니다.');
 assert.ok(!index.includes('style='),'CSP가 차단하는 인라인 style 속성이 없어야 합니다.');
 assert.match(index,/assets\/favicon\.svg/,'배포 페이지에 favicon이 연결돼야 합니다.');

@@ -21,7 +21,7 @@ assert.match(app,/file\.size>10\*1024\*1024/,'클라이언트에서도 파일 �
 assert.match(app,/backup\.profiles\[0\]\?\.id!==DB\.user\(\)\.id/,'클라이언트에서 계정 불일치를 알려야 합니다.');
 assert.match(app,/현재 데이터는 삭제하지 않습니다\. 첨부파일과 광장 활동은 자동 복원하지 않습니다/,'복원 범위를 확인창에서 밝혀야 합니다.');
 assert.match(index,/id="restoreDataFile"/,'설정에 복원 파일 입력이 있어야 합니다.');
-assert.match(sw,/daily-life-shell-v30/,'복원 자산을 위해 서비스워커 캐시를 갱신해야 합니다.');
+assert.match(sw,/daily-life-shell-v32/,'복원 자산을 위해 서비스워커 캐시를 갱신해야 합니다.');
 assert.doesNotMatch(terms,/사용자용 복원 기능은 현재 제공하지 않습니다/,'약관에 폐기된 설명이 남으면 안 됩니다.');
 
 console.log('data restore contract: PASS');
