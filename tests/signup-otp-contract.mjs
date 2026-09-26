@@ -16,8 +16,13 @@ assert.match(index,/id="findAccount"/,'가입 이메일 찾기 안내가 필요�
 assert.match(index,/가입 이메일이 아이디/,'이메일 아이디 구조를 설명해야 합니다.');
 assert.match(db,/verifyOtp\(\{email,token,type:'email'\}\)/,'가입 OTP를 Supabase에서 검증해야 합니다.');
 assert.match(db,/auth\.resend\(\{type:'signup',email\}\)/,'가입 OTP 재전송을 지원해야 합니다.');
+assert.match(db,/beginSignup\(email,displayName\).*crypto\.getRandomValues/s,'비밀번호 입력 전 안전한 임시 비밀번호로 인증 메일을 시작해야 합니다.');
+assert.match(db,/completeSignup\(password,displayName\).*auth\.updateUser/s,'이메일 인증 뒤 사용자가 정한 비밀번호로 가입을 완료해야 합니다.');
 assert.match(app,/code\.length!==6/,'잘못된 길이의 인증번호를 거부해야 합니다.');
-assert.match(app,/textContent=sent\?'인증번호 확인':'인증 이메일 보내기'/,'전송 뒤 같은 버튼이 인증번호 확인으로 바뀌어야 합니다.');
+assert.match(app,/textContent=verified\?'이메일 인증 완료':sent\?'인증번호 확인':'인증 이메일 보내기'/,'전송 뒤 같은 버튼이 인증번호 확인으로 바뀌고 인증 완료 상태도 보여야 합니다.');
+assert.match(app,/state\.signupEmailVerified=true.*비밀번호를 설정/s,'이메일 인증 뒤 비밀번호 설정 단계로 이동해야 합니다.');
+assert.match(app,/authSubmit'\)\.textContent=mode==='signup'\?'회원가입 완료':'로그인'/,'인증 뒤 별도 회원가입 완료 버튼이 필요합니다.');
+assert.match(app,/signup_complete===false.*resumeSignupCompletion/s,'인증 뒤 앱을 닫아도 가입 완료 단계로 돌아와야 합니다.');
 assert.match(app,/authHelpLinks.*mode!==\'signin\'/,'아이디·비밀번호 찾기는 로그인 탭에만 보여야 합니다.');
 assert.match(app,/인증번호가 틀렸거나 만료됐습니다/,'실패한 인증번호에 계정 정보를 노출하지 않는 오류를 보여야 합니다.');
 assert.match(template,/\{\{ \.Token \}\}/,'확인 메일에 OTP 토큰을 포함해야 합니다.');

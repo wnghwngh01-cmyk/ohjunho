@@ -17,5 +17,5 @@ assert.match(app,/guestLoginOpen'\)\.addEventListener\('click',startGuest\)/,'�
 assert.match(app,/mode==='guest'.*게스트 체험을 시작하지 못했습니다/s,'게스트 실패를 일반 로그인 오류로 표시하면 안 됩니다.');
 assert.match(app,/if\(isGuest\(\).*confirm/s,'게스트 종료 전 데이터 접근 상실을 확인해야 합니다.');
 assert.match(app,/emailInput\.checkValidity\(\)/,'잘못된 이메일 형식을 가입 요청 전에 거부해야 합니다.');
-assert.match(sw,/daily-life-shell-v37/,'수정된 인증 자산을 새 캐시로 배포해야 합니다.');
+assert.match(sw,/daily-life-shell-v38/,'수정된 인증 자산을 새 캐시로 배포해야 합니다.');
 console.log('guest auth contract: PASS');

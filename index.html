@@ -9,7 +9,7 @@
   <title>하루를 담다</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./assets/styles.css?v=20260926-auth-flow-v2">
+  <link rel="stylesheet" href="./assets/styles.css?v=20260926-auth-flow-v3">
 </head>
 <body>
   <section id="authShell" class="auth-shell hidden">
@@ -46,7 +46,7 @@
             </div>
             <div id="signupOtpMessage" class="auth-message" aria-live="polite"></div>
           </div>
-          <label class="field"><span>비밀번호</span><input id="authPassword" type="password" autocomplete="current-password" minlength="8" required placeholder="8자 이상"></label>
+          <label id="authPasswordField" class="field"><span>비밀번호</span><input id="authPassword" type="password" autocomplete="current-password" minlength="8" required placeholder="8자 이상"></label>
           <div id="authHelpLinks" class="auth-help-links"><button id="findAccount" class="link-btn" type="button">아이디 찾기</button><button id="forgotPassword" class="link-btn" type="button">비밀번호 찾기</button></div>
           <label id="signupPasswordConfirmField" class="field hidden"><span>비밀번호 확인</span><input id="authPasswordConfirm" type="password" autocomplete="new-password" minlength="8" placeholder="비밀번호를 한 번 더 입력"></label>
           <label id="signupTermsField" class="consent hidden"><input id="authTerms" type="checkbox"><span><a href="./terms.html" target="_blank" rel="noopener">서비스 이용약관 · 커뮤니티 운영정책</a>과 <a href="./privacy.html" target="_blank" rel="noopener">개인정보처리방침</a>을 확인했고 동의합니다.</span></label>
@@ -287,10 +287,10 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
   <script src="./js/config.js?v=20260918-community-inserts-v1"></script>
   <script src="./js/drafts.js?v=20260918-community-inserts-v1"></script>
-  <script src="./js/db.js?v=20260926-auth-flow-v2"></script>
+  <script src="./js/db.js?v=20260926-auth-flow-v3"></script>
   <script src="./js/storage.js?v=20260921-upload-recovery-v1"></script>
   <script src="./js/telemetry.js?v=20260920-error-logs-v1"></script>
-  <script src="./js/app.js?v=20260926-auth-flow-v2"></script>
+  <script src="./js/app.js?v=20260926-auth-flow-v3"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>
