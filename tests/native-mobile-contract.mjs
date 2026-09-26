@@ -12,6 +12,6 @@ assert.match(app,/history\.pushState\(\{haruPage:page\}/,'내부 페이지 이�
 assert.match(app,/haruOverlay:'lightbox'/,'사진 확대 화면을 뒤로가기로 닫을 수 있어야 합니다.');
 assert.match(app,/touchmove[\s\S]*setLightboxScale/,'사진 확대 화면에서 두 손가락 확대를 지원해야 합니다.');
 assert.match(app,/key:'offline',duration:0/,'오프라인 알림은 하나로 유지해야 합니다.');
-assert.match(sw,/daily-life-shell-v32/,'수정된 모바일 자산을 받도록 캐시를 갱신해야 합니다.');
+assert.match(sw,/daily-life-shell-v(?:3[2-9]|[4-9]\d|\d{3,})/,'수정된 모바일 자산을 받도록 캐시를 갱신해야 합니다.');
 
 console.log('native mobile contract: PASS');

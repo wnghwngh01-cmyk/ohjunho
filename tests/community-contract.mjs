@@ -19,6 +19,9 @@ for(const action of ['data-follow','data-like','data-comments','data-reply-comme
   if(!app.includes(action))throw new Error(`Missing community action wiring: ${action}`);
 }
 
+if(!app.includes('async function refreshCommentThread(pubId)'))throw new Error('Comment mutations must refresh the visible thread and count');
+if(!app.includes('count.textContent=String(rows.length)'))throw new Error('Comment count must update immediately after add/delete');
+
 for(const type of ['record','diary','book','community'])if(!squareV2.includes(`'${type}'`))throw new Error(`Missing Square category: ${type}`);
 for(const fn of ['get_publication_feed_v2','get_publication_comments_v2','add_publication_comment','share_record_to_square','add_community_post'])if(!squareV2.includes(`function public.${fn}`))throw new Error(`Missing Square migration function: ${fn}`);
 if(squareV2.includes('delete from public.publications'))throw new Error('Square migration must preserve retired publication rows');
