@@ -9,7 +9,7 @@
   <title>하루를 담다</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./assets/styles.css?v=20260926-guest-v1">
+  <link rel="stylesheet" href="./assets/styles.css?v=20260926-auth-otp-v1">
 </head>
 <body>
   <section id="authShell" class="auth-shell hidden">
@@ -38,7 +38,7 @@
           <label id="signupNameField" class="field hidden"><span>이름</span><input id="authName" autocomplete="name" maxlength="30" placeholder="예: 오준호"></label>
           <label class="field"><span>이메일</span><input id="authEmail" type="email" autocomplete="email" required placeholder="name@example.com"></label>
           <label class="field"><span>비밀번호</span><input id="authPassword" type="password" autocomplete="current-password" minlength="8" required placeholder="8자 이상"></label>
-          <button id="forgotPassword" class="link-btn auth-forgot" type="button">비밀번호를 잊으셨나요?</button>
+          <div id="authHelpLinks" class="auth-help-links"><button id="findAccount" class="link-btn" type="button">아이디 찾기</button><button id="forgotPassword" class="link-btn" type="button">비밀번호 찾기</button><button id="signupVerifyOpen" class="link-btn" type="button">가입 인증번호 입력</button></div>
           <label id="signupPasswordConfirmField" class="field hidden"><span>비밀번호 확인</span><input id="authPasswordConfirm" type="password" autocomplete="new-password" minlength="8" placeholder="비밀번호를 한 번 더 입력"></label>
           <label id="signupTermsField" class="consent hidden"><input id="authTerms" type="checkbox"><span><a href="./terms.html" target="_blank" rel="noopener">서비스 이용약관 · 커뮤니티 운영정책</a>과 <a href="./privacy.html" target="_blank" rel="noopener">개인정보처리방침</a>을 확인했고 동의합니다.</span></label>
           <button id="authSubmit" class="btn primary" type="submit">로그인</button>
@@ -265,6 +265,10 @@
 
   <div id="guestLoginModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">TEST GUEST</small><h2>게스트로 체험할까요?</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="guestLoginModal" aria-label="닫기">×</button></div><div class="guest-notice"><p><b>게스트마다 임시 익명 ID가 발급됩니다.</b> 개인 데이터와 광장 글·댓글·좋아요는 이 ID로 다른 사용자와 분리해 저장됩니다.</p><p>로그인 정보를 따로 만들지 않으므로 <b>로그아웃, 앱 삭제, 브라우저 데이터 삭제 또는 기기 변경 후에는 다시 들어오거나 작성물을 관리할 수 없습니다.</b></p></div><label class="consent"><input id="guestRiskCheck" type="checkbox"><span>게스트 데이터의 복구 제한과 <a href="./terms.html" target="_blank" rel="noopener">이용약관 · 커뮤니티 운영정책</a>을 확인했습니다.</span></label><div class="row"><button class="btn secondary" type="button" data-close-modal="guestLoginModal">취소</button><button id="guestLoginConfirm" class="btn primary" type="button" disabled>게스트로 시작</button></div></div></div>
 
+  <div id="signupOtpModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">VERIFY EMAIL</small><h2>이메일 인증번호 입력</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="signupOtpModal" aria-label="닫기">×</button></div><p>회원가입에 사용한 이메일로 보낸 6자리 인증번호를 입력해 주세요.</p><form id="signupOtpForm" class="stack" novalidate><label class="field"><span>가입 이메일</span><input id="signupOtpEmail" type="email" autocomplete="email" required placeholder="name@example.com"></label><label class="field"><span>인증번호</span><input id="signupOtpCode" class="otp-input" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required placeholder="000000"></label><button id="signupOtpConfirm" class="btn primary" type="submit">인증하고 시작하기</button><button id="signupOtpResend" class="btn secondary" type="button">인증번호 다시 보내기</button></form><div id="signupOtpMessage" class="auth-message" aria-live="polite"></div></div></div>
+
+  <div id="findAccountModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">FIND ACCOUNT</small><h2>가입 이메일 찾기</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="findAccountModal" aria-label="닫기">×</button></div><p>하루를 담다는 <b>가입 이메일이 아이디</b>입니다. 전화번호나 보조 이메일을 받지 않으므로 이름만으로 계정을 조회하거나 이메일을 보여주지 않습니다.</p><ol class="account-help-list"><li>사용하는 이메일의 전체 받은편지함에서 <b>“하루를 담다 인증번호”</b>를 검색해 보세요.</li><li>스팸함과 프로모션함도 확인해 주세요.</li><li>브라우저 또는 휴대전화의 저장된 로그인 정보에서 이 사이트의 이메일을 확인해 보세요.</li></ol><p class="muted">계정 존재 여부를 다른 사람이 알아내지 못하도록 이름만으로 가입 이메일을 조회하는 기능은 제공하지 않습니다.</p><button class="btn primary" type="button" data-close-modal="findAccountModal">확인</button></div></div>
+
   <div id="reportModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">REPORT</small><h2>신고하기</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="reportModal">×</button></div><p id="reportTargetLabel">광장 콘텐츠 또는 사용자를 신고합니다.</p><div class="stack"><label class="field"><span>신고 사유</span><select id="reportReason"><option value="spam">스팸 · 반복 홍보</option><option value="harassment">괴롭힘 · 공격</option><option value="hate">혐오 · 차별</option><option value="sexual">성적 콘텐츠</option><option value="violence">폭력 · 위협</option><option value="privacy">개인정보 침해</option><option value="copyright">저작권 · 권리 침해</option><option value="illegal">불법 행위</option><option value="other">기타</option></select></label><label class="field"><span>설명 · 선택</span><textarea id="reportDetails" maxlength="3000" placeholder="확인에 필요한 내용을 적어 주세요. 민감한 개인정보는 최소한으로 작성해 주세요."></textarea></label><label id="reportBlockRow" class="consent"><input id="reportBlockUser" type="checkbox"><span>이 사용자를 함께 차단하기</span></label><button id="reportSubmit" class="btn danger">신고 접수</button></div></div></div>
 
   <div id="securityModal" class="modal-backdrop" aria-hidden="true"><div class="modal"><div class="modal-head"><div><small class="muted">PRIVATE SECURITY REPORT</small><h2>비공개 보안 제보</h2></div><span class="spacer"></span><button class="icon-btn" data-close-modal="securityModal">×</button></div><p>제보 내용은 광장에 공개되지 않습니다. 개인정보, 접근 경로, 재현 조건을 필요한 만큼만 작성해 주세요.</p><div class="stack"><label class="field"><span>제목</span><input id="securityTitle" maxlength="150"></label><label class="field"><span>설명</span><textarea id="securityBody" maxlength="6000"></textarea></label><button id="securitySubmit" class="btn primary">비공개로 전송</button></div></div></div>
@@ -279,10 +283,10 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
   <script src="./js/config.js?v=20260918-community-inserts-v1"></script>
   <script src="./js/drafts.js?v=20260918-community-inserts-v1"></script>
-  <script src="./js/db.js?v=20260926-guest-v1"></script>
+  <script src="./js/db.js?v=20260926-auth-otp-v1"></script>
   <script src="./js/storage.js?v=20260921-upload-recovery-v1"></script>
   <script src="./js/telemetry.js?v=20260920-error-logs-v1"></script>
-  <script src="./js/app.js?v=20260926-guest-v2"></script>
+  <script src="./js/app.js?v=20260926-auth-otp-v1"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>

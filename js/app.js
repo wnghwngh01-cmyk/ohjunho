@@ -64,10 +64,31 @@
     try{
       if(mode==='signup'){
         const data=await DB.signUp(email,password,name,true);
-        if(!data.session){$('#authMessage').textContent='가입 확인 메일을 보냈습니다. 이메일 인증 후 로그인해 주세요.';authMode('signin');return}
+        if(!data.session){authMode('signin');openSignupOtp(email);$('#signupOtpMessage').textContent='인증번호를 보냈습니다. 받은편지함과 스팸함을 확인해 주세요.';return}
       }else await DB.signIn(email,password);
       await enterApp();
     }catch(err){console.error(mode==='signup'?'회원가입':'로그인',err);$('#authMessage').textContent=authErrorMessage(err,mode)}finally{setBusy(btn,false)}
+  }
+
+  function openSignupOtp(email=$('#authEmail').value.trim()){
+    const input=$('#signupOtpEmail');input.value=email;$('#signupOtpCode').value='';$('#signupOtpMessage').textContent='';openModal('signupOtpModal');setTimeout(()=>{(email?$('#signupOtpCode'):input).focus()},0)
+  }
+  async function verifySignupOtp(event){
+    event.preventDefault();const emailInput=$('#signupOtpEmail'),email=emailInput.value.trim(),code=$('#signupOtpCode').value.replace(/\D/g,''),btn=$('#signupOtpConfirm'),message=$('#signupOtpMessage');
+    if(!email||!emailInput.checkValidity()){message.textContent='회원가입에 사용한 이메일을 올바르게 입력해 주세요.';emailInput.focus();return}
+    if(code.length!==6){message.textContent='이메일로 받은 6자리 인증번호를 입력해 주세요.';$('#signupOtpCode').focus();return}
+    setBusy(btn,true,'인증 확인 중…');message.textContent='';
+    try{const data=await DB.verifySignupOtp(email,code);if(!data.session)throw new Error('인증 세션을 만들지 못했습니다.');dismissModal('signupOtpModal');await enterApp();toast('이메일 인증이 완료됐습니다.')}
+    catch(err){console.error('가입 이메일 인증',err);const raw=String(err?.message||'');message.textContent=/network|fetch|offline/i.test(raw)?'네트워크 연결을 확인한 뒤 다시 시도해 주세요.':'인증번호가 틀렸거나 만료됐습니다. 다시 확인해 주세요.'}
+    finally{setBusy(btn,false)}
+  }
+  async function resendSignupOtp(){
+    const emailInput=$('#signupOtpEmail'),email=emailInput.value.trim(),btn=$('#signupOtpResend'),message=$('#signupOtpMessage');
+    if(!email||!emailInput.checkValidity()){message.textContent='회원가입에 사용한 이메일을 올바르게 입력해 주세요.';emailInput.focus();return}
+    setBusy(btn,true,'보내는 중…');
+    try{await DB.resendSignupOtp(email);message.textContent='가입 대기 중인 이메일이면 인증번호를 다시 보냈습니다. 잠시 후 받은편지함과 스팸함을 확인해 주세요.'}
+    catch(err){console.error('가입 인증번호 재전송',err);message.textContent=/rate limit|too many|security purposes/i.test(String(err?.message||''))?'재전송 요청이 너무 빠릅니다. 잠시 후 다시 시도해 주세요.':'요청을 처리했습니다. 가입 대기 중인 이메일이면 인증번호가 전송됩니다.'}
+    finally{setBusy(btn,false)}
   }
 
   function isGuest(){return !!DB.user()?.is_anonymous}
@@ -337,7 +358,7 @@
   });
 
   function bind(){
-    $$('[data-auth-mode]').forEach(b=>b.addEventListener('click',()=>authMode(b.dataset.authMode)));$('#authForm').addEventListener('submit',submitAuth);$('#forgotPassword').addEventListener('click',requestPasswordReset);$('#guestLoginOpen').addEventListener('click',()=>{$('#guestRiskCheck').checked=false;$('#guestLoginConfirm').disabled=true;openModal('guestLoginModal')});$('#guestRiskCheck').addEventListener('change',e=>$('#guestLoginConfirm').disabled=!e.target.checked);$('#guestLoginConfirm').addEventListener('click',startGuest);$('#onboardingForm').addEventListener('submit',submitOnboarding);$('#onboardingName').addEventListener('input',()=>{if(!$('#onboardingLabName').dataset.custom){$('#onboardingLabName').value=$('#onboardingName').value.trim()?`${$('#onboardingName').value.trim()}의 하루`:''}updateOnboardingPreview()});$('#onboardingLabName').addEventListener('input',()=>{$('#onboardingLabName').dataset.custom='1';updateOnboardingPreview()});$('#onboardingLogout').addEventListener('click',doLogout);authMode('signin');
+    $$('[data-auth-mode]').forEach(b=>b.addEventListener('click',()=>authMode(b.dataset.authMode)));$('#authForm').addEventListener('submit',submitAuth);$('#findAccount').addEventListener('click',()=>openModal('findAccountModal'));$('#forgotPassword').addEventListener('click',requestPasswordReset);$('#signupVerifyOpen').addEventListener('click',()=>openSignupOtp());$('#signupOtpForm').addEventListener('submit',verifySignupOtp);$('#signupOtpCode').addEventListener('input',e=>e.target.value=e.target.value.replace(/\D/g,'').slice(0,6));$('#signupOtpResend').addEventListener('click',resendSignupOtp);$('#guestLoginOpen').addEventListener('click',()=>{$('#guestRiskCheck').checked=false;$('#guestLoginConfirm').disabled=true;openModal('guestLoginModal')});$('#guestRiskCheck').addEventListener('change',e=>$('#guestLoginConfirm').disabled=!e.target.checked);$('#guestLoginConfirm').addEventListener('click',startGuest);$('#onboardingForm').addEventListener('submit',submitOnboarding);$('#onboardingName').addEventListener('input',()=>{if(!$('#onboardingLabName').dataset.custom){$('#onboardingLabName').value=$('#onboardingName').value.trim()?`${$('#onboardingName').value.trim()}의 하루`:''}updateOnboardingPreview()});$('#onboardingLabName').addEventListener('input',()=>{$('#onboardingLabName').dataset.custom='1';updateOnboardingPreview()});$('#onboardingLogout').addEventListener('click',doLogout);authMode('signin');
     $('#quickMain')?.addEventListener('click',()=>openModal('quickModal'));$('#quickRecordSave').addEventListener('click',quickRecord);$('#memoryOpen').addEventListener('click',async e=>{const id=e.target.dataset.recordId,category=e.target.dataset.recordCategory;if(category==='일상'){await route('diary');startDiaryEdit(id)}else if(category==='독서'){await route('books');startBookEdit(id)}else{await route('records');startRecordEdit(id)}});$('#todayTodoAdd').addEventListener('click',addTodo);$('#todayTodoInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addTodo()}});$('#diaryDate').value=DB.today();$('#diarySave').addEventListener('click',saveDiary);$('#diaryCancel').addEventListener('click',()=>resetDiary(true));$('#diaryImages').addEventListener('change',previewDiaryFiles);['#diaryDate','#diaryMood','#diaryTitle','#diaryBody'].forEach(sel=>$(sel).addEventListener('input',scheduleDiaryDraft));$('#bookSave').addEventListener('click',saveBook);$('#bookCancel').addEventListener('click',resetBook);$('#bookSearch').addEventListener('input',()=>renderBooks());$('#globalSearch').addEventListener('input',renderGlobalSearch);$('#notificationReadAll').addEventListener('click',readAllNotifications);$('#bugSubmit').addEventListener('click',submitBug);$('#supportContinue').addEventListener('click',()=>toast('후원 결제는 Google Play 출시 준비 후 연결할 예정입니다.'));
     ['#recordDate','#recordBody','#recordTags'].forEach(sel=>$(sel).addEventListener('input',scheduleDraft));$('#recordImages').addEventListener('change',previewRecordFiles);$('#recordSave').addEventListener('click',saveRecord);$('#recordCancelEdit').addEventListener('click',()=>resetRecordComposer(true));$('#recordNewBtn').addEventListener('click',()=>{resetRecordComposer(false);$('#recordComposer').scrollIntoView({behavior:'smooth'})});$('#recordSearch').addEventListener('input',renderRecords);$('#recordFilter').addEventListener('change',renderRecords);$('#recordSort').addEventListener('change',renderRecords);
     $('#calPrev').addEventListener('click',()=>moveCalendar(-1));$('#calPrevMobile').addEventListener('click',()=>moveCalendar(-1));$('#calNext').addEventListener('click',()=>moveCalendar(1));$('#calNextMobile').addEventListener('click',()=>moveCalendar(1));$('#calToday').addEventListener('click',()=>{state.calendarView=new Date();state.calendarView.setDate(1);state.selectedDay=new Date();loadCalendar()});$('#eventAdd').addEventListener('click',addEvent);$('#eventCancel').addEventListener('click',cancelEventEdit);$('#habitSchedule').addEventListener('change',()=>$('#habitWeeklyCountWrap').classList.toggle('hidden',$('#habitSchedule').value!=='weekly_n'));$('#habitCancel').addEventListener('click',()=>{resetHabitEditor();renderSelectedDay()});$('#habitAdd').addEventListener('click',async()=>{const name=$('#habitNewName').value.trim();if(!name)return toast('체크리스트 이름을 입력해 주세요.');const schedule=habitScheduleValue();if(state.habitEdit){await withError(()=>DB.updateHabit(state.habitEdit.id,name,schedule),'체크리스트 수정');toast('체크리스트를 수정했습니다.')}else{await withError(()=>DB.addHabit(name,schedule),'체크리스트 추가');toast('체크리스트를 추가했습니다.')}resetHabitEditor();await loadCalendar()});$('#goalSave').addEventListener('click',saveGoals);
