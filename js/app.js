@@ -58,8 +58,8 @@
   }
   async function submitAuth(e){
     e.preventDefault();if(DB.initError){$('#authMessage').textContent=DB.initError;return}
-    const mode=$('#authForm').dataset.mode||'signin',email=$('#authEmail').value.trim(),password=$('#authPassword').value,confirmPassword=$('#authPasswordConfirm').value,name=$('#authName').value.trim(),accepted=$('#authTerms').checked,btn=$('#authSubmit');
-    if(!email||!password){$('#authMessage').textContent='이메일과 비밀번호를 입력해 주세요.';return}if(mode==='signup'&&password.length<8){$('#authMessage').textContent='새 비밀번호는 8자 이상 입력해 주세요.';return}if(mode==='signup'&&password!==confirmPassword){$('#authMessage').textContent='비밀번호 확인이 일치하지 않습니다.';return}if(mode==='signup'&&!name){$('#authMessage').textContent='앱에 표시할 이름을 입력해 주세요.';return}if(mode==='signup'&&!accepted){$('#authMessage').textContent='회원가입 전에 이용약관과 개인정보처리방침에 동의해 주세요.';return}
+    const mode=$('#authForm').dataset.mode||'signin',emailInput=$('#authEmail'),email=emailInput.value.trim(),password=$('#authPassword').value,confirmPassword=$('#authPasswordConfirm').value,name=$('#authName').value.trim(),accepted=$('#authTerms').checked,btn=$('#authSubmit');
+    if(!email||!password){$('#authMessage').textContent='이메일과 비밀번호를 입력해 주세요.';return}if(!emailInput.checkValidity()){$('#authMessage').textContent='올바른 이메일 주소 형식으로 입력해 주세요.';emailInput.focus();return}if(mode==='signup'&&password.length<8){$('#authMessage').textContent='새 비밀번호는 8자 이상 입력해 주세요.';return}if(mode==='signup'&&password!==confirmPassword){$('#authMessage').textContent='비밀번호 확인이 일치하지 않습니다.';return}if(mode==='signup'&&!name){$('#authMessage').textContent='앱에 표시할 이름을 입력해 주세요.';return}if(mode==='signup'&&!accepted){$('#authMessage').textContent='회원가입 전에 이용약관과 개인정보처리방침에 동의해 주세요.';return}
     setBusy(btn,true,mode==='signup'?'하루 공간 만드는 중…':'로그인 중…');
     try{
       if(mode==='signup'){

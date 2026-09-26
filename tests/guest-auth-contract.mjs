@@ -12,5 +12,6 @@ assert.match(index,/로그아웃, 앱 삭제, 브라우저 데이터 삭제 또�
 assert.match(db,/signInAnonymously/,'Supabase 익명 로그인을 사용해야 합니다.');
 assert.match(app,/게스트-.*slice\(-4\)/s,'익명 사용자별 표시 이름을 만들어야 합니다.');
 assert.match(app,/if\(isGuest\(\).*confirm/s,'게스트 종료 전 데이터 접근 상실을 확인해야 합니다.');
-assert.match(sw,/daily-life-shell-v34/,'게스트 로그인 자산을 새 캐시로 배포해야 합니다.');
+assert.match(app,/emailInput\.checkValidity\(\)/,'잘못된 이메일 형식을 가입 요청 전에 거부해야 합니다.');
+assert.match(sw,/daily-life-shell-v35/,'게스트 로그인 자산을 새 캐시로 배포해야 합니다.');
 console.log('guest auth contract: PASS');
