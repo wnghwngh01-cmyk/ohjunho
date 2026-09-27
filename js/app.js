@@ -33,10 +33,12 @@
   window.addEventListener('online',updateNetwork);window.addEventListener('offline',updateNetwork);
 
   function authErrorMessage(error,mode='signin'){
-    const raw=String(error?.message||'').toLowerCase(),status=Number(error?.status||error?.cause?.status||0);
+    const raw=String(error?.message||'').toLowerCase(),status=Number(error?.status||error?.cause?.status||0),code=String(error?.code||error?.cause?.code||'');
     if(status===429||/rate limit|too many requests|over.*email|security purposes/.test(raw))return '요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.';
     if(/network|fetch|offline|failed to fetch/.test(raw))return '네트워크 연결을 확인한 뒤 다시 시도해 주세요.';
     if(mode==='guest')return '게스트 체험을 시작하지 못했습니다. 잠시 후 다시 시도해 주세요.';
+    if(mode==='signup'&&code==='signup_email_unavailable')return '이 이메일로 새 인증 요청을 시작할 수 없습니다. 이미 가입했다면 로그인하거나 비밀번호 찾기를 이용해 주세요.';
+    if(mode==='signup'&&(status>=500||/smtp|authentication credentials invalid/.test(raw)))return '인증 이메일 발송에 문제가 있습니다. 잠시 후 다시 시도해 주세요.';
     if(mode==='signup')return '회원가입을 완료하지 못했습니다. 입력 내용을 확인하거나 잠시 후 다시 시도해 주세요.';
     return '이메일 또는 비밀번호를 확인해 주세요.';
   }

@@ -1,5 +1,7 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import {webcrypto} from 'node:crypto';
 
 const index=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const app=fs.readFileSync(new URL('../js/app.js',import.meta.url),'utf8');
@@ -26,4 +28,20 @@ assert.match(app,/signup_complete===false.*resumeSignupCompletion/s,'인증 뒤 
 assert.match(app,/authHelpLinks.*mode!==\'signin\'/,'아이디·비밀번호 찾기는 로그인 탭에만 보여야 합니다.');
 assert.match(app,/인증번호가 틀렸거나 만료됐습니다/,'실패한 인증번호에 계정 정보를 노출하지 않는 오류를 보여야 합니다.');
 assert.match(template,/\{\{ \.Token \}\}/,'확인 메일에 OTP 토큰을 포함해야 합니다.');
+
+function dbWithSignupResult(result){
+  const client={auth:{signUp:async()=>result}};
+  const window={LAB_CONFIG:{SUPABASE_URL:'https://example.supabase.co',SUPABASE_PUBLISHABLE_KEY:'test'},supabase:{createClient:()=>client}};
+  vm.runInNewContext(db,{window,crypto:webcrypto,URL,location:{href:'https://example.test/'},console});
+  return window.LabDB;
+}
+
+await assert.rejects(
+  ()=>dbWithSignupResult({data:{user:{id:'masked',identities:[]},session:null},error:null}).beginSignup('existing@example.com','기존 사용자'),
+  error=>error?.code==='signup_email_unavailable',
+  '기존 가입 이메일의 가림 응답을 인증 메일 전송 성공으로 처리하면 안 됩니다.'
+);
+const newSignup=await dbWithSignupResult({data:{user:{id:'new-user',identities:[{id:'email'}]},session:null},error:null}).beginSignup('new@example.com','새 사용자');
+assert.equal(newSignup.user.id,'new-user','새 이메일의 가입 인증 요청은 계속 진행되어야 합니다.');
+assert.match(app,/이미 가입했다면 로그인하거나 비밀번호 찾기를 이용해 주세요/,'기존 가입 이메일에는 안전한 다음 행동을 안내해야 합니다.');
 console.log('signup otp contract: PASS');
