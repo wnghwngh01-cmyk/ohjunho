@@ -186,6 +186,12 @@ html:not([data-theme="dark"]) .bottom-nav .quick-main{background:#32634f;color:#
  html:not([data-theme="dark"]) .quick-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:360px){html:not([data-theme="dark"]) :is(.two-col,.date-range,.finance-overview){grid-template-columns:1fr}html:not([data-theme="dark"]) .sync-state{font-size:11px}html:not([data-theme="dark"]) .more-grid span{font-size:13px}}
+html.native-app:not([data-theme="dark"]) :is(.today-grid,.today-hero,.today-side){grid-template-columns:minmax(0,1fr)}
+html:not([data-theme="dark"]) :is(.file-row a,.vote-btn,.blocked-user strong,.publish-media-copy,.onboarding-step){font-size:13px}
+html:not([data-theme="dark"]) .feature-card .muted{font-size:12px!important}
+html:not([data-theme="dark"]) .event-row .event-copy{min-width:0}
+html:not([data-theme="dark"]) .event-row button{min-height:40px;flex-shrink:0}
+html:not([data-theme="dark"]) .event-row{flex-wrap:wrap}
 @media(prefers-reduced-motion:reduce){html:not([data-theme="dark"]){scroll-behavior:auto}html:not([data-theme="dark"]) *{animation:none!important;transition:none!important}}
 
 /* Shared 24px line icon family; original dark-theme glyphs are retained. */
