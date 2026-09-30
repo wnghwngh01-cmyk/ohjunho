@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const app=fs.readFileSync(new URL('../js/app.js',import.meta.url),'utf8');
 const db=fs.readFileSync(new URL('../js/db.js',import.meta.url),'utf8');
+const lightTheme=fs.readFileSync(new URL('../assets/light-theme.css',import.meta.url),'utf8');
 const page=html.match(/<section id="page-today"[\s\S]*?<section id="memoryCard"/)?.[0]||'';
 const greeting=page.match(/<section class="greeting">[\s\S]*?<\/section>/)?.[0]||'';
 
@@ -15,6 +16,10 @@ if(!app.includes('countdowns.map(')||!app.includes('hero-countdown-item'))throw 
 if(!app.includes('DB.listImportantEvents(day)'))throw new Error('Today must load upcoming important days without an end-date cap');
 const importantQuery=db.match(/async function listImportantEvents[\s\S]*?return data\|\|\[\]\}/)?.[0]||'';
 if(!importantQuery||importantQuery.includes('.limit('))throw new Error('Upcoming important days must not have a fixed row limit');
+if(lightTheme.includes('.hero-focus-line span{'))throw new Error('Focus label styles must not override D-Day badge contrast');
+const countdownBadge=lightTheme.match(/\.hero-countdown-badge\{[^}]+\}/)?.[0]||'';
+if(!countdownBadge.includes('color:#204936')||!countdownBadge.includes('background:#f2f7f3')||!countdownBadge.includes('font-weight:800'))throw new Error('D-Day badge must keep a high-contrast treatment');
+if(!app.includes('class="mini-item event-item"')||!lightTheme.includes('.today-grid .todo-item>[data-todo-move]'))throw new Error('Mobile Today rows must preserve readable content width');
 
 const ordered=['오늘 일정','할 일 체크리스트','습관 체크리스트','빠른 기록'];
 let previous=-1;
