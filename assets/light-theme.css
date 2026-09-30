@@ -1,9 +1,6 @@
-/* Original NAVER NanumSquareRound files; see fonts/OFL.md. */
-@font-face{font-family:HaruRound;src:url('./fonts/NanumSquareRoundR.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:HaruRound;src:url('./fonts/NanumSquareRoundB.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
 /* Haru light theme. Every selector is scoped to preserve the existing dark theme. */
 html:not([data-theme="dark"]){--bg:#f6f7f5;--paper:#fff;--card:#fff;--ink:#25332e;--muted:#64716b;--line:#dfe5e0;--accent:#32634f;--soft:#eaf1ec;--soft-2:#f5f7f4;--danger:#a23f43;--shadow:0 4px 20px #243a2d06;--radius:20px;--radius-sm:12px}
-html:not([data-theme="dark"]) body{background:var(--bg);font-family:HaruRound,-apple-system,BlinkMacSystemFont,'Segoe UI','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;font-size:15px;line-height:1.7;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
+html:not([data-theme="dark"]) body{background:var(--bg);font-family:system-ui,-apple-system,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;font-size:15px;line-height:1.7;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
 html:not([data-theme="dark"]) :is(h1,h2,h3,h4,blockquote){font-family:inherit;letter-spacing:-.02em;overflow-wrap:anywhere}
 html:not([data-theme="dark"]) :is(p,label,button,a,strong,small,span){overflow-wrap:anywhere}
 html:not([data-theme="dark"]) :is(button,input,select,textarea){font-family:inherit}
@@ -237,4 +234,29 @@ html:not([data-theme="dark"]) :is(.brand h1,.brand h2,.brand strong,.modal h2,.m
  html:not([data-theme="dark"]) :is(.card-head h3,.composer h3,.day-detail h3){font-size:18px}
  html:not([data-theme="dark"]) .day-number{font-size:13px}
  html:not([data-theme="dark"]) .transaction .amount{font-size:17px}
+}
+
+/* Restore the original serif accents and light-theme Today hero. */
+html:not([data-theme="dark"]) :is(.page-head h1,.greeting h2,.daily-note blockquote,.square-intro h3,.auth-story h1,.onboarding-card h1,.onboarding-preview strong,.static-wrap h1,.public-hero h1){font-family:Georgia,'NanumMyeongjo',serif;font-weight:400;letter-spacing:-.035em}
+html:not([data-theme="dark"]) .page-head h1{font-size:32px;line-height:1.3}
+html:not([data-theme="dark"]) .greeting{background:linear-gradient(145deg,#25362f,#3e5148);border-color:#3e5148;color:#fff;padding:30px;min-height:300px}
+html:not([data-theme="dark"]) .greeting:after{display:block;pointer-events:none}
+html:not([data-theme="dark"]) .greeting h2{font-size:38px;line-height:1.4;margin:22px 0 18px;color:#fff}
+html:not([data-theme="dark"]) .greeting p{font-size:15px;line-height:1.8;color:#d4ddd7}
+html:not([data-theme="dark"]) .greeting small{font-size:12px;letter-spacing:.08em;font-weight:700;color:#c5d0ca}
+html:not([data-theme="dark"]) .hero-focus{margin-top:28px;gap:12px}
+html:not([data-theme="dark"]) .hero-focus-line{grid-template-columns:110px minmax(0,1fr);border-color:#ffffff26;font-size:14px;padding-top:12px;gap:12px}
+html:not([data-theme="dark"]) .hero-focus-line span{font-size:11px;letter-spacing:.04em;color:#bac9c0;font-weight:700}
+html:not([data-theme="dark"]) .hero-focus-line strong{font-size:14px;line-height:1.6;font-weight:600;color:#fff}
+html:not([data-theme="dark"]) .daily-note blockquote{font-size:20px;line-height:1.75}
+html:not([data-theme="dark"]) .square-intro h3{font-size:25px;line-height:1.45}
+html:not([data-theme="dark"]) :is(.field>span,.field>label,.link-btn,.nav-btn,.chip){font-weight:600}
+html:not([data-theme="dark"]) .money-card strong{font-size:23px;font-weight:650}
+@media(max-width:760px){
+ html:not([data-theme="dark"]) .page-head h1{font-size:29px}
+ html:not([data-theme="dark"]) .greeting{padding:24px;min-height:0;border-radius:22px}
+ html:not([data-theme="dark"]) .greeting h2{font-size:31px}
+ html:not([data-theme="dark"]) .hero-focus-line{grid-template-columns:92px minmax(0,1fr);gap:10px}
+ html:not([data-theme="dark"]) .hero-focus-line span{font-size:10px}
+ html:not([data-theme="dark"]) .hero-focus-line strong{font-size:13px}
 }
