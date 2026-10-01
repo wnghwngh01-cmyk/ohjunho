@@ -178,7 +178,7 @@
     DB.onAuthChange(async session=>{if(!session){$('#appShell').classList.add('hidden');$('#onboardingShell').classList.add('hidden');$('#authShell').classList.remove('hidden')} });
   }
 
-  const pageTitles={today:['오늘','할 일 · 일정 · 습관'],records:['기록','가볍게 이어 쓰는 나의 기록'],calendar:['캘린더','일정 · 할 일 · 반복 습관'],personal:['가계부','수입 · 지출 · 월별 흐름'],lab:['아이디어','간단한 생각 저장'],diary:['일기','날짜별 하루와 기분'],books:['독서록','읽는 책과 감상'],goals:['목표 설정','최종 목표 · 이번 달 목표'],search:['통합 검색','내 기록 한 번에 찾기'],notifications:['알림함','일정과 새로운 소식'],bug:['버그 제보','불편한 점 알리기'],support:['후원','개발 응원하기'],more:['더보기','전체 메뉴'],square:['광장','선택해서 들어가는 커뮤니티'],settings:['설정','프로필 · 데이터 · 계정']};
+  const pageTitles={today:['오늘','할 일 · 일정 · 습관'],records:['기록','가볍게 이어 쓰는 나의 기록'],calendar:['캘린더','일정 · 중요한 날짜 · 습관'],personal:['가계부','수입 · 지출 · 월별 흐름'],lab:['아이디어','간단한 생각 저장'],diary:['일기','날짜별 하루와 기분'],books:['독서록','읽는 책과 감상'],goals:['목표 설정','최종 목표 · 이번 달 목표'],search:['통합 검색','내 기록 한 번에 찾기'],notifications:['알림함','일정과 새로운 소식'],bug:['버그 제보','불편한 점 알리기'],support:['후원','개발 응원하기'],more:['더보기','전체 메뉴'],square:['광장','선택해서 들어가는 커뮤니티'],settings:['설정','프로필 · 데이터 · 계정']};
   async function route(page,opt={}){
     if(!pageTitles[page])page='today';if(!opt.fromHistory&&state.page!==page){history.pushState({haruPage:page},'',location.href)}state.page=page;
     $$('[data-page]').forEach(el=>el.classList.toggle('active',el.dataset.page===page));$$('[data-go]').forEach(el=>el.classList.toggle('active',el.dataset.go===page));
