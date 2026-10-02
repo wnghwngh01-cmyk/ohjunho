@@ -35,9 +35,11 @@ const habits=[
 ];
 assert.equal(Cal.habitMarker('2026-10-13',habits,[],'2026-10-15'),'','dates before habit creation should have no marker');
 assert.equal(Cal.habitMarker('2026-10-14',habits,[],'2026-10-15'),'','past incomplete dates should have no marker');
-assert.equal(Cal.habitMarker('2026-10-15',habits,[],'2026-10-15'),'pending','today should show a hollow marker while scheduled habits remain');
+assert.equal(Cal.habitMarker('2026-10-15',habits,[],'2026-10-15'),'pending','today should show a dot while scheduled habits remain');
 assert.equal(Cal.habitMarker('2026-10-16',habits,[],'2026-10-15'),'','future dates should have no marker');
 assert.equal(Cal.habitMarker('2026-10-14',[habits[0]],[{habit_id:'daily',day:'2026-10-14',completed:true}],'2026-10-15'),'complete');
+assert.equal(Cal.habitRunsOn('2026-10-13',habits[0],[],{includeBeforeStart:true}),true,'past calendar details should allow retroactive checklist entries');
+assert.equal(Cal.habitMarker('2026-10-13',[habits[0]],[{habit_id:'daily',day:'2026-10-13',completed:true}],'2026-10-15'),'complete','a retroactively completed past checklist should show a check marker');
 const progress=Cal.weeklyProgress(habits[1],'2026-10-15',[
   {habit_id:'flex',day:'2026-10-12',completed:true},
   {habit_id:'flex',day:'2026-10-13',completed:true},
@@ -64,11 +66,13 @@ assert.match(html,/name="eventColor"/);
 assert.match(html,/calendar-utils\.js/);
 assert.match(db,/color_key:eventColor\(colorKey\)/);
 assert.match(app,/Cal\.buildEventLayout\(calendarItems,gridStart,42,2\)/);
-assert.match(app,/Cal\.habitRunsOn\(day,h,state\.habitChecks\)/);
+assert.match(app,/Cal\.habitRunsOn\(day,h,state\.habitChecks,\{includeBeforeStart:day<DB\.today\(\)\}\)/,'past calendar details should show applicable checklist items even before their creation date');
 assert.doesNotMatch(app,/목표를 넘겨도 계속 체크할 수 있어요/,'weekly habits must stop appearing after the target is reached');
 assert.match(lightTheme,/\.day-number\{position:absolute;top:5px;left:5px;/,'calendar dates should stay in the top-left corner');
 assert.match(lightTheme,/\.day-habit-status\{top:8px;right:5px;bottom:auto;left:auto;[^}]*width:12px;height:12px/,'habit status should use a fixed top-right slot');
-assert.match(lightTheme,/\.day-habit-status\.complete\{width:12px;height:12px;font-size:7px/,'complete and pending habit states should keep the same compact size');
+assert.match(lightTheme,/\.day-habit-status\.pending\{width:6px;height:6px;background:#5f786b;border:0;border-radius:50%;box-shadow:none\}/,'pending state should be a plain dot without a white ring');
+assert.match(lightTheme,/\.day-habit-status\.complete\{width:12px;height:12px;color:#4f7562;background:transparent;border:0;border-radius:0;box-shadow:none\}/,'complete state should be a standalone check without a surrounding circle');
+assert.match(app,/class="habit-check-icon"/,'completed calendar habits should render a check icon');
 assert.match(lightTheme,/@media\(max-width:760px\)\{[^]*\.day-number\{top:4px;left:3px;width:20px;height:20px;font-size:12px\}/,'mobile today marker should stay compact enough for narrow calendar cells');
 assert.match(migration,/events_color_key_check/);
 

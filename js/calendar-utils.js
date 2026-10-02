@@ -61,8 +61,8 @@
     return{completed,target:Math.max(1,Number(habit.schedule?.count)||1)};
   }
 
-  function habitRunsOn(day,habit,checks=[]){
-    if(day<habitStartDay(habit))return false;
+  function habitRunsOn(day,habit,checks=[],options={}){
+    if(!options.includeBeforeStart&&day<habitStartDay(habit))return false;
     if(habit.schedule?.type!=='weekly_n')return fixedHabitRunsOn(day,habit.schedule);
     const checked=(checks||[]).some(c=>c.habit_id===habit.id&&c.day===day&&c.completed);
     if(checked)return true;
@@ -73,7 +73,7 @@
   function habitMarker(day,habits,checks,today=dateKey(new Date())){
     if(day>today)return'';
     const checkMap=new Map((checks||[]).filter(c=>c.day===day).map(c=>[c.habit_id,!!c.completed]));
-    const due=(habits||[]).filter(h=>habitRunsOn(day,h,checks));
+    const due=(habits||[]).filter(h=>habitRunsOn(day,h,checks,{includeBeforeStart:day<today}));
     if(!due.length)return'';
     if(due.every(h=>checkMap.get(h.id)))return'complete';
     return day===today?'pending':'';
