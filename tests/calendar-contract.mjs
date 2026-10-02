@@ -74,6 +74,10 @@ assert.match(lightTheme,/\.day-habit-status\.pending\{width:6px;height:6px;backg
 assert.match(lightTheme,/\.day-habit-status\.complete\{width:12px;height:12px;color:#4f7562;background:transparent;border:0;border-radius:0;box-shadow:none\}/,'complete state should be a standalone check without a surrounding circle');
 assert.match(app,/class="habit-check-icon"/,'completed calendar habits should render a check icon');
 assert.match(lightTheme,/@media\(max-width:760px\)\{[^]*\.day-number\{top:4px;left:3px;width:20px;height:20px;font-size:12px\}/,'mobile today marker should stay compact enough for narrow calendar cells');
+assert.match(lightTheme,/\.event-row>\[data-move-event\]\{grid-column:4;grid-row:1;justify-self:end\}/,'move action should stay on the event row');
+assert.match(lightTheme,/\.event-row>\[data-edit-event\]\{grid-column:5;grid-row:1\}/,'edit action should stay on the event row');
+assert.match(lightTheme,/\.event-row>\[data-delete-event\]\{grid-column:6;grid-row:1;/,'delete action should stay on the event row');
+assert.match(lightTheme,/\.event-row\.system-row\{grid-template-columns:9px 36px minmax\(0,1fr\)\}[^]*\.event-row\.system-row>\.event-copy\{grid-column:3\}/,'holiday copy should align with regular event copy while remaining read-only');
 assert.match(migration,/events_color_key_check/);
 
 console.log('calendar contract: PASS');
