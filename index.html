@@ -9,8 +9,8 @@
   <title>하루를 담다</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./assets/styles.css?v=20261002-calendar-row-v1">
-  <link rel="stylesheet" href="./assets/light-theme.css?v=20261002-calendar-row-v1">
+  <link rel="stylesheet" href="./assets/styles.css?v=20261002-diary-search-v1">
+  <link rel="stylesheet" href="./assets/light-theme.css?v=20261002-diary-search-v1">
 </head>
 <body>
   <section id="authShell" class="auth-shell hidden">
@@ -183,7 +183,7 @@
 
       <section id="page-diary" class="page" data-page="diary">
         <div class="page-head"><div><p class="eyebrow">DAILY DIARY</p><h1>일기</h1><p>하루의 기분과 이야기를 날짜별로 남깁니다.</p></div></div>
-        <div class="simple-layout"><aside class="card simple-form"><div class="stack"><label class="field"><span>날짜</span><input id="diaryDate" type="date"></label><label class="field"><span>기분</span><select id="diaryMood"><option value="">선택 안 함</option><option>🙂 좋음</option><option>😌 평온</option><option>😐 보통</option><option>😔 슬픔</option><option>😤 힘듦</option></select></label><label class="field"><span>오늘의 제목</span><input id="diaryTitle" maxlength="120" placeholder="오늘을 한 줄로"></label><label class="field"><span>내용</span><textarea id="diaryBody" maxlength="12000" placeholder="오늘 있었던 일을 적어보세요."></textarea></label><label class="photo-picker">사진 추가 · 최대 6장<input id="diaryImages" type="file" accept="image/jpeg,image/png,image/webp" multiple></label><div id="diaryPhotoPreview" class="photo-preview"></div><div class="row"><span id="diaryDraftState" class="autosave">임시저장 준비</span><span class="spacer"></span><button id="diaryCancel" class="btn ghost small hidden">취소</button><button id="diarySave" class="btn primary">일기 저장</button></div></div></aside><div id="diaryList" class="record-list"></div></div>
+        <div class="simple-layout"><aside class="card simple-form"><div class="stack"><label class="field"><span>날짜</span><input id="diaryDate" type="date"></label><label class="field"><span>기분</span><select id="diaryMood"><option value="">선택 안 함</option><option>🙂 좋음</option><option>😌 평온</option><option>😐 보통</option><option>😔 슬픔</option><option>😤 힘듦</option></select></label><label class="field"><span>오늘의 제목</span><input id="diaryTitle" maxlength="120" placeholder="오늘을 한 줄로"></label><label class="field"><span>내용</span><textarea id="diaryBody" maxlength="12000" placeholder="오늘 있었던 일을 적어보세요."></textarea></label><label class="photo-picker">사진 추가 · 최대 6장<input id="diaryImages" type="file" accept="image/jpeg,image/png,image/webp" multiple></label><div id="diaryPhotoPreview" class="photo-preview"></div><div class="row"><span id="diaryDraftState" class="autosave">임시저장 준비</span><span class="spacer"></span><button id="diaryCancel" class="btn ghost small hidden">취소</button><button id="diarySave" class="btn primary">일기 저장</button></div></div></aside><div class="diary-browser"><section class="diary-filters" aria-label="일기 검색"><label class="diary-filter diary-filter-keyword"><span>제목·내용</span><input id="diarySearch" type="search" placeholder="제목이나 내용 검색" autocomplete="off"></label><label class="diary-filter"><span>날짜</span><input id="diarySearchDate" type="date"></label><label class="diary-filter"><span>기분</span><select id="diarySearchMood"><option value="">모든 기분</option><option>🙂 좋음</option><option>😌 평온</option><option>😐 보통</option><option>😔 슬픔</option><option>😤 힘듦</option></select></label><button id="diarySearchReset" class="btn secondary diary-filter-reset" type="button">초기화</button></section><p id="diarySearchSummary" class="diary-search-summary" aria-live="polite"></p><div id="diaryList" class="record-list"></div></div></div>
       </section>
 
       <section id="page-books" class="page" data-page="books">
@@ -289,7 +289,8 @@
   <script src="./js/storage.js?v=20260921-upload-recovery-v1"></script>
   <script src="./js/telemetry.js?v=20260920-error-logs-v1"></script>
   <script src="./js/calendar-utils.js?v=20261002-calendar-history-v1"></script>
-  <script src="./js/app.js?v=20261002-calendar-history-v1"></script>
+  <script src="./js/diary-utils.js?v=20261002-diary-search-v1"></script>
+  <script src="./js/app.js?v=20261002-diary-search-v1"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>
