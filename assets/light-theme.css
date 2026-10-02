@@ -353,9 +353,9 @@ html:not([data-theme="dark"]) .day-event.system-event{background:#aa6268}
 html:not([data-theme="dark"]) .holiday-name{display:none}
 html:not([data-theme="dark"]) .day-more{right:4px;bottom:4px;line-height:15px}
 html:not([data-theme="dark"]) .day-mood{top:12px;right:auto;left:32px;width:6px;height:6px}
-html:not([data-theme="dark"]) .day-habit-status{top:8px;right:6px;bottom:auto;left:auto;box-sizing:border-box;width:14px;height:14px}
-html:not([data-theme="dark"]) .day-habit-status.pending{width:14px;height:14px;background:transparent;border:2px solid #5f786b;box-shadow:0 0 0 1px #fff}
-html:not([data-theme="dark"]) .day-habit-status.complete{width:14px;height:14px;font-size:8px;line-height:1}
+html:not([data-theme="dark"]) .day-habit-status{top:8px;right:5px;bottom:auto;left:auto;box-sizing:border-box;width:12px;height:12px}
+html:not([data-theme="dark"]) .day-habit-status.pending{width:12px;height:12px;background:transparent;border:2px solid #5f786b;box-shadow:0 0 0 1px #fff}
+html:not([data-theme="dark"]) .day-habit-status.complete{width:12px;height:12px;font-size:7px;line-height:1}
 html:not([data-theme="dark"]) .event-row{display:grid;grid-template-columns:9px 36px minmax(0,1fr) auto auto 30px;align-items:center;gap:6px;min-height:58px;padding:8px 0}
 html:not([data-theme="dark"]) .event-row .event-color-dot{margin:0}
 html:not([data-theme="dark"]) .event-row .event-copy{min-width:0;overflow:hidden}
@@ -370,9 +370,9 @@ html:not([data-theme="dark"]) .today-grid .event-item>.body strong,html:not([dat
 html:not([data-theme="dark"]) .today-grid .event-item>[data-move-event]{grid-column:3;grid-row:1;justify-self:end;padding:8px 4px;white-space:nowrap}
 @media(max-width:760px){
  html:not([data-theme="dark"]) .day{height:78px;padding:4px 3px}
- html:not([data-theme="dark"]) .day-number{top:4px;left:4px;width:22px;height:22px;font-size:13px}
- html:not([data-theme="dark"]) .day-mood{top:11px;left:29px}
- html:not([data-theme="dark"]) .day-habit-status{top:7px;right:5px}
+ html:not([data-theme="dark"]) .day-number{top:4px;left:3px;width:20px;height:20px;font-size:12px}
+ html:not([data-theme="dark"]) .day-mood{top:10px;left:26px}
+ html:not([data-theme="dark"]) .day-habit-status{top:7px;right:4px}
  html:not([data-theme="dark"]) .day-events{grid-template-rows:repeat(2,16px);min-height:34px;margin-top:28px;gap:2px}
  html:not([data-theme="dark"]) .day-event,html:not([data-theme="dark"]) .day-event-slot{height:16px}
  html:not([data-theme="dark"]) .day-event{font-size:9px;line-height:14px;padding:1px 3px}
