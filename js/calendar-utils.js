@@ -31,6 +31,12 @@
   const shiftDay=(key,amount)=>{const d=new Date(`${key}T12:00:00`);d.setDate(d.getDate()+amount);return dateKey(d)};
   const sanitizeColor=value=>COLOR_KEYS.includes(value)?value:'forest';
   const holidayFor=key=>HOLIDAYS[Number(String(key).slice(0,4))]?.[key]||null;
+  const habitStartDay=habit=>{
+    if(habit?.schedule?.start_date)return habit.schedule.start_date;
+    if(!habit?.created_at)return'0000-01-01';
+    const d=new Date(habit.created_at);
+    return Number.isNaN(d.getTime())?String(habit.created_at).slice(0,10):dateKey(d);
+  };
 
   function fixedHabitRunsOn(day,schedule){
     const s=schedule||{type:'daily'};
@@ -48,27 +54,51 @@
     return [dateKey(monday),shiftDay(dateKey(monday),6)];
   }
 
-  function weeklyProgress(habit,day,checks){
+  function weeklyProgress(habit,day,checks,throughDay=null){
     const [start,end]=weekBounds(day);
-    const completed=(checks||[]).filter(c=>c.habit_id===habit.id&&c.completed&&c.day>=start&&c.day<=end).length;
+    const through=throughDay&&throughDay<end?throughDay:end;
+    const completed=(checks||[]).filter(c=>c.habit_id===habit.id&&c.completed&&c.day>=start&&c.day<=through).length;
     return{completed,target:Math.max(1,Number(habit.schedule?.count)||1)};
   }
 
-  function habitMarker(day,habits,checks){
-    const checkMap=new Map((checks||[]).filter(c=>c.day===day).map(c=>[c.habit_id,!!c.completed]));
-    const fixed=(habits||[]).filter(h=>fixedHabitRunsOn(day,h.schedule));
-    if(fixed.length)return fixed.every(h=>checkMap.get(h.id))?'complete':'pending';
-    const flexibleDone=(habits||[]).some(h=>h.schedule?.type==='weekly_n'&&checkMap.get(h.id));
-    return flexibleDone?'complete':'';
+  function habitRunsOn(day,habit,checks=[]){
+    if(day<habitStartDay(habit))return false;
+    if(habit.schedule?.type!=='weekly_n')return fixedHabitRunsOn(day,habit.schedule);
+    const checked=(checks||[]).some(c=>c.habit_id===habit.id&&c.day===day&&c.completed);
+    if(checked)return true;
+    const before=weeklyProgress(habit,day,checks,shiftDay(day,-1));
+    return before.completed<before.target;
   }
 
-  function buildEventLayout(events,gridStart,dayCount=42,maxVisible=3){
+  function habitMarker(day,habits,checks,today=dateKey(new Date())){
+    if(day>today)return'';
+    const checkMap=new Map((checks||[]).filter(c=>c.day===day).map(c=>[c.habit_id,!!c.completed]));
+    const due=(habits||[]).filter(h=>habitRunsOn(day,h,checks));
+    if(!due.length)return'';
+    if(due.every(h=>checkMap.get(h.id)))return'complete';
+    return day===today?'pending':'';
+  }
+
+  function holidayEvents(gridStart,dayCount=42){
+    const rows=[];
+    for(let i=0;i<dayCount;i++){
+      const day=shiftDay(gridStart,i),name=holidayFor(day);
+      if(name)rows.push({id:`holiday:${day}`,name,start_date:day,end_date:day,color_key:'rose',system:true,holiday:true});
+    }
+    return rows;
+  }
+
+  function eventDuration(event){
+    return Math.round((new Date(`${event.end_date}T12:00:00`)-new Date(`${event.start_date}T12:00:00`))/86400000)+1;
+  }
+
+  function buildEventLayout(events,gridStart,dayCount=42,maxVisible=2){
     const cells=new Map();
     for(let i=0;i<dayCount;i++)cells.set(shiftDay(gridStart,i),{slots:Array(maxVisible).fill(null),hidden:0});
     for(let week=0;week<dayCount;week+=7){
       const weekStart=shiftDay(gridStart,week),weekEnd=shiftDay(weekStart,6),laneEnds=[];
       const inWeek=(events||[]).filter(e=>e.start_date<=weekEnd&&e.end_date>=weekStart).sort((a,b)=>
-        String(a.start_date).localeCompare(String(b.start_date))||String(b.end_date).localeCompare(String(a.end_date))||String(a.id||a.name).localeCompare(String(b.id||b.name))
+        eventDuration(b)-eventDuration(a)||String(a.start_date).localeCompare(String(b.start_date))||String(a.id||a.name).localeCompare(String(b.id||b.name))
       );
       for(const event of inWeek){
         const segmentStart=event.start_date<weekStart?weekStart:event.start_date;
@@ -86,5 +116,5 @@
     return cells;
   }
 
-  global.HaruCalendar={COLOR_KEYS,HOLIDAYS,sanitizeColor,holidayFor,fixedHabitRunsOn,weekBounds,weeklyProgress,habitMarker,buildEventLayout,shiftDay};
+  global.HaruCalendar={COLOR_KEYS,HOLIDAYS,sanitizeColor,holidayFor,holidayEvents,fixedHabitRunsOn,habitStartDay,weekBounds,weeklyProgress,habitRunsOn,habitMarker,buildEventLayout,shiftDay};
 })(typeof window!=='undefined'?window:globalThis);
