@@ -58,6 +58,7 @@ assert.equal(Cal.holidayFor('2027-07-17'),'제헌절');
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const db=fs.readFileSync(new URL('../js/db.js',import.meta.url),'utf8');
 const app=fs.readFileSync(new URL('../js/app.js',import.meta.url),'utf8');
+const lightTheme=fs.readFileSync(new URL('../assets/light-theme.css',import.meta.url),'utf8');
 const migration=fs.readFileSync(new URL('../supabase/step9_calendar_upgrade.sql',import.meta.url),'utf8');
 assert.match(html,/name="eventColor"/);
 assert.match(html,/calendar-utils\.js/);
@@ -65,6 +66,9 @@ assert.match(db,/color_key:eventColor\(colorKey\)/);
 assert.match(app,/Cal\.buildEventLayout\(calendarItems,gridStart,42,2\)/);
 assert.match(app,/Cal\.habitRunsOn\(day,h,state\.habitChecks\)/);
 assert.doesNotMatch(app,/목표를 넘겨도 계속 체크할 수 있어요/,'weekly habits must stop appearing after the target is reached');
+assert.match(lightTheme,/\.day-number\{position:absolute;top:5px;left:5px;/,'calendar dates should stay in the top-left corner');
+assert.match(lightTheme,/\.day-habit-status\{top:8px;right:6px;bottom:auto;left:auto;[^}]*width:14px;height:14px/,'habit status should use a fixed top-right slot');
+assert.match(lightTheme,/\.day-habit-status\.complete\{width:14px;height:14px;font-size:8px/,'complete and pending habit states should keep the same compact size');
 assert.match(migration,/events_color_key_check/);
 
 console.log('calendar contract: PASS');
