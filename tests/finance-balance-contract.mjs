@@ -26,8 +26,10 @@ assert.equal(result.total,430000,'시작 잔액에 오늘까지의 전체 순흐
 const html=fs.readFileSync('index.html','utf8'),app=fs.readFileSync('js/app.js','utf8'),css=fs.readFileSync('assets/light-theme.css','utf8');
 assert.match(html,/<option>세금<\/option>/);
 assert.match(html,/<option value="balance">시작 잔액<\/option>/);
+assert.match(html,/id="financeBalance">₩0<\/strong><\/div><div class="money-card"><span>선택한 달 순흐름<\/span><strong id="financeNet"/);
 assert.match(app,/Finance\.currentBalance\(state\.finance,DB\.today\(\)\)\.total/);
 assert.match(app,/class="link-btn danger" data-delete-finance/);
 assert.match(css,/\.transaction-copy strong\{font-size:15px/);
+assert.match(css,/grid-template-areas:'copy amount' 'copy actions'/);
 
 console.log('finance balance contract: PASS');

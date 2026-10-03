@@ -202,7 +202,7 @@ html:not([data-theme="dark"]) .bottom-nav .quick-main{background:#32634f;color:#
  html:not([data-theme="dark"]) .square-intro h3{font-size:18px}
  html:not([data-theme="dark"]) .quick-grid{grid-template-columns:1fr 1fr}
 }
-@media(max-width:360px){html:not([data-theme="dark"]) :is(.two-col,.date-range,.finance-overview){grid-template-columns:1fr}html:not([data-theme="dark"]) .sync-state{font-size:11px}html:not([data-theme="dark"]) .more-grid span{font-size:13px}}
+@media(max-width:360px){html:not([data-theme="dark"]) :is(.two-col,.date-range){grid-template-columns:1fr}html:not([data-theme="dark"]) .sync-state{font-size:11px}html:not([data-theme="dark"]) .more-grid span{font-size:13px}}
 html.native-app:not([data-theme="dark"]) :is(.today-grid,.today-hero,.today-side){grid-template-columns:minmax(0,1fr)}
 html:not([data-theme="dark"]) :is(.file-row a,.vote-btn,.blocked-user strong,.publish-media-copy,.onboarding-step){font-size:13px}
 html:not([data-theme="dark"]) .feature-card .muted{font-size:12px!important}
@@ -276,6 +276,12 @@ html:not([data-theme="dark"]) .diary-filter-reset{min-height:46px;padding-inline
 html:not([data-theme="dark"]) .diary-search-summary{min-height:22px;margin:0 2px 9px;color:#69766f;font-size:11px;font-weight:650;text-align:right}
 @media(max-width:1050px){html:not([data-theme="dark"]) .diary-filters{grid-template-columns:minmax(0,1fr) minmax(130px,.7fr)}html:not([data-theme="dark"]) .diary-filter-keyword{grid-column:1/-1}}
 @media(max-width:420px){html:not([data-theme="dark"]) .diary-filters{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px;padding:12px}html:not([data-theme="dark"]) .diary-filter-keyword{grid-column:1/-1}html:not([data-theme="dark"]) .diary-filter-reset{width:100%}}
+
+@media(max-width:760px){
+ html:not([data-theme="dark"]) .finance-overview{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ html:not([data-theme="dark"]) .transaction{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:'copy amount' 'copy actions';column-gap:10px;row-gap:2px;padding:12px 0;align-items:center}
+ html:not([data-theme="dark"]) .transaction-actions{grid-area:actions;margin:0}
+}
 
 /* Shared 24px line icon family; original dark-theme glyphs are retained. */
 html:not([data-theme="dark"]) [data-go="today"]{--menu-icon:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.7%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m3%2010%209-7%209%207v10H3Z%20M9%2020v-7h6v7%22%2F%3E%3C%2Fsvg%3E")}
@@ -406,4 +412,11 @@ html:not([data-theme="dark"]) .today-grid .event-item>[data-move-event]{grid-col
  html:not([data-theme="dark"]) .today-grid .event-item>.check{grid-column:1;grid-row:1}
  html:not([data-theme="dark"]) .today-grid .event-item>.body{grid-column:2;grid-row:1}
  html:not([data-theme="dark"]) .today-grid .event-item>[data-move-event]{grid-column:3;grid-row:1;justify-self:end;padding:8px 3px}
+}
+
+/* Compact finance overview: balance/net first, income/expense second. */
+@media(max-width:760px){
+ html:not([data-theme="dark"]) .money-card{min-height:104px;padding:14px 13px}
+ html:not([data-theme="dark"]) .money-card span{font-size:12px;line-height:1.35}
+ html:not([data-theme="dark"]) .money-card strong{font-size:clamp(16px,4.8vw,20px);font-weight:650;line-height:1.25;letter-spacing:-.035em;overflow-wrap:normal;white-space:nowrap}
 }
