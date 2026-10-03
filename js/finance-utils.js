@@ -13,5 +13,17 @@
     return{starting,income,expense,total:starting+income-expense};
   }
 
-  global.HaruFinance={currentBalance};
+  const normalize=value=>String(value??'').trim().toLocaleLowerCase('ko-KR');
+
+  function filterRows(rows,filters={}){
+    const query=normalize(filters.query),date=String(filters.date||''),type=String(filters.type||''),category=String(filters.category||'');
+    return (rows||[]).filter(row=>{
+      if(date&&String(row.tx_date||'').slice(0,10)!==date)return false;
+      if(type&&String(row.tx_type||'')!==type)return false;
+      if(category&&String(row.category||'')!==category)return false;
+      return !query||normalize(row.title).includes(query);
+    }).sort((a,b)=>String(b.tx_date||'').localeCompare(String(a.tx_date||''))||String(b.created_at||'').localeCompare(String(a.created_at||'')));
+  }
+
+  global.HaruFinance={currentBalance,filterRows,normalize};
 })(typeof window!=='undefined'?window:globalThis);

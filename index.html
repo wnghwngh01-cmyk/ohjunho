@@ -9,8 +9,8 @@
   <title>하루를 담다</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./assets/styles.css?v=20261003-finance-compact-v2">
-  <link rel="stylesheet" href="./assets/light-theme.css?v=20261003-finance-compact-v2">
+  <link rel="stylesheet" href="./assets/styles.css?v=20261003-finance-search-v3">
+  <link rel="stylesheet" href="./assets/light-theme.css?v=20261003-finance-search-v3">
 </head>
 <body>
   <section id="authShell" class="auth-shell hidden">
@@ -177,6 +177,8 @@
           <div class="finance-overview"><div class="money-card primary"><span>현재 잔액</span><strong id="financeBalance">₩0</strong></div><div class="money-card"><span>선택한 달 순흐름</span><strong id="financeNet">₩0</strong></div><div class="money-card"><span>선택한 달 수입</span><strong id="financeIncome">₩0</strong></div><div class="money-card"><span>선택한 달 지출</span><strong id="financeExpense">₩0</strong></div></div>
           <details class="module-add"><summary>＋ 거래 또는 시작 잔액 기록</summary><div class="stack"><div class="two-col"><label class="field"><span>종류</span><select id="financeType"><option value="expense">지출</option><option value="income">수입</option><option value="balance">시작 잔액</option></select></label><label class="field"><span>날짜</span><input id="financeDate" type="date"></label></div><label class="field"><span>내용 / 시작 잔액 이름</span><input id="financeTitle" maxlength="120" placeholder="예: 점심 / 국민은행"></label><label class="field"><span>금액</span><input id="financeAmount" inputmode="numeric" placeholder="0"></label><label class="field"><span>분류</span><select id="financeCategory"><option>식비</option><option>교통</option><option>쇼핑</option><option>생활</option><option>교육</option><option>세금</option><option>급여</option><option>용돈</option><option>기타</option></select></label><button id="financeAdd" class="btn primary">저장</button></div></details>
           <div id="financeCategorySummary" class="finance-category-summary"></div>
+          <section class="finance-filters" aria-label="가계부 기록 검색"><label class="finance-filter finance-filter-name"><span>이름</span><input id="financeSearchName" type="search" placeholder="내용이나 잔액 이름 검색" autocomplete="off"></label><label class="finance-filter"><span>날짜</span><input id="financeSearchDate" type="date"></label><label class="finance-filter"><span>종류</span><select id="financeSearchType"><option value="">모든 종류</option><option value="income">수입</option><option value="expense">지출</option><option value="balance">시작 잔액</option></select></label><label class="finance-filter"><span>분류</span><select id="financeSearchCategory"><option value="">모든 분류</option><option>식비</option><option>교통</option><option>쇼핑</option><option>생활</option><option>교육</option><option>세금</option><option>급여</option><option>용돈</option><option>기타</option><option>시작 잔액</option></select></label><button id="financeSearchReset" class="btn secondary finance-filter-reset" type="button">초기화</button></section>
+          <p id="financeSearchSummary" class="finance-search-summary" aria-live="polite"></p>
           <div id="transactionList" class="transaction-list"></div>
         </section>
       </section>
@@ -290,8 +292,8 @@
   <script src="./js/telemetry.js?v=20260920-error-logs-v1"></script>
   <script src="./js/calendar-utils.js?v=20261002-calendar-history-v1"></script>
   <script src="./js/diary-utils.js?v=20261002-diary-search-v1"></script>
-  <script src="./js/finance-utils.js?v=20261003-finance-balance-v1"></script>
-  <script src="./js/app.js?v=20261003-finance-compact-v2"></script>
+  <script src="./js/finance-utils.js?v=20261003-finance-search-v3"></script>
+  <script src="./js/app.js?v=20261003-finance-search-v3"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>

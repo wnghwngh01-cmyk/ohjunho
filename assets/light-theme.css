@@ -277,6 +277,16 @@ html:not([data-theme="dark"]) .diary-search-summary{min-height:22px;margin:0 2px
 @media(max-width:1050px){html:not([data-theme="dark"]) .diary-filters{grid-template-columns:minmax(0,1fr) minmax(130px,.7fr)}html:not([data-theme="dark"]) .diary-filter-keyword{grid-column:1/-1}}
 @media(max-width:420px){html:not([data-theme="dark"]) .diary-filters{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px;padding:12px}html:not([data-theme="dark"]) .diary-filter-keyword{grid-column:1/-1}html:not([data-theme="dark"]) .diary-filter-reset{width:100%}}
 
+html:not([data-theme="dark"]) .finance-filters{display:grid;grid-template-columns:minmax(180px,1fr) minmax(145px,.72fr) minmax(130px,.58fr) minmax(130px,.58fr) auto;gap:10px;align-items:end;padding:14px;margin-bottom:7px;border:1px solid #dce4de;border-radius:16px;background:#f8faf8}
+html:not([data-theme="dark"]) .finance-filter{display:grid;gap:6px;min-width:0}
+html:not([data-theme="dark"]) .finance-filter>span{font-size:11px;font-weight:750;color:#596760}
+html:not([data-theme="dark"]) :is(.finance-filter input,.finance-filter select){width:100%;min-width:0;min-height:46px;padding:10px 12px;border:1px solid #cdd7cf;border-radius:12px;background:#fff;color:var(--ink);font:inherit;font-size:15px;outline:none}
+html:not([data-theme="dark"]) :is(.finance-filter input,.finance-filter select):focus{border-color:#587565;box-shadow:0 0 0 3px rgba(76,112,91,.12)}
+html:not([data-theme="dark"]) .finance-filter-reset{min-height:46px;padding-inline:15px}
+html:not([data-theme="dark"]) .finance-search-summary{min-height:22px;margin:0 2px 9px;color:#69766f;font-size:11px;font-weight:650;text-align:right}
+@media(max-width:1050px){html:not([data-theme="dark"]) .finance-filters{grid-template-columns:repeat(2,minmax(0,1fr))}html:not([data-theme="dark"]) .finance-filter-name{grid-column:1/-1}}
+@media(max-width:420px){html:not([data-theme="dark"]) .finance-filters{gap:9px;padding:12px}html:not([data-theme="dark"]) .finance-filter-reset{width:100%}}
+
 @media(max-width:760px){
  html:not([data-theme="dark"]) .finance-overview{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
  html:not([data-theme="dark"]) .transaction{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:'copy amount' 'copy actions';column-gap:10px;row-gap:2px;padding:12px 0;align-items:center}
