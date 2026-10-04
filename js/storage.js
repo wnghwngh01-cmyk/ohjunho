@@ -49,6 +49,24 @@
       throw e;
     }
   })}
+  async function uploadIdeaImages(ideaId,files,startOrder=0){return singleFlight(`idea:${ideaId}`,async()=>{
+    const arr=[...files];if(arr.length>cfg.RECORD_IMAGE_LIMIT)throw new Error(`사진은 최대 ${cfg.RECORD_IMAGE_LIMIT}장까지 첨부할 수 있습니다.`);
+    const saved=[],uploaded=[];
+    try{
+      for(let i=0;i<arr.length;i++){
+        const f=await optimizeImage(arr[i]),meta=await uploadPrivate(f,'ideas');uploaded.push(meta.path);
+        const row=await db().addIdeaMedia({idea_id:ideaId,storage_path:meta.path,original_name:arr[i].name,mime_type:meta.type,size_bytes:meta.size,sort_order:startOrder+i});saved.push(row);
+      }
+      return saved;
+    }catch(e){
+      const removable=new Set(uploaded);
+      for(const m of saved){
+        try{await db().removeIdeaMedia(m.id)}catch{removable.delete(m.storage_path)}
+      }
+      if(removable.size)await removePrivatePaths([...removable]).catch(()=>{});
+      throw e;
+    }
+  })}
   async function removeRecordMedia(media){if(!media)return;await db().removeRecordMedia(media.id);const {error}=await client().storage.from(cfg.PRIVATE_BUCKET).remove([media.storage_path]);if(error)throw new Error(`사진 정보는 삭제됐지만 파일 정리에 실패했습니다: ${error.message}`)}
   async function removePrivatePaths(paths){const clean=[...new Set((paths||[]).filter(Boolean))];if(!clean.length)return;const {error}=await client().storage.from(cfg.PRIVATE_BUCKET).remove(clean);if(error)throw new Error(`파일 정리: ${error.message}`)}
   async function signedPrivate(path,seconds=3600){if(!path)return '';const {data,error}=await client().storage.from(cfg.PRIVATE_BUCKET).createSignedUrl(path,seconds);if(error)throw new Error(`파일 열기: ${error.message}`);return data?.signedUrl||''}
@@ -81,5 +99,5 @@
     }
   })}
 
-  window.LabStorage={safeName,optimizeImage,uploadPrivate,uploadRecordImages,removeRecordMedia,removePrivatePaths,signedPrivate,signedRecordMedia,downloadPrivate,copyPrivateToPublic,publicUrl,removePublic,uploadWorkFile,uploadProjectFiles};
+  window.LabStorage={safeName,optimizeImage,uploadPrivate,uploadRecordImages,uploadIdeaImages,removeRecordMedia,removePrivatePaths,signedPrivate,signedRecordMedia,downloadPrivate,copyPrivateToPublic,publicUrl,removePublic,uploadWorkFile,uploadProjectFiles};
 })();

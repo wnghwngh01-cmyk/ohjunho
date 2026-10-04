@@ -11,9 +11,12 @@ for(const name of ['toggleFollow','toggleLike','comments','addComment','deleteCo
   if(!db.includes(`function ${name}(`))throw new Error(`Missing community DB operation: ${name}`);
 }
 
-for(const id of ['squareTabs','squareCategories','squareFeed','communityPostBody','communityPostSubmit','featureList','featureSubmit','securitySubmit','reportSubmit']){
+for(const id of ['squareTabs','squareCategories','squareFeed','communityPostBody','communityPostSubmit','featureList','featureSubmit','bugSubmit','reportSubmit']){
   if(!html.includes(`id="${id}"`))throw new Error(`Missing community UI control: ${id}`);
 }
+for(const retiredId of ['securityReportOpen','securitySubmit','securityModal'])if(html.includes(`id="${retiredId}"`))throw new Error(`Retired security report UI remains: ${retiredId}`);
+if(!html.includes('더보기 &gt; 버그 제보'))throw new Error('App-improvement page must direct sensitive bugs to Bug Report');
+if(!html.includes('보안상 민감한 버그도 이곳에서 알려 주세요.'))throw new Error('Bug Report page is missing the security-report guidance');
 
 for(const action of ['data-follow','data-like','data-comments','data-reply-comment','data-submit-comment','data-report-type','data-block-user','data-vote']){
   if(!app.includes(action))throw new Error(`Missing community action wiring: ${action}`);
