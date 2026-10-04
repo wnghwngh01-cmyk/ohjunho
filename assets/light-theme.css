@@ -111,10 +111,6 @@ html:not([data-theme="dark"]) .transaction-copy small{margin-top:3px;font-size:1
 html:not([data-theme="dark"]) .transaction-actions{display:flex;align-items:center;justify-content:flex-end;gap:4px}
 html:not([data-theme="dark"]) .transaction-actions button{font-size:13px;font-weight:700;line-height:1;min-height:40px;min-width:44px;padding:8px;color:#556c5d}
 html:not([data-theme="dark"]) .transaction-actions .danger{color:#a34f4f}
-html:not([data-theme="dark"]) .square-intro{background:#edf2e9;padding:24px;border-color:#dce5d7;gap:16px}
-html:not([data-theme="dark"]) .square-intro h3{font-family:inherit;font-size:20px;line-height:1.5;font-weight:700}
-html:not([data-theme="dark"]) .square-intro p{font-size:14px;color:#5d6d59;line-height:1.75}
-html:not([data-theme="dark"]) .square-intro .symbol{background:#dfe9d8;flex-shrink:0;color:#4e704b}
 html:not([data-theme="dark"]) :is(.square-tab,.square-categories button,.module-tab){font-size:14px;font-weight:700;min-height:44px;padding:10px 16px}
 html:not([data-theme="dark"]) :is(.square-tab.active,.square-categories button.active,.module-tab.active){background:var(--accent);border-color:var(--accent);color:#fff}
 html:not([data-theme="dark"]) .pub-body{padding:22px}
@@ -122,6 +118,7 @@ html:not([data-theme="dark"]) .pub-author strong{font-size:14px}
 html:not([data-theme="dark"]) .pub-author span{font-size:12px;color:var(--muted)}
 html:not([data-theme="dark"]) .pub-actions{flex-wrap:wrap;gap:4px}
 html:not([data-theme="dark"]) .pub-actions button{font-size:13px;min-height:44px;padding:9px}
+html:not([data-theme="dark"]) .pub-actions :is(.share-button,.unpublish-button,.moderation-btn){font-weight:750}
 html:not([data-theme="dark"]) .comment-copy strong{font-size:13px}
 html:not([data-theme="dark"]) .comment-copy>span{font-size:12px}
 html:not([data-theme="dark"]) .comment-copy p{font-size:14px!important;line-height:1.75}
@@ -198,8 +195,6 @@ html:not([data-theme="dark"]) .bottom-nav .quick-main{background:#32634f;color:#
  html:not([data-theme="dark"]) .more-grid button{min-height:104px}
  html:not([data-theme="dark"]) .modal{padding:24px 20px calc(24px + var(--safe-bottom));border-radius:22px 22px 0 0}
  html:not([data-theme="dark"]) .pub-body{padding:20px}
- html:not([data-theme="dark"]) .square-intro{padding:20px}
- html:not([data-theme="dark"]) .square-intro h3{font-size:18px}
  html:not([data-theme="dark"]) .quick-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:360px){html:not([data-theme="dark"]) :is(.two-col,.date-range){grid-template-columns:1fr}html:not([data-theme="dark"]) .sync-state{font-size:11px}html:not([data-theme="dark"]) .more-grid span{font-size:13px}}
@@ -336,7 +331,7 @@ html:not([data-theme="dark"]) :is(.brand h1,.brand h2,.brand strong,.modal h2,.m
 }
 
 /* Restore the original serif accents and light-theme Today hero. */
-html:not([data-theme="dark"]) :is(.page-head h1,.greeting h2,.daily-note blockquote,.square-intro h3,.auth-story h1,.onboarding-card h1,.onboarding-preview strong,.static-wrap h1,.public-hero h1){font-family:Georgia,'NanumMyeongjo',serif;font-weight:400;letter-spacing:-.035em}
+html:not([data-theme="dark"]) :is(.page-head h1,.greeting h2,.daily-note blockquote,.auth-story h1,.onboarding-card h1,.onboarding-preview strong,.static-wrap h1,.public-hero h1){font-family:Georgia,'NanumMyeongjo',serif;font-weight:400;letter-spacing:-.035em}
 html:not([data-theme="dark"]) .page-head h1{font-size:32px;line-height:1.3}
 html:not([data-theme="dark"]) .greeting{background:linear-gradient(145deg,#25362f,#3e5148);border-color:#3e5148;color:#fff;padding:30px;min-height:300px}
 html:not([data-theme="dark"]) .greeting:after{display:block;pointer-events:none}
@@ -348,7 +343,6 @@ html:not([data-theme="dark"]) .hero-focus-line{grid-template-columns:110px minma
 html:not([data-theme="dark"]) .hero-focus-line>span{font-size:11px;letter-spacing:.04em;color:#c6d2cb;font-weight:700}
 html:not([data-theme="dark"]) .hero-focus-line>strong{font-size:14px;line-height:1.6;font-weight:650;color:#fff}
 html:not([data-theme="dark"]) .daily-note blockquote{font-size:20px;line-height:1.75}
-html:not([data-theme="dark"]) .square-intro h3{font-size:25px;line-height:1.45}
 html:not([data-theme="dark"]) :is(.field>span,.field>label,.link-btn,.nav-btn,.chip){font-weight:600}
 html:not([data-theme="dark"]) .money-card strong{font-size:23px;font-weight:650}
 @media(max-width:760px){

@@ -77,6 +77,12 @@
     const path=uniquePath(`public/${kind}`,originalName||'shared-file'),contentType=blob.type||'application/octet-stream';
     const {error}=await client().storage.from(cfg.PUBLIC_BUCKET).upload(path,blob,{upsert:false,cacheControl:'3600',contentType});if(error)throw new Error(`공개 사본 업로드: ${error.message}`);return path;
   }
+  async function uploadProfileImage(file){
+    const optimized=await optimizeImage(file);if(!optimized)return null;
+    const path=uniquePath('public/profile',optimized.name),contentType=optimized.type||'image/webp';
+    const {error}=await client().storage.from(cfg.PUBLIC_BUCKET).upload(path,optimized,{upsert:false,cacheControl:'3600',contentType});
+    if(error)throw new Error(`프로필 사진 업로드: ${error.message}`);return path;
+  }
   function publicUrl(path){if(!path)return '';return client().storage.from(cfg.PUBLIC_BUCKET).getPublicUrl(path).data.publicUrl||''}
   async function removePublic(path){if(!path)return;const {error}=await client().storage.from(cfg.PUBLIC_BUCKET).remove([path]);if(error)throw new Error(`공개 사본 삭제: ${error.message}`)}
   async function uploadWorkFile(file){if(!file)return null;return uploadPrivate(file,'works')}
@@ -99,5 +105,5 @@
     }
   })}
 
-  window.LabStorage={safeName,optimizeImage,uploadPrivate,uploadRecordImages,uploadIdeaImages,removeRecordMedia,removePrivatePaths,signedPrivate,signedRecordMedia,downloadPrivate,copyPrivateToPublic,publicUrl,removePublic,uploadWorkFile,uploadProjectFiles};
+  window.LabStorage={safeName,optimizeImage,uploadPrivate,uploadRecordImages,uploadIdeaImages,removeRecordMedia,removePrivatePaths,signedPrivate,signedRecordMedia,downloadPrivate,copyPrivateToPublic,uploadProfileImage,publicUrl,removePublic,uploadWorkFile,uploadProjectFiles};
 })();

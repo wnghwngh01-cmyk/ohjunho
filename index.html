@@ -9,8 +9,8 @@
   <title>하루를 담다</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./assets/styles.css?v=20261004-square-gallery-v1">
-  <link rel="stylesheet" href="./assets/light-theme.css?v=20261003-finance-search-v3">
+  <link rel="stylesheet" href="./assets/styles.css?v=20261004-square-intro-remove-v1">
+  <link rel="stylesheet" href="./assets/light-theme.css?v=20261004-square-intro-remove-v1">
 </head>
 <body>
   <section id="authShell" class="auth-shell hidden">
@@ -109,7 +109,7 @@
           <section class="greeting">
             <small id="todayDate">TODAY</small>
             <h2 id="greetingTitle">오늘의 하루</h2>
-            <p>오늘의 일정과 할 일을 챙기고, 하루의 기록을 차곡차곡 담아보세요.</p>
+            <p>일정과 할 일, 습관과 기록을 한곳에서 챙기며 오늘을 차분히 이어가세요.</p>
             <div class="hero-focus">
               <div class="hero-focus-line"><span>FINAL GOAL</span><strong id="todayFinalGoal">아직 최종 목표가 없습니다.</strong></div>
               <div class="hero-focus-line"><span>MONTHLY FOCUS</span><strong id="todayMonthlyGoal">이번 달 목표를 정해보세요.</strong></div>
@@ -127,7 +127,7 @@
       </section>
 
       <section id="page-records" class="page" data-page="records">
-        <div class="page-head"><div><p class="eyebrow">PRIVATE NOTES</p><h1>기록</h1><p>형식 없이 떠오르는 내용을 자유롭게 남깁니다.</p></div><div class="head-actions"><button id="recordNewBtn" class="btn primary">새 기록</button></div></div>
+        <div class="page-head"><div><p class="eyebrow">PRIVATE NOTES</p><h1>기록</h1><p>스쳐 가는 생각과 기억을 형식 없이 편하게 남겨보세요.</p></div><div class="head-actions"><button id="recordNewBtn" class="btn primary">새 기록</button></div></div>
         <div class="record-layout">
           <aside class="composer" id="recordComposer">
             <div class="row"><h3 id="recordComposerTitle">새 기록</h3><span class="spacer"></span><button id="recordCancelEdit" class="link-btn hidden">편집 취소</button></div>
@@ -148,16 +148,16 @@
       </section>
 
       <section id="page-calendar" class="page wide" data-page="calendar">
-        <div class="page-head"><div><p class="eyebrow">TIME MANAGEMENT</p><h1>캘린더</h1><p>일정과 중요한 날짜, 습관을 한눈에 확인하세요.</p></div><div class="head-actions"><button id="calPrev" class="btn secondary small">‹ 이전</button><button id="calToday" class="btn secondary small">오늘</button><button id="calNext" class="btn secondary small">다음 ›</button></div></div>
+        <div class="page-head"><div><p class="eyebrow">TIME MANAGEMENT</p><h1>캘린더</h1><p>일정과 중요한 날, 습관의 흐름을 달력에서 한눈에 살펴보세요.</p></div><div class="head-actions"><button id="calPrev" class="btn secondary small">‹ 이전</button><button id="calToday" class="btn secondary small">오늘</button><button id="calNext" class="btn secondary small">다음 ›</button></div></div>
         <div class="calendar-shell">
           <section class="calendar-card"><div class="month-head"><button id="calPrevMobile" class="icon-btn">‹</button><h3 id="calendarMonth">2026년 9월</h3><button id="calNextMobile" class="icon-btn">›</button></div><div class="week"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div><div id="calendarDays" class="days"></div></section>
           <aside class="day-detail"><h3 id="selectedDayTitle">오늘</h3><div id="selectedHoliday" class="selected-holiday hidden"></div><div id="selectedEvents"></div><div class="section-label">일정 추가</div><div class="stack"><label class="field"><span>일정</span><input id="eventName" placeholder="예: 헬스 19:00 / 과제 제출"></label><div class="date-range"><label class="field"><span>시작일</span><input id="eventStart" type="date"></label><label class="field"><span>종료일</span><input id="eventEnd" type="date"></label></div><fieldset class="event-color-field"><legend>일정 색상</legend><div id="eventColorPicker" class="event-color-picker"><label title="초록"><input type="radio" name="eventColor" value="forest" checked><span class="color-swatch color-forest"></span></label><label title="연두"><input type="radio" name="eventColor" value="sage"><span class="color-swatch color-sage"></span></label><label title="파랑"><input type="radio" name="eventColor" value="blue"><span class="color-swatch color-blue"></span></label><label title="주황"><input type="radio" name="eventColor" value="amber"><span class="color-swatch color-amber"></span></label><label title="분홍"><input type="radio" name="eventColor" value="rose"><span class="color-swatch color-rose"></span></label><label title="보라"><input type="radio" name="eventColor" value="violet"><span class="color-swatch color-violet"></span></label></div></fieldset><label class="consent compact"><input id="eventImportant" type="checkbox"><span>중요한 날짜로 표시하고 D-Day 보기</span></label><div class="row"><button id="eventAdd" class="btn primary">일정 추가</button><button id="eventCancel" class="btn ghost hidden" type="button">취소</button></div></div><div class="checklist-section"><div class="section-label">선택한 날짜의 습관 체크리스트</div><div id="selectedHabits" class="list"></div></div><details class="module-add habit-settings"><summary>체크리스트 항목 설정</summary><div id="habitTemplateList" class="stack"></div><div class="stack"><input id="habitNewName" class="input" placeholder="예: 운동하기"><div class="two-col"><label class="field"><span>반복</span><select id="habitSchedule"><option value="daily">매일</option><option value="weekdays">평일</option><option value="selected_weekdays">요일 선택</option><option value="weekly_n">주 N회</option></select></label><label id="habitWeeklyCountWrap" class="field hidden"><span>목표 횟수</span><input id="habitWeeklyCount" type="number" min="1" max="7" value="3"></label></div><div class="row"><button id="habitAdd" class="btn secondary small">추가</button><button id="habitCancel" class="btn ghost small hidden" type="button">취소</button></div></div></details></aside>
         </div>
       </section>
 
-      <section id="page-personal" class="page wide" data-page="personal"><div class="page-head"><div><p class="eyebrow">MY MONEY</p><h1>가계부</h1><p>수입과 지출을 기록하고 월별 흐름을 확인합니다.</p></div></div><div id="personalFinanceHost"></div></section>
+      <section id="page-personal" class="page wide" data-page="personal"><div class="page-head"><div><p class="eyebrow">MY MONEY</p><h1>가계부</h1><p>수입과 지출을 기록하고 현재 잔액과 월별 흐름을 확인해보세요.</p></div></div><div id="personalFinanceHost"></div></section>
       <section id="page-lab" class="page wide" data-page="lab">
-        <div class="page-head"><div><p class="eyebrow">IDEA NOTE</p><h1>아이디어</h1><p>떠오른 생각을 부담 없이 짧게 저장하는 공간입니다.</p></div></div>
+        <div class="page-head"><div><p class="eyebrow">IDEA NOTE</p><h1>아이디어</h1><p>문득 떠오른 생각을 사진과 함께 저장하고 다시 발전시켜보세요.</p></div></div>
         <label class="searchbox lab-search"><span class="sr-only">아이디어 검색</span><input id="labSearch" placeholder="아이디어 검색"></label><div class="module-tabs hidden" id="labTabs"><button class="module-tab" data-module="all">전체</button><button class="module-tab" data-module="projects">프로젝트</button><button class="module-tab active" data-module="ideas">아이디어</button><button class="module-tab" data-module="works">작업물</button><button class="module-tab hidden" data-module="finance">가계부</button></div>
         <section id="module-all" class="module-pane hidden"><div id="labSearchResults" class="lab-grid"></div></section>
         <section id="module-projects" class="module-pane hidden">
@@ -184,26 +184,26 @@
       </section>
 
       <section id="page-diary" class="page" data-page="diary">
-        <div class="page-head"><div><p class="eyebrow">DAILY DIARY</p><h1>일기</h1><p>하루의 기분과 이야기를 날짜별로 남깁니다.</p></div></div>
+        <div class="page-head"><div><p class="eyebrow">DAILY DIARY</p><h1>일기</h1><p>오늘의 기분과 이야기를 날짜별로 기록하고 지난 하루를 찾아보세요.</p></div></div>
         <div class="simple-layout"><aside class="card simple-form"><div class="stack"><label class="field"><span>날짜</span><input id="diaryDate" type="date"></label><label class="field"><span>기분</span><select id="diaryMood"><option value="">선택 안 함</option><option>🙂 좋음</option><option>😌 평온</option><option>😐 보통</option><option>😔 슬픔</option><option>😤 힘듦</option></select></label><label class="field"><span>오늘의 제목</span><input id="diaryTitle" maxlength="120" placeholder="오늘을 한 줄로"></label><label class="field"><span>내용</span><textarea id="diaryBody" maxlength="12000" placeholder="오늘 있었던 일을 적어보세요."></textarea></label><label class="photo-picker">사진 추가 · 최대 6장<input id="diaryImages" type="file" accept="image/jpeg,image/png,image/webp" multiple></label><div id="diaryPhotoPreview" class="photo-preview"></div><div class="row"><span id="diaryDraftState" class="autosave">임시저장 준비</span><span class="spacer"></span><button id="diaryCancel" class="btn ghost small hidden">취소</button><button id="diarySave" class="btn primary">일기 저장</button></div></div></aside><div class="diary-browser"><section class="diary-filters" aria-label="일기 검색"><label class="diary-filter diary-filter-keyword"><span>제목·내용</span><input id="diarySearch" type="search" placeholder="제목이나 내용 검색" autocomplete="off"></label><label class="diary-filter"><span>날짜</span><input id="diarySearchDate" type="date"></label><label class="diary-filter"><span>기분</span><select id="diarySearchMood"><option value="">모든 기분</option><option>🙂 좋음</option><option>😌 평온</option><option>😐 보통</option><option>😔 슬픔</option><option>😤 힘듦</option></select></label><button id="diarySearchReset" class="btn secondary diary-filter-reset" type="button">초기화</button></section><p id="diarySearchSummary" class="diary-search-summary" aria-live="polite"></p><div id="diaryList" class="record-list"></div></div></div>
       </section>
 
       <section id="page-books" class="page" data-page="books">
-        <div class="page-head"><div><p class="eyebrow">READING LOG</p><h1>독서록</h1><p>읽고 싶은 책부터 완독한 책까지 한곳에 정리합니다.</p></div></div>
+        <div class="page-head"><div><p class="eyebrow">READING LOG</p><h1>독서록</h1><p>읽고 싶은 책부터 완독한 책까지 감상과 함께 차곡차곡 정리해보세요.</p></div></div>
         <div class="simple-layout"><aside class="card simple-form"><div class="stack"><label class="field"><span>책 제목</span><input id="bookTitle" maxlength="120"></label><label class="field"><span>저자</span><input id="bookAuthor" maxlength="100"></label><div class="two-col"><label class="field"><span>상태</span><select id="bookStatus"><option>읽고 싶음</option><option>읽는 중</option><option>완독</option><option>중단</option></select></label><label class="field"><span>평점 · 선택</span><select id="bookRating"><option value="">없음</option><option value="1">★</option><option value="2">★★</option><option value="3">★★★</option><option value="4">★★★★</option><option value="5">★★★★★</option></select></label></div><label class="field"><span>감상과 기억할 문장</span><textarea id="bookNote" maxlength="10000"></textarea></label><div class="row"><button id="bookSave" class="btn primary">독서록 저장</button><button id="bookCancel" class="btn ghost hidden">취소</button></div></div></aside><div><label class="searchbox"><span class="sr-only">독서록 검색</span><input id="bookSearch" placeholder="책 제목, 저자, 감상 검색"></label><div id="bookList" class="record-list spaced-list"></div></div></div>
       </section>
 
       <section id="page-search" class="page" data-page="search">
-        <div class="page-head"><div><p class="eyebrow">SEARCH</p><h1>통합 검색</h1><p>내 일정과 기록, 일기, 독서록, 아이디어를 함께 찾습니다.</p></div></div>
+        <div class="page-head"><div><p class="eyebrow">SEARCH</p><h1>통합 검색</h1><p>일정과 기록, 일기, 독서록, 아이디어를 한 번에 찾아보세요.</p></div></div>
         <label class="searchbox global-search"><span class="sr-only">전체 검색</span><input id="globalSearch" placeholder="찾고 싶은 내용을 입력하세요"></label><div id="globalSearchResults" class="record-list"></div>
       </section>
 
       <section id="page-notifications" class="page" data-page="notifications">
-        <div class="page-head"><div><p class="eyebrow">NOTIFICATIONS</p><h1>알림함</h1><p>일정과 할 일, 광장 소식을 확인합니다.</p></div><button id="notificationReadAll" class="btn secondary small">모두 읽음</button></div><div id="notificationList" class="record-list"></div>
+        <div class="page-head"><div><p class="eyebrow">NOTIFICATIONS</p><h1>알림함</h1><p>다가오는 일정과 할 일, 광장의 새로운 소식을 모아 확인해보세요.</p></div><button id="notificationReadAll" class="btn secondary small">모두 읽음</button></div><div id="notificationList" class="record-list"></div>
       </section>
 
       <section id="page-goals" class="page" data-page="goals">
-        <div class="page-head"><div><p class="eyebrow">MY GOALS</p><h1>목표 설정</h1><p>오래 바라볼 목표와 이번 달에 실천할 일을 정합니다.</p></div></div>
+        <div class="page-head"><div><p class="eyebrow">MY GOALS</p><h1>목표 설정</h1><p>오래 바라볼 목표와 이번 달에 실천할 일을 구체적으로 정해보세요.</p></div></div>
         <section class="card narrow-card"><div class="stack">
           <h3>최종 목표</h3>
           <label class="field"><span>이루고 싶은 목표</span><input id="finalGoalInput" maxlength="200" placeholder="예: 내가 원하는 분야의 전문가가 되기"></label>
@@ -217,22 +217,21 @@
       </section>
 
       <section id="page-bug" class="page" data-page="bug">
-        <div class="page-head"><div><p class="eyebrow">BUG REPORT</p><h1>버그 제보</h1><p>불편했던 상황을 알려주면 개선에 반영할 수 있습니다.</p></div></div><section class="card narrow-card"><div class="security-note bug-security-note"><strong>보안상 민감한 버그도 이곳에서 알려 주세요.</strong><span>인증정보·비밀번호·개인정보는 적지 말고, 문제가 발생한 화면과 재현 순서만 작성해 주세요.</span></div><div class="stack"><label class="field"><span>문제가 발생한 화면</span><select id="bugScreen"><option>오늘</option><option>캘린더</option><option>일기</option><option>가계부</option><option>기록</option><option>독서록</option><option>아이디어</option><option>광장</option><option>기타</option></select></label><label class="field"><span>문제 제목</span><input id="bugTitle" maxlength="120"></label><label class="field"><span>문제와 재현 방법</span><textarea id="bugBody" maxlength="3000" placeholder="어떤 행동을 했을 때 무엇이 잘못됐는지 적어주세요."></textarea></label><button id="bugSubmit" class="btn primary">제보 보내기</button></div></section>
+        <div class="page-head"><div><p class="eyebrow">BUG REPORT</p><h1>버그 제보</h1><p>문제가 생긴 화면과 과정을 남겨주면 더 나은 사용 경험으로 고쳐갑니다.</p></div></div><section class="card narrow-card"><div class="security-note bug-security-note"><strong>보안상 민감한 버그도 이곳에서 알려 주세요.</strong><span>인증정보·비밀번호·개인정보는 적지 말고, 문제가 발생한 화면과 재현 순서만 작성해 주세요.</span></div><div class="stack"><label class="field"><span>문제가 발생한 화면</span><select id="bugScreen"><option>오늘</option><option>캘린더</option><option>일기</option><option>가계부</option><option>기록</option><option>독서록</option><option>아이디어</option><option>광장</option><option>기타</option></select></label><label class="field"><span>문제 제목</span><input id="bugTitle" maxlength="120"></label><label class="field"><span>문제와 재현 방법</span><textarea id="bugBody" maxlength="3000" placeholder="어떤 행동을 했을 때 무엇이 잘못됐는지 적어주세요."></textarea></label><button id="bugSubmit" class="btn primary">제보 보내기</button></div></section>
       </section>
 
       <section id="page-support" class="page" data-page="support">
-        <div class="page-head"><div><p class="eyebrow">SUPPORT</p><h1>후원</h1><p>앱이 오래 유지되고 개선될 수 있도록 응원할 수 있습니다.</p></div></div><section class="card narrow-card"><h3>개발 응원하기</h3><p class="muted-copy">후원 여부와 관계없이 모든 사용자는 같은 기능을 이용합니다. 결제는 Google Play 출시 준비가 끝난 뒤 안전하게 연결합니다.</p><div class="support-options"><button data-support-amount="1000">₩1,000</button><button data-support-amount="3000">₩3,000</button><button data-support-amount="5000">₩5,000</button></div><button id="supportContinue" class="btn primary" disabled>금액을 선택해 주세요</button></section>
+        <div class="page-head"><div><p class="eyebrow">SUPPORT</p><h1>후원</h1><p>보내주신 응원은 앱을 오래 유지하고 더 나은 기능을 만드는 힘이 됩니다.</p></div></div><section class="card narrow-card"><h3>개발 응원하기</h3><p class="muted-copy">후원 여부와 관계없이 모든 사용자는 같은 기능을 이용합니다. 결제는 Google Play 출시 준비가 끝난 뒤 안전하게 연결합니다.</p><div class="support-options"><button data-support-amount="1000">₩1,000</button><button data-support-amount="3000">₩3,000</button><button data-support-amount="5000">₩5,000</button></div><button id="supportContinue" class="btn primary" disabled>금액을 선택해 주세요</button></section>
       </section>
 
       <section id="page-more" class="page" data-page="more">
-        <div class="page-head"><div><p class="eyebrow">ALL MENU</p><h1>더보기</h1><p>앱의 모든 기능으로 이동합니다.</p></div></div><div class="more-grid">
+        <div class="page-head"><div><p class="eyebrow">ALL MENU</p><h1>더보기</h1><p>기록과 관리에 필요한 모든 기능을 한곳에서 빠르게 찾아보세요.</p></div></div><div class="more-grid">
           <button data-go="today"><b>⌂</b><span>오늘</span></button><button data-go="calendar"><b>□</b><span>캘린더</span></button><button data-go="diary"><b>✎</b><span>일기</span></button><button data-go="personal"><b>₩</b><span>가계부</span></button><button data-go="records"><b>▤</b><span>기록</span></button><button data-go="books"><b>▣</b><span>독서록</span></button><button data-go="lab"><b>◇</b><span>아이디어</span></button><button data-go="goals"><b>◎</b><span>목표 설정</span></button><button data-go="square"><b>◉</b><span>광장</span></button><button data-go="search"><b>⌕</b><span>통합 검색</span></button><button data-go="bug"><b>!</b><span>버그 제보</span></button><button data-go="support"><b>♥</b><span>후원</span></button><button data-go="settings"><b>⚙</b><span>설정</span></button>
         </div>
       </section>
 
       <section id="page-square" class="page" data-page="square">
-        <div class="page-head"><div><p class="eyebrow">OPTIONAL COMMUNITY</p><h1>광장</h1><p>내 하루 공간이 먼저입니다. 여기에는 사용자가 직접 공유한 내용만 나타납니다.</p></div></div>
-        <section class="square-intro"><div class="symbol">◎</div><div><h3>서로의 하루와 생각을 가볍게 나누는 곳</h3><p>좋아요와 팔로우는 일상의 연결을 돕되, 숫자가 사용의 중심이 되지 않도록 작게 다룹니다.</p></div></section>
+        <div class="page-head"><div><p class="eyebrow">OPTIONAL COMMUNITY</p><h1>광장</h1><p>기록과 일기, 독서록, 자유로운 생각을 선택해 다른 사용자와 나눠보세요.</p></div></div>
         <details id="communityComposer" class="module-add square-composer"><summary>광장에 자유글 쓰기</summary><div class="stack"><label class="field"><span>내용</span><textarea id="communityPostBody" maxlength="6000" placeholder="함께 나누고 싶은 이야기를 적어보세요."></textarea></label><button id="communityPostSubmit" class="btn primary">자유글 올리기</button></div></details>
         <div id="squareTabs" class="square-tabs"><button class="square-tab active" data-square="discover">발견</button><button class="square-tab" data-square="following">팔로잉</button><button class="square-tab" data-square="feedback">앱 개선</button></div>
         <section id="squareDiscover" class="square-pane"><div id="squareCategories" class="square-categories" aria-label="광장 글 종류"><button class="active" data-square-category="all">전체</button><button data-square-category="record">기록</button><button data-square-category="diary">일기</button><button data-square-category="book">독서록</button><button data-square-category="community">자유글</button></div><div id="squareFeed" class="feed"></div></section>
@@ -245,10 +244,10 @@
       </section>
 
       <section id="page-settings" class="page" data-page="settings">
-        <div class="page-head"><div><p class="eyebrow">SETTINGS</p><h1>설정</h1><p>공간 이름, 공개 범위, 데이터와 계정을 관리합니다.</p></div></div>
+        <div class="page-head"><div><p class="eyebrow">SETTINGS</p><h1>설정</h1><p>프로필과 공개 범위, 데이터와 계정 설정을 내 방식에 맞게 관리해보세요.</p></div></div>
         <div class="settings-grid">
           <nav id="settingsMenu" class="settings-menu"><button class="active" data-settings="profile">프로필</button><button data-settings="privacy">공개 · 보안</button><button data-settings="data">데이터</button><button data-settings="account">계정</button></nav>
-          <section id="settings-profile" class="settings-pane active"><h3>프로필과 연구실</h3><p>앱 안의 내 공간 이름과 공개 프로필 주소를 설정합니다.</p><div class="stack"><label class="field"><span>이름</span><input id="settingsName" maxlength="30"></label><label class="field"><span>공간 이름</span><input id="settingsLabName" maxlength="50"></label><label class="field"><span>공개 주소 ID</span><input id="settingsSlug" maxlength="40" placeholder="junho-lab"></label><label class="field"><span>소개</span><textarea id="settingsBio" maxlength="500"></textarea></label><div class="two-col"><label class="field"><span>화면 테마</span><select id="settingsTheme"><option value="system">기기 설정</option><option value="light">밝게</option><option value="dark">어둡게</option></select></label><label class="field"><span>표시 시간대</span><input id="settingsTimezone" placeholder="Asia/Seoul" autocomplete="off"></label></div><small class="muted">시간대는 IANA 형식(예: Asia/Seoul)으로 입력합니다. 이 기기에 저장됩니다.</small><button id="profileSave" class="btn primary">프로필 저장</button></div></section>
+          <section id="settings-profile" class="settings-pane active"><h3>프로필과 연구실</h3><p>앱 안의 내 공간 이름과 공개 프로필 주소를 설정합니다.</p><div class="stack"><div class="profile-photo-editor"><div id="settingsAvatar" class="avatar profile-avatar"><span class="avatar-letter">L</span></div><div class="profile-photo-copy"><strong>프로필 사진</strong><p>광장 게시물과 댓글, 공개 프로필에 표시됩니다.</p><div class="profile-photo-actions"><label class="btn secondary small" for="settingsAvatarInput">사진 선택</label><input id="settingsAvatarInput" class="hidden" type="file" accept="image/jpeg,image/png,image/webp"><button id="settingsAvatarRemove" class="btn ghost small danger" type="button">사진 삭제</button></div></div></div><label class="field"><span>이름</span><input id="settingsName" maxlength="30"></label><label class="field"><span>공간 이름</span><input id="settingsLabName" maxlength="50"></label><label class="field"><span>공개 주소 ID</span><input id="settingsSlug" maxlength="40" placeholder="junho-lab"></label><label class="field"><span>소개</span><textarea id="settingsBio" maxlength="500"></textarea></label><div class="two-col"><label class="field"><span>화면 테마</span><select id="settingsTheme"><option value="system">기기 설정</option><option value="light">밝게</option><option value="dark">어둡게</option></select></label><label class="field"><span>표시 시간대</span><input id="settingsTimezone" placeholder="Asia/Seoul" autocomplete="off"></label></div><small class="muted">시간대는 IANA 형식(예: Asia/Seoul)으로 입력합니다. 이 기기에 저장됩니다.</small><button id="profileSave" class="btn primary">프로필 저장</button></div></section>
           <section id="settings-privacy" class="settings-pane"><h3>공개와 보안</h3><p>개인 자료는 기본 비공개이며, 사용자가 광장에 공유한 사본만 공개됩니다.</p><div class="setting-row"><div class="copy"><strong>공개 공간 프로필</strong><p>광장에 항목을 공유하면 공개 프로필이 함께 활성화됩니다.</p></div><button id="publicProfileToggle" class="switch" aria-label="공개 프로필 전환"></button></div><div class="setting-row"><div class="copy"><strong>개인 원본 데이터</strong><p>기록·일정·가계부·아이디어 원본은 RLS로 본인 계정만 접근합니다.</p></div><span class="chip private">항상 비공개</span></div><div class="divider"></div><div class="setting-row"><div class="copy"><strong>차단한 사용자</strong><p>차단하면 서로의 광장 게시물과 상호작용이 앱에서 숨겨집니다.</p></div></div><div id="blockedUsers" class="blocked-list"><div class="empty">차단한 사용자가 없습니다.</div></div><div class="divider"></div><a class="btn secondary" href="./privacy.html">개인정보처리방침 보기</a></section>
           <section id="settings-data" class="settings-pane"><h3>내 데이터</h3><p>서비스에 묶이지 않도록 내 데이터를 직접 내보내고 복원할 수 있습니다.</p><div class="setting-row"><div class="copy"><strong>JSON 내보내기</strong><p>개인 생활 기록, 첨부파일 정보, 내가 작성한 광장 활동과 신고·제보를 JSON 한 파일로 저장합니다. 사진과 문서 원본은 각 화면에서 별도로 내려받아 주세요.</p></div><button id="exportData" class="btn secondary small">내보내기</button></div><div class="divider"></div><div class="setting-row"><div class="copy"><strong>개인 데이터 복원</strong><p>이 계정에서 내보낸 JSON의 개인 생활 데이터를 합칩니다. 현재 데이터는 삭제하지 않으며 첨부파일·광장 활동은 자동 복원하지 않습니다.</p></div><label class="btn secondary small" for="restoreDataFile">복원 파일 선택</label><input id="restoreDataFile" class="hidden" type="file" accept="application/json,.json"></div></section>
           <section id="settings-account" class="settings-pane"><h3>계정</h3><p>로그아웃 또는 계정과 연결된 데이터를 삭제합니다.</p><div class="setting-row"><div class="copy"><strong id="settingsEmail">계정 이메일</strong><p>현재 기기의 로그인 세션을 종료합니다.</p></div><button id="logoutBtn" class="btn secondary small">로그아웃</button></div><div class="setting-row"><div class="copy"><strong>계정 및 데이터 삭제</strong><p>되돌릴 수 없습니다. 개인 데이터와 업로드 파일을 함께 삭제합니다.</p></div><button id="deleteAccountOpen" class="btn danger small">삭제</button></div><p class="muted">외부에서도 <a href="./delete-account.html">계정 삭제 페이지</a>를 이용할 수 있습니다.</p></section>
@@ -285,13 +284,13 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
   <script src="./js/config.js?v=20260918-community-inserts-v1"></script>
   <script src="./js/drafts.js?v=20260918-community-inserts-v1"></script>
-  <script src="./js/db.js?v=20261004-idea-photos-expand-v1"></script>
-  <script src="./js/storage.js?v=20261004-idea-photos-expand-v1"></script>
+  <script src="./js/db.js?v=20261004-profile-photos-v1"></script>
+  <script src="./js/storage.js?v=20261004-profile-photos-v1"></script>
   <script src="./js/telemetry.js?v=20260920-error-logs-v1"></script>
   <script src="./js/calendar-utils.js?v=20261002-calendar-history-v1"></script>
   <script src="./js/diary-utils.js?v=20261002-diary-search-v1"></script>
   <script src="./js/finance-utils.js?v=20261003-finance-search-v3"></script>
-  <script src="./js/app.js?v=20261004-square-gallery-v1"></script>
+  <script src="./js/app.js?v=20261004-profile-photos-v1"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>

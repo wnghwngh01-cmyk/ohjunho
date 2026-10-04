@@ -8,7 +8,7 @@ const page=html.match(/<section id="page-today"[\s\S]*?<section id="memoryCard"/
 const greeting=page.match(/<section class="greeting">[\s\S]*?<\/section>/)?.[0]||'';
 
 if(greeting.includes('id="dailyQuote"')||page.includes('오늘의 문장'))throw new Error('Daily quote must be removed from Today');
-if(!greeting.includes('오늘의 일정과 할 일을 챙기고, 하루의 기록을 차곡차곡 담아보세요.'))throw new Error('Today app introduction is missing');
+if(!greeting.includes('일정과 할 일, 습관과 기록을 한곳에서 챙기며 오늘을 차분히 이어가세요.'))throw new Error('Today app introduction is missing');
 if(!greeting.includes('id="todayCountdowns"'))throw new Error('Important-day countdown must be inside the Today hero');
 if(app.includes('const quotes=')||app.includes("$('#dailyQuote')"))throw new Error('Daily quote rotation code must be removed');
 if(app.includes('countdowns.slice(0,1)'))throw new Error('Today hero must not limit important days to one');

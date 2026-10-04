@@ -50,6 +50,7 @@
     if(patch.lab_name!==undefined)allowed.lab_name=String(patch.lab_name).trim().slice(0,50);
     if(patch.slug!==undefined){const s=slugify(patch.slug);if(s.length<3)throw new Error('공개 주소 ID는 영문 소문자·숫자·하이픈으로 3자 이상 입력해 주세요.');allowed.slug=s}
     if(patch.bio!==undefined)allowed.bio=String(patch.bio).slice(0,500);
+    if(patch.avatar_path!==undefined){const path=patch.avatar_path===null?null:String(patch.avatar_path);if(path!==null&&!path.startsWith(`${uid()}/public/profile/`))throw new Error('올바르지 않은 프로필 사진 경로입니다.');allowed.avatar_path=path}
     if(patch.public_profile!==undefined)allowed.public_profile=!!patch.public_profile;
     const {data,error}=await client.from('profiles').update(allowed).eq('id',uid()).select().single();fail(error,'프로필 저장');return data;
   }
