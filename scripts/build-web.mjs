@@ -4,7 +4,7 @@ import {resolve} from 'node:path';
 const root=resolve(import.meta.dirname,'..');
 const output=resolve(root,'dist');
 const files=[
-  'index.html','admin.html','public.html','privacy.html','terms.html','delete-account.html',
+  'index.html','admin.html','admin-recovery.html','public.html','privacy.html','terms.html','delete-account.html',
   'reset-password.html','manifest.webmanifest','sw.js','assets','js'
 ];
 

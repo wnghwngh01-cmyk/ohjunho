@@ -14,7 +14,7 @@ create table profiles(id uuid primary key references auth.users(id),display_name
 create table records(id uuid primary key,user_id uuid,category text,title text,body text);
 create table client_error_logs(id bigint generated always as identity primary key,user_id uuid,context text,message text,created_at timestamptz default now());
 `);
-for(const file of ['step5_community.sql','step6_square_categories_and_replies.sql','step12_profile_photos.sql','step13_operator_console.sql','step14_operator_accounts.sql','step15_operator_moderation_hardening.sql']){
+for(const file of ['step5_community.sql','step6_square_categories_and_replies.sql','step12_profile_photos.sql','step13_operator_console.sql','step14_operator_accounts.sql','step15_operator_moderation_hardening.sql','step16_operator_replies.sql','step17_operator_contacts.sql','step18_operator_queue.sql','step19_operator_history.sql']){
  try{await db.exec(await readFile(new URL('../supabase/'+file,import.meta.url),'utf8'));console.log('migration OK',file);}catch(e){console.error('migration FAIL',file,e.message);process.exit(1);}
 }
 const owner='11111111-1111-4111-8111-111111111111',user='22222222-2222-4222-8222-222222222222',other='33333333-3333-4333-8333-333333333333',post='44444444-4444-4444-8444-444444444444';
@@ -57,4 +57,34 @@ await asUser(other);for(let i=0;i<9;i++)await db.query("insert into support_tick
 await reject("insert into support_tickets(title,body) values('rate fixture','details')",'support rate limit');
 await asUser(owner);await reject(`select operator_account_prepare('${owner}','ban','test')`,'owner protected from ban');await db.query('select operator_account_prepare($1,$2,$3)',[user,'ban','test ban']);
 await asUser(user);await reject('select check_operator_account_access()','existing session blocked at API guard');
+await asUser(owner);
+const request=crypto.randomUUID();
+await db.query('select operator_reply($1,$2,$3,$4)',['bugs',bug,'answer fixture',request]);
+await db.query('select operator_reply($1,$2,$3,$4)',['bugs',bug,'answer fixture',request]);
+assert.equal((await db.query('select operator_case_replies($1,$2) value',['bugs',bug])).rows[0].value.length,1);
+await asUser(other);assert.equal((await db.query("select * from operator_messages where title like '제보 답변%'")).rows.length,1);
+await asUser(user);assert.equal((await db.query("select * from operator_messages where title like '제보 답변%'")).rows.length,0);
+await reject(`select operator_case_replies('bugs','${bug}')`,'nonoperator cannot read reply history');
+await reject(`select operator_reply('bugs','${bug}','forged','${crypto.randomUUID()}')`,'nonoperator cannot send reply');
+console.log('PASS linked reply persistence, idempotency and recipient isolation');
+await asUser(owner);
+let queue=(await db.query('select operator_queue() value')).rows[0].value;
+assert.equal(queue.bugs,9);assert.equal(queue.reports,1);assert.equal(queue.recent.length,8);
+await action('case',{id:report,kind:'reports',status:'dismissed',reason:'queue test'});
+queue=(await db.query('select operator_queue() value')).rows[0].value;assert.equal(queue.reports,0);
+await asUser(user);await reject('select operator_queue()','queue inaccessible to normal user');
+console.log('PASS open queue counts and resolved exclusion');
+await asUser(owner);const contact=(await db.query("insert into support_tickets(title,body,category) values('contact','question','contact') returning id")).rows[0].id;
+assert.equal((await db.query("select operator_list('contacts') value")).rows[0].value.length,1);
+assert.equal((await db.query('select operator_queue() value')).rows[0].value.contacts,1);
+await db.query('select operator_reply($1,$2,$3,$4)',['contacts',contact,'contact answer',crypto.randomUUID()]);
+assert.equal((await db.query('select my_support_replies($1) value',[contact])).rows[0].value.length,1);
+await action('case',{kind:'contacts',id:contact,status:'resolved',reason:'answer sent'});
+assert.equal((await db.query('select operator_queue() value')).rows[0].value.contacts,0);
+await asUser(other);await reject(`select my_support_replies('${contact}')`,'cannot view another users contact reply');
+console.log('PASS contact submission, operator listing, reply retrieval and privacy');
+await asUser(owner);const history=(await db.query('select operator_user_history($1) value',[user])).rows[0].value;
+assert(history.some(x=>x.kind==='report'));assert(history.some(x=>x.title==='account_ban'));assert(!history.some(x=>x.body.includes('contact answer')));
+await asUser(other);await reject(`select operator_user_history('${user}')`,'user history requires operator');
+console.log('PASS user history includes reports/actions and excludes other recipient messages');
 await db.close();console.log('ALL SQL BEHAVIOR CHECKS PASSED');

@@ -9,7 +9,7 @@
   <title>하루를 담다</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./assets/styles.css?v=20261004-square-intro-remove-v1">
+  <link rel="stylesheet" href="./assets/styles.css?v=20261009-operator-v3">
   <link rel="stylesheet" href="./assets/light-theme.css?v=20261004-square-intro-remove-v1">
 </head>
 <body>
@@ -216,6 +216,11 @@
         </div></section>
       </section>
 
+      <section id="page-contact" class="page" data-page="contact">
+        <div class="page-head"><div><p class="eyebrow">CONTACT</p><h1>운영자 문의</h1><p>궁금한 점을 남기고 운영자의 답변을 확인하세요. 문의는 본인과 운영자만 볼 수 있습니다.</p></div></div>
+        <section class="card narrow-card"><form id="contactForm" class="stack"><label class="field"><span>문의 제목</span><input id="contactTitle" maxlength="120" required></label><label class="field"><span>문의 내용</span><textarea id="contactBody" maxlength="3000" required placeholder="비밀번호나 인증번호 같은 민감한 정보는 적지 마세요."></textarea></label><button class="btn primary" type="submit">문의 보내기</button></form></section>
+        <section class="card narrow-card"><div class="card-head"><h2>내 문의</h2><button id="contactRefresh" class="btn">새로고침</button></div><div id="contactList"></div><div class="row"><button id="contactPrev" class="btn">이전</button><button id="contactNext" class="btn">다음</button></div></section>
+      </section>
       <section id="page-bug" class="page" data-page="bug">
         <div class="page-head"><div><p class="eyebrow">BUG REPORT</p><h1>버그 제보</h1><p>문제가 생긴 화면과 과정을 남겨주면 더 나은 사용 경험으로 고쳐갑니다.</p></div></div><section class="card narrow-card"><div class="security-note bug-security-note"><strong>보안상 민감한 버그도 이곳에서 알려 주세요.</strong><span>인증정보·비밀번호·개인정보는 적지 말고, 문제가 발생한 화면과 재현 순서만 작성해 주세요.</span></div><div class="stack"><label class="field"><span>문제가 발생한 화면</span><select id="bugScreen"><option>오늘</option><option>캘린더</option><option>일기</option><option>가계부</option><option>기록</option><option>독서록</option><option>아이디어</option><option>광장</option><option>기타</option></select></label><label class="field"><span>문제 제목</span><input id="bugTitle" maxlength="120"></label><label class="field"><span>문제와 재현 방법</span><textarea id="bugBody" maxlength="3000" placeholder="어떤 행동을 했을 때 무엇이 잘못됐는지 적어주세요."></textarea></label><button id="bugSubmit" class="btn primary">제보 보내기</button></div></section>
       </section>
@@ -226,7 +231,7 @@
 
       <section id="page-more" class="page" data-page="more">
         <div class="page-head"><div><p class="eyebrow">ALL MENU</p><h1>더보기</h1><p>기록과 관리에 필요한 모든 기능을 한곳에서 빠르게 찾아보세요.</p></div></div><div class="more-grid">
-          <button data-go="today"><b>⌂</b><span>오늘</span></button><button data-go="calendar"><b>□</b><span>캘린더</span></button><button data-go="diary"><b>✎</b><span>일기</span></button><button data-go="personal"><b>₩</b><span>가계부</span></button><button data-go="records"><b>▤</b><span>기록</span></button><button data-go="books"><b>▣</b><span>독서록</span></button><button data-go="lab"><b>◇</b><span>아이디어</span></button><button data-go="goals"><b>◎</b><span>목표 설정</span></button><button data-go="square"><b>◉</b><span>광장</span></button><button data-go="search"><b>⌕</b><span>통합 검색</span></button><button data-go="bug"><b>!</b><span>버그 제보</span></button><button data-go="support"><b>♥</b><span>후원</span></button><button data-go="settings"><b>⚙</b><span>설정</span></button>
+          <button data-go="today"><b>⌂</b><span>오늘</span></button><button data-go="calendar"><b>□</b><span>캘린더</span></button><button data-go="diary"><b>✎</b><span>일기</span></button><button data-go="personal"><b>₩</b><span>가계부</span></button><button data-go="records"><b>▤</b><span>기록</span></button><button data-go="books"><b>▣</b><span>독서록</span></button><button data-go="lab"><b>◇</b><span>아이디어</span></button><button data-go="goals"><b>◎</b><span>목표 설정</span></button><button data-go="square"><b>◉</b><span>광장</span></button><button data-go="search"><b>⌕</b><span>통합 검색</span></button><button data-go="bug"><b>!</b><span>버그 제보</span></button><button data-go="contact"><b>?</b><span>운영자 문의</span></button><button data-go="support"><b>♥</b><span>후원</span></button><button data-go="settings"><b>⚙</b><span>설정</span></button>
         </div>
       </section>
 
@@ -284,13 +289,13 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
   <script src="./js/config.js?v=20260918-community-inserts-v1"></script>
   <script src="./js/drafts.js?v=20260918-community-inserts-v1"></script>
-  <script src="./js/db.js?v=20261008-operator-v1"></script>
+  <script src="./js/db.js?v=20261009-operator-v3"></script>
   <script src="./js/storage.js?v=20261004-profile-photos-v1"></script>
   <script src="./js/telemetry.js?v=20260920-error-logs-v1"></script>
   <script src="./js/calendar-utils.js?v=20261002-calendar-history-v1"></script>
   <script src="./js/diary-utils.js?v=20261002-diary-search-v1"></script>
   <script src="./js/finance-utils.js?v=20261003-finance-search-v3"></script>
-  <script src="./js/app.js?v=20261008-operator-v1"></script>
+  <script src="./js/app.js?v=20261009-operator-v3"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>
