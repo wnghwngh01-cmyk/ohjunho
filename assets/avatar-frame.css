@@ -42,4 +42,4 @@
 .support-options{grid-template-columns:repeat(4,minmax(0,1fr))}
 @media(max-width:520px){.support-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.frame-editor{padding:14px}.frame-tier-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.frame-tier-option{min-height:96px}.frame-tier-option:last-child{grid-column:1/-1;grid-template-columns:auto auto auto;gap:12px;min-height:72px}.frame-tier-option:last-child .avatar{margin:2px 0}.frame-color-options{gap:7px}.frame-color-option{min-height:38px}}
-@media(max-width:520px){.profile-photo-actions .btn{font-size:11px;padding-left:7px;padding-right:7px;white-space:nowrap}.profile-photo-actions{gap:5px}}
+@media(max-width:520px){#settings-profile .profile-photo-actions .btn{font-size:11px;padding:7px 6px;white-space:nowrap}#settings-profile .profile-photo-actions{gap:5px}}
