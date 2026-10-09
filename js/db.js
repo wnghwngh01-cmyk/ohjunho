@@ -51,6 +51,8 @@
     if(patch.slug!==undefined){const s=slugify(patch.slug);if(s.length<3)throw new Error('공개 주소 ID는 영문 소문자·숫자·하이픈으로 3자 이상 입력해 주세요.');allowed.slug=s}
     if(patch.bio!==undefined)allowed.bio=String(patch.bio).slice(0,500);
     if(patch.avatar_path!==undefined){const path=patch.avatar_path===null?null:String(patch.avatar_path);if(path!==null&&!path.startsWith(`${uid()}/public/profile/`))throw new Error('올바르지 않은 프로필 사진 경로입니다.');allowed.avatar_path=path}
+    if(patch.avatar_frame_tier!==undefined)allowed.avatar_frame_tier=window.HaruAvatarFrame.safeTier(patch.avatar_frame_tier);
+    if(patch.avatar_frame_color!==undefined)allowed.avatar_frame_color=window.HaruAvatarFrame.safeColor(patch.avatar_frame_color);
     if(patch.public_profile!==undefined)allowed.public_profile=!!patch.public_profile;
     const {data,error}=await client.from('profiles').update(allowed).eq('id',uid()).select().single();fail(error,'프로필 저장');return data;
   }
@@ -155,10 +157,17 @@
   async function listOwnPublications(){const {data,error}=await client.from('publications').select('*').eq('user_id',uid());fail(error,'공유 목록 확인');return data||[]}
   async function addCommunityPost(body){const text=String(body||'').trim().slice(0,6000);if(!text)throw new Error('글 내용을 입력해 주세요.');const {data,error}=await client.rpc('add_community_post',{p_body:text});fail(error,'자유글 등록');return data}
   async function unpublish(type,id){const {data,error}=await client.from('publications').delete().eq('user_id',uid()).eq('source_type',type).eq('source_id',id).select();fail(error,'공유 취소');return data?.[0]||null}
-  async function feed(mode='discover',category='all'){const {data,error}=await client.rpc('get_publication_feed_v2',{p_mode:mode,p_category:category,p_limit:50});fail(error,'광장 불러오기');return data||[]}
+  async function attachAvatarFrames(rows){
+    if(!rows?.length)return rows||[];
+    const ids=[...new Set(rows.map(row=>row.user_id).filter(Boolean))];
+    const {data,error}=await client.rpc('get_avatar_frames',{p_ids:ids});fail(error,'프로필 테두리 불러오기');
+    const frames=new Map((data||[]).map(row=>[row.id,row]));
+    return rows.map(row=>({...row,avatar_frame_tier:frames.get(row.user_id)?.avatar_frame_tier||'none',avatar_frame_color:frames.get(row.user_id)?.avatar_frame_color||'sage'}));
+  }
+  async function feed(mode='discover',category='all'){const {data,error}=await client.rpc('get_publication_feed_v2',{p_mode:mode,p_category:category,p_limit:50});fail(error,'광장 불러오기');return attachAvatarFrames(data||[])}
   async function toggleFollow(target,currently){if(currently){const {error}=await client.from('follows').delete().eq('follower_id',uid()).eq('following_id',target);fail(error,'팔로우 취소');return false}else{const {error}=await client.from('follows').insert({follower_id:uid(),following_id:target});fail(error,'팔로우');return true}}
   async function toggleLike(pubId,currently){if(currently){const {error}=await client.from('publication_likes').delete().eq('publication_id',pubId).eq('user_id',uid());fail(error,'좋아요 취소');return false}else{const {error}=await client.from('publication_likes').insert({publication_id:pubId,user_id:uid()});fail(error,'좋아요');return true}}
-  async function comments(pubId){const {data,error}=await client.rpc('get_publication_comments_v2',{p_publication:pubId});fail(error,'댓글 불러오기');return data||[]}
+  async function comments(pubId){const {data,error}=await client.rpc('get_publication_comments_v2',{p_publication:pubId});fail(error,'댓글 불러오기');return attachAvatarFrames(data||[])}
   async function addComment(pubId,body,parentId=null){const text=String(body||'').trim().slice(0,2000);if(!text)throw new Error('댓글 내용을 입력해 주세요.');const {error}=await client.rpc('add_publication_comment',{p_publication:pubId,p_body:text,p_parent:parentId});fail(error,'댓글 등록')}
   async function deleteComment(id){const {error}=await client.from('publication_comments').delete().eq('id',id);fail(error,'피드백 삭제')}
   async function blockUser(targetUserId){const target=String(targetUserId||'');if(!target||target===uid())throw new Error('차단할 수 없는 사용자입니다.');const {error}=await client.from('blocks').insert({blocker_id:uid(),blocked_id:target});if(error&&error.code!=='23505')fail(error,'사용자 차단');return true}

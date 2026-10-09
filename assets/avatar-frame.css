@@ -1,0 +1,43 @@
+.avatar[data-frame-tier]:not([data-frame-tier="none"]){overflow:visible;z-index:1}
+.avatar[data-frame-tier]:not([data-frame-tier="none"])::after{content:"";position:absolute;z-index:3;pointer-events:none;border-radius:50%;inset:-3px;border:2px solid var(--frame-main);box-shadow:0 0 0 1px color-mix(in srgb,var(--frame-main) 22%,transparent),0 2px 6px #1b272415}
+.avatar[data-frame-tier="simple"]::after{inset:-2px;border-width:1.5px;box-shadow:0 0 0 1px color-mix(in srgb,var(--frame-main) 28%,transparent)}
+.avatar[data-frame-tier="spectrum"]::after{inset:-4px;border:0;background:var(--frame-gradient);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 2.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 2.5px))}
+.avatar[data-frame-tier="spectrum"]::before{content:"";position:absolute;z-index:3;pointer-events:none;inset:-7px;border:1px solid var(--frame-main);opacity:.45;border-radius:50%}
+.avatar[data-frame-tier="blossom"]::after{border-width:2.4px}
+.avatar[data-frame-tier="crown"]::after{border-width:3px;box-shadow:0 0 0 1px var(--frame-soft),0 2px 8px #1b272430}
+.avatar[data-frame-color="sage"]{--frame-main:#6b9a83;--frame-soft:#d6e9dc;--frame-light:#e9f3e8;--frame-gradient:conic-gradient(#8fc1a5,#567c72,#a4c7a2,#6b9a83,#8fc1a5)}
+.avatar[data-frame-color="rose"]{--frame-main:#c38392;--frame-soft:#efd7dd;--frame-light:#f8e9ed;--frame-gradient:conic-gradient(#dca9b5,#aa687e,#edc3c8,#c38392,#dca9b5)}
+.avatar[data-frame-color="sky"]{--frame-main:#6e9db4;--frame-soft:#d6e7ee;--frame-light:#e9f3f7;--frame-gradient:conic-gradient(#a9cedc,#5c89a4,#b5d9d9,#6e9db4,#a9cedc)}
+.avatar[data-frame-color="lilac"]{--frame-main:#9b88b3;--frame-soft:#e6dcef;--frame-light:#f3edfa;--frame-gradient:conic-gradient(#c5adda,#8c7aab,#d9bcdb,#9b88b3,#c5adda)}
+.avatar[data-frame-color="gold"]{--frame-main:#b99860;--frame-soft:#eee1c7;--frame-light:#f8eed9;--frame-gradient:conic-gradient(#e5c68d,#a9834d,#efdaad,#b99860,#e5c68d)}
+.avatar[data-frame-color="rainbow"]{--frame-main:#9689ae;--frame-soft:#d9e6e1;--frame-light:#f2e8ed;--frame-gradient:conic-gradient(#be8fa7,#c9ad83,#9ebf9f,#89b4c3,#9b9fc7,#be8fa7)}
+.avatar[data-frame-color="rainbow"][data-frame-tier]:not([data-frame-tier="none"])::after{border:0;background:var(--frame-gradient);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2.7px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 2.7px),#000 calc(100% - 2px))}
+.avatar[data-frame-color="rainbow"][data-frame-tier="simple"]::after{-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 1.7px),#000 calc(100% - 1.3px));mask:radial-gradient(farthest-side,transparent calc(100% - 1.7px),#000 calc(100% - 1.3px))}
+.avatar[data-frame-color="rainbow"][data-frame-tier="spectrum"]::after{-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 2.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 2.5px))}
+.avatar-frame-art{position:absolute;inset:0;width:100%;height:100%;z-index:4;overflow:visible;pointer-events:none;filter:drop-shadow(0 1px 1px #26332b25)}
+.avatar-frame-art .frame-stem{fill:none;stroke:var(--frame-main);stroke-width:2.8;stroke-linecap:round}
+.avatar-frame-art .frame-leaf{fill:var(--frame-main);stroke:var(--frame-soft);stroke-width:.5}
+.avatar-frame-art .frame-petals{fill:var(--frame-soft);stroke:var(--frame-main);stroke-width:.8}
+.avatar-frame-art .frame-center,.avatar-frame-art .frame-gem{fill:var(--frame-main);stroke:var(--frame-light);stroke-width:1}
+.avatar-frame-art .frame-crown{fill:var(--frame-soft);stroke:var(--frame-main);stroke-width:2.1;stroke-linejoin:round}
+.avatar-frame-art .frame-crown-base{fill:var(--frame-main);stroke:var(--frame-light);stroke-width:.8}
+.avatar[data-frame-color="rainbow"][data-frame-tier="blossom"] .frame-petals{fill:#e8c4d1}
+.avatar[data-frame-color="rainbow"][data-frame-tier="crown"] .frame-crown{fill:#d2c6e1}
+.frame-editor{margin:0 0 2px;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+.frame-editor[hidden]{display:none}
+.frame-editor-head{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:14px}
+.frame-editor-head strong{font-size:14px}.frame-editor-head p{font-size:11px;line-height:1.5;color:var(--muted);margin:5px 0 0}
+.frame-tier-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.frame-tier-option{min-width:0;min-height:112px;display:grid;justify-items:center;align-content:center;gap:5px;padding:10px 4px;border:1px solid var(--line);border-radius:13px;background:var(--card);color:var(--ink);cursor:pointer}
+.frame-tier-option[aria-pressed="true"]{border-color:#567b68;background:#edf4ee;box-shadow:0 0 0 1px #567b68 inset}
+.frame-tier-option .avatar{width:42px;height:42px;font-size:16px;margin:8px 0 5px}
+.frame-tier-option strong{font-size:11px}.frame-tier-option small{font-size:10px;color:var(--muted)}
+.frame-color-label{display:block;margin:20px 0 10px;font-size:12px;font-weight:750}
+.frame-color-options{display:flex;flex-wrap:wrap;gap:10px}
+.frame-color-option{display:flex;align-items:center;gap:7px;min-height:40px;padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font-size:11px;cursor:pointer}
+.frame-color-option[aria-pressed="true"]{border-color:#567b68;background:#edf4ee;font-weight:800}
+.frame-color-dot{width:18px;height:18px;border-radius:50%;background:var(--swatch);border:1px solid #4050491f}
+.frame-editor-note{font-size:11px;color:var(--muted);line-height:1.6;margin:15px 0 0}
+.support-options{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:520px){.support-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.frame-editor{padding:14px}.frame-tier-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.frame-tier-option{min-height:96px}.frame-tier-option:last-child{grid-column:1/-1;grid-template-columns:auto auto auto;gap:12px;min-height:72px}.frame-tier-option:last-child .avatar{margin:2px 0}.frame-color-options{gap:7px}.frame-color-option{min-height:38px}}
