@@ -424,3 +424,7 @@ html:not([data-theme="dark"]) .today-grid .event-item>[data-move-event]{grid-col
  html:not([data-theme="dark"]) .money-card span{font-size:12px;line-height:1.35}
  html:not([data-theme="dark"]) .money-card strong{font-size:clamp(16px,4.8vw,20px);font-weight:650;line-height:1.25;letter-spacing:-.035em;overflow-wrap:normal;white-space:nowrap}
 }
+
+html:not([data-theme="dark"]) #financeCategorySummary{grid-template-columns:minmax(0,220px) minmax(0,1fr)}
+html:not([data-theme="dark"]) .finance-disclosure>.finance-filters{border:0;border-top:1px solid #dce4de;border-radius:0;margin:0;background:transparent}
+@media(max-width:600px){html:not([data-theme="dark"]) #financeCategorySummary{grid-template-columns:1fr}}

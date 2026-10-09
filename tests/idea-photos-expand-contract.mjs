@@ -28,6 +28,6 @@ if(!css.includes('-webkit-line-clamp:4')||!css.includes('.text-expand')||!css.in
 for(const token of ['create table if not exists public.idea_media','enable row level security','user_id=auth.uid()','references public.ideas(id,user_id) on delete cascade']){
   if(!migration.includes(token))throw new Error(`Idea media ownership migration is missing: ${token}`);
 }
-if(!sw.includes("daily-life-shell-v64")||!sw.includes('20261004-square-intro-remove-v1')||!sw.includes('20261004-profile-photos-v1'))throw new Error('Service worker cache does not include the latest accumulated assets');
+if(!sw.includes("daily-life-shell-v65")||!sw.includes('20261004-square-intro-remove-v1')||!sw.includes('20261004-profile-photos-v1'))throw new Error('Service worker cache does not include the latest accumulated assets');
 
 console.log('idea-photos-expand-contract: PASS');
