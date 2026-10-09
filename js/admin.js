@@ -13,7 +13,7 @@
   function notice(message,error=false){$('#notice').textContent=message;$('#notice').classList.toggle('error',error);if($('#detail').open)$('#dialogNotice').textContent=error?message:'';}
   async function rpc(name,args){const {data,error}=await db.rpc(name,args);if(error)throw new Error(error.message);return data;}
   async function busy(button,fn){button.disabled=true;try{await fn();}catch(e){notice(e.message||'요청에 실패했습니다. 다시 시도해 주세요.',true);}finally{button.disabled=false;}}
-  function clear(){authorized=false;generation++;rows=[];$('#workspace').hidden=true;$('#content').replaceChildren();$('#detail').close();$('#detailBody').replaceChildren();$('#auth').hidden=false;$('#nav').replaceChildren();$('#qr').replaceChildren();$('#otp').value='';}
+  function clear(){$('#moreMenu').hidden=true;$('#menuDialog').close();$('#moreNav').replaceChildren();authorized=false;generation++;rows=[];$('#workspace').hidden=true;$('#content').replaceChildren();$('#detail').close();$('#detailBody').replaceChildren();$('#auth').hidden=false;$('#nav').replaceChildren();$('#qr').replaceChildren();$('#otp').value='';}
   async function checkAccess(){
     const {data:{session}}=await db.auth.getSession();
     if(!session){clear();$('#loginForm').hidden=false;$('#mfaForm').hidden=true;return;}
@@ -31,7 +31,7 @@
       }
       return;
     }
-    authorized=true;$('#auth').hidden=true;$('#workspace').hidden=false;$('#qr').replaceChildren();
+    authorized=true;$('#moreMenu').hidden=false;$('#auth').hidden=true;$('#workspace').hidden=false;$('#qr').replaceChildren();
     $('#nav').innerHTML=Object.entries(menus).map(([key,[label]])=>`<button data-section="${key}">${label}</button>`).join('');
     await load();
   }
@@ -39,6 +39,9 @@
   $('#mfaForm').addEventListener('submit',e=>{e.preventDefault();busy(e.submitter,async()=>{const {error}=await db.auth.mfa.challengeAndVerify({factorId:factor,code:$('#otp').value});$('#otp').value='';if(error)throw error;await checkAccess();});});
   $('#logout').onclick=()=>busy($('#logout'),async()=>{const {error}=await db.auth.signOut({scope:'local'});if(error)throw error;clear();$('#logout').hidden=true;$('#loginForm').hidden=false;$('#mfaForm').hidden=true;notice('로그아웃했습니다.');});
   db.auth.onAuthStateChange(event=>{if(event==='SIGNED_OUT')clear();});
+  $('#moreMenu').onclick=()=>{$('#moreNav').innerHTML=$('#nav').innerHTML;$$('#moreNav button').forEach(b=>{if(b.classList.contains('active'))b.setAttribute('aria-current','page')});$('#menuDialog').showModal();};
+  $('#closeMenu').onclick=()=>$('#menuDialog').close();
+  $('#moreNav').onclick=e=>{const b=e.target.closest('[data-section]');if(!b)return;$('#menuDialog').close();$('#nav').querySelector(`[data-section="${b.dataset.section}"]`).click();$('#heading').setAttribute('tabindex','-1');$('#heading').focus();window.scrollTo({top:0,behavior:'smooth'});};
   $('#nav').onclick=e=>{const b=e.target.closest('[data-section]');if(!b)return;section=b.dataset.section;offset=0;$('#search').value='';$('#status').value='';load().catch(e=>notice(e.message,true));};
   $('#filters').onsubmit=e=>{e.preventDefault();offset=0;busy(e.submitter,load);};$('#refresh').onclick=()=>busy($('#refresh'),load);
   $('#prev').onclick=()=>{offset=Math.max(0,offset-50);load().catch(e=>notice(e.message,true));};$('#next').onclick=()=>{offset+=50;load().catch(e=>notice(e.message,true));};
