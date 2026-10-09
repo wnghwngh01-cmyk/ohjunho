@@ -178,3 +178,5 @@ html[data-stage="3"] #publicProfileToggle { opacity:.45; cursor:not-allowed; }
 @media(max-width:760px){.pub-gallery{max-height:260px}.pub-gallery button{height:128px}.pub-gallery[data-count="1"]{max-height:220px}.pub-gallery[data-count="1"] button{height:220px}.pub-gallery[data-count="3"] button:first-child{height:259px}.pub-gallery[data-count="5"] button,.pub-gallery[data-count="6"] button{height:82px}}
 
 .contact-ticket{padding:18px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.contact-ticket p,.contact-reply p{white-space:pre-wrap}.contact-reply{padding:14px;margin:12px 0;border-left:3px solid #527562}.contact-reply small{display:block;margin-top:6px}
+
+#page-contact>.card+.card{margin-top:20px}
