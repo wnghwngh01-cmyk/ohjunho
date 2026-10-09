@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import '../js/admin-data.js';
+const sources={bugs:[],legacy_bugs:[]};
+for(let i=0;i<145;i++)sources[i%3?'bugs':'legacy_bugs'].push({id:String(i).padStart(4,'0'),created_at:new Date(Date.UTC(2026,9,9,0,0,145-i)).toISOString(),case_status:i%2?'open':'resolved',title:i%5?'sample':'needle'});
+const rpc=async(_,a)=>sources[a.p_kind].filter(r=>(!a.p_status||r.case_status===a.p_status)&&(!a.p_search||r.title.includes(a.p_search))).slice(a.p_offset,a.p_offset+51);
+const expected=Object.entries(sources).flatMap(([kind,rows])=>rows.map(r=>({...r,case_kind:kind}))).sort((a,b)=>b.created_at.localeCompare(a.created_at));
+for(const offset of [0,50,100,150])assert.deepEqual(await OperatorData.bugReports(rpc,{offset}),expected.slice(offset,offset+51));
+assert.deepEqual(await OperatorData.bugReports(rpc,{search:'needle',status:'open'}),expected.filter(r=>r.title==='needle'&&r.case_status==='open'));
+await assert.rejects(()=>OperatorData.bugReports(async()=>{throw Error('network');}),/network/);
+console.log('operator merged reports: PASS (pagination, source identity, combined filters, failure)');
