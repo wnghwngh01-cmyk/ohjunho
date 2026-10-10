@@ -13,3 +13,8 @@ Prompt specifications used:
 - Ribbon edit: preserve the circular periwinkle-lilac satin ribbon and large transparent opening; add a small asymmetric bottom knot with two compact loops and short tapered ends hugging the rim, pale edge highlight and layered folds; no flowers, crown, gems, stars or extra concentric rings.
 
 The five solid palettes remain available to every frame. Rainbow is selectable and rendered only for spectrum (ribbon), blossom and crown. This is test-mode cosmetic selection, not paid entitlement enforcement; billing remains unimplemented. No database permission change is required for these artwork replacements.
+
+2026-10-10 revision:
+- `blossom-v3.png` (built-in image edit of v2): same blossom composition, fewer and smaller sage leaves; transparent background. Final prompt: keep ring and blossoms, reduce leaf number/area by ~40%, keep sage leaves distinct from pink petals and rose rim, preserve circular geometry and alpha.
+- `crown-v3.png` (two built-in image edits of v2): crown enlarged ~35% and complete frame inset to protect tip from clipping. Final prompt: retain enlarged crown and ring/leaves, leave at least 7% transparent top margin and 4% at other sides, preserve transparent center.
+- Blossom artwork now keeps its original colored leaf and petal layer. CSS applies only a subtle palette tint on top; leaves stay visibly green. The other frames keep full palette tint.

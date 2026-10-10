@@ -2,13 +2,16 @@
 .avatar[data-frame-tier]:not([data-frame-tier="none"]){overflow:visible;z-index:1}
 .avatar[data-frame-tier="simple"]::after{content:"";position:absolute;z-index:3;pointer-events:none;inset:-2px;border:1.5px solid var(--frame-main);border-radius:50%}
 .avatar[data-frame-tier="spectrum"]{--frame-asset:url('./profile-frames/ribbon-v2.png');--art-size:118%;--art-left:-9%;--art-top:-9%}
-.avatar[data-frame-tier="blossom"]{--frame-asset:url('./profile-frames/blossom-v2.png');--art-size:124%;--art-left:-12%;--art-top:-12%}
-.avatar[data-frame-tier="crown"]{--frame-asset:url('./profile-frames/crown-v2.png');--art-size:138%;--art-left:-19%;--art-top:-24%}
+.avatar[data-frame-tier="blossom"]{--frame-asset:url('./profile-frames/blossom-v3.png');--art-size:124%;--art-left:-12%;--art-top:-12%}
+.avatar[data-frame-tier="crown"]{--frame-asset:url('./profile-frames/crown-v3.png');--art-size:138%;--art-left:-19%;--art-top:-24%}
 .avatar .avatar-frame-art{display:block;position:absolute;left:var(--art-left);top:var(--art-top);width:var(--art-size);height:var(--art-size);z-index:4;pointer-events:none;isolation:isolate}
 .avatar-frame-art::before,.avatar-frame-art::after{content:"";position:absolute;inset:0}
 .avatar-frame-art::before{background:var(--frame-asset) center/contain no-repeat;filter:grayscale(1)}
 .avatar-frame-art::after{background:var(--frame-main);mask:var(--frame-asset) center/contain no-repeat;-webkit-mask:var(--frame-asset) center/contain no-repeat;mix-blend-mode:color}
 .avatar[data-frame-color="rainbow"] .avatar-frame-art::after{background:var(--frame-gradient)}
+/* Keep the botanical greens visible while the chosen palette gently colors petals and rim. */
+.avatar[data-frame-tier="blossom"] .avatar-frame-art::before{filter:none}
+.avatar[data-frame-tier="blossom"] .avatar-frame-art::after{opacity:.3}
 .avatar[data-frame-color="sage"]{--frame-main:#6b9a83;--frame-soft:#d6e9dc;--frame-light:#e9f3e8;--frame-gradient:conic-gradient(#8fc1a5,#567c72,#a4c7a2,#6b9a83,#8fc1a5)}
 .avatar[data-frame-color="rose"]{--frame-main:#c38392;--frame-soft:#efd7dd;--frame-light:#f8e9ed;--frame-gradient:conic-gradient(#dca9b5,#aa687e,#edc3c8,#c38392,#dca9b5)}
 .avatar[data-frame-color="sky"]{--frame-main:#6e9db4;--frame-soft:#d6e7ee;--frame-light:#e9f3f7;--frame-gradient:conic-gradient(#a9cedc,#5c89a4,#b5d9d9,#6e9db4,#a9cedc)}
