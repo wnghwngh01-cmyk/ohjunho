@@ -1,6 +1,6 @@
 # Profile frames · 2026-10-10
 
-Generated using the built-in GPT image generation tool. PNG transparency is preserved; the original files have not been raster-edited. CSS masks and color blending recolor only the ornament, leaving the profile photo unchanged.
+Generated using the built-in GPT image generation tool. PNG originals are preserved. The app renders recolored frames to a cached canvas at runtime; profile photos are separate and never recolored.
 
 Selected assets:
 - `assets/profile-frames/ribbon-v2.png`: 5,000 won, ribbon with compact bottom knot. Original generation `exec-e8e366d7-60fe-4405-af44-eb134218608c.png`.
@@ -23,3 +23,10 @@ Latest selection:
 - `blossom-v4.png` is the user-selected illustrated pink blossom ring (`exec-e9d76a5e-0214-4de5-9be9-16659c8339e4.png`), replacing v3 in the interface.
 - The crown frame is aligned around a smaller, circularly clipped photo aperture so the photo stays inside the upper rim.
 - The crown alone can use an independent crown color and ring/laurel color. The other tiers retain one color. The test site still grants cosmetic selection without payment.
+
+Final color revision:
+- Blossom and crown both support an independent ornament color. The legacy `avatar_crown_color` database field now holds the secondary color for either selected frame; no new permission or schema is needed.
+- Crown uses a contour following its curved lower band, eliminating the former rectangular tint around it. Its five-color rainbow progresses left to right; the ring/laurel progresses bottom to top.
+- Five blossom regions each receive one rainbow color. Botanical greens and flower stamens retain their source color. The ring has its own vertically blended palette.
+- Ribbon uses the same muted coral, yellow, green, sky and violet palette. Rose is warm (354° hue) and lilac is cool violet (266° hue).
+- The renderer preserves alpha and source lightness, caches at most 32 rendered variants, and falls back to the original image with a warning if rendering fails.

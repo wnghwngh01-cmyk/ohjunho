@@ -8,26 +8,11 @@
 .avatar[data-frame-tier="crown"]{--frame-asset:url('./profile-frames/crown-v3.png');--art-size:150%;--art-left:-25%;--art-top:-32%}
 .avatar[data-frame-tier="crown"] .avatar-face{inset:7.5%;width:85%;height:85%}
 .avatar .avatar-frame-art{display:block;position:absolute;left:var(--art-left);top:var(--art-top);width:var(--art-size);height:var(--art-size);z-index:4;pointer-events:none;isolation:isolate}
-.avatar-frame-art::before,.avatar-frame-art::after{content:"";position:absolute;inset:0}
-.avatar-frame-art::before{background:var(--frame-asset) center/contain no-repeat;filter:grayscale(1)}
-.avatar-frame-art::after{background:var(--frame-main);mask:var(--frame-asset) center/contain no-repeat;-webkit-mask:var(--frame-asset) center/contain no-repeat;mix-blend-mode:color}
-.avatar[data-frame-color="rainbow"] .avatar-frame-art::after{background:var(--frame-gradient)}
-/* Keep the botanical greens visible while the chosen palette gently colors petals and rim. */
-.avatar[data-frame-tier="blossom"] .avatar-frame-art::before{filter:none}
-.avatar[data-frame-tier="blossom"] .avatar-frame-art::after{opacity:.3}
-.avatar-crown-tint{display:block;position:absolute;inset:0;z-index:1;pointer-events:none;background:var(--crown-main);mask:var(--frame-asset) center/contain no-repeat;-webkit-mask:var(--frame-asset) center/contain no-repeat;clip-path:polygon(27% 0,73% 0,73% 27%,27% 27%);mix-blend-mode:color}
-.avatar[data-frame-crown-color=""] .avatar-crown-tint{display:none}
-.avatar[data-frame-crown-color="rainbow"] .avatar-crown-tint{background:var(--crown-gradient)}
-.avatar[data-frame-crown-color="sage"]{--crown-main:#6b9a83;--crown-gradient:conic-gradient(#8fc1a5,#567c72,#a4c7a2,#6b9a83,#8fc1a5)}
-.avatar[data-frame-crown-color="rose"]{--crown-main:#c38392;--crown-gradient:conic-gradient(#dca9b5,#aa687e,#edc3c8,#c38392,#dca9b5)}
-.avatar[data-frame-crown-color="sky"]{--crown-main:#6e9db4;--crown-gradient:conic-gradient(#a9cedc,#5c89a4,#b5d9d9,#6e9db4,#a9cedc)}
-.avatar[data-frame-crown-color="lilac"]{--crown-main:#9b88b3;--crown-gradient:conic-gradient(#c5adda,#8c7aab,#d9bcdb,#9b88b3,#c5adda)}
-.avatar[data-frame-crown-color="gold"]{--crown-main:#b99860;--crown-gradient:conic-gradient(#e5c68d,#a9834d,#efdaad,#b99860,#e5c68d)}
-.avatar[data-frame-crown-color="rainbow"]{--crown-main:#9689ae;--crown-gradient:conic-gradient(#be8fa7,#c9ad83,#9ebf9f,#89b4c3,#9b9fc7,#be8fa7)}
+.avatar-frame-art>canvas,.avatar-frame-art>img{display:block;width:100%;height:100%;object-fit:contain}
 .avatar[data-frame-color="sage"]{--frame-main:#6b9a83;--frame-soft:#d6e9dc;--frame-light:#e9f3e8;--frame-gradient:conic-gradient(#8fc1a5,#567c72,#a4c7a2,#6b9a83,#8fc1a5)}
-.avatar[data-frame-color="rose"]{--frame-main:#c38392;--frame-soft:#efd7dd;--frame-light:#f8e9ed;--frame-gradient:conic-gradient(#dca9b5,#aa687e,#edc3c8,#c38392,#dca9b5)}
+.avatar[data-frame-color="rose"]{--frame-main:#bd6e77;--frame-soft:#efd7dd;--frame-light:#f8e9ed;--frame-gradient:conic-gradient(#dca9b5,#aa687e,#edc3c8,#c38392,#dca9b5)}
 .avatar[data-frame-color="sky"]{--frame-main:#6e9db4;--frame-soft:#d6e7ee;--frame-light:#e9f3f7;--frame-gradient:conic-gradient(#a9cedc,#5c89a4,#b5d9d9,#6e9db4,#a9cedc)}
-.avatar[data-frame-color="lilac"]{--frame-main:#9b88b3;--frame-soft:#e6dcef;--frame-light:#f3edfa;--frame-gradient:conic-gradient(#c5adda,#8c7aab,#d9bcdb,#9b88b3,#c5adda)}
+.avatar[data-frame-color="lilac"]{--frame-main:#9271b5;--frame-soft:#e6dcef;--frame-light:#f3edfa;--frame-gradient:conic-gradient(#c5adda,#8c7aab,#d9bcdb,#9b88b3,#c5adda)}
 .avatar[data-frame-color="gold"]{--frame-main:#b99860;--frame-soft:#eee1c7;--frame-light:#f8eed9;--frame-gradient:conic-gradient(#e5c68d,#a9834d,#efdaad,#b99860,#e5c68d)}
 .avatar[data-frame-color="rainbow"]{--frame-main:#9689ae;--frame-soft:#d9e6e1;--frame-light:#f2e8ed;--frame-gradient:conic-gradient(#be8fa7,#c9ad83,#9ebf9f,#89b4c3,#9b9fc7,#be8fa7)}
 .frame-editor{margin:0 0 2px;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
