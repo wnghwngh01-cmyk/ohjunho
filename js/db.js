@@ -52,7 +52,7 @@
     if(patch.bio!==undefined)allowed.bio=String(patch.bio).slice(0,500);
     if(patch.avatar_path!==undefined){const path=patch.avatar_path===null?null:String(patch.avatar_path);if(path!==null&&!path.startsWith(`${uid()}/public/profile/`))throw new Error('올바르지 않은 프로필 사진 경로입니다.');allowed.avatar_path=path}
     if(patch.avatar_frame_tier!==undefined)allowed.avatar_frame_tier=window.HaruAvatarFrame.safeTier(patch.avatar_frame_tier);
-    if(patch.avatar_frame_color!==undefined)allowed.avatar_frame_color=window.HaruAvatarFrame.safeColor(patch.avatar_frame_color);
+    if(patch.avatar_frame_color!==undefined)allowed.avatar_frame_color=window.HaruAvatarFrame.safeColor(patch.avatar_frame_color,allowed.avatar_frame_tier);
     if(patch.public_profile!==undefined)allowed.public_profile=!!patch.public_profile;
     const {data,error}=await client.from('profiles').update(allowed).eq('id',uid()).select().single();fail(error,'프로필 저장');return data;
   }
