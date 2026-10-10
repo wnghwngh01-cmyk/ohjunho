@@ -18,3 +18,8 @@ The five solid palettes remain available to every frame. Rainbow is selectable a
 - `blossom-v3.png` (built-in image edit of v2): same blossom composition, fewer and smaller sage leaves; transparent background. Final prompt: keep ring and blossoms, reduce leaf number/area by ~40%, keep sage leaves distinct from pink petals and rose rim, preserve circular geometry and alpha.
 - `crown-v3.png` (two built-in image edits of v2): crown enlarged ~35% and complete frame inset to protect tip from clipping. Final prompt: retain enlarged crown and ring/leaves, leave at least 7% transparent top margin and 4% at other sides, preserve transparent center.
 - Blossom artwork now keeps its original colored leaf and petal layer. CSS applies only a subtle palette tint on top; leaves stay visibly green. The other frames keep full palette tint.
+
+Latest selection:
+- `blossom-v4.png` is the user-selected illustrated pink blossom ring (`exec-e9d76a5e-0214-4de5-9be9-16659c8339e4.png`), replacing v3 in the interface.
+- The crown frame is aligned around a smaller, circularly clipped photo aperture so the photo stays inside the upper rim.
+- The crown alone can use an independent crown color and ring/laurel color. The other tiers retain one color. The test site still grants cosmetic selection without payment.

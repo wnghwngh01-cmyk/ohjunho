@@ -53,6 +53,7 @@
     if(patch.avatar_path!==undefined){const path=patch.avatar_path===null?null:String(patch.avatar_path);if(path!==null&&!path.startsWith(`${uid()}/public/profile/`))throw new Error('올바르지 않은 프로필 사진 경로입니다.');allowed.avatar_path=path}
     if(patch.avatar_frame_tier!==undefined)allowed.avatar_frame_tier=window.HaruAvatarFrame.safeTier(patch.avatar_frame_tier);
     if(patch.avatar_frame_color!==undefined)allowed.avatar_frame_color=window.HaruAvatarFrame.safeColor(patch.avatar_frame_color,allowed.avatar_frame_tier);
+    if(patch.avatar_crown_color!==undefined)allowed.avatar_crown_color=window.HaruAvatarFrame.safeCrownColor(patch.avatar_crown_color)||null;
     if(patch.public_profile!==undefined)allowed.public_profile=!!patch.public_profile;
     const {data,error}=await client.from('profiles').update(allowed).eq('id',uid()).select().single();fail(error,'프로필 저장');return data;
   }
@@ -160,9 +161,9 @@
   async function attachAvatarFrames(rows){
     if(!rows?.length)return rows||[];
     const ids=[...new Set(rows.map(row=>row.user_id).filter(Boolean))];
-    const {data,error}=await client.rpc('get_avatar_frames',{p_ids:ids});fail(error,'프로필 테두리 불러오기');
+    const {data,error}=await client.rpc('get_avatar_frames_v2',{p_ids:ids});fail(error,'프로필 테두리 불러오기');
     const frames=new Map((data||[]).map(row=>[row.id,row]));
-    return rows.map(row=>({...row,avatar_frame_tier:frames.get(row.user_id)?.avatar_frame_tier||'none',avatar_frame_color:frames.get(row.user_id)?.avatar_frame_color||'sage'}));
+    return rows.map(row=>({...row,avatar_frame_tier:frames.get(row.user_id)?.avatar_frame_tier||'none',avatar_frame_color:frames.get(row.user_id)?.avatar_frame_color||'sage',avatar_crown_color:frames.get(row.user_id)?.avatar_crown_color||null}));
   }
   async function feed(mode='discover',category='all'){const {data,error}=await client.rpc('get_publication_feed_v2',{p_mode:mode,p_category:category,p_limit:50});fail(error,'광장 불러오기');return attachAvatarFrames(data||[])}
   async function toggleFollow(target,currently){if(currently){const {error}=await client.from('follows').delete().eq('follower_id',uid()).eq('following_id',target);fail(error,'팔로우 취소');return false}else{const {error}=await client.from('follows').insert({follower_id:uid(),following_id:target});fail(error,'팔로우');return true}}

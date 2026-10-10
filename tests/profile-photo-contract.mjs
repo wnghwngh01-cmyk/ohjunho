@@ -13,7 +13,7 @@ const migration=read('../supabase/step12_profile_photos.sql');
 for(const token of ['id="settingsAvatar"','id="settingsAvatarInput"','id="settingsAvatarRemove"','프로필 사진']){
   if(!html.includes(token))throw new Error(`Profile photo settings UI is missing: ${token}`);
 }
-for(const token of ['selectProfilePhoto','removeProfilePhoto','Storage.uploadProfileImage','profilePhotoRemove',"avatarMarkup(p.display_name,p.avatar_path,'',p.avatar_frame_tier,p.avatar_frame_color)",'avatarMarkup(c.display_name,c.avatar_path','Storage.removePublic(uploadedPath)']){
+for(const token of ['selectProfilePhoto','removeProfilePhoto','Storage.uploadProfileImage','profilePhotoRemove',"avatarMarkup(p.display_name,p.avatar_path,'',p.avatar_frame_tier,p.avatar_frame_color,p.avatar_crown_color)",'avatarMarkup(c.display_name,c.avatar_path','Storage.removePublic(uploadedPath)']){
   if(!app.includes(token))throw new Error(`Profile photo app flow is incomplete: ${token}`);
 }
 for(const token of ['uploadProfileImage','uniquePath(\'public/profile\'','PUBLIC_BUCKET','cacheControl:\'3600\'']){
