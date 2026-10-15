@@ -1,0 +1,6 @@
+.writing-template-tools{margin:0;min-width:0}
+.writing-template-toggle{min-height:44px;padding:4px 8px;font-size:13px}
+.writing-template-options{display:flex;flex-wrap:wrap;gap:4px 8px;padding:4px 0 8px}
+.writing-template-options[hidden]{display:none}
+.writing-template-options p{flex-basis:100%;margin:0;font-size:12px;line-height:1.5;color:var(--muted)}
+.writing-template-options button{min-height:44px;padding:6px 10px;font-size:13px}

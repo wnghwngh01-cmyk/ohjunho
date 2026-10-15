@@ -25,5 +25,29 @@
     }).sort((a,b)=>String(b.tx_date||'').localeCompare(String(a.tx_date||''))||String(b.created_at||'').localeCompare(String(a.created_at||'')));
   }
 
-  global.HaruFinance={currentBalance,filterRows,normalize};
+  const budgetLimit=999999999999;
+  function parseBudget(value){
+    const text=String(value??'').trim();
+    if(!text)return null;
+    if(!/^(?:\d+|\d{1,3}(?:,\d{3})+)$/.test(text))throw new Error('예산은 0 이상의 원 단위 정수로 입력해 주세요.');
+    const amount=Number(text.replaceAll(',',''));
+    if(!Number.isSafeInteger(amount)||amount>budgetLimit)throw new Error('예산은 999,999,999,999원 이하로 입력해 주세요.');
+    return amount;
+  }
+  function budgetSummary(rows,month,items={}){
+    const spending=new Map();let income=0,expense=0;
+    for(const row of rows||[]){
+      if(!String(row.tx_date||'').startsWith(month))continue;
+      const amount=Number(row.amount)||0;
+      if(row.tx_type==='income')income+=amount;
+      if(row.tx_type==='expense'){expense+=amount;const category=row.category||'기타';spending.set(category,(spending.get(category)||0)+amount)}
+    }
+    const categories=Object.entries(items).map(([category,budget])=>{
+      const used=spending.get(category)||0,amount=Number(budget);
+      return{category,budget:amount,used,remaining:amount-used,percent:amount>0?Math.min(100,used/amount*100):used>0?100:0};
+    });
+    const budget=categories.reduce((sum,x)=>sum+x.budget,0),used=categories.reduce((sum,x)=>sum+x.used,0);
+    return{categories,budget,used,remaining:budget-used,unbudgeted:expense-used,income,expense,net:income-expense,configured:categories.length>0};
+  }
+  global.HaruFinance={currentBalance,filterRows,normalize,parseBudget,budgetSummary};
 })(typeof window!=='undefined'?window:globalThis);

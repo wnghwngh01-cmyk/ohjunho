@@ -1,0 +1,48 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import {PGlite} from '@electric-sql/pglite';import '../js/finance-utils.js';
+const db=new PGlite();const a='00000000-0000-0000-0000-000000000001',b='00000000-0000-0000-0000-000000000002';
+await db.exec(`create role authenticated;create role anon;create schema auth;create table auth.users(id uuid primary key);insert into auth.users values('${a}'),('${b}');
+create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('test.uid',true),'')::uuid$$;grant usage on schema auth to authenticated;grant execute on function auth.uid() to authenticated;
+create table finance_transactions(id uuid primary key default gen_random_uuid(),user_id uuid references auth.users(id),tx_type text,amount numeric,title text,category text,tx_date date,created_at timestamptz default now());alter table finance_transactions enable row level security;create policy own on finance_transactions to authenticated using(user_id=auth.uid()) with check(user_id=auth.uid());grant select,insert,update,delete on finance_transactions to authenticated;
+create function export_my_data() returns jsonb language sql as $$select jsonb_build_object('version',3,'profiles',jsonb_build_array(jsonb_build_object('id',auth.uid())))$$;
+create function restore_my_data(p_backup jsonb) returns jsonb language plpgsql as $$begin if p_backup->'profiles'->0->>'id' is distinct from auth.uid()::text then raise exception 'wrong owner';end if;return jsonb_build_object('restored',0);end$$;`);
+for(const f of ['step22_monthly_budgets.sql','step23_recurring_finance.sql','step23b_recurring_backup.sql','step23d_recurring_activate.sql'])await db.exec(fs.readFileSync('supabase/'+f,'utf8'));
+const q=async(sql,args=[])=> (await db.query(sql,args)).rows;
+const rpc=async(sql,args=[])=> (await q(sql,args))[0].v;
+const login=async id=>db.exec(`reset role;set test.uid='${id}';set role authenticated;`);
+const today=(await q("select (now() at time zone 'Asia/Seoul')::date::text d"))[0].d;
+const base={tx_type:'expense',title:'정기 테스트',category:'식비',amount:150000,record_day:Number(today.slice(-2)),start_date:today,end_date:null,timezone:'Asia/Seoul'};
+const save=(id,p,rev)=>rpc('select save_recurring_finance($1,$2,$3) v',[id,JSON.stringify(p),rev]);
+const status=(r,action)=>rpc('select set_recurring_finance_status($1,$2,$3) v',[r.id,action,r.revision]);
+const worker=async(id,at)=>{await db.exec('reset role');return rpc('select process_recurring_rule($1,$2) v',[id,at])};
+await login(a);
+await assert.rejects(()=>save(null,{...base,start_date:'2000-01-01'},0),/오늘/);
+await assert.rejects(()=>save(null,{...base,amount:1.5},0),/금액/);
+let r=await save(null,base,0);assert.equal(r.next_due,today);
+await db.exec(`reset role;insert into finance_recurring_execution_users values('${a}');`);
+assert.equal(await worker(r.id,new Date().toISOString()),true);
+assert.equal(await worker(r.id,new Date().toISOString()),true);
+let rows=await q('select *,tx_date::text as tx_date from finance_transactions');assert.equal(rows.length,1);assert.equal(rows[0].recurring_rule_id,r.id);
+const month=today.slice(0,7);assert.equal(globalThis.HaruFinance.budgetSummary(rows,month,{'식비':300000}).remaining,150000);
+await login(a);r=await save(r.id,{...base,amount:180000},r.revision);assert.notEqual(r.next_due.slice(0,7),month);assert.equal((await q('select amount from finance_transactions'))[0].amount,'150000');
+r=await status(r,'pause');assert.equal(r.next_due,null);r=await status(r,'resume');assert.notEqual(r.next_due.slice(0,7),month);
+await db.exec('delete from finance_transactions');await worker(r.id,new Date().toISOString());assert.equal((await q('select * from finance_transactions')).length,0);assert.equal((await q('select * from finance_recurring_occurrences')).length,1);
+await login(a);await assert.rejects(()=>save(r.id,base,r.revision-1),/변경/);
+// Inject a DB failure, ensure transaction and occurrence marker both roll back.
+let fail=await save(null,{...base,title:'실패 복구'},0);
+await db.exec(`reset role;create function force_failure() returns trigger language plpgsql as $$begin if new.title='실패 복구' then raise exception 'injected';end if;return new;end$$;create trigger fail before insert on finance_transactions for each row execute function force_failure();`);
+assert.equal(await worker(fail.id,new Date().toISOString()),false);assert.equal((await q('select * from finance_recurring_occurrences where rule_id=$1',[fail.id])).length,0);assert.match((await q('select last_error from finance_recurring_rules where id=$1',[fail.id]))[0].last_error,/실패/);
+await db.exec('drop trigger fail on finance_transactions');assert.equal(await worker(fail.id,new Date().toISOString()),true);
+// Time simulation runs only against the local DB, never an operational cron.
+await login(a);let gap=await save(null,{...base,start_date:'2099-12-01',record_day:31},0);
+assert.equal(await worker(gap.id,'2100-03-01T01:00:00Z'),true);
+assert.deepEqual((await q('select due_date::text d from finance_recurring_occurrences where rule_id=$1 order by month',[gap.id])).map(x=>x.d),['2099-12-31','2100-01-31','2100-02-28']);
+assert.equal(await rpc("select recurring_due('2028-02-01',31)::text v"),'2028-02-29');
+assert.equal(await rpc("select recurring_due('2027-04-01',31)::text v"),'2027-04-30');
+assert.equal(await rpc("select recurring_next(null,$1,'2026-10-14T15:01:00Z')::text v",[JSON.stringify({...base,start_date:'2026-10-01',record_day:14})]),'2026-11-14');
+await login(a);const backup=await rpc('select export_my_data() v');await rpc('select restore_my_data($1) v',[JSON.stringify(backup)]);assert.ok((await q('select status from finance_recurring_rules')).every(x=>x.status==='paused'));
+await login(b);assert.equal((await q('select * from finance_recurring_rules')).length,0);await assert.rejects(()=>save(r.id,base,r.revision),/변경/);await assert.rejects(()=>rpc('select run_recurring_finance() v'),/permission/);await assert.rejects(()=>rpc('select restore_my_data($1) v',[JSON.stringify(backup)]),/wrong owner/);
+await save(null,{...base,title:'사용자가 직접 등록한 규칙'},0);await db.exec('reset role');
+assert.equal((await rpc('select run_recurring_finance() v')).processed_rules,1,'activated worker must process user-created rules without a test allowlist');
+assert.equal((await rpc('select run_recurring_finance() v')).processed_rules,0);
+await db.close();console.log('recurring finance: PASS (real local SQL, duplicate/delete, budget aggregation, edits/pause/resume, failed generation rollback/retry, missed months/leap/year/timezone, backup pause, RLS, activated worker)');
+

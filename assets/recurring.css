@@ -1,0 +1,10 @@
+.recurring-body{padding:16px;min-width:0}
+.recurring-body>p,.recurring-item p{font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+.recurring-item{padding:14px 0;border-bottom:1px solid var(--line)}
+.recurring-item strong{font-size:15px;overflow-wrap:anywhere}
+.recurring-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.recurring-actions button{min-height:44px}
+.recurring-form{display:grid;gap:12px;margin-top:16px}
+.recurring-form[hidden]{display:none}
+.recurring-form input,.recurring-form select{width:100%;min-width:0;min-height:44px;font-size:16px}
+#recurringStatus{min-height:22px;overflow-wrap:anywhere}
