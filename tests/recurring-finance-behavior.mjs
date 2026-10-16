@@ -45,4 +45,3 @@ await save(null,{...base,title:'사용자가 직접 등록한 규칙'},0);await 
 assert.equal((await rpc('select run_recurring_finance() v')).processed_rules,1,'activated worker must process user-created rules without a test allowlist');
 assert.equal((await rpc('select run_recurring_finance() v')).processed_rules,0);
 await db.close();console.log('recurring finance: PASS (real local SQL, duplicate/delete, budget aggregation, edits/pause/resume, failed generation rollback/retry, missed months/leap/year/timezone, backup pause, RLS, activated worker)');
-
