@@ -21,7 +21,7 @@ for(const file of ['ribbon-v2.png','blossom-v4.png','crown-v3.png'])assert.ok(fs
 assert.ok(css.includes('blossom-v4.png')&&css.includes('crown-v3.png')&&css.includes('.avatar-frame-art>canvas'));
 for(const amount of ['1000','5000','10000','30000'])assert.match(html,new RegExp(`data-support-amount="${amount}"`));
 for(const id of ['settingsFrameOpen','profileFramePanel','frameTierOptions','frameColorOptions','frameCrownColorGroup','frameCrownColorOptions'])assert.ok(html.includes(`id="${id}"`),id);
-for(const source of [html,publicHtml])assert.ok(source.includes('avatar-frame.css?v=20261010-avatar-frame-v7'));
+for(const source of [html,publicHtml])assert.ok(source.includes('avatar-frame.css?v=20261017-avatar-frame-v8'));
 for(const source of [app,db,publicApp,sql])assert.ok(source.includes('avatar_frame_tier')&&source.includes('avatar_frame_color'));
 assert.ok(app.includes('avatar_frame_tier:state.frameDraftTier')&&app.includes('renderProfilePhotoEditor();renderFrameEditor()'));
 assert.ok(db.includes("client.rpc('get_avatar_frames_v2'"));
