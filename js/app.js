@@ -160,7 +160,7 @@
   function avatarContent(name,path='',url=''){const source=url||(path?Storage.publicUrl(path):'');return `<span class="avatar-letter">${esc(avatarLetter(name))}</span>${source?`<img class="avatar-photo" src="${esc(source)}" alt="">`:''}`}
   function avatarMarkup(name,path='',extra='',tier='none',color='sage',crownColor=''){const kind=Frame.safeTier(tier),palette=Frame.safeColor(color,kind),crown=['crown','blossom'].includes(kind)?Frame.safeCrownColor(crownColor):'';return `<div class="avatar${extra?` ${extra}`:''}" data-frame-tier="${kind}" data-frame-color="${palette}" data-frame-crown-color="${crown}"><span class="avatar-face">${avatarContent(name,path)}</span>${Frame.art(kind)}</div>`}
   function renderAvatar(element,name,path='',url='',tier='none',color='sage',crownColor=''){if(element){element.innerHTML=`<span class="avatar-face">${avatarContent(name,path,url)}</span>`;Frame.decorate(element,tier,color,crownColor)}}
-  const frameTierLabels={none:['없음','기본'],simple:['얇은 원','₩1,000'],spectrum:['리본','₩5,000'],blossom:['꽃잎','₩10,000'],crown:['월계관','₩30,000']};
+  const frameTierLabels={none:['없음','기본'],simple:['원형 테두리','₩1,000'],spectrum:['리본','₩5,000'],blossom:['꽃잎','₩10,000'],crown:['월계관','₩30,000']};
   const frameColorLabels={sage:'세이지',rose:'장미',sky:'하늘',lilac:'라일락',gold:'샴페인',rainbow:'무지개'};
   function renderFrameEditor(){
     const tier=Frame.safeTier(state.frameDraftTier),color=Frame.safeColor(state.frameDraftColor,tier);
