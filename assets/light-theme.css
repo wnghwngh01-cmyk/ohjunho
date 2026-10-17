@@ -493,6 +493,7 @@ html:not([data-theme="dark"]) .day-event.segment-6>span{width:calc(600% + 40px)}
 html:not([data-theme="dark"]) .day-event.segment-7>span{width:calc(700% + 48px)}
 html:not([data-theme="dark"]) .day-event.range-start:not(.range-end)>span{flex-shrink:0}
 html:not([data-theme="dark"]) .day-event.range-start:not(.range-end){z-index:6}
+html:not([data-theme="dark"]) .day-more{bottom:0;line-height:10px;font-size:9px;padding:0 2px}
 html:not([data-theme="dark"]) .transaction{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:'copy amount' 'copy actions';gap:0 8px;padding:12px 0;align-items:start}
 html:not([data-theme="dark"]) .transaction-copy{grid-area:copy;display:flex;flex-wrap:wrap;align-content:start;gap:4px 6px}
 html:not([data-theme="dark"]) .transaction-copy strong{order:-1;flex-basis:100%;font-size:15px;line-height:22px}
