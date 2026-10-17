@@ -527,7 +527,17 @@
       const form=document.querySelector(page==='records'?'#recordComposer':'#page-'+page+' .simple-form');
       const details=document.createElement('details');details.id=id+'ComposerDisclosure';details.className='writing-disclosure';
       const summary=document.createElement('summary');summary.textContent=label+' · 작성창 열기';details.append(summary);form.before(details);details.append(form);
-      form.parentElement.parentElement.classList.add('list-first-layout');
+      const layout=form.parentElement.parentElement;
+      layout.classList.add('list-first-layout');
+      layout.append(details);
+      if(page!=='records'){
+        const action=document.createElement('button');
+        action.type='button';action.className='btn primary';action.textContent=label;
+        let actions=document.querySelector('#page-'+page+' .page-head .head-actions');
+        if(!actions){actions=document.createElement('div');actions.className='head-actions';document.querySelector('#page-'+page+' .page-head').append(actions)}
+        actions.append(action);
+        action.addEventListener('click',()=>{details.open=true;details.scrollIntoView({behavior:'smooth',block:'start'});form.querySelector('input,textarea')?.focus({preventScroll:true})});
+      }
     }
     document.addEventListener('click',e=>{document.querySelectorAll('.action-menu[open]').forEach(menu=>{if(!menu.contains(e.target)){menu.open=false}else if(e.target.closest('button')){menu.open=false;menu.querySelector('summary').focus()}})});
     document.addEventListener('toggle',e=>{if(e.target.matches?.('.action-menu'))e.target.querySelector('summary').setAttribute('aria-expanded',String(e.target.open))},true);
