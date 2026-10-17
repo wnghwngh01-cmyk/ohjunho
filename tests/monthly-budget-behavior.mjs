@@ -5,6 +5,8 @@ import '../js/finance-utils.js';
 const F=globalThis.HaruFinance;
 const rows=[{tx_type:'expense',category:'식비',amount:150000,tx_date:'2026-10-01'},{tx_type:'expense',category:'쇼핑',amount:50000,tx_date:'2026-10-02'},{tx_type:'income',amount:900000,tx_date:'2026-10-03'},{tx_type:'balance',amount:5000000,tx_date:'2026-10-01'},{tx_type:'expense',category:'교통',amount:9000,tx_date:'2026-09-30'}];
 const result=F.budgetSummary(rows,'2026-10',{'식비':300000,'교통':100000});
+assert.ok(!F.budgetCategories(rows,'2026-10').includes('급여'),'income-only categories must not appear as expense budgets');
+assert.ok(F.budgetCategories([{tx_type:'expense',category:'사용자 분류',tx_date:'2026-10-10'}],'2026-10').includes('사용자 분류'));
 assert.equal(result.remaining,250000);assert.equal(result.expense,200000);assert.equal(result.unbudgeted,50000);assert.equal(result.income,900000);
 const edited=rows.map((r,i)=>i===0?{...r,amount:180000}:r);
 assert.equal(F.budgetSummary(edited,'2026-10',{'식비':300000}).remaining,120000);

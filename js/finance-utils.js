@@ -26,6 +26,10 @@
   }
 
   const budgetLimit=999999999999;
+  const expenseCategories=['식비','교통','쇼핑','생활','교육','세금','기타'];
+  function budgetCategories(rows,month){
+    return [...new Set([...expenseCategories,...(rows||[]).filter(row=>row.tx_type==='expense'&&String(row.tx_date||'').startsWith(month)).map(row=>row.category||'기타')])];
+  }
   function parseBudget(value){
     const text=String(value??'').trim();
     if(!text)return null;
@@ -49,5 +53,5 @@
     const budget=categories.reduce((sum,x)=>sum+x.budget,0),used=categories.reduce((sum,x)=>sum+x.used,0);
     return{categories,budget,used,remaining:budget-used,unbudgeted:expense-used,income,expense,net:income-expense,configured:categories.length>0};
   }
-  global.HaruFinance={currentBalance,filterRows,normalize,parseBudget,budgetSummary};
+  global.HaruFinance={currentBalance,filterRows,normalize,budgetCategories,parseBudget,budgetSummary};
 })(typeof window!=='undefined'?window:globalThis);

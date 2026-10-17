@@ -26,15 +26,25 @@ T.bind({body,button,panel,hint,notify(){}});assert.equal(body.value,'');button.c
 // test store. This is integration with doubles, not Supabase or IndexedDB QA.
 const source=fs.readFileSync('js/app.js','utf8');
 function extract(name){const re=new RegExp('^  (?:async )?function '+name+'\\(', 'm'),start=source.search(re);assert.ok(start>=0,name);const tail=source.slice(start+1),end=tail.search(/\n  (?:async )?function /);return source.slice(start,end<0?source.length:start+1+end)}
-const names=['diaryDraftPayload','scheduleDiaryDraft','restoreDiaryDraft','resetDiary','saveDiary','draftPayload','scheduleDraft','restoreDraft','resetRecordComposer','saveRecord'];
+function extractConst(name){const line=source.split('\n').find(row=>row.startsWith(`  const ${name}=`));assert.ok(line,name);return line}
+const names=['diaryDraftPayload','queueDiaryDraft','scheduleDiaryDraft','preserveDiaryDraft','restoreDiaryDraft','resetDiary','saveDiary','draftPayload','queueRecordDraft','scheduleDraft','preserveRecordDraft','restoreDraft','resetRecordComposer','saveRecord'];
 const store=new Map(),saved=[];
 function harness(){
  const elements=new Map(),$=s=>{if(!elements.has(s))elements.set(s,new El());return elements.get(s)};
  const timers=new Map();let timer=0;
  const state={diaryEdit:null,recordEdit:null,newDiaryFiles:[],newRecordFiles:[]};
- const context={state,$,Date,console,DB:{user:()=>({id:'test'}),today:()=> '2026-10-14',createRecord:async p=>{const row={id:String(saved.length),...structuredClone(p)};saved.push(row);return row},updateRecord:async(id,p)=>{const row={id,...structuredClone(p)};saved.push(row);return row}},Drafts:{set:async(k,v)=>store.set(k,structuredClone(v)),get:async k=>structuredClone(store.get(k)),del:async k=>store.delete(k)},diaryDraftKey:()=> 'diary:test',setTimeout:f=>{timers.set(++timer,f);return timer},clearTimeout:id=>timers.delete(id),toast(){},setBusy(){},withError:f=>f(),Storage:{uploadRecordImages:async()=>{}},clearDiaryFiles(){state.newDiaryFiles=[]},clearPreviewUrls(){state.newRecordFiles=[]},renderDiaryFiles(){},renderNewRecordFiles(){},loadDiary:async()=>{},loadRecords:async()=>{}};
- vm.createContext(context);vm.runInContext(names.map(extract).join('\n'),context);
+ const context={state,$,Date,console,DB:{user:()=>({id:'test'}),today:()=> '2026-10-14',createRecord:async p=>{const row={id:String(saved.length),...structuredClone(p)};saved.push(row);return row},updateRecord:async(id,p)=>{const row={id,...structuredClone(p)};saved.push(row);return row}},Drafts:{set:async(k,v)=>store.set(k,structuredClone(v)),get:async k=>structuredClone(store.get(k)),del:async k=>store.delete(k)},setTimeout:f=>{timers.set(++timer,f);return timer},clearTimeout:id=>timers.delete(id),toast(){},setBusy(){},withError:f=>f(),Storage:{uploadRecordImages:async()=>{}},clearDiaryFiles(){state.newDiaryFiles=[]},clearPreviewUrls(){state.newRecordFiles=[]},renderDiaryFiles(){},renderNewRecordFiles(){},loadDiary:async()=>{},loadRecords:async()=>{}};
+ vm.createContext(context);vm.runInContext([extractConst('diaryDraftKey'),extractConst('recordDraftKey'),...names.map(extract)].join('\n'),context);
  return{context,$,state,flush:async()=>{for(const f of [...timers.values()])await f();timers.clear()},timers};
+}
+for(const kind of ['diary','record']){
+ store.clear();const h=harness(),c=h.context,edit=kind==='diary'?'diaryEdit':'recordEdit',timer=kind==='diary'?'scheduleDiaryDraft':'scheduleDraft',restore=kind==='diary'?'restoreDiaryDraft':'restoreDraft';
+ h.$('#'+kind+'Body').value='새 글 양식';c[timer]();await h.flush();
+ h.state[edit]={id:'existing'};h.$('#'+kind+'Body').value='기존 글 수정';c[timer]();await h.flush();
+ assert.equal(store.get(`${kind}:test`).body,'새 글 양식');
+ assert.equal(store.get(`${kind}:test:edit:existing`).body,'기존 글 수정');
+ h.$('#'+kind+'Body').value='';await c[restore]('existing');assert.equal(h.$('#'+kind+'Body').value,'기존 글 수정');
+ h.state[edit]=null;h.$('#'+kind+'Body').value='';await c[restore]();assert.equal(h.$('#'+kind+'Body').value,'새 글 양식');
 }
 for(const kind of ['diary','record']){
  store.clear();const h=harness(),c=h.context;

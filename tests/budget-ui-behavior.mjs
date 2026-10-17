@@ -4,26 +4,31 @@ import vm from 'node:vm';
 import '../js/finance-utils.js';
 // DOM test double: validates UI state transitions, not browser layout.
 class Element{
-  constructor(tag='div'){this.tag=tag;this.children=[];this.listeners={};this.textContent='';this.value='';this.classList={toggle(){}}}
+  constructor(tag='div'){this.tag=tag;this.children=[];this.listeners={};this.textContent='';this.value='';this.style={};this.classList={toggle(){}}}
   append(...children){this.children.push(...children)}
   replaceChildren(...children){this.children=children}
   setAttribute(){}
   addEventListener(name,fn){this.listeners[name]=fn}
   focus(){}
   scrollIntoView(){}
-  async trigger(name){await this.listeners[name]?.()}
+  async trigger(name){await this.listeners[name]?.({currentTarget:this})}
 }
 const nodes=new Map(),root={querySelector:s=>{if(!nodes.has(s))nodes.set(s,new Element());return nodes.get(s)}};
 const context={window:{},document:{createElement:tag=>new Element(tag)}};
 vm.runInNewContext(fs.readFileSync('js/budget-ui.js','utf8'),context);
-let active='2026-10',user='a',failSave=false,resolveSave,saveCalls=0;
+let active='2026-10',user='a',failSave=false,resolveSave,saveCalls=0,revision=1,lastSavedItems;
 const saved={month:'2026-10-01',revision:1,status:'saved',items:{'식비':300000}};
-const db={user:()=>({id:user}),today:()=> '2026-10-14',getMonthBudget:async month=>({...saved,month:month+'-01',items:{...saved.items}}),saveMonthBudget:async(month,items,revision)=>{saveCalls++;assert.equal(revision,1);if(failSave)throw new Error('network');await new Promise(r=>resolveSave=r);return{...saved,revision:2,items}}};
+const db={user:()=>({id:user}),today:()=> '2026-10-14',getMonthBudget:async month=>({...saved,month:month+'-01',items:{...saved.items}}),saveMonthBudget:async(month,items,expected)=>{saveCalls++;lastSavedItems=items;assert.equal(expected,revision);if(failSave)throw new Error('network');await new Promise(r=>resolveSave=r);revision++;return{...saved,revision,items}}};
 let ui;const render=()=>ui.render(active,[{tx_type:'expense',amount:100000,category:'식비',tx_date:'2026-10-01'}],['식비','교통']);
 ui=context.window.HaruBudgetUI.create({db,finance:globalThis.HaruFinance,root,onChange:render});
 await ui.load(active);render();
 assert.equal(root.querySelector('#financeBudgetRemaining').textContent,'₩200,000');
-const input=()=>root.querySelector('#budgetRows').children[0].children[1];
+assert.equal(root.querySelector('#budgetRows').children.length,1,'only configured categories appear in overview');
+assert.equal(root.querySelector('#budgetRows').children[0].children[1].children[0].style.width,'33.33333333333333%');
+assert.equal(root.querySelector('#budgetSelected').hidden,true,'editor is empty until a category is chosen');
+const select=root.querySelector('#budgetCategory');select.value='식비';await select.trigger('change');
+const input=()=>root.querySelector('#budgetAmount');
+assert.match(root.querySelector('#budgetSelectedUsage').textContent,/현재 예산 ₩300,000/);
 input().value='0';await input().trigger('input');
 active='2026-11';await ui.load(active);active='2026-10';render();
 assert.equal(input().value,'0','draft must survive switching months');
@@ -36,6 +41,19 @@ assert.equal(saveCalls,2,'one failed attempt and one pending attempt; duplicate 
 resolveSave();await pending;
 assert.equal(root.querySelector('#financeBudgetRemaining').textContent,'₩100,000 초과');
 assert.match(root.querySelector('#budgetStatus').textContent,/저장했습니다/);
+assert.equal(root.querySelector('#budgetRows').children[0].children[1].children[0].style.width,'100%','over-budget meter is capped');
+assert.match(root.querySelector('#budgetRows').children[0].children[2].children[0].textContent,/초과/);
+await root.querySelector('#budgetOpen').trigger('click');
+assert.equal(root.querySelector('#financeBudgetPanel').open,true);
+assert.equal(root.querySelector('#budgetEditPanel').open,undefined,'overview does not open the editor');
+select.value='교통';await select.trigger('change');
+assert.match(root.querySelector('#budgetSelectedUsage').textContent,/예산 미설정/);
+input().value='50000';await input().trigger('input');
+assert.equal(root.querySelector('#budgetRows').children.length,1,'unsaved category is not shown in saved overview');
+const add=root.querySelector('#budgetSave').trigger('click');await Promise.resolve();resolveSave();await add;
+assert.equal(root.querySelector('#budgetRows').children.length,2,'newly saved category appears in overview');
+assert.equal(lastSavedItems['식비'],0,'saving one category keeps the other saved budget');
+assert.equal(lastSavedItems['교통'],50000);
 input().value='123';await input().trigger('input');user='b';
 await ui.load(active);render();assert.notEqual(input().value,'123','draft must not leak into another account');
 console.log('budget UI state: PASS (draft/month switch, save failure, duplicate click, over budget, account isolation)');
