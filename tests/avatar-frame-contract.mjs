@@ -17,11 +17,13 @@ assert.match(frame.art('blossom'),/avatar-frame-art/);
 assert.match(frame.art('crown'),/avatar-frame-art/);
 for(const tier of frame.tiers){assert.equal(frame.safeColor('rainbow',tier),['spectrum','blossom','crown'].includes(tier)?'rainbow':'sage');assert.equal(frame.colorsFor(tier).includes('rainbow'),['spectrum','blossom','crown'].includes(tier));}
 assert.equal(frame.art('simple'),'');
-for(const file of ['ribbon-v2.png','blossom-v4.png','crown-v3.png'])assert.ok(fs.statSync(new URL('../assets/profile-frames/'+file,import.meta.url)).size>1000);
-assert.ok(css.includes('blossom-v4.png')&&css.includes('crown-v3.png')&&css.includes('.avatar-frame-art>canvas'));
+for(const file of ['ribbon-v3.png','blossom-v5.png','crown-v3.png'])assert.ok(fs.statSync(new URL('../assets/profile-frames/'+file,import.meta.url)).size>1000);
+assert.ok(css.includes('blossom-v5.png')&&css.includes('crown-v3.png')&&css.includes('.avatar-frame-art>canvas'));
+assert.ok(css.includes('border:2px solid var(--frame-main)'));
+assert.ok(!css.includes('.avatar:is([data-frame-tier="spectrum"],[data-frame-tier="blossom"])::after'));
 for(const amount of ['1000','5000','10000','30000'])assert.match(html,new RegExp(`data-support-amount="${amount}"`));
 for(const id of ['settingsFrameOpen','profileFramePanel','frameTierOptions','frameColorOptions','frameCrownColorGroup','frameCrownColorOptions'])assert.ok(html.includes(`id="${id}"`),id);
-for(const source of [html,publicHtml])assert.ok(source.includes('avatar-frame.css?v=20261017-avatar-frame-v8'));
+for(const source of [html,publicHtml])assert.ok(source.includes('avatar-frame.css?v=20261017-avatar-frame-v9'));
 for(const source of [app,db,publicApp,sql])assert.ok(source.includes('avatar_frame_tier')&&source.includes('avatar_frame_color'));
 assert.ok(app.includes('avatar_frame_tier:state.frameDraftTier')&&app.includes('renderProfilePhotoEditor();renderFrameEditor()'));
 assert.ok(db.includes("client.rpc('get_avatar_frames_v2'"));

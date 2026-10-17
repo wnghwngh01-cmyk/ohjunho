@@ -21,6 +21,7 @@ The five solid palettes remain available to every frame. Rainbow is selectable a
 
 Latest selection:
 - `blossom-v4.png` is the user-selected illustrated pink blossom ring (`exec-e9d76a5e-0214-4de5-9be9-16659c8339e4.png`), replacing v3 in the interface.
+- `ribbon-v3.png` and `blossom-v5.png` edit v2/v4 using the crown frame only as a reference for a narrow dark outline along each artwork edge. The earlier PNGs remain for comparison. No separate CSS ring is used for these tiers.
 - The crown frame is aligned around a smaller, circularly clipped photo aperture so the photo stays inside the upper rim.
 - The crown alone can use an independent crown color and ring/laurel color. The other tiers retain one color. The test site still grants cosmetic selection without payment.
 

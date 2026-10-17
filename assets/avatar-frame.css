@@ -2,17 +2,13 @@
 .avatar[data-frame-tier]:not([data-frame-tier="none"]){overflow:visible;z-index:1}
 .avatar .avatar-face{position:absolute;inset:0;width:100%;height:100%;display:grid;place-items:center;overflow:hidden;border-radius:50%;background:inherit;color:inherit}
 .avatar .avatar-face .avatar-photo{border-radius:50%}
-.avatar[data-frame-tier="simple"]::after{content:"";position:absolute;z-index:3;pointer-events:none;inset:-2px;border:3px solid var(--frame-main);border-radius:50%;box-shadow:0 0 0 1px rgba(42,52,47,.5),inset 0 0 0 1px rgba(255,255,255,.65)}
-.avatar:is([data-frame-tier="spectrum"],[data-frame-tier="blossom"])::after{content:"";position:absolute;z-index:3;pointer-events:none;border-radius:50%;padding:2.5px;background:var(--frame-gradient);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;filter:drop-shadow(0 0 1px rgba(38,47,42,.6))}
-.avatar[data-frame-tier="spectrum"]::after{inset:-5%}
-.avatar[data-frame-tier="blossom"]::after{inset:-3.5%}
-.avatar[data-frame-tier="spectrum"]{--frame-asset:url('./profile-frames/ribbon-v2.png');--art-size:118%;--art-left:-9%;--art-top:-9%}
-.avatar[data-frame-tier="blossom"]{--frame-asset:url('./profile-frames/blossom-v4.png');--art-size:124%;--art-left:-12%;--art-top:-12%}
+.avatar[data-frame-tier="simple"]::after{content:"";position:absolute;z-index:3;pointer-events:none;inset:-2px;border:2px solid var(--frame-main);border-radius:50%;box-shadow:0 0 0 1px rgba(42,52,47,.62),inset 0 0 0 .5px rgba(42,52,47,.48)}
+.avatar[data-frame-tier="spectrum"]{--frame-asset:url('./profile-frames/ribbon-v3.png');--art-size:118%;--art-left:-9%;--art-top:-9%}
+.avatar[data-frame-tier="blossom"]{--frame-asset:url('./profile-frames/blossom-v5.png');--art-size:124%;--art-left:-12%;--art-top:-12%}
 .avatar[data-frame-tier="crown"]{--frame-asset:url('./profile-frames/crown-v3.png');--art-size:150%;--art-left:-25%;--art-top:-32%}
 .avatar[data-frame-tier="crown"] .avatar-face{inset:7.5%;width:85%;height:85%}
 .avatar .avatar-frame-art{display:block;position:absolute;left:var(--art-left);top:var(--art-top);width:var(--art-size);height:var(--art-size);z-index:4;pointer-events:none;isolation:isolate}
 .avatar-frame-art>canvas,.avatar-frame-art>img{display:block;width:100%;height:100%;object-fit:contain}
-.avatar:is([data-frame-tier="spectrum"],[data-frame-tier="blossom"]) .avatar-frame-art>:is(canvas,img){filter:drop-shadow(0 0 1px rgba(39,47,43,.68))}
 .avatar[data-frame-color="sage"]{--frame-main:#6b9a83;--frame-soft:#d6e9dc;--frame-light:#e9f3e8;--frame-gradient:conic-gradient(#8fc1a5,#567c72,#a4c7a2,#6b9a83,#8fc1a5)}
 .avatar[data-frame-color="rose"]{--frame-main:#bd6e77;--frame-soft:#efd7dd;--frame-light:#f8e9ed;--frame-gradient:conic-gradient(#dca9b5,#aa687e,#edc3c8,#c38392,#dca9b5)}
 .avatar[data-frame-color="sky"]{--frame-main:#6e9db4;--frame-soft:#d6e7ee;--frame-light:#e9f3f7;--frame-gradient:conic-gradient(#a9cedc,#5c89a4,#b5d9d9,#6e9db4,#a9cedc)}
