@@ -4,11 +4,12 @@ const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const app=fs.readFileSync(new URL('../js/app.js',import.meta.url),'utf8');
 const db=fs.readFileSync(new URL('../js/db.js',import.meta.url),'utf8');
 const lightTheme=fs.readFileSync(new URL('../assets/light-theme.css',import.meta.url),'utf8');
-const page=html.match(/<section id="page-today"[\s\S]*?<section id="memoryCard"/)?.[0]||'';
-const greeting=page.match(/<section class="greeting">[\s\S]*?<\/section>/)?.[0]||'';
+const todayTheme=fs.readFileSync(new URL('../assets/today-stitch.css',import.meta.url),'utf8');
+const page=html.match(/<section id="page-today"[\s\S]*?<section id="page-records"/)?.[0]||'';
+const greeting=page.match(/<section class="greeting today-overview">[\s\S]*?<\/section>/)?.[0]||'';
 
 if(greeting.includes('id="dailyQuote"')||page.includes('오늘의 문장'))throw new Error('Daily quote must be removed from Today');
-if(!greeting.includes('일정과 할 일, 습관과 기록을 한곳에서 챙기며 오늘을 차분히 이어가세요.'))throw new Error('Today app introduction is missing');
+if(greeting.includes('일정과 할 일, 습관과 기록을 한곳에서 챙기며 오늘을 차분히 이어가세요.'))throw new Error('Duplicate Today introduction must be removed');
 if(!greeting.includes('id="todayCountdowns"'))throw new Error('Important-day countdown must be inside the Today hero');
 if(app.includes('const quotes=')||app.includes("$('#dailyQuote')"))throw new Error('Daily quote rotation code must be removed');
 if(app.includes('countdowns.slice(0,1)'))throw new Error('Today hero must not limit important days to one');
@@ -19,9 +20,12 @@ if(!importantQuery||importantQuery.includes('.limit('))throw new Error('Upcoming
 if(lightTheme.includes('.hero-focus-line span{'))throw new Error('Focus label styles must not override D-Day badge contrast');
 const countdownBadge=lightTheme.match(/\.hero-countdown-badge\{[^}]+\}/)?.[0]||'';
 if(!countdownBadge.includes('color:#204936')||!countdownBadge.includes('background:#f2f7f3')||!countdownBadge.includes('font-weight:800'))throw new Error('D-Day badge must keep a high-contrast treatment');
-if(!app.includes('class="mini-item event-item"')||!lightTheme.includes('.today-grid .todo-item>[data-todo-move]'))throw new Error('Mobile Today rows must preserve readable content width');
+if(!app.includes('class="mini-item event-item"')||!todayTheme.includes('.today-panel .todo-item>[data-todo-move]'))throw new Error('Mobile Today rows must preserve readable content width');
+if(app.includes('class="todo-delete"'))throw new Error('Today must not expose a delete X beside todos');
+if(!html.includes('today-stitch.css?v=20261024-today-stitch-v1'))throw new Error('Today redesign stylesheet is not loaded');
+for(const hook of ['topbarTitle','topbarSub','syncState','page-today','todayDate','greetingTitle','todayFinalGoal','todayMonthlyGoal','todayCountdowns','todayEvents','todayTodoCount','todayTodoInput','todayTodoAdd','todayTodos','todayHabits','quickRecordText','quickRecordSave','memoryCard','memoryTitle','memoryBody','memoryOpen'])if(!html.includes(`id="${hook}"`))throw new Error(`Today hook is missing: ${hook}`);
 
-const ordered=['오늘 일정','할 일 체크리스트','습관 체크리스트','빠른 기록'];
+const ordered=['오늘 일정','할 일','습관','빠른 기록'];
 let previous=-1;
 for(const label of ordered){
   const position=page.indexOf(`<h3>${label}</h3>`);
