@@ -11,7 +11,7 @@
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./assets/styles.css?v=20261009-finance-analysis-v1">
   <link rel="stylesheet" href="./assets/light-theme.css?v=20261017-design-v6">
-  <link rel="stylesheet" href="./assets/today-stitch.css?v=20261024-today-stitch-v1">
+  <link rel="stylesheet" href="./assets/today-stitch.css?v=20261026-stitch-export-v2">
   <link rel="stylesheet" href="./assets/avatar-frame.css?v=20261024-avatar-frame-v13">
   <link rel="stylesheet" href="./assets/budget.css?v=20261017-budget-v2">
 <link rel="stylesheet" href="./assets/writing-templates.css?v=20261014-h1">
@@ -109,24 +109,45 @@
         <button class="icon-btn" data-go="notifications" aria-label="알림함">♢</button>
       </header>
 
-      <section id="page-today" class="page active wide" data-page="today">
-        <div class="today-hero">
-          <section class="greeting today-overview">
-            <div class="today-date-row"><span class="today-calendar-icon" aria-hidden="true"></span><small id="todayDate">TODAY</small></div>
-            <h2 id="greetingTitle">오늘의 하루</h2>
-            <div class="hero-focus">
-              <div class="hero-focus-line"><span>최종 목표</span><strong id="todayFinalGoal">아직 최종 목표가 없습니다.</strong></div>
-              <div class="hero-focus-line"><span>이번 달</span><strong id="todayMonthlyGoal">이번 달 목표를 정해보세요.</strong></div>
-              <div class="hero-focus-line hero-countdown-line"><span>D-Day</span><div id="todayCountdowns" class="hero-countdown"></div></div>
+      <section id="page-today" class="page active wide stitch-today" data-page="today">
+        <div class="stitch-today-stack">
+          <section class="stitch-intro">
+            <div class="stitch-greeting">
+              <div class="stitch-date"><span class="material-symbols-outlined" aria-hidden="true">calendar_today</span><span id="todayDate">오늘</span></div>
+              <h2 id="greetingTitle">좋은 하루 되세요</h2>
+            </div>
+            <div id="todayCountdowns" class="stitch-countdowns"></div>
+            <div class="stitch-goals">
+              <div><span class="stitch-goal-label primary">최종 목표</span><p id="todayFinalGoal">아직 최종 목표가 없습니다.</p></div>
+              <div><span class="stitch-goal-label">이번 달</span><p id="todayMonthlyGoal">이번 달 목표를 정해보세요.</p></div>
             </div>
           </section>
-        </div>
-        <section id="memoryCard" class="memory-card hidden"><div class="memory-icon" aria-hidden="true"></div><div><strong id="memoryTitle">과거의 오늘</strong><p id="memoryBody"></p></div><button id="memoryOpen" class="btn secondary small">다시 보기</button></section>
-        <div class="today-grid">
-          <section class="card today-panel today-events-panel"><div class="card-head"><h3>오늘 일정</h3><button class="link-btn" data-go="calendar">캘린더 <span aria-hidden="true">›</span></button></div><div id="todayEvents" class="list"></div></section>
-          <section class="card today-panel today-todos-panel"><div class="card-head"><h3>할 일</h3><small id="todayTodoCount">0/0 완료</small></div><div class="todo-entry"><input id="todayTodoInput" class="input" maxlength="120" placeholder="오늘 할 일을 입력하세요"><button id="todayTodoAdd" class="btn primary small">추가</button></div><div id="todayTodos" class="list"></div></section>
-          <section class="card today-panel today-habits-panel"><div class="card-head"><div><h3>습관</h3><small>꾸준한 일상 만들기</small></div><button class="link-btn" data-go="calendar">관리 <span aria-hidden="true">›</span></button></div><div id="todayHabits" class="list"></div></section>
-          <section class="card today-panel quick-record"><div class="card-head"><h3>빠른 기록</h3><small class="today-private-note"><span aria-hidden="true"></span>나만 보기</small></div><textarea id="quickRecordText" class="input" placeholder="지금 떠오른 생각을 짧게 남겨보세요."></textarea><button id="quickRecordSave" class="btn primary small">기록 남기기</button></section>
+
+          <section id="memoryCard" class="stitch-memory hidden">
+            <div class="stitch-memory-head"><div><span class="material-symbols-outlined" aria-hidden="true">history</span><strong id="memoryTitle">1년 전 오늘 기억</strong></div><button id="memoryOpen" type="button">전체 보기 <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button></div>
+            <p id="memoryBody"></p>
+          </section>
+
+          <section class="stitch-section stitch-events-section">
+            <div class="stitch-section-head"><h3>오늘 일정</h3><button type="button" data-go="calendar">캘린더 <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button></div>
+            <div id="todayEvents" class="stitch-list"></div>
+          </section>
+
+          <section class="stitch-section stitch-todos-section">
+            <div class="stitch-section-head"><div><h3>할 일</h3><span id="todayTodoCount" class="stitch-count">0/0 완료</span></div></div>
+            <div class="stitch-todo-entry"><span class="material-symbols-outlined" aria-hidden="true">add_task</span><input id="todayTodoInput" maxlength="120" placeholder="새로운 할 일을 입력하세요"><button id="todayTodoAdd" type="button">추가</button></div>
+            <div id="todayTodos" class="stitch-list"></div>
+          </section>
+
+          <section class="stitch-section stitch-habits-section">
+            <div class="stitch-section-head"><div><h3>습관</h3><span class="stitch-section-note">꾸준한 일상 만들기</span></div></div>
+            <div id="todayHabits" class="stitch-list"></div>
+          </section>
+
+          <section class="stitch-section stitch-quick-record">
+            <div class="stitch-section-head"><div><h3>빠른 기록</h3><span class="material-symbols-outlined stitch-lock" aria-hidden="true">lock</span><span class="stitch-private">나만 보기</span></div></div>
+            <div class="stitch-record-box"><textarea id="quickRecordText" rows="3" placeholder="스쳐 가는 생각이나 오늘 있었던 일을 가볍게 남겨보세요."></textarea><div><button id="quickRecordSave" type="button">기록 남기기</button></div></div>
+          </section>
         </div>
       </section>
 
@@ -305,7 +326,7 @@
   <script src="./js/budget-ui.js?v=20261017-budget-v2"></script>
   <script src="./js/writing-templates.js?v=20261014-h1"></script>
 <script src="./js/recurring-ui.js?v=20261014-i1"></script>
-<script src="./js/app.js?v=20261024-today-stitch-v1"></script>
+<script src="./js/app.js?v=20261026-stitch-export-v2"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>
