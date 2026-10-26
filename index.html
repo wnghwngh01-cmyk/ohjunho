@@ -11,7 +11,7 @@
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./assets/styles.css?v=20261009-finance-analysis-v1">
   <link rel="stylesheet" href="./assets/light-theme.css?v=20261017-design-v6">
-  <link rel="stylesheet" href="./assets/today-stitch.css?v=20261026-stitch-export-v2">
+  <link rel="stylesheet" href="./assets/today-stitch.css?v=20261026-stitch-variant-a-v3">
   <link rel="stylesheet" href="./assets/avatar-frame.css?v=20261024-avatar-frame-v13">
   <link rel="stylesheet" href="./assets/budget.css?v=20261017-budget-v2">
 <link rel="stylesheet" href="./assets/writing-templates.css?v=20261014-h1">
@@ -116,16 +116,23 @@
               <div class="stitch-date"><span class="material-symbols-outlined" aria-hidden="true">calendar_today</span><span id="todayDate">오늘</span></div>
               <h2 id="greetingTitle">좋은 하루 되세요</h2>
             </div>
-            <div id="todayCountdowns" class="stitch-countdowns"></div>
-            <div class="stitch-goals">
-              <div><span class="stitch-goal-label primary">최종 목표</span><p id="todayFinalGoal">아직 최종 목표가 없습니다.</p></div>
-              <div><span class="stitch-goal-label">이번 달</span><p id="todayMonthlyGoal">이번 달 목표를 정해보세요.</p></div>
+            <div id="todayGoalCard" class="stitch-goals">
+              <button class="stitch-goal-row" type="button" data-go="goals">
+                <span class="stitch-goal-label primary">최종 목표</span>
+                <span id="todayFinalGoal" class="stitch-goal-value final">아직 최종 목표가 없습니다.</span>
+                <svg class="stitch-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+              </button>
+              <button class="stitch-goal-row" type="button" data-go="goals">
+                <span class="stitch-goal-label">이번 달</span>
+                <span id="todayMonthlyGoal" class="stitch-goal-value">이번 달 목표를 정해보세요.</span>
+                <svg class="stitch-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+              </button>
+              <button id="todayDdayAction" class="stitch-goal-row stitch-dday-row" type="button">
+                <span class="stitch-goal-label">D-Day</span>
+                <span id="todayCountdowns" class="stitch-countdowns"><span class="stitch-countdown-empty">중요한 날짜가 없습니다</span></span>
+                <svg class="stitch-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+              </button>
             </div>
-          </section>
-
-          <section id="memoryCard" class="stitch-memory hidden">
-            <div class="stitch-memory-head"><div><span class="material-symbols-outlined" aria-hidden="true">history</span><strong id="memoryTitle">1년 전 오늘 기억</strong></div><button id="memoryOpen" type="button">전체 보기 <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button></div>
-            <p id="memoryBody"></p>
           </section>
 
           <section class="stitch-section stitch-events-section">
@@ -326,7 +333,7 @@
   <script src="./js/budget-ui.js?v=20261017-budget-v2"></script>
   <script src="./js/writing-templates.js?v=20261014-h1"></script>
 <script src="./js/recurring-ui.js?v=20261014-i1"></script>
-<script src="./js/app.js?v=20261026-stitch-export-v2"></script>
+<script src="./js/app.js?v=20261026-stitch-variant-a-v3"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>
