@@ -1,0 +1,2 @@
+.protein-add-row{grid-template-columns:minmax(0,1fr) minmax(105px,.55fr) auto}
+@media(max-width:420px){.protein-add-row{grid-template-columns:minmax(0,1fr) 105px}.protein-add-row .btn{grid-column:1/-1}}

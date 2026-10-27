@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="./assets/budget.css?v=20261017-budget-v2">
 <link rel="stylesheet" href="./assets/writing-templates.css?v=20261014-h1">
 <link rel="stylesheet" href="./assets/recurring.css?v=20261014-i1">
+<link rel="stylesheet" href="./assets/workout.css?v=20261027-workout-v1">
+<link rel="stylesheet" href="./assets/workout-layout.css?v=20261027-workout-v1">
 </head>
 <body>
   <section id="authShell" class="auth-shell hidden">
@@ -265,7 +267,24 @@
 
       <section id="page-more" class="page" data-page="more">
         <div class="page-head"><div><p class="eyebrow">ALL MENU</p><h1>더보기</h1><p>기록과 관리에 필요한 모든 기능을 한곳에서 빠르게 찾아보세요.</p></div></div><div class="more-grid">
-          <h2 class="more-group-label">생활</h2><button data-go="today"><b>⌂</b><span>오늘</span></button><button data-go="calendar"><b>□</b><span>캘린더</span></button><button data-go="diary"><b>✎</b><span>일기</span></button><button data-go="personal"><b>₩</b><span>가계부</span></button><button data-go="records"><b>▤</b><span>기록</span></button><button data-go="books"><b>▣</b><span>독서록</span></button><button data-go="lab"><b>◇</b><span>아이디어</span></button><h2 class="more-group-label">관리</h2><button data-go="goals"><b>◎</b><span>목표 설정</span></button><button data-go="square"><b>◉</b><span>광장</span></button><button data-go="search"><b>⌕</b><span>통합 검색</span></button><h2 class="more-group-label">도움</h2><button data-go="bug"><b>!</b><span>버그 제보</span></button><button data-go="contact"><b aria-hidden="true">?</b><span>운영자 문의</span></button><button data-go="support"><b>♥</b><span>후원</span></button><button data-go="settings"><b>⚙</b><span>설정</span></button>
+          <h2 class="more-group-label">생활</h2><button data-go="today"><b>⌂</b><span>오늘</span></button><button data-go="calendar"><b>□</b><span>캘린더</span></button><button data-go="diary"><b>✎</b><span>일기</span></button><button data-go="personal"><b>₩</b><span>가계부</span></button><button data-go="workout"><b>◆</b><span>운동 기록</span></button><button data-go="records"><b>▤</b><span>기록</span></button><button data-go="books"><b>▣</b><span>독서록</span></button><button data-go="lab"><b>◇</b><span>아이디어</span></button><h2 class="more-group-label">관리</h2><button data-go="goals"><b>◎</b><span>목표 설정</span></button><button data-go="square"><b>◉</b><span>광장</span></button><button data-go="search"><b>⌕</b><span>통합 검색</span></button><h2 class="more-group-label">도움</h2><button data-go="bug"><b>!</b><span>버그 제보</span></button><button data-go="contact"><b aria-hidden="true">?</b><span>운영자 문의</span></button><button data-go="support"><b>♥</b><span>후원</span></button><button data-go="settings"><b>⚙</b><span>설정</span></button>
+        </div>
+      </section>
+
+      <section id="workoutPage" class="page" data-page="workout">
+        <div class="page-head"><div><p class="eyebrow">WORKOUT LOG</p><h1>운동 기록</h1><p>현재 운동 구성과 단백질 섭취를 간단히 기록하세요.</p></div></div>
+        <div class="workout-shell">
+          <div class="workout-tabs" role="tablist" aria-label="운동 기록 종류"><button class="workout-tab active" type="button" data-workout-tab="exercise">운동 관리</button><button class="workout-tab" type="button" data-workout-tab="protein">단백질 기록</button></div>
+          <section class="workout-pane active" data-workout-pane="exercise">
+            <div class="workout-add-row"><input id="workoutSectionName" class="input" maxlength="60" placeholder="부위 이름 · 예: 가슴"><button id="workoutSectionAdd" class="btn primary" type="button">부위 추가</button></div>
+            <div id="workoutSections"></div>
+          </section>
+          <section class="workout-pane" data-workout-pane="protein">
+            <div class="protein-date-nav"><button id="proteinPrev" class="icon-btn" type="button" aria-label="전날">‹</button><input id="proteinDate" class="input" type="date" aria-label="단백질 기록 날짜"><button id="proteinNext" class="icon-btn" type="button" aria-label="다음 날">›</button></div>
+            <div class="protein-total"><span id="proteinDateLabel">오늘 섭취량</span><strong id="proteinTotal">0 g</strong></div>
+            <div class="workout-add-row protein-add-row"><input id="proteinLabel" class="input" maxlength="80" placeholder="음식 이름 · 선택"><input id="proteinGrams" class="input" type="number" inputmode="decimal" min="0.1" max="9999.9" step="0.1" placeholder="단백질(g)"><button id="proteinAdd" class="btn primary" type="button">추가</button></div>
+            <div id="proteinList" class="protein-list"></div>
+          </section>
         </div>
       </section>
 
@@ -324,7 +343,7 @@
   <script src="./js/config.js?v=20260918-community-inserts-v1"></script>
   <script src="./js/drafts.js?v=20260918-community-inserts-v1"></script>
   <script src="./js/avatar-frame.js?v=20261017-avatar-frame-v8"></script>
-  <script src="./js/db.js?v=20261014-i1"></script>
+  <script src="./js/db.js?v=20261027-workout-v1"></script>
   <script src="./js/storage.js?v=20261004-profile-photos-v1"></script>
   <script src="./js/telemetry.js?v=20260920-error-logs-v1"></script>
   <script src="./js/calendar-utils.js?v=20261002-calendar-history-v1"></script>
@@ -333,7 +352,8 @@
   <script src="./js/budget-ui.js?v=20261017-budget-v2"></script>
   <script src="./js/writing-templates.js?v=20261014-h1"></script>
 <script src="./js/recurring-ui.js?v=20261014-i1"></script>
-<script src="./js/app.js?v=20261026-stitch-variant-a-v4"></script>
+<script src="./js/workout-ui.js?v=20261027-workout-v1"></script>
+<script src="./js/app.js?v=20261027-workout-v1"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>

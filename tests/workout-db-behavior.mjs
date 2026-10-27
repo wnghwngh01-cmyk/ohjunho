@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {PGlite} from '@electric-sql/pglite';
+const db=new PGlite();
+await db.exec(`create role anon;create role authenticated;create schema auth;create table auth.users(id uuid primary key);
+create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('test.uid',true),'')::uuid$$;
+grant usage on schema auth to authenticated,anon;grant execute on function auth.uid() to authenticated,anon;
+insert into auth.users values('00000000-0000-0000-0000-000000000001'),('00000000-0000-0000-0000-000000000002');`);
+await db.exec(fs.readFileSync('supabase/step24_workout_records.sql','utf8'));
+const a='00000000-0000-0000-0000-000000000001',b='00000000-0000-0000-0000-000000000002';
+async function login(id){await db.exec(`reset role;set test.uid='${id}';set role authenticated;`)}
+await login(a);
+const section=(await db.query("insert into workout_sections(user_id,name) values(auth.uid(),'가슴') returning id")).rows[0].id;
+const exercise=(await db.query("insert into workout_exercises(user_id,section_id,name) values(auth.uid(),$1,'벤치프레스') returning id",[section])).rows[0].id;
+await db.query("select save_workout_exercise($1,'벤치프레스','다음 목표', '[{\"weight\":40,\"reps\":12},{\"weight\":45,\"reps\":10}]'::jsonb)",[exercise]);
+assert.equal((await db.query('select count(*)::int n from workout_sets where exercise_id=$1',[exercise])).rows[0].n,2);
+assert.equal((await db.query('select count(*)::int n from workout_snapshots where exercise_id=$1',[exercise])).rows[0].n,1);
+await db.query("insert into protein_logs(user_id,log_date,label,grams) values(auth.uid(),'2026-10-27','프로틴',25.5)");
+assert.equal(Number((await db.query("select sum(grams) total from protein_logs where log_date='2026-10-27'")).rows[0].total),25.5);
+await login(b);
+assert.equal((await db.query('select count(*)::int n from workout_sections')).rows[0].n,0);
+assert.equal((await db.query('select count(*)::int n from protein_logs')).rows[0].n,0);
+await assert.rejects(()=>db.query("select save_workout_exercise($1,'침범','','[{\"weight\":1,\"reps\":1}]'::jsonb)",[exercise]),/찾을 수 없습니다/);
+await db.close();
+console.log('workout DB: PASS (save, history, protein total, RLS isolation)');
