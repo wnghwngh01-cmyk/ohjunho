@@ -1,0 +1,56 @@
+/* UI polish batch 1 — arrows, touch targets. Loaded after all theme files; overrides only. */
+
+/* A. One chevron icon family. Button arrows use inline <svg class="ui-icon">, CSS-drawn arrows use the same path as a mask. */
+.ui-icon{display:block;width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.btn .ui-icon{width:16px;height:16px}
+.btn:has(.ui-icon){display:inline-flex;align-items:center;justify-content:center;gap:4px}
+.icon-btn:has(.ui-icon){padding:0;line-height:0}
+.lightbox #lightboxPrev:has(.ui-icon),.lightbox #lightboxNext:has(.ui-icon){display:grid;place-items:center;width:48px;height:48px;padding:0;line-height:0}
+.lightbox #lightboxPrev .ui-icon,.lightbox #lightboxNext .ui-icon{width:28px;height:28px}
+
+.budget-edit>summary:after,
+.finance-disclosure>summary:after,
+.workout-chevron{
+  content:'';
+  display:block;
+  width:20px;
+  height:20px;
+  flex:none;
+  font-size:0;
+  line-height:0;
+  background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 8.5l7 7 7-7'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 8.5l7 7 7-7'/%3E%3C/svg%3E") center/contain no-repeat;
+  transition:transform .2s ease;
+}
+.budget-edit>summary:after{color:var(--muted)}
+.finance-disclosure>summary:after{color:#5d7064}
+
+/* B. Touch targets. Visual size stays; the hit area grows with an invisible pseudo-element. */
+html:not([data-theme="dark"]) #page-today :is(.stitch-todo-entry button,.stitch-record-box button){position:relative}
+html:not([data-theme="dark"]) #page-today :is(.stitch-todo-entry button,.stitch-record-box button)::after{content:'';position:absolute;inset:-6px -4px}
+html:not([data-theme="dark"]) #page-today .stitch-record-box button{min-width:44px}
+
+html:not([data-theme="dark"]) #page-today .stitch-goal-row{position:relative}
+html:not([data-theme="dark"]) #page-today .stitch-goal-row::after{content:'';position:absolute;inset:-8px 0}
+
+html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav button{min-width:56px}
+
+.settings-menu button{min-width:44px}
+
+/* Square: the author name stays small, its tap area stretches over the name block. */
+.pub-author>div:not(.avatar){position:relative}
+.pub-author strong a::after{content:'';position:absolute;inset:-10px 0}
+
+/* C. Keyboard focus that is visible on every control touched in this batch. */
+.icon-btn:focus-visible,
+.btn:focus-visible,
+.lightbox button:focus-visible,
+.settings-menu button:focus-visible,
+.pub-author a:focus-visible,
+#page-today :is(.stitch-goal-row,.stitch-todo-entry button,.stitch-record-box button):focus-visible{outline:2px solid #32634f;outline-offset:2px}
+.lightbox button:focus-visible{outline-color:#fff}
+
+@media (prefers-reduced-motion:reduce){
+  .budget-edit>summary:after,.finance-disclosure>summary:after,.workout-chevron{transition:none}
+}
