@@ -5,3 +5,5 @@ dist/
 android/.gradle/
 android/local.properties
 android/app/build/
+supabase/.temp/
+test-artifacts/

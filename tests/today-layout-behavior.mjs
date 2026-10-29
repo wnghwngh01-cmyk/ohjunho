@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const context={};vm.runInNewContext(fs.readFileSync('js/today-layout.js','utf8'),context);
+const api=context.HaruTodayLayout,plain=value=>JSON.parse(JSON.stringify(value)),defaults=plain(api.defaults());
+assert.deepEqual(defaults.map(x=>x.id),['events','todos','habits','quick_record','protein','finance_entry','finance_budget']);
+assert.deepEqual(defaults.map(x=>x.enabled),[true,true,true,true,false,false,false]);
+let custom=defaults.map(x=>({...x,enabled:false}));custom=plain(api.move(custom,6,-1));custom=plain(api.move(custom,5,-1));
+assert.deepEqual(custom.map(x=>x.id),['events','todos','habits','quick_record','finance_budget','protein','finance_entry']);
+assert.ok(custom.every(x=>!x.enabled));
+assert.deepEqual(plain(api.normalize([{id:'protein',enabled:true}])).map(x=>x.id),['protein','events','todos','habits','quick_record','finance_entry','finance_budget']);
+const app=fs.readFileSync('js/app.js','utf8'),html=fs.readFileSync('index.html','utf8');
+assert.match(app,/DB\.addProtein\(DB\.today\(\),label\.value,grams\.value\)/);
+assert.match(app,/await loadTodayProtein\(\)/);
+assert.match(app,/title=\$\('#financeTitle'\)\.value\.trim\(\)\|\|category/);
+assert.match(app,/if\(state\.todayLayout\.find\(x=>x\.id==='finance_budget'\)\?\.enabled\)await loadTodayBudget\(\)/);
+assert.match(html,/data-today-section="finance_entry"/);assert.match(html,/data-today-section="finance_budget"/);
+console.log('today layout behavior: PASS');

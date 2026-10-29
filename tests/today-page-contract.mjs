@@ -24,20 +24,20 @@ if(!importantQuery||importantQuery.includes('.limit('))throw new Error('Upcoming
 if(!todayTheme.includes('--st-bg:#fbf9f5')||!todayTheme.includes('--st-primary:#1e3a2f'))throw new Error('Stitch color tokens must remain intact');
 if(!app.includes('class="stitch-row event-item ')||!app.includes('class="stitch-move"'))throw new Error('Mobile Today rows must use the Stitch list geometry');
 if(app.includes('class="todo-delete"'))throw new Error('Today must not expose a delete X beside todos');
-if(!html.includes('today-stitch.css?v=20261026-stitch-variant-a-v4'))throw new Error('Today Variant A stylesheet is not loaded');
+if(!html.includes('today-stitch.css?v=20261029-today-layout-v1'))throw new Error('Today Variant A stylesheet is not loaded');
 if(!todayTheme.includes("url('./material-symbols-outlined.ttf')"))throw new Error('Stitch icon font must be self-hosted');
 if(!todayTheme.includes('grid-template-columns:66px minmax(0,1fr) 16px')||!todayTheme.includes('gap:18px'))throw new Error('Stitch A alignment and vertical rhythm must remain exact');
 if(!todayTheme.includes('overflow-wrap:anywhere')||todayTheme.includes('.stitch-goal-value{')&&!todayTheme.includes('word-break:keep-all'))throw new Error('Long goals must wrap without a fixed-height clamp');
 if(!app.includes('stitch-habit-dots')||!app.includes('`주 ${progress.completed}/${progress.target}일`')||!app.includes("scheduleType==='weekdays'?5")||!app.includes("scheduleType==='selected_weekdays'"))throw new Error('Weekly habit progress dots must cover every schedule type');
 for(const hook of ['topbarTitle','topbarSub','syncState','page-today','todayDate','greetingTitle','todayGoalCard','todayFinalGoal','todayMonthlyGoal','todayDdayAction','todayCountdowns','todayEvents','todayTodoCount','todayTodoInput','todayTodoAdd','todayTodos','todayHabits','quickRecordText','quickRecordSave'])if(!html.includes(`id="${hook}"`))throw new Error(`Today hook is missing: ${hook}`);
 
-const ordered=['오늘 일정','할 일','습관','빠른 기록'];
+const defaultIds=['events','todos','habits','quick_record','protein','finance_entry','finance_budget'];
 let previous=-1;
-for(const label of ordered){
-  const position=page.indexOf(`<h3>${label}</h3>`);
-  if(position<0||position<previous)throw new Error(`Unexpected Today card order at: ${label}`);
-  previous=position;
-}
+for(const id of defaultIds){const position=page.indexOf(`data-today-section="${id}"`);if(position<0||position<previous)throw new Error(`Unexpected default Today card order at: ${id}`);previous=position}
+if(!app.includes('applyTodayLayout()')||!app.includes('section.hidden=!item.enabled')||!app.includes('stack.insertBefore(section,empty)'))throw new Error('Today cards must support account-defined visibility and order');
+if(!page.includes('표시할 오늘 화면 항목이 없습니다.')||!page.includes('id="todayLayoutEmpty"'))throw new Error('Today all-disabled empty state is missing');
+if(!page.includes('id="todayHabitSettings"')||!app.includes("details.habit-settings")||!app.includes('settings.open=true'))throw new Error('Habit settings shortcut behavior is missing');
+for(const hook of ['todayProteinTotal','todayProteinLabel','todayProteinGrams','todayProteinAdd','todayFinanceType','todayFinanceDate','todayFinanceTitle','todayFinanceAmount','todayFinanceCategory','todayFinanceAdd','todayBudgetRemaining'])if(!html.includes(`id="${hook}"`))throw new Error(`Today optional hook is missing: ${hook}`);
 for(const removed of ['<h3>오늘의 문장</h3>','<h3>중요한 날짜</h3>','<h3>오늘 할 일</h3>','<h3>반복 습관</h3>']){
   if(page.includes(removed))throw new Error(`Removed Today card or label remains: ${removed}`);
 }

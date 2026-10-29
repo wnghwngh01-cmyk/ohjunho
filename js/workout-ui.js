@@ -25,5 +25,6 @@ window.HaruWorkoutUI=(()=>{
   async function addProtein(){const grams=$('#proteinGrams'),label=$('#proteinLabel');await act(async()=>{await db.addProtein(day,label.value,grams.value);label.value='';grams.value='';await loadProtein();notify('단백질을 기록했습니다.')},'단백질 기록')}
   function moveDay(delta){const d=new Date(`${day}T12:00:00`);d.setDate(d.getDate()+delta);day=d.toISOString().slice(0,10);loadProtein()}
   function init(options){db=options.db;notify=options.notify;day=db.today();$('#workoutPage').addEventListener('click',click);$('#workoutSectionAdd').onclick=addSection;$('#proteinAdd').onclick=addProtein;$('#proteinPrev').onclick=()=>moveDay(-1);$('#proteinNext').onclick=()=>moveDay(1);$('#proteinDate').onchange=e=>{if(e.target.value){day=e.target.value;loadProtein()}};setTab('exercise')}
-  return{init,load};
+  function openProtein(){day=db.today();setTab('protein');return loadProtein()}
+  return{init,load,openProtein};
 })();

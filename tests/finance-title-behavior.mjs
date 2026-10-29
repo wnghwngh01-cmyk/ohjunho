@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+let inserted;
+const chain={insert(value){inserted=value;return this},select(){return this},async single(){return{data:inserted,error:null}}};
+const client={auth:{async getSession(){return{data:{session:{user:{id:'user-a'}}},error:null}},onAuthStateChange(){return{};}},from(table){assert.equal(table,'finance_transactions');return chain}};
+const context={window:{LAB_CONFIG:{SUPABASE_URL:'local',SUPABASE_PUBLISHABLE_KEY:'key'},supabase:{createClient:()=>client},HaruAvatarFrame:{},HaruTodayLayout:{}},console,crypto,Date,URL,TextEncoder,TextDecoder,setTimeout,clearTimeout};
+vm.runInNewContext(fs.readFileSync('js/db.js','utf8'),context);
+await context.window.LabDB.getSession();
+await context.window.LabDB.addFinance({tx_type:'expense',title:'   ',amount:8500,category:'식비',tx_date:'2026-10-29'});
+assert.equal(inserted.title,'식비');assert.equal(inserted.category,'식비');assert.equal(inserted.user_id,'user-a');
+console.log('finance title behavior: PASS (blank title uses category)');

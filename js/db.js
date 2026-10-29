@@ -60,6 +60,7 @@
     if(patch.avatar_frame_color!==undefined)allowed.avatar_frame_color=window.HaruAvatarFrame.safeColor(patch.avatar_frame_color,allowed.avatar_frame_tier);
     if(patch.avatar_crown_color!==undefined)allowed.avatar_crown_color=window.HaruAvatarFrame.safeCrownColor(patch.avatar_crown_color)||null;
     if(patch.public_profile!==undefined)allowed.public_profile=!!patch.public_profile;
+    if(patch.today_layout!==undefined)allowed.today_layout=window.HaruTodayLayout.normalize(patch.today_layout);
     const {data,error}=await client.from('profiles').update(allowed).eq('id',uid()).select().single();fail(error,'프로필 저장');return data;
   }
 
@@ -156,7 +157,7 @@
   async function getMonthBudget(month){const {data,error}=await client.rpc('get_month_budget',{p_month:month+'-01'});fail(error,'월 예산 불러오기');if(!data||!data.items)throw new Error('예산 응답을 확인할 수 없습니다.');return data}
   async function saveMonthBudget(month,items,revision){const {data,error}=await client.rpc('save_month_budget',{p_month:month+'-01',p_items:items,p_revision:revision});fail(error,'월 예산 저장');if(!data||data.status!=='saved')throw new Error('예산 저장 결과를 확인할 수 없습니다.');return data}
   async function listFinance(){const {data,error}=await client.from('finance_transactions').select('*').eq('user_id',uid()).order('tx_date',{ascending:false}).order('created_at',{ascending:false});fail(error,'가계부 불러오기');return data||[]}
-  async function addFinance(payload){const title=String(payload.title||'').trim().slice(0,120),amount=Number(payload.amount);if(!title)throw new Error('가계부 내용을 입력해 주세요.');if(!['expense','income'].includes(payload.tx_type))throw new Error('가계부 종류가 올바르지 않습니다.');if(!Number.isFinite(amount)||amount<0)throw new Error('금액을 확인해 주세요.');const {data,error}=await client.from('finance_transactions').insert({user_id:uid(),tx_type:payload.tx_type,amount,title,category:String(payload.category||'기타').slice(0,80),tx_date:payload.tx_date||today()}).select().single();fail(error,'가계부 저장');return data}
+  async function addFinance(payload){const category=String(payload.category||'기타').trim().slice(0,80)||'기타',title=(String(payload.title||'').trim()||category).slice(0,120),amount=Number(payload.amount);if(!['expense','income'].includes(payload.tx_type))throw new Error('가계부 종류가 올바르지 않습니다.');if(!Number.isFinite(amount)||amount<0)throw new Error('금액을 확인해 주세요.');const {data,error}=await client.from('finance_transactions').insert({user_id:uid(),tx_type:payload.tx_type,amount,title,category,tx_date:payload.tx_date||today()}).select().single();fail(error,'가계부 저장');return data}
   async function deleteFinance(id){const {error}=await client.from('finance_transactions').delete().eq('id',id).eq('user_id',uid());fail(error,'가계부 삭제')}
   async function updateFinance(id,payload){const title=String(payload.title||'').trim().slice(0,120),amount=Number(payload.amount);if(!title||!Number.isFinite(amount)||amount<0)throw new Error('가계부 내용을 확인해 주세요.');const {data,error}=await client.from('finance_transactions').update({tx_type:payload.tx_type,amount,title,category:String(payload.category||'기타').slice(0,80),tx_date:payload.tx_date||today()}).eq('id',id).eq('user_id',uid()).select().single();fail(error,'가계부 수정');return data}
 

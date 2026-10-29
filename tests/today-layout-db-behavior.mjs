@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {PGlite} from '@electric-sql/pglite';
+const db=new PGlite();
+await db.exec(`create role anon;create role authenticated;create schema auth;create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('test.uid',true),'')::uuid$$;create table public.profiles(id uuid primary key,today_layout jsonb);insert into profiles(id) values('00000000-0000-0000-0000-000000000001');create function public.restore_my_data(p_backup jsonb) returns jsonb language plpgsql security definer as $$begin return jsonb_build_object('restored',0);end$$;`);
+await db.exec(fs.readFileSync('supabase/step25_today_layout.sql','utf8'));
+const user='00000000-0000-0000-0000-000000000001';await db.exec(`set test.uid='${user}'`);
+const custom=[{id:'protein',enabled:true},{id:'events',enabled:false},{id:'todos',enabled:true},{id:'habits',enabled:false},{id:'quick_record',enabled:true},{id:'finance_budget',enabled:true},{id:'finance_entry',enabled:false}];
+await db.query('update profiles set today_layout=normalize_today_layout($1::jsonb) where id=$2',[JSON.stringify(custom),user]);
+assert.deepEqual((await db.query('select today_layout from profiles where id=$1',[user])).rows[0].today_layout,custom);
+await assert.rejects(()=>db.query("update profiles set today_layout='[{\"id\":\"bad\",\"enabled\":true}]'::jsonb where id=$1",[user]));
+const restored=[{id:'finance_entry',enabled:true},{id:'events',enabled:true},{id:'todos',enabled:false},{id:'habits',enabled:true},{id:'quick_record',enabled:false},{id:'protein',enabled:true},{id:'finance_budget',enabled:false}];
+await db.query('select restore_my_data($1::jsonb)',[JSON.stringify({profiles:[{id:user,today_layout:restored}]})]);
+assert.deepEqual((await db.query('select today_layout from profiles where id=$1',[user])).rows[0].today_layout,restored);
+await db.close();console.log('today layout DB: PASS (save, reload, validation, backup restore)');
