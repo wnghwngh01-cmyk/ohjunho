@@ -1,4 +1,8 @@
 'use strict';
+/*
+ * Main browser controller: authentication state, page navigation and feature UI.
+ * Data access belongs in db.js; self-contained complex widgets live in *-ui.js.
+ */
 (function(){
   const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
   const DB=window.LabDB,Storage=window.LabStorage,Drafts=window.LabDrafts,Cal=window.HaruCalendar,Diary=window.HaruDiarySearch,Finance=window.HaruFinance,Frame=window.HaruAvatarFrame,cfg=window.LAB_CONFIG;

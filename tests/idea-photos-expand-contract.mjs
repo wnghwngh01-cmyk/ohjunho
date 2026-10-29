@@ -28,6 +28,10 @@ if(!css.includes('-webkit-line-clamp:4')||!css.includes('.text-expand')||!css.in
 for(const token of ['create table if not exists public.idea_media','enable row level security','user_id=auth.uid()','references public.ideas(id,user_id) on delete cascade']){
   if(!migration.includes(token))throw new Error(`Idea media ownership migration is missing: ${token}`);
 }
-if(!sw.includes("daily-life-shell-v72")||!sw.includes('20261004-profile-photos-v1')||!sw.includes('20261010-avatar-frame-v7')||!sw.includes('20261009-finance-analysis-v1'))throw new Error('Service worker cache does not include the latest accumulated assets');
+for(const file of ['assets/styles.css','assets/light-theme.css','js/db.js','js/app.js']){
+  const url=html.match(new RegExp(`(?:href|src)="(\\./${file.replace('.','\\.')}\\?v=[^"]+)"`))?.[1];
+  if(!url||!sw.includes(`'${url}'`))throw new Error(`Service worker cache is not aligned with index.html: ${file}`);
+}
+if(!/const CACHE='daily-life-shell-v\d+'/.test(sw))throw new Error('Versioned service worker cache is missing');
 
 console.log('idea-photos-expand-contract: PASS');

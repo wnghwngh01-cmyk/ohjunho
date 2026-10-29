@@ -1,4 +1,9 @@
 'use strict';
+/*
+ * Supabase data gateway for the signed-in app.
+ * UI modules call LabDB instead of querying tables directly so ownership filters,
+ * validation and user-facing error messages stay in one place.
+ */
 (function(){
   const cfg=window.LAB_CONFIG;
   if(!window.supabase||!window.supabase.createClient){
@@ -73,16 +78,15 @@
 
   async function dashboard(day=today()){
     const d=new Date(`${day}T00:00:00`),mk=monthKey(d);
-    const [goals,events,habits,checks,projects,memory]=await Promise.all([
+    const [goals,events,habits,checks,projects]=await Promise.all([
       client.from('goals').select('*').eq('user_id',uid()).or(`and(kind.eq.final,period_key.eq.),and(kind.eq.monthly,period_key.eq.${mk})`),
       client.from('events').select('*').eq('user_id',uid()).lte('start_date',day).gte('end_date',day).order('created_at'),
       client.from('habits').select('*').eq('user_id',uid()).eq('active',true).order('created_at'),
       client.from('habit_checks').select('*').eq('user_id',uid()).eq('day',day),
-      client.from('projects').select('*').eq('user_id',uid()).eq('status','active').order('updated_at',{ascending:false}).limit(6),
-      client.from('records').select('id,title,body,entry_date,category').eq('user_id',uid()).eq('entry_date',(()=>{const x=new Date(d);x.setFullYear(x.getFullYear()-1);return dateKey(x)})()).order('created_at',{ascending:false}).limit(1)
+      client.from('projects').select('*').eq('user_id',uid()).eq('status','active').order('updated_at',{ascending:false}).limit(6)
     ]);
-    [goals,events,habits,checks,projects,memory].forEach((r,i)=>fail(r.error,['목표','일정','습관','체크','프로젝트','과거 기록'][i]));
-    return {goals:goals.data||[],events:events.data||[],habits:habits.data||[],checks:checks.data||[],projects:projects.data||[],memory:memory.data?.[0]||null};
+    [goals,events,habits,checks,projects].forEach((r,i)=>fail(r.error,['목표','일정','습관','체크','프로젝트'][i]));
+    return {goals:goals.data||[],events:events.data||[],habits:habits.data||[],checks:checks.data||[],projects:projects.data||[]};
   }
 
   async function listRecords(){const {data,error}=await client.from('records').select('*,record_media(*)').eq('user_id',uid()).order('entry_date',{ascending:false}).order('created_at',{ascending:false}).limit(300);fail(error,'기록 불러오기');return data||[]}

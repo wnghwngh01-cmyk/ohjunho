@@ -2,6 +2,8 @@
 
 Android 앱 프로젝트는 Capacitor 8 기반으로 `android/`에 준비되어 있습니다. 개발 환경과 빌드 절차는 [`docs/ANDROID_SETUP.md`](docs/ANDROID_SETUP.md)를 참고하세요.
 
+다른 개발자나 AI가 작업을 이어갈 때는 먼저 [`AGENTS.md`](AGENTS.md)와 [`docs/CODEBASE_GUIDE.md`](docs/CODEBASE_GUIDE.md)를 읽으세요. 기능별 파일, 데이터 흐름, 호환성 규칙과 검증 경계를 정리해 두었습니다.
+
 Google Play 출시를 목표로 개발 중인 개인 생활 기록 앱의 웹 검증본입니다.
 일정·할 일·습관·일기·기록·독서록·아이디어·목표·가계부를 개인 공간에 저장하고,
 사용자가 직접 선택한 기록만 광장에 공유할 수 있습니다.

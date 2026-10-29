@@ -1,3 +1,4 @@
+/* Recurring transaction rule editor. Server jobs create ledger rows; this file only manages rules. */
 (function(global){
 'use strict';
 function create({db,root=document,onSaved=async()=>{}}){

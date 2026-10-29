@@ -13,6 +13,7 @@ if(!greeting.includes('id="todayGoalCard"')||!greeting.includes('id="todayCountd
 if(!greeting.includes('class="stitch-goal-row"')||!greeting.includes('data-go="goals"'))throw new Error('Goal rows must navigate to goal management');
 if(!greeting.includes('id="todayDdayAction"'))throw new Error('D-Day row is missing');
 if(page.includes('id="memoryCard"')||page.includes('1년 전 오늘'))throw new Error('One-year-ago memory must not appear on Today');
+if(db.includes('memory:memory.data')||db.includes("x.setFullYear(x.getFullYear()-1)"))throw new Error('Removed memory card must not trigger a dashboard query');
 if(app.includes('const quotes=')||app.includes("$('#dailyQuote')"))throw new Error('Daily quote rotation code must be removed');
 if(!app.includes('const nearest=countdowns[0]')||!app.includes('countdowns.length-1'))throw new Error('D-Day must show the nearest item and remaining count');
 if(!app.includes('중요한 날짜가 없습니다')||app.includes('캘린더에서 설정하기 →'))throw new Error('D-Day empty state must be informational only');

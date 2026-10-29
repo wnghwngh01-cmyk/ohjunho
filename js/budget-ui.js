@@ -1,4 +1,4 @@
-/* Private monthly budgets. Loading and unsaved drafts are scoped to user + month. */
+/* Private monthly budget editor and usage summary. Draft/cache scope is user + month. */
 (function(global){
   'use strict';
   function create({db,finance,root=document,onChange=()=>{}}){

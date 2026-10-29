@@ -1,11 +1,13 @@
-# Profile frames · 2026-10-10
+# Profile frames
 
-Generated using the built-in GPT image generation tool. PNG originals are preserved. The app renders recolored frames to a cached canvas at runtime; profile photos are separate and never recolored.
+Generated using the built-in GPT image generation tool. The app renders recolored frames to a cached canvas at runtime; profile photos are separate and never recolored.
 
-Selected assets:
-- `assets/profile-frames/ribbon-v2.png`: 5,000 won, ribbon with compact bottom knot. Original generation `exec-e8e366d7-60fe-4405-af44-eb134218608c.png`.
-- `assets/profile-frames/blossom-v2.png`: 10,000 won, dense upper-right/lower-left floral clusters. User approved the displayed `exec-0135c9f2-f96d-44fc-b1d7-989e3bbf4800.png`.
-- `assets/profile-frames/crown-v2.png`: 30,000 won, illustrated crown and laurel. User approved `exec-5dc43dc0-ba7b-4ba7-8346-e9187fd7c09e.png`.
+Runtime assets:
+- `ribbon-v3.png`: 5,000 won ribbon with compact bottom knot and a narrow contour.
+- `blossom-v5.png`: 10,000 won pink blossom ring with botanical greens and a narrow contour.
+- `crown-v3.png`: 30,000 won crown and laurel with safe transparent margins.
+
+Older artwork revisions were removed from the working tree because no runtime code referenced them. They remain recoverable from Git history.
 
 Prompt specifications used:
 - Blossom: polished illustrated cherry blossom avatar frame; transparent inside/outside; softly sculpted petals and subtle gradients, curled tips and overlapping layers, muted blush and sage; slender double-strand rose ring, varied upper-right cluster and smaller lower-left cluster; no gems, sparkle or backdrop.
@@ -14,16 +16,10 @@ Prompt specifications used:
 
 The five solid palettes remain available to every frame. Rainbow is selectable and rendered only for spectrum (ribbon), blossom and crown. This is test-mode cosmetic selection, not paid entitlement enforcement; billing remains unimplemented. No database permission change is required for these artwork replacements.
 
-2026-10-10 revision:
-- `blossom-v3.png` (built-in image edit of v2): same blossom composition, fewer and smaller sage leaves; transparent background. Final prompt: keep ring and blossoms, reduce leaf number/area by ~40%, keep sage leaves distinct from pink petals and rose rim, preserve circular geometry and alpha.
-- `crown-v3.png` (two built-in image edits of v2): crown enlarged ~35% and complete frame inset to protect tip from clipping. Final prompt: retain enlarged crown and ring/leaves, leave at least 7% transparent top margin and 4% at other sides, preserve transparent center.
-- Blossom artwork now keeps its original colored leaf and petal layer. CSS applies only a subtle palette tint on top; leaves stay visibly green. The other frames keep full palette tint.
-
-Latest selection:
-- `blossom-v4.png` is the user-selected illustrated pink blossom ring (`exec-e9d76a5e-0214-4de5-9be9-16659c8339e4.png`), replacing v3 in the interface.
-- `ribbon-v3.png` and `blossom-v5.png` edit v2/v4 using the crown frame only as a reference for a narrow dark outline along each artwork edge. The earlier PNGs remain for comparison. No separate CSS ring is used for these tiers.
+Current rendering:
+- `ribbon-v3.png` and `blossom-v5.png` use a narrow dark contour along the artwork edge. No separate CSS ring is used for these tiers.
 - The crown frame is aligned around a smaller, circularly clipped photo aperture so the photo stays inside the upper rim.
-- The crown alone can use an independent crown color and ring/laurel color. The other tiers retain one color. The test site still grants cosmetic selection without payment.
+- Blossom and crown can use independent ornament and ring colors. The test site still grants cosmetic selection without payment.
 
 Final color revision:
 - Blossom and crown both support an independent ornament color. The legacy `avatar_crown_color` database field now holds the secondary color for either selected frame; no new permission or schema is needed.

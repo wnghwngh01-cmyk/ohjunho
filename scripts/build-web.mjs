@@ -1,6 +1,7 @@
 import {cp, mkdir, rm} from 'node:fs/promises';
 import {resolve} from 'node:path';
 
+// Build a static web bundle that Capacitor and GitHub Pages can serve unchanged.
 const root=resolve(import.meta.dirname,'..');
 const output=resolve(root,'dist');
 const files=[

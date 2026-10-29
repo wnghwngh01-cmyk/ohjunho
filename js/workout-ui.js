@@ -1,3 +1,4 @@
+/* Exercise library and date-based protein tracker UI. Persistence is provided by LabDB. */
 window.HaruWorkoutUI=(()=>{
   const $=s=>document.querySelector(s),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   let db,notify,day='',sections=[];
