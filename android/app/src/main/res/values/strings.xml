@@ -4,4 +4,9 @@
     <string name="title_activity_main">하루를 담다</string>
     <string name="package_name">com.ohjunho.haru</string>
     <string name="custom_url_scheme">com.ohjunho.haru</string>
+    <string name="widget_protein_name">하루를 담다 · 단백질</string>
+    <string name="widget_budget_name">하루를 담다 · 남은 예산</string>
+    <string name="widget_events_name">하루를 담다 · 오늘 일정</string>
+    <string name="widget_todos_name">하루를 담다 · 할 일</string>
+    <string name="widget_habits_name">하루를 담다 · 습관</string>
 </resources>

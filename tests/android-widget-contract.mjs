@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const root='android/app/src/main',read=path=>fs.readFileSync(`${root}/${path}`,'utf8');
+const manifest=read('AndroidManifest.xml'),views=read('java/com/ohjunho/haru/HaruWidgetViews.java'),store=read('java/com/ohjunho/haru/HaruWidgetStore.java'),plugin=read('java/com/ohjunho/haru/HaruWidgetPlugin.java'),quick=read('java/com/ohjunho/haru/HaruQuickActionActivity.java'),bridge=fs.readFileSync('js/widget-bridge.js','utf8'),html=fs.readFileSync('index.html','utf8');
+for(const provider of ['ProteinWidgetProvider','BudgetWidgetProvider','EventWidgetProvider','TodoWidgetProvider','HabitWidgetProvider'])assert.match(manifest,new RegExp(`\\.${provider}`));
+for(const info of ['widget_protein_info','widget_budget_info','widget_events_info','widget_todos_info','widget_habits_info'])assert.match(manifest,new RegExp(`@xml/${info}`));
+for(const layout of ['widget_protein_small','widget_budget_small','widget_budget_large','widget_list_medium'])assert.ok(fs.existsSync(`${root}/res/layout/${layout}.xml`));
+assert.match(read('res/drawable/widget_card.xml'),/android:radius="16dp"/);assert.match(read('res/drawable/widget_card.xml'),/#FFFFFF/);assert.match(read('res/drawable/widget_card.xml'),/#E2E3DF/);assert.match(read('res/drawable/widget_button_primary.xml'),/#214838/);
+assert.match(views,/protein_add10/);assert.match(views,/protein_add20/);assert.match(views,/budget_row3_progress_danger/);assert.match(views,/event_toggle/);assert.match(views,/todo_toggle/);assert.match(views,/habit_toggle/);
+for(const [provider,kind] of [['EventWidgetProvider','events'],['TodoWidgetProvider','todos'],['HabitWidgetProvider','habits']])assert.match(read(`java/com/ohjunho/haru/${provider}.java`),new RegExp(`list\\(c,s,id,"${kind}"\\)`));
+for(const layout of ['widget_list_medium.xml','widget_budget_large.xml'])assert.doesNotMatch(read(`res/layout/${layout}`),/<View\b/);
+assert.match(store,/SharedPreferences/);assert.match(store,/pending_writes/);assert.match(store,/Supabase widget write/);assert.match(store,/habit_checks\?on_conflict=habit_id,day/);
+assert.match(plugin,/requestPinAppWidget/);assert.match(plugin,/completePending/);assert.match(quick,/빠른 지출 기록/);assert.match(quick,/할 일 빠른 추가/);assert.match(quick,/단백질 빠른 추가/);
+assert.match(bridge,/HaruWidgetBridge/);assert.match(bridge,/flushPending/);assert.match(bridge,/prefers-color-scheme: dark/);assert.match(html,/id="nativeWidgetSettings"/);assert.match(html,/data-widget-pin="protein"/);
+console.log('android widget contract: PASS (5 providers, responsive budget, quick actions, bridge, pending sync)');

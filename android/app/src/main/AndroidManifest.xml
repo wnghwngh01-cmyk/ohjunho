@@ -25,6 +25,37 @@
 
         </activity>
 
+        <activity
+            android:name=".HaruQuickActionActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:finishOnTaskLaunch="true"
+            android:noHistory="true"
+            android:theme="@style/HaruQuickActionTheme" />
+
+        <receiver android:name=".HaruWidgetActionReceiver" android:exported="false" />
+
+        <receiver android:name=".ProteinWidgetProvider" android:exported="false" android:label="@string/widget_protein_name">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_protein_info" />
+        </receiver>
+        <receiver android:name=".BudgetWidgetProvider" android:exported="false" android:label="@string/widget_budget_name">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_budget_info" />
+        </receiver>
+        <receiver android:name=".EventWidgetProvider" android:exported="false" android:label="@string/widget_events_name">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_events_info" />
+        </receiver>
+        <receiver android:name=".TodoWidgetProvider" android:exported="false" android:label="@string/widget_todos_name">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_todos_info" />
+        </receiver>
+        <receiver android:name=".HabitWidgetProvider" android:exported="false" android:label="@string/widget_habits_name">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_habits_info" />
+        </receiver>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

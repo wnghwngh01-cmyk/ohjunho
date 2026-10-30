@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="haru_ivory">#FBF9F5</color>
+    <color name="haru_surface">#FFFFFF</color>
+    <color name="haru_beige">#F4F3EF</color>
+    <color name="haru_border">#E2E3DF</color>
+    <color name="haru_text">#1B1C1A</color>
+    <color name="haru_muted">#6B6D69</color>
+    <color name="haru_subtle">#8C8E8A</color>
+    <color name="haru_forest">#214838</color>
+    <color name="haru_forest_light">#EAF1ED</color>
+    <color name="haru_danger">#A23F43</color>
+    <color name="haru_dark_surface">#202A24</color>
+    <color name="haru_dark_sub">#25332B</color>
+    <color name="haru_dark_border">#34423A</color>
+    <color name="haru_dark_text">#EDF3EF</color>
+    <color name="haru_dark_muted">#AAB7AE</color>
+</resources>
