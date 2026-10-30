@@ -11,9 +11,9 @@
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./assets/styles.css?v=20261029-today-layout-v1">
   <link rel="stylesheet" href="./assets/light-theme.css?v=20261029-code-handoff-v1">
-  <link rel="stylesheet" href="./assets/today-stitch.css?v=20261029-today-layout-v1">
+  <link rel="stylesheet" href="./assets/today-stitch.css?v=20261030-budget-preview-v1">
   <link rel="stylesheet" href="./assets/avatar-frame.css?v=20261024-avatar-frame-v13">
-  <link rel="stylesheet" href="./assets/budget.css?v=20261017-budget-v2">
+  <link rel="stylesheet" href="./assets/budget.css?v=20261030-budget-preview-v1">
 <link rel="stylesheet" href="./assets/writing-templates.css?v=20261014-h1">
 <link rel="stylesheet" href="./assets/recurring.css?v=20261014-i1">
 <link rel="stylesheet" href="./assets/workout.css?v=20261027-workout-v1">
@@ -162,7 +162,7 @@
             <div class="stitch-inline-form"><input id="todayProteinLabel" maxlength="80" placeholder="음식 이름 · 선택"><input id="todayProteinGrams" type="number" inputmode="decimal" min="0.1" max="9999.9" step="0.1" placeholder="단백질(g)"><button id="todayProteinAdd" type="button">추가</button></div>
           </section>
           <details class="stitch-section stitch-disclosure" data-today-section="finance_entry"><summary><span>가계부 거래 입력</span><span class="material-symbols-outlined">expand_more</span></summary><div class="stitch-finance-form"><div class="stitch-section-head"><span></span><button type="button" data-go="personal">가계부 <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button></div><div class="two-col"><label class="field"><span>종류</span><select id="todayFinanceType"><option value="expense">지출</option><option value="income">수입</option></select></label><label class="field"><span>날짜</span><input id="todayFinanceDate" type="date"></label></div><label class="field"><span>내용 · 선택</span><input id="todayFinanceTitle" maxlength="120"></label><div class="two-col"><label class="field"><span>금액</span><input id="todayFinanceAmount" inputmode="numeric" placeholder="0"></label><label class="field"><span>분류</span><select id="todayFinanceCategory"><option>식비</option><option>교통</option><option>쇼핑</option><option>생활</option><option>교육</option><option>세금</option><option>급여</option><option>용돈</option><option>기타</option></select></label></div><button id="todayFinanceAdd" class="btn primary" type="button">저장</button></div></details>
-          <details class="stitch-section stitch-disclosure" data-today-section="finance_budget"><summary><span>가계부 남은 예산</span><span class="material-symbols-outlined">expand_more</span></summary><div class="stitch-budget-brief"><strong id="todayBudgetRemaining">예산 미설정</strong><button type="button" data-go="personal">가계부 <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button></div></details>
+          <details class="stitch-section stitch-disclosure" data-today-section="finance_budget"><summary><span class="stitch-budget-summary-copy"><span>가계부 남은 예산</span><strong id="todayBudgetRemaining">예산 미설정</strong></span><span class="material-symbols-outlined">expand_more</span></summary><div class="stitch-budget-brief"><div class="stitch-section-head"><span></span><button type="button" data-go="personal">가계부 <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button></div><div id="todayBudgetRows" class="budget-overview" role="group" aria-label="오늘 화면 분류별 예산 사용 현황"></div><p id="todayBudgetUnassigned"></p></div></details>
           <div id="todayLayoutEmpty" class="stitch-layout-empty" hidden><p>표시할 오늘 화면 항목이 없습니다.</p><button type="button" data-go="settings">설정으로 이동</button></div>
         </div>
       </section>
@@ -357,11 +357,11 @@
   <script src="./js/calendar-utils.js?v=20261002-calendar-history-v1"></script>
   <script src="./js/diary-utils.js?v=20261002-diary-search-v1"></script>
   <script src="./js/finance-utils.js?v=20261017-integration-v1"></script>
-  <script src="./js/budget-ui.js?v=20261017-budget-v2"></script>
+  <script src="./js/budget-ui.js?v=20261030-budget-preview-v1"></script>
   <script src="./js/writing-templates.js?v=20261014-h1"></script>
 <script src="./js/recurring-ui.js?v=20261014-i1"></script>
 <script src="./js/workout-ui.js?v=20261029-today-layout-v1"></script>
-<script src="./js/app.js?v=20261029-today-layout-v1"></script>
+<script src="./js/app.js?v=20261030-budget-preview-v1"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>

@@ -2,15 +2,19 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import '../js/finance-utils.js';
+const budgetCss=fs.readFileSync('assets/budget.css','utf8');
+assert.match(budgetCss,/#financeBudgetPanel\{scroll-margin-top:84px\}/);
+assert.match(budgetCss,/@media\(max-width:760px\)\{#financeBudgetPanel\{scroll-margin-top:calc\(124px \+ var\(--safe-top, 0px\)\)\}\}/);
 // DOM test double: validates UI state transitions, not browser layout.
+const actions=[];
 class Element{
   constructor(tag='div'){this.tag=tag;this.children=[];this.listeners={};this.textContent='';this.value='';this.style={};this.classList={toggle(){}}}
   append(...children){this.children.push(...children)}
   replaceChildren(...children){this.children=children}
   setAttribute(){}
   addEventListener(name,fn){this.listeners[name]=fn}
-  focus(){}
-  scrollIntoView(){}
+  focus(options){actions.push({type:'focus',options})}
+  scrollIntoView(options){actions.push({type:'scroll',options})}
   async trigger(name){await this.listeners[name]?.({currentTarget:this})}
 }
 const nodes=new Map(),root={querySelector:s=>{if(!nodes.has(s))nodes.set(s,new Element());return nodes.get(s)}};
@@ -46,6 +50,9 @@ assert.match(root.querySelector('#budgetRows').children[0].children[2].children[
 await root.querySelector('#budgetOpen').trigger('click');
 assert.equal(root.querySelector('#financeBudgetPanel').open,true);
 assert.equal(root.querySelector('#budgetEditPanel').open,undefined,'overview does not open the editor');
+assert.equal(actions.length,2);
+assert.equal(actions[0].type,'focus');assert.equal(actions[0].options.preventScroll,true);
+assert.equal(actions[1].type,'scroll');assert.equal(actions[1].options.behavior,'smooth');assert.equal(actions[1].options.block,'start');
 select.value='교통';await select.trigger('change');
 assert.match(root.querySelector('#budgetSelectedUsage').textContent,/예산 미설정/);
 input().value='50000';await input().trigger('input');

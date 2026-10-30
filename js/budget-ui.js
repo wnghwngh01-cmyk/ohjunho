@@ -91,7 +91,7 @@
     q('#budgetAmount').addEventListener('input',event=>{const e=entry(activeMonth);if(!e.selected)return;if(!e.draft)e.draft={};e.draft[e.selected]=event.currentTarget.value;e.message='저장하지 않은 변경사항이 있습니다.';q('#budgetStatus').textContent=e.message});
     q('#budgetSave').addEventListener('click',save);
     q('#budgetReload').addEventListener('click',()=>void load(activeMonth,true));
-    q('#budgetOpen').addEventListener('click',()=>{q('#financeBudgetPanel').open=true;q('#financeBudgetPanel').scrollIntoView({block:'start'});q('#budgetSummary').focus()});
+    q('#budgetOpen').addEventListener('click',()=>{q('#financeBudgetPanel').open=true;q('#budgetSummary').focus({preventScroll:true});q('#financeBudgetPanel').scrollIntoView({behavior:'smooth',block:'start'})});
     return{render,load,invalidate(){entries.clear()}};
   }
   global.HaruBudgetUI={create};
