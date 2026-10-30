@@ -24,7 +24,7 @@ for(const token of ['add column if not exists avatar_path','profiles_avatar_path
   if(!migration.includes(token))throw new Error(`Profile photo migration is incomplete: ${token}`);
 }
 if(!publicApp.includes('p.avatar_path')||!publicApp.includes('avatar-photo'))throw new Error('Public profile avatar rendering is missing');
-if(!publicHtml.includes('20261004-profile-photos-v1'))throw new Error('Public profile cache version is stale');
+if(!/assets\/styles\.css\?v=20261030-square-author-v1/.test(publicHtml))throw new Error('Public profile cache version is stale');
 for(const token of ['.avatar-letter','.avatar .avatar-photo','.profile-photo-editor','.comment-avatar']){
   if(!css.includes(token))throw new Error(`Profile photo style is missing: ${token}`);
 }

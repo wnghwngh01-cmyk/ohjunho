@@ -21,7 +21,7 @@ for(const token of ['uploadIdeaImages','singleFlight(`idea:${ideaId}`','removePr
 for(const token of ['previewIdeaFiles','prepareIdeaUrls','data-remove-new-idea-photo','Storage.uploadIdeaImages','async function deleteIdea','idea.idea_media']){
   if(!app.includes(token))throw new Error(`Idea photo app flow is missing: ${token}`);
 }
-for(const token of ['collapsibleCopy(r.body)','collapsibleCopy(i.body','collapsibleCopy(p.body)','collapsibleCopy(r.body,\'감상 없음\')','data-toggle-copy','activateCollapsibleText']){
+for(const token of ['collapsibleCopy(r.body)','collapsibleCopy(i.body','collapsibleCopy(p.body,\'\',fmtTime(p.published_at))','collapsibleCopy(r.body,\'감상 없음\')','data-toggle-copy','activateCollapsibleText']){
   if(!app.includes(token))throw new Error(`Four-line expansion flow is missing: ${token}`);
 }
 if(!css.includes('-webkit-line-clamp:4')||!css.includes('.text-expand')||!css.includes('.lab-search{margin-bottom:24px}'))throw new Error('Collapse or idea spacing styles are incomplete');

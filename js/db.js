@@ -23,13 +23,16 @@
   const uid=()=>user().id;
   const parseTags=v=>Array.isArray(v)?v:String(v||'').split(',').map(x=>x.trim()).filter(Boolean).slice(0,20);
   const slugify=v=>String(v||'').toLowerCase().trim().replace(/[^a-z0-9-]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'').slice(0,40);
+  const charCount=v=>[...String(v??'')].length;
+  const limitedName=(value,max,label)=>{const text=String(value??'').trim();if(!text)throw new Error(`${label}을 입력해 주세요.`);if(charCount(text)>max)throw new Error(`${label}은 ${max}자 이하로 입력해 주세요.`);return text};
+  const initialName=value=>[...String(value||'사용자').trim()].slice(0,8).join('')||'사용자';
 
   async function getSession(){const {data,error}=await client.auth.getSession();fail(error,'세션 확인');currentUser=data.session?.user||null;return data.session||null}
   function onAuthChange(cb){return client.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;cb&&cb(session)})}
   async function signIn(email,password){const {data,error}=await client.auth.signInWithPassword({email,password});fail(error,'로그인');currentUser=data.user;return data}
-  async function signUp(email,password,displayName,acceptedTerms=false){const {data,error}=await client.auth.signUp({email,password,options:{data:{display_name:displayName,terms_accepted:acceptedTerms?'true':'false',terms_version:acceptedTerms?'2026-09-09':''}}});fail(error,'회원가입');currentUser=data.user||null;return data}
-  async function beginSignup(email,displayName){const bytes=crypto.getRandomValues(new Uint8Array(24)),temporaryPassword=`Haru!${Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('')}`;const {data,error}=await client.auth.signUp({email,password:temporaryPassword,options:{data:{display_name:displayName,signup_complete:false}}});fail(error,'인증 이메일 전송');if(data?.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0){const unavailable=new Error('이 이메일로 새 가입 인증을 시작할 수 없습니다.');unavailable.code='signup_email_unavailable';throw unavailable}currentUser=data.user||null;return data}
-  async function completeSignup(password,displayName){const {data,error}=await client.auth.updateUser({password,data:{display_name:displayName,signup_complete:true,terms_accepted:'true',terms_version:'2026-09-09'}});fail(error,'회원가입 완료');currentUser=data.user||currentUser;return data}
+  async function signUp(email,password,displayName,acceptedTerms=false){const name=limitedName(displayName,8,'이름');const {data,error}=await client.auth.signUp({email,password,options:{data:{display_name:name,terms_accepted:acceptedTerms?'true':'false',terms_version:acceptedTerms?'2026-09-09':''}}});fail(error,'회원가입');currentUser=data.user||null;return data}
+  async function beginSignup(email,displayName){const name=limitedName(displayName,8,'이름'),bytes=crypto.getRandomValues(new Uint8Array(24)),temporaryPassword=`Haru!${Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('')}`;const {data,error}=await client.auth.signUp({email,password:temporaryPassword,options:{data:{display_name:name,signup_complete:false}}});fail(error,'인증 이메일 전송');if(data?.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0){const unavailable=new Error('이 이메일로 새 가입 인증을 시작할 수 없습니다.');unavailable.code='signup_email_unavailable';throw unavailable}currentUser=data.user||null;return data}
+  async function completeSignup(password,displayName){const name=limitedName(displayName,8,'이름');const {data,error}=await client.auth.updateUser({password,data:{display_name:name,signup_complete:true,terms_accepted:'true',terms_version:'2026-09-09'}});fail(error,'회원가입 완료');currentUser=data.user||currentUser;return data}
   async function signInGuest(){const {data,error}=await client.auth.signInAnonymously({options:{data:{display_name:'게스트',test_guest:true}}});fail(error,'게스트 로그인');currentUser=data.user||null;return data}
   async function verifySignupOtp(email,token){const {data,error}=await client.auth.verifyOtp({email,token,type:'email'});fail(error,'이메일 인증');currentUser=data.user||null;return data}
   async function resendSignupOtp(email){const {data,error}=await client.auth.resend({type:'signup',email});fail(error,'인증번호 재전송');return data}
@@ -44,15 +47,15 @@
     let {data,error}=await client.from('profiles').select('*').eq('id',u.id).maybeSingle();
     fail(error,'프로필 불러오기');
     if(data)return data;
-    const name=String(u.user_metadata?.display_name||u.email?.split('@')[0]||'사용자').slice(0,30);
+    const name=initialName(u.user_metadata?.display_name||u.email?.split('@')[0]||'사용자');
     const slug=`lab-${u.id.replaceAll('-','').slice(0,12)}`;
-    ({data,error}=await client.from('profiles').insert({id:u.id,display_name:name,lab_name:`${name}의 하루`,slug}).select().single());
+    ({data,error}=await client.from('profiles').insert({id:u.id,display_name:name,lab_name:name,slug}).select().single());
     fail(error,'프로필 만들기');return data;
   }
   async function updateProfile(patch){
     const allowed={};
-    if(patch.display_name!==undefined)allowed.display_name=String(patch.display_name).trim().slice(0,30);
-    if(patch.lab_name!==undefined)allowed.lab_name=String(patch.lab_name).trim().slice(0,50);
+    if(patch.display_name!==undefined)allowed.display_name=String(patch.display_name).trim();
+    if(patch.lab_name!==undefined)allowed.lab_name=String(patch.lab_name).trim();
     if(patch.slug!==undefined){const s=slugify(patch.slug);if(s.length<3)throw new Error('공개 주소 ID는 영문 소문자·숫자·하이픈으로 3자 이상 입력해 주세요.');allowed.slug=s}
     if(patch.bio!==undefined)allowed.bio=String(patch.bio).slice(0,500);
     if(patch.avatar_path!==undefined){const path=patch.avatar_path===null?null:String(patch.avatar_path);if(path!==null&&!path.startsWith(`${uid()}/public/profile/`))throw new Error('올바르지 않은 프로필 사진 경로입니다.');allowed.avatar_path=path}
@@ -66,9 +69,7 @@
   }
 
   async function completeOnboarding(displayName,labName){
-    const name=String(displayName||'').trim().slice(0,30),lab=String(labName||'').trim().slice(0,50);
-    if(!name)throw new Error('이름을 입력해 주세요.');
-    if(!lab)throw new Error('공간 이름을 입력해 주세요.');
+    const name=limitedName(displayName,8,'이름'),lab=limitedName(labName,12,'공간 이름');
     const {data,error}=await client.from('profiles').update({display_name:name,lab_name:lab,onboarding_completed_at:new Date().toISOString()}).eq('id',uid()).select().single();
     fail(error,'하루 공간 만들기');return data;
   }
