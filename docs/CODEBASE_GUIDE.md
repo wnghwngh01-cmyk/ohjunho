@@ -26,6 +26,7 @@
 | 정기 수입·지출 | `js/recurring-ui.js`, `assets/recurring.css` | `js/db.js`, Supabase 스케줄/RPC | `tests/recurring-ui-behavior.mjs`, 관련 DB 테스트 |
 | 작성 양식 | `js/writing-templates.js`, `assets/writing-templates.css` | 본문·임시저장은 기존 기록 흐름 사용 | `tests/writing-templates-behavior.mjs` |
 | 운동·단백질 | `js/workout-ui.js`, `assets/workout.css` | `js/db.js`, 운동 마이그레이션 | `tests/workout-contract.mjs`, `tests/workout-db-behavior.mjs` |
+| 하루 쉼터·칭호 | `js/shelter-ui.js`, `assets/shelter.css` | `js/db.js`, `step26`·`step27` 마이그레이션 | `tests/shelter-contract.mjs`, `tests/shelter-db-behavior.mjs` |
 | 프로필 테두리 | `js/avatar-frame.js`, `assets/avatar-frame.css`, `assets/profile-frames/` | 프로필 색상 필드 | `tests/avatar-frame-*.mjs` |
 | 운영자 웹 | `admin.html`, `js/admin.js`, `js/admin-data.js` | 운영자 RPC/Edge Function | 운영자 전용 테스트 |
 
@@ -45,6 +46,7 @@
 - 정기 거래 설정 변경은 이미 생성된 과거 거래를 수정하지 않는다. 서버 측 중복 키와 실행 로그를 보존한다.
 - 작성 양식은 편집 가능한 일반 텍스트를 삽입하며 기존 본문을 덮어쓰지 않는다.
 - 프로필 테두리 등급은 현재 결제 권한이 아니라 테스트용 선택 상태다. 실제 상품 결제와 연결됐다고 표현하지 않는다.
+- 하루 쉼터 칭호는 게임 직후 지급하지 않는다. 닫힌 주차를 `step27` 정산 함수가 처리하며, 주간 랭커 칭호는 회수·재지급하고 티어 칭호는 영구 유지한다.
 
 ## 제거된 기능과 자산
 

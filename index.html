@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="./assets/recurring.css?v=20261014-i1">
 <link rel="stylesheet" href="./assets/workout.css?v=20261027-workout-v1">
 <link rel="stylesheet" href="./assets/workout-layout.css?v=20261027-workout-v1">
-<link rel="stylesheet" href="./assets/shelter.css?v=20261030-shelter-v1">
+<link rel="stylesheet" href="./assets/shelter.css?v=20261030-shelter-v2">
 </head>
 <body>
   <section id="authShell" class="auth-shell hidden">
@@ -275,16 +275,16 @@
 
       <section id="page-more" class="page" data-page="more">
         <div class="page-head"><div><p class="eyebrow">ALL MENU</p><h1>더보기</h1><p>기록과 관리에 필요한 모든 기능을 한곳에서 빠르게 찾아보세요.</p></div></div><div class="more-grid">
-          <h2 class="more-group-label">생활</h2><button data-go="today"><b>⌂</b><span>오늘</span></button><button data-go="calendar"><b>□</b><span>캘린더</span></button><button data-go="diary"><b>✎</b><span>일기</span></button><button data-go="personal"><b>₩</b><span>가계부</span></button><button data-go="workout"><b>◆</b><span>운동 기록</span></button><button data-go="records"><b>▤</b><span>기록</span></button><button data-go="books"><b>▣</b><span>독서록</span></button><button data-go="lab"><b>◇</b><span>아이디어</span></button><h2 class="more-group-label">쉼터</h2><button data-go="shelter"><b>◈</b><span>하루 쉼터</span></button><h2 class="more-group-label">관리</h2><button data-go="goals"><b>◎</b><span>목표 설정</span></button><button data-go="square"><b>◉</b><span>광장</span></button><button data-go="search"><b>⌕</b><span>통합 검색</span></button><h2 class="more-group-label">도움</h2><button data-go="bug"><b>!</b><span>버그 제보</span></button><button data-go="contact"><b aria-hidden="true">?</b><span>운영자 문의</span></button><button data-go="support"><b>♥</b><span>후원</span></button><button data-go="settings"><b>⚙</b><span>설정</span></button>
+          <h2 class="more-group-label">생활</h2><button data-go="today"><b>⌂</b><span>오늘</span></button><button data-go="calendar"><b>□</b><span>캘린더</span></button><button data-go="diary"><b>✎</b><span>일기</span></button><button data-go="personal"><b>₩</b><span>가계부</span></button><button data-go="workout"><b>◆</b><span>운동 기록</span></button><button data-go="records"><b>▤</b><span>기록</span></button><button data-go="books"><b>▣</b><span>독서록</span></button><button data-go="lab"><b>◇</b><span>아이디어</span></button><h2 class="more-group-label">하루 쉼터</h2><button data-go="shelter"><b>◈</b><span>1 to 25</span></button><h2 class="more-group-label">관리</h2><button data-go="goals"><b>◎</b><span>목표 설정</span></button><button data-go="square"><b>◉</b><span>광장</span></button><button data-go="search"><b>⌕</b><span>통합 검색</span></button><h2 class="more-group-label">도움</h2><button data-go="bug"><b>!</b><span>버그 제보</span></button><button data-go="contact"><b aria-hidden="true">?</b><span>운영자 문의</span></button><button data-go="support"><b>♥</b><span>후원</span></button><button data-go="settings"><b>⚙</b><span>설정</span></button>
         </div>
       </section>
 
       <section id="page-shelter" class="page" data-page="shelter">
-        <div class="page-head"><div><p class="eyebrow">HARU SHELTER</p><h1>하루 쉼터</h1><p>잠깐 쉬어가며 1부터 25까지 차례로 찾아보세요.</p></div></div>
+        <div class="page-head"><div><p class="eyebrow">하루 쉼터 · HARU SHELTER</p><h1>1 to 25</h1><p>1부터 25까지 가장 빠른 손끝으로 순서대로 터치해 보세요.</p></div></div>
         <div class="shelter-shell">
           <section id="shelterLobby">
-            <div class="shelter-hero"><div class="shelter-hero-head"><h2>내 주간 기록</h2><span class="shelter-reset">매주 월요일 24:00 초기화</span></div><div class="shelter-personal"><div class="shelter-best"><span>이번 주 최고 기록</span><strong id="shelterBest">--.--초</strong></div><div class="shelter-rank-copy"><span>내 등수</span><strong id="shelterRank">이번 주 미참여</strong><div id="shelterActiveTitle" class="shelter-title-slot"></div></div></div><button id="shelterStart" class="btn primary shelter-primary" type="button">1 to 25 도전하기</button></div>
-            <section class="shelter-ranking"><div class="shelter-ranking-head"><h2>주간 Top 10</h2><span>빠른 기록 순</span></div><div id="shelterLeaderboard" class="shelter-rank-list"><div class="shelter-empty">순위를 불러오는 중…</div></div></section>
+            <div class="shelter-hero"><div class="shelter-hero-head"><h2>내 주간 기록</h2><span class="shelter-reset">매주 월요일 24:00 초기화</span></div><div class="shelter-personal"><div class="shelter-best"><span>이번 주 최고 기록</span><strong id="shelterBest">--.--초</strong></div><div class="shelter-rank-copy"><span>내 등수</span><strong id="shelterRank">이번 주 미참여</strong></div></div><button id="shelterStart" class="btn primary shelter-primary" type="button">1 to 25 도전하기</button></div>
+            <section class="shelter-ranking"><div class="shelter-ranking-head"><h2>주간 Top 10</h2><span>월요일 24:00 정산 보상 미리보기</span></div><div id="shelterLeaderboard" class="shelter-rank-list"><div class="shelter-empty">순위를 불러오는 중…</div></div></section>
           </section>
           <section id="shelterGame" class="hidden"><div class="shelter-game-card"><div id="shelterCountdown" class="shelter-countdown hidden"></div><div class="shelter-game-head"><div class="shelter-game-stat"><span>다음 숫자</span><strong id="shelterNext">1</strong></div><div class="shelter-game-stat"><span>기록</span><strong id="shelterTimer">00.00초</strong></div></div><div id="shelterGrid" class="shelter-grid" aria-label="1부터 25까지 숫자판"></div><div class="shelter-game-actions"><button id="shelterGameBack" class="btn ghost small" type="button">도전 취소</button></div></div></section>
           <section id="shelterResult" class="hidden"><div class="shelter-result-card"><small>도전 완료</small><h2 id="shelterResultTime">00.00초</h2><p id="shelterResultGrade" class="shelter-result-grade"></p><p id="shelterResultRank" class="shelter-result-rank"></p><div id="shelterNewTitles" class="shelter-new-titles"></div><div class="shelter-result-actions"><button id="shelterRetry" class="btn primary" type="button">다시 도전하기</button><button id="shelterBack" class="btn secondary" type="button">로비로 돌아가기</button></div></div></section>
@@ -365,7 +365,7 @@
   <script src="./js/drafts.js?v=20260918-community-inserts-v1"></script>
   <script src="./js/avatar-frame.js?v=20261017-avatar-frame-v8"></script>
   <script src="./js/today-layout.js?v=20261029-today-layout-v1"></script>
-  <script src="./js/db.js?v=20261030-shelter-v1"></script>
+  <script src="./js/db.js?v=20261030-shelter-v2"></script>
   <script src="./js/storage.js?v=20261004-profile-photos-v1"></script>
   <script src="./js/telemetry.js?v=20260920-error-logs-v1"></script>
   <script src="./js/calendar-utils.js?v=20261002-calendar-history-v1"></script>
@@ -376,8 +376,8 @@
 <script src="./js/recurring-ui.js?v=20261014-i1"></script>
 <script src="./js/workout-ui.js?v=20261029-today-layout-v1"></script>
 <script src="./js/widget-bridge.js?v=20261030-widgets-v1"></script>
-<script src="./js/shelter-ui.js?v=20261030-shelter-v1"></script>
-<script src="./js/app.js?v=20261030-shelter-v1"></script>
+<script src="./js/shelter-ui.js?v=20261030-shelter-v2"></script>
+<script src="./js/app.js?v=20261030-shelter-v2"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>
