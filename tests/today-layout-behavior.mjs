@@ -19,5 +19,6 @@ assert.match(app,/설정된 분류별 예산이 없습니다\./);
 assert.match(app,/summary\.categories\.map\(item=>/);
 assert.match(app,/todayBudgetUnassigned/);
 assert.match(app,/remaining\.classList\.toggle\('budget-over',over\)/);
+assert.match(app,/money\(summary\.remaining\).*총 \$\{money\(summary\.budget\)\}/);
 assert.match(html,/data-today-section="finance_entry"/);assert.match(html,/data-today-section="finance_budget"/);
 console.log('today layout behavior: PASS');

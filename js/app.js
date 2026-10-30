@@ -234,7 +234,7 @@
   async function loadTodayBudget(){
     const month=DB.today().slice(0,7),[budget,rows]=await Promise.all([DB.getMonthBudget(month),DB.listFinance()]),summary=Finance.budgetSummary(rows,month,budget.items||{}),remaining=$('#todayBudgetRemaining'),host=$('#todayBudgetRows');
     const over=summary.configured&&summary.remaining<0;
-    remaining.textContent=!summary.configured?'예산 미설정':over?`${money(Math.abs(summary.remaining))} 초과`:`${money(summary.remaining)} 남음`;
+    remaining.textContent=!summary.configured?'예산 미설정':over?`${money(Math.abs(summary.remaining))} 초과 · 총 ${money(summary.budget)}`:`${money(summary.remaining)} 남음 · 총 ${money(summary.budget)}`;
     remaining.classList.toggle('budget-over',over);
     if(!summary.configured)host.innerHTML='<p class="budget-empty">설정된 분류별 예산이 없습니다.</p>';
     else host.innerHTML=summary.categories.map(item=>{const itemOver=item.remaining<0,usedPercent=item.budget?Math.round(item.used/item.budget*100):item.used?100:0;return `<div class="budget-row ${itemOver?'budget-over':''}"><div class="budget-row-head"><strong>${esc(item.category)}</strong><span>${money(item.used)} / ${money(item.budget)}</span></div><div class="budget-meter ${itemOver?'budget-over':''}" role="img" aria-label="${esc(item.category)} 예산 ${money(item.budget)} 중 ${money(item.used)} 사용${itemOver?`, ${money(Math.abs(item.remaining))} 초과`:`, ${money(item.remaining)} 남음`}"><span class="budget-meter-fill" style="width:${item.percent}%"></span></div><div class="budget-row-bottom"><span>${itemOver?`${money(Math.abs(item.remaining))} 초과`:`${money(item.remaining)} 남음`}</span><span>${usedPercent}% 사용</span></div></div>`}).join('');

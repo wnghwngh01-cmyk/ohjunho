@@ -79,9 +79,9 @@ html:not([data-theme="dark"]) #page-today .stitch-inline-form button,html:not([d
 html:not([data-theme="dark"]) #page-today .stitch-disclosure{display:block;padding:0;border:1px solid var(--st-line);border-radius:13px;background:var(--st-surface);overflow:hidden}
 html:not([data-theme="dark"]) #page-today .stitch-disclosure>summary{display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:10px 12px;font-size:16px;font-weight:700;cursor:pointer;list-style:none}
 html:not([data-theme="dark"]) #page-today .stitch-disclosure>summary::-webkit-details-marker{display:none}
-html:not([data-theme="dark"]) #page-today .stitch-budget-summary-copy{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0;flex:1}
-html:not([data-theme="dark"]) #page-today .stitch-budget-summary-copy>span{min-width:0}
-html:not([data-theme="dark"]) #page-today .stitch-budget-summary-copy strong{flex:none;color:var(--st-primary);font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+html:not([data-theme="dark"]) #page-today .stitch-budget-summary-copy{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2px 10px;min-width:0;flex:1}
+html:not([data-theme="dark"]) #page-today .stitch-budget-summary-title{flex:1 1 118px;min-width:0}
+html:not([data-theme="dark"]) #page-today .stitch-budget-summary-copy strong{flex:0 1 auto;min-width:0;margin-left:auto;color:var(--st-primary);font-size:13px;line-height:1.35;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;overflow-wrap:anywhere}
 html:not([data-theme="dark"]) #page-today .stitch-finance-form{display:flex;flex-direction:column;gap:10px;padding:0 12px 12px;border-top:1px solid var(--st-line)}
 html:not([data-theme="dark"]) #page-today .stitch-budget-brief{min-width:0;padding:0 12px 12px;border-top:1px solid var(--st-line)}
 html:not([data-theme="dark"]) #page-today .stitch-budget-brief .stitch-section-head{justify-content:flex-end;margin:0}
@@ -93,6 +93,7 @@ html:not([data-theme="dark"]) #page-today .stitch-layout-empty{padding:22px 14px
 html:not([data-theme="dark"]) #page-today .stitch-layout-empty[hidden]{display:none}
 html:not([data-theme="dark"]) #page-today .stitch-layout-empty p{margin:0 0 12px}
 @media(max-width:390px){html:not([data-theme="dark"]) #page-today .stitch-inline-form{grid-template-columns:minmax(0,1fr) 92px auto;gap:6px}html:not([data-theme="dark"]) #page-today .stitch-inline-form input{padding:0 8px}}
+@media(max-width:390px){html:not([data-theme="dark"]) #page-today [data-today-section="finance_budget"]>summary{align-items:flex-start}html:not([data-theme="dark"]) #page-today .stitch-budget-summary-copy{gap:2px 6px}html:not([data-theme="dark"]) #page-today .stitch-budget-summary-title{flex-basis:100%;font-size:15px;line-height:1.35}html:not([data-theme="dark"]) #page-today .stitch-budget-summary-copy strong{flex-basis:100%;font-size:12px;line-height:1.4}}
 @media(max-width:760px){
   html:not([data-theme="dark"]) body:has(#page-today.active){background:var(--st-bg)}
   html:not([data-theme="dark"]) .app-main:has(#page-today.active){padding-bottom:0}

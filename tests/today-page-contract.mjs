@@ -24,7 +24,7 @@ if(!importantQuery||importantQuery.includes('.limit('))throw new Error('Upcoming
 if(!todayTheme.includes('--st-bg:#fbf9f5')||!todayTheme.includes('--st-primary:#1e3a2f'))throw new Error('Stitch color tokens must remain intact');
 if(!app.includes('class="stitch-row event-item ')||!app.includes('class="stitch-move"'))throw new Error('Mobile Today rows must use the Stitch list geometry');
 if(app.includes('class="todo-delete"'))throw new Error('Today must not expose a delete X beside todos');
-if(!html.includes('today-stitch.css?v=20261030-budget-preview-v1'))throw new Error('Today Variant A stylesheet is not loaded');
+if(!html.includes('today-stitch.css?v=20261030-budget-preview-v2'))throw new Error('Today Variant A stylesheet is not loaded');
 if(!todayTheme.includes("url('./material-symbols-outlined.ttf')"))throw new Error('Stitch icon font must be self-hosted');
 if(!todayTheme.includes('grid-template-columns:66px minmax(0,1fr) 16px')||!todayTheme.includes('gap:18px'))throw new Error('Stitch A alignment and vertical rhythm must remain exact');
 if(!todayTheme.includes('overflow-wrap:anywhere')||todayTheme.includes('.stitch-goal-value{')&&!todayTheme.includes('word-break:keep-all'))throw new Error('Long goals must wrap without a fixed-height clamp');
@@ -41,6 +41,8 @@ for(const hook of ['todayProteinTotal','todayProteinLabel','todayProteinGrams','
 const budgetCard=page.match(/<details class="stitch-section stitch-disclosure" data-today-section="finance_budget">[\s\S]*?<\/details>/)?.[0]||'';
 const budgetSummary=budgetCard.match(/<summary>[\s\S]*?<\/summary>/)?.[0]||'';
 if(!budgetSummary.includes('가계부 남은 예산')||!budgetSummary.includes('id="todayBudgetRemaining"'))throw new Error('Collapsed Today budget card must preview the total remaining budget');
+if(!app.includes('`\${money(summary.remaining)} 남음 · 총 \${money(summary.budget)}`')||!app.includes('`\${money(Math.abs(summary.remaining))} 초과 · 총 \${money(summary.budget)}`'))throw new Error('Collapsed Today budget preview must include remaining and total monthly budget');
+if(!todayTheme.includes('.stitch-budget-summary-copy{display:flex;flex-wrap:wrap')||!todayTheme.includes('.stitch-budget-summary-title{flex-basis:100%'))throw new Error('Narrow Today budget summary must wrap into clean rows');
 if(!budgetCard.includes('data-go="personal"')||!budgetCard.includes('id="todayBudgetRows"')||!budgetCard.includes('id="todayBudgetUnassigned"'))throw new Error('Expanded Today budget card must expose category details and finance navigation');
 for(const removed of ['<h3>오늘의 문장</h3>','<h3>중요한 날짜</h3>','<h3>오늘 할 일</h3>','<h3>반복 습관</h3>']){
   if(page.includes(removed))throw new Error(`Removed Today card or label remains: ${removed}`);
