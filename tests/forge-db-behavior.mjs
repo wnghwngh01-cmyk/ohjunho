@@ -30,6 +30,7 @@ const legacyPublication=(await db.query("insert into publications(user_id,source
 await db.exec(fs.readFileSync('supabase/migrations/20261104223000_step32_forge_appraisal_cleanup.sql','utf8'));
 await db.exec(fs.readFileSync('supabase/migrations/20261104230000_step33_forge_balance_recalibration.sql','utf8'));
 await db.exec(fs.readFileSync('supabase/migrations/20261104233000_step34_forge_shop_price_reduction.sql','utf8'));
+await db.exec(fs.readFileSync('supabase/migrations/20261104234500_step35_forge_empty_anvil_state_fix.sql','utf8'));
 
 async function login(id,service=false){await db.exec(`reset role;set test.uid='${id}';set test.jwt.role='${service?'service_role':'authenticated'}';set role authenticated;`)}
 async function root(sql,params=[]){await db.exec('reset role');return db.query(sql,params)}
@@ -57,6 +58,7 @@ state=await attempt(99.9,{grade:'perfect'});assert.equal(state.result.outcome,'s
 await root("update shelter_forge_swords set sword_level=10,sword_name=forge_level_name(10),stamina=5,shields=1,whetstones=1 where user_id=$1",[a]);await login(a,true);
 state=await attempt(99,{shield:true});assert.equal(state.result.outcome,'protected_destroy');assert.equal(state.sword.sword_level,10);assert.equal(state.sword.stamina,5);assert.equal(state.sword.shields,0);
 state=await attempt(99);assert.equal(state.result.outcome,'destroy');assert.equal(state.result.points_gained,20);assert.equal(state.sword.has_sword,false);assert.equal(state.sword.stamina,5);assert.equal((await root('select count(*)::int n from shelter_forge_graveyard')).rows[0].n,0,'20강 미만 파괴는 묘지에 안장하지 않음');
+state=await rpc('select get_forge_state() result');assert.equal(state.sword.has_sword,false);assert.equal(state.rates,null,'빈 모루 상태에서는 미할당 확률 레코드를 읽지 않음');
 await login(a,true);await assert.rejects(()=>attempt(0),/모루 위에 검이 없습니다/);
 
 await root("update shelter_forge_swords set stamina=5,stamina_updated_at=now()-interval '4 minutes' where user_id=$1",[a]);await login(a,true);state=await rpc('select draw_forge_sword() result');assert.equal(state.sword.has_sword,true);assert.equal(state.sword.stamina,4);let stamp=state.sword.stamina_updated_at;
