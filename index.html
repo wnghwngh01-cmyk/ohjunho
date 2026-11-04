@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="./assets/workout.css?v=20261027-workout-v1">
 <link rel="stylesheet" href="./assets/workout-layout.css?v=20261027-workout-v1">
 <link rel="stylesheet" href="./assets/shelter.css?v=20261030-shelter-v2">
-<link rel="stylesheet" href="./assets/forge.css?v=20261104-forge-v1">
+<link rel="stylesheet" href="./assets/forge.css?v=20261104-forge-v2">
 </head>
 <body>
   <section id="authShell" class="auth-shell hidden">
@@ -294,34 +294,28 @@
       </section>
 
       <section id="page-forge" class="page" data-page="forge">
-        <div class="page-head"><div><p class="eyebrow">하루 쉼터 · LEGENDARY FORGE</p><h1>검 강화하기</h1><p>풀무질의 순간을 노려 나만의 검을 전설로 단련해 보세요.</p></div><button class="btn secondary small" type="button" data-go="shelter">쉼터로</button></div>
+        <div class="page-head forge-page-head"><div><p class="eyebrow">하루 쉼터 · 하루 대장간</p><h1>검 강화하기</h1><p>불꽃과 망치로 단 하나뿐인 명검을 벼려 보세요.</p></div><div class="forge-head-actions"><button id="forgeSoundToggle" class="btn ghost small" type="button">🔊 효과음 ON</button><button id="forgeGraveOpen" class="btn ghost small" type="button">🪦 명검의 묘지</button><button id="forgeGuideOpen" class="btn ghost small" type="button">❓ 가이드</button><button class="btn secondary small" type="button" data-go="shelter">쉼터로</button></div></div>
         <div class="forge-shell">
+          <section class="forge-status-bar" aria-label="대장간 보유 현황"><div class="forge-stamina"><span>⚡ 풀무 기운</span><b id="forgeStaminaDots">●●●●●</b><small id="forgeStaminaCopy">5/5 · 10분당 +1</small></div><div><span>💰 대장간 포인트</span><b id="forgePoints">0 P</b></div><div class="forge-inventory"><span>🛡️ <b id="forgeShields">0</b>장</span><span>💎 <b id="forgeWhetstones">0</b>개</span><span>✨ <b id="forgeShards">0</b>개</span></div><button id="forgeDailySupply" class="btn primary small" type="button">🎁 일일 무료 보급 받기</button></section>
           <section class="forge-main-card">
-            <div id="forgeAura" class="forge-aura aura-none" aria-hidden="true"></div>
-            <div class="forge-sword-stage">
-              <div id="forgeSwordArt" class="forge-sword-art tier-0" aria-hidden="true"><i class="forge-blade"></i><i class="forge-guard"></i><i class="forge-grip"></i><i class="forge-pommel"></i></div>
-              <div class="forge-anvil" aria-hidden="true"><i></i></div>
-            </div>
-            <div class="forge-identity"><span id="forgeLevel" class="forge-level">+0강</span><h2 id="forgeSwordName">녹슨 수련검</h2><button id="forgeRenameOpen" class="link-btn" type="button">이름 수정</button></div>
-            <form id="forgeRenameForm" class="forge-rename hidden"><input id="forgeCustomName" class="input" maxlength="12" placeholder="검 이름 · 최대 12자"><button class="btn primary small" type="submit">저장</button><button id="forgeRenameCancel" class="btn ghost small" type="button">취소</button></form>
-            <div class="forge-resources"><span>파편 <b id="forgeShards">0</b></span><span>숫돌 <b id="forgeWhetstones">0</b></span><span>보호권 <b id="forgeShields">0</b></span></div>
-            <div class="forge-chance"><div><span>성공 확률</span><strong id="forgeSuccessRate">100%</strong></div><div><span>파괴 확률</span><strong id="forgeDestroyRate">0%</strong></div></div>
-            <div class="forge-options">
-              <label><input id="forgeUseShield" type="checkbox"><span>보호권 사용 <small id="forgeShieldCopy">보유 0장</small></span></label>
-              <label><input id="forgeUseWhetstone" type="checkbox"><span>숫돌 사용 <small id="forgeWhetstoneCopy">+2% · 보유 0개</small></span></label>
-              <label><input id="forgeSkipBellows" type="checkbox"><span>풀무질 연출 건너뛰기</span></label>
-              <label><input id="forgeShareEvents" type="checkbox"><span>15강 이상 소식을 광장 대장간에 자동 공유</span></label>
-            </div>
+            <div class="forge-identity"><span id="forgeGrade" class="forge-grade">수련 등급</span><h2><b id="forgeLevel">+0강</b> <span id="forgeSwordName">수련용 목검</span></h2><p>감정가 <strong id="forgeAppraisal">0 P</strong></p></div>
+            <div class="forge-sword-stage"><div id="forgeAura" class="forge-aura aura-none" aria-hidden="true"></div><div id="forgeSwordVisual" class="forge-sword-visual" aria-label="현재 검 일러스트"></div><div class="forge-anvil" aria-hidden="true"><i></i></div></div>
+            <div class="forge-chance"><div><span>성공 확률</span><strong id="forgeSuccessRate">100.0%</strong></div><div><span>유지 확률</span><strong id="forgeStayRate">0.0%</strong></div><div><span>파괴 확률</span><strong id="forgeDestroyRate">0.0%</strong></div></div>
+            <div class="forge-item-slots"><button id="forgeUseShield" class="forge-slot shield" type="button" aria-pressed="false"><span>🛡️</span><b>보호권</b><small id="forgeShieldCopy">보유 0장</small></button><button id="forgeUseWhetstone" class="forge-slot whetstone" type="button" aria-pressed="false"><span>💎</span><b>장인의 숫돌</b><small id="forgeWhetstoneCopy">+2% · 보유 0개</small></button></div>
             <p id="forgeResultMessage" class="forge-result-message" role="status" aria-live="polite">망치를 들고 강화를 시작해 보세요.</p>
-            <button id="forgeEnhance" class="btn primary forge-enhance" type="button">🔨 강화하기</button>
+            <div class="forge-action-main"><button id="forgeEnhance" class="btn primary forge-enhance" type="button">🔨 담금질하기 <small>(⚡1 소모)</small></button><label class="forge-skip-switch"><input id="forgeSkipBellows" type="checkbox"><span>⚡ 풀무질 건너뛰기</span></label></div>
+            <div class="forge-disposal-actions"><button id="forgeHallOpen" class="btn secondary" type="button" disabled>🏆 명예의 전당 등록</button><button id="forgeSell" class="btn secondary" type="button" disabled>💰 대장간에 판매하기 <span id="forgeSellValue">(+0 P)</span></button><button id="forgeShowcase" class="btn secondary" type="button" disabled>📢 광장에 검 자랑하기</button></div>
           </section>
-          <nav class="forge-tabs" role="tablist" aria-label="대장간 정보"><button class="active" type="button" data-forge-tab="history">📜 강화 기록</button><button type="button" data-forge-tab="graveyard">🪦 명검의 묘지</button><button type="button" data-forge-tab="shop">🏪 대장간 상점</button><button type="button" data-forge-tab="stats">📊 전역 통계</button></nav>
-          <section class="forge-pane active" data-forge-pane="history"><div id="forgeHistory" class="forge-list"><div class="empty">강화 기록을 불러오는 중…</div></div></section>
-          <section class="forge-pane" data-forge-pane="graveyard"><div id="forgeGraveyard" class="forge-list"><div class="empty">명검의 묘지를 불러오는 중…</div></div></section>
-          <section class="forge-pane" data-forge-pane="shop"><div class="forge-shop-grid"><article><span>🪨</span><h3>숫돌</h3><p>다음 강화 성공률을 2% 높입니다.</p><button class="btn secondary" type="button" data-forge-buy="whetstone">파편 10개로 교환</button></article><article><span>🛡️</span><h3>파괴 방어권</h3><p>파괴 판정을 막고 검을 1레벨 낮춥니다.</p><button class="btn secondary" type="button" data-forge-buy="shield">파편 50개로 교환</button></article></div></section>
-          <section class="forge-pane" data-forge-pane="stats"><div id="forgeStats" class="forge-stats"></div></section>
+          <nav class="forge-tabs" role="tablist" aria-label="대장간 정보"><button class="active" type="button" data-forge-tab="ranking">🏆 명예의 전당 랭킹</button><button type="button" data-forge-tab="shop">🏪 대장간 상점</button><button type="button" data-forge-tab="graveyard">🪦 명검의 묘지</button><button type="button" data-forge-tab="records">📜 내 기록 · 전역 통계</button></nav>
+          <section class="forge-pane active" data-forge-pane="ranking"><div class="forge-pane-head"><div><h2>명예의 전당 Top 20</h2><p>각 대장장이가 영구 등록한 최고의 명검입니다.</p></div></div><div id="forgeLeaderboard" class="forge-leaderboard"><div class="empty">랭킹을 불러오는 중…</div></div></section>
+          <section class="forge-pane" data-forge-pane="shop"><div class="forge-pane-head"><div><h2>대장간 상점</h2><p>포인트 상품 8종과 파편 교환 상품 3종입니다.</p></div></div><div id="forgeShop" class="forge-shop-grid"></div></section>
+          <section class="forge-pane" data-forge-pane="graveyard"><div class="forge-pane-head"><div><h2>명검의 묘지</h2><p>10강 이상에서 파괴된 검들이 잠든 곳입니다.</p></div></div><div id="forgeGraveyard" class="forge-list"><div class="empty">명검의 묘지를 불러오는 중…</div></div></section>
+          <section class="forge-pane" data-forge-pane="records"><div class="forge-pane-head"><div><h2>내 담금질 기록</h2><p>최근 판정과 서버 전체 누적 통계입니다.</p></div></div><div id="forgeStats" class="forge-stats"></div><h3 class="forge-subtitle">최근 기록</h3><div id="forgeHistory" class="forge-list"><div class="empty">강화 기록을 불러오는 중…</div></div></section>
         </div>
-        <div id="forgeBellows" class="forge-bellows-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="forgeBellowsTitle"><div class="forge-bellows-dialog"><small>FULL BELLOWS</small><h2 id="forgeBellowsTitle">황금존에 멈추세요!</h2><div class="forge-gauge"><i class="forge-golden-zone"></i><i id="forgeGaugeNeedle" class="forge-gauge-needle"></i></div><button id="forgeBellowsStop" class="btn primary" type="button">TAP · STOP</button><button id="forgeBellowsCancel" class="btn ghost small" type="button">강화 취소</button></div></div>
+        <div id="forgeBellows" class="forge-bellows-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="forgeBellowsTitle"><div class="forge-bellows-dialog"><small>FULL BELLOWS</small><h2 id="forgeBellowsTitle">황금존에 멈추세요!</h2><div class="forge-gauge"><i class="forge-good-zone"></i><i class="forge-perfect-zone"></i><i id="forgeGaugeNeedle" class="forge-gauge-needle"></i></div><div class="forge-zone-legend"><span>NORMAL +0%</span><span>GOOD +1%</span><span>PERFECT +2%</span></div><button id="forgeBellowsStop" class="btn primary" type="button">TAP · STOP</button><button id="forgeBellowsCancel" class="btn ghost small" type="button">담금질 취소</button></div></div>
+        <div id="forgeGuide" class="forge-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="forgeGuideTitle"><div class="forge-modal"><button class="forge-modal-close" type="button" data-forge-close="guide" aria-label="닫기">×</button><small id="forgeGuideStep">1 / 5</small><div id="forgeGuideIcon" class="forge-guide-icon">🔥</div><h2 id="forgeGuideTitle">하루 대장간에 오신 것을 환영합니다</h2><p id="forgeGuideBody"></p><div class="forge-guide-dots" id="forgeGuideDots"></div><button id="forgeGuideNext" class="btn primary" type="button">다음</button></div></div>
+        <div id="forgeHallModal" class="forge-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="forgeHallTitle"><form id="forgeHallForm" class="forge-modal"><button class="forge-modal-close" type="button" data-forge-close="hall" aria-label="닫기">×</button><div class="forge-guide-icon">🏆</div><h2 id="forgeHallTitle">명예의 전당 등록</h2><p>현재 검은 영구 기록되고 새 수련용 목검을 받습니다. 판매 포인트는 지급되지 않습니다.</p><label class="field"><span>명검 이름</span><input id="forgeHallName" maxlength="12" required placeholder="1~12자 이름"></label><button class="btn primary" type="submit">명예의 전당에 등록</button></form></div>
+        <div id="forgeGraveModal" class="forge-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="forgeGraveTitle"><div class="forge-modal forge-grave-modal"><button class="forge-modal-close" type="button" data-forge-close="grave" aria-label="닫기">×</button><div class="forge-guide-icon">🪦</div><h2 id="forgeGraveTitle">명검의 묘지</h2><div id="forgeGravePopupList" class="forge-list"></div></div></div>
       </section>
 
       <section id="workoutPage" class="page" data-page="workout">
@@ -398,7 +392,7 @@
   <script src="./js/drafts.js?v=20260918-community-inserts-v1"></script>
   <script src="./js/avatar-frame.js?v=20261017-avatar-frame-v8"></script>
   <script src="./js/today-layout.js?v=20261029-today-layout-v1"></script>
-  <script src="./js/db.js?v=20261104-forge-v1"></script>
+  <script src="./js/db.js?v=20261104-forge-v2"></script>
   <script src="./js/storage.js?v=20261004-profile-photos-v1"></script>
   <script src="./js/telemetry.js?v=20260920-error-logs-v1"></script>
   <script src="./js/calendar-utils.js?v=20261002-calendar-history-v1"></script>
@@ -409,9 +403,9 @@
 <script src="./js/recurring-ui.js?v=20261014-i1"></script>
 <script src="./js/workout-ui.js?v=20261029-today-layout-v1"></script>
 <script src="./js/widget-bridge.js?v=20261030-widgets-v1"></script>
-<script src="./js/shelter-ui.js?v=20261030-shelter-v2"></script>
-<script src="./js/forge-ui.js?v=20261104-forge-v1"></script>
-<script src="./js/app.js?v=20261104-forge-v1"></script>
+<script src="./js/shelter-ui.js?v=20261104-forge-v2"></script>
+<script src="./js/forge-ui.js?v=20261104-forge-v2"></script>
+<script src="./js/app.js?v=20261104-forge-v2"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>

@@ -5,9 +5,10 @@
   const SCORE_LIMITS=Object.freeze({master:10000,diamond:13000,gold:17000,silver:22000});
   const TITLES=Object.freeze({
     weekly_1st:{label:'번개의 호흡',condition:'주간 정산 1위',tone:'gold'},weekly_2nd:{label:'질주의 달인',condition:'주간 정산 2위',tone:'silver'},weekly_3rd:{label:'찰나의 마스터',condition:'주간 정산 3위',tone:'bronze'},weekly_top10:{label:'쉼터 랭커',condition:'주간 정산 4~10위',tone:'ranker'},
-    master:{label:'신의 손가락',condition:'주간 정산 · 10.00초 미만'},diamond:{label:'눈보다 빠른 손',condition:'주간 정산 · 13.00초 미만'},gold:{label:'경쾌한 리듬',condition:'주간 정산 · 17.00초 미만'},silver:{label:'침착한 집중',condition:'주간 정산 · 22.00초 미만'},bronze:{label:'쉼터 탐험가',condition:'주간 정산 · 1회 완주'},regular:{label:'쉼터 단골손님',condition:'주간 정산 · 누적 50회 완주'}
+    master:{label:'신의 손가락',condition:'주간 정산 · 10.00초 미만'},diamond:{label:'눈보다 빠른 손',condition:'주간 정산 · 13.00초 미만'},gold:{label:'경쾌한 리듬',condition:'주간 정산 · 17.00초 미만'},silver:{label:'침착한 집중',condition:'주간 정산 · 22.00초 미만'},bronze:{label:'쉼터 탐험가',condition:'주간 정산 · 1회 완주'},regular:{label:'쉼터 단골손님',condition:'주간 정산 · 누적 50회 완주'},
+    forge_apprentice:{label:'대장간 막내',condition:'검 +1강 달성',tone:'forge'},forge_bronze:{label:'망치질을 깨우친 자',condition:'검 +10강 달성',tone:'forge-bronze'},forge_silver:{label:'불꽃을 다루는 장인',condition:'검 +15강 달성',tone:'forge-silver'},forge_gold:{label:'황금빛 도검장',condition:'검 +20강 달성',tone:'forge-gold'},forge_diamond:{label:'강철을 찢는 손',condition:'검 +24강 달성',tone:'forge-diamond'},forge_master:{label:'전설을 벼리는 자',condition:'검 +27강 달성',tone:'forge-master'},forge_mythic:{label:'창세의 대장장이',condition:'검 +30강 달성',tone:'forge-mythic'},forge_destroyer:{label:'불굴의 대장장이',condition:'검 파괴 누적 10회',tone:'forge-destroyer'}
   });
-  const TITLE_ORDER=['weekly_1st','weekly_2nd','weekly_3rd','weekly_top10','master','diamond','gold','silver','bronze','regular'];
+  const TITLE_ORDER=['weekly_1st','weekly_2nd','weekly_3rd','weekly_top10','forge_mythic','forge_master','forge_diamond','forge_gold','forge_silver','forge_bronze','forge_apprentice','forge_destroyer','master','diamond','gold','silver','bronze','regular'];
   const $=selector=>document.querySelector(selector),esc=value=>String(value??'').replace(/[&<>'"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
   let initialized=false,profile=null,board=null,running=false,expected=1,startAt=0,raf=0,countdownToken=0;
 
