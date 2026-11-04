@@ -29,6 +29,7 @@ await db.query("insert into shelter_forge_graveyard(user_id,author_name,sword_le
 const legacyPublication=(await db.query("insert into publications(user_id,source_type,source_id,title,meta)values($1,'forge',gen_random_uuid(),'이전 감정서',jsonb_build_object('sword_level',5,'appraisal',195))returning id",[a])).rows[0].id;
 await db.exec(fs.readFileSync('supabase/migrations/20261104223000_step32_forge_appraisal_cleanup.sql','utf8'));
 await db.exec(fs.readFileSync('supabase/migrations/20261104230000_step33_forge_balance_recalibration.sql','utf8'));
+await db.exec(fs.readFileSync('supabase/migrations/20261104233000_step34_forge_shop_price_reduction.sql','utf8'));
 
 async function login(id,service=false){await db.exec(`reset role;set test.uid='${id}';set test.jwt.role='${service?'service_role':'authenticated'}';set role authenticated;`)}
 async function root(sql,params=[]){await db.exec('reset role');return db.query(sql,params)}
@@ -63,12 +64,13 @@ state=await attempt(0);assert.equal(state.sword.sword_level,1);state=await rpc('
 await root("update shelter_forge_swords set stamina=3,stamina_updated_at=now()-interval '4 minutes' where user_id=$1",[a]);let before=(await root('select stamina_updated_at from shelter_forge_swords where user_id=$1',[a])).rows[0].stamina_updated_at;await login(a,true);state=await rpc('select draw_forge_sword() result');assert.equal(state.sword.stamina,2);assert.equal(new Date(state.sword.stamina_updated_at).getTime(),new Date(before).getTime(),'5 미만에서 목검을 꺼내면 회복 타이머 유지');
 
 await root("update shelter_forge_swords set points=20000,shards=50,whetstones=0,stamina=2,stamina_updated_at=now()-interval '4 minutes' where user_id=$1",[a]);before=(await root('select stamina_updated_at from shelter_forge_swords where user_id=$1',[a])).rows[0].stamina_updated_at;await login(a,true);
-state=await rpc("select buy_forge_item('stamina_1') result");assert.equal(state.sword.stamina,3);assert.equal(state.sword.points,19750);assert.equal(new Date(state.sword.stamina_updated_at).getTime(),new Date(before).getTime(),'구매 후 5 미만이면 타이머 유지');
-state=await rpc("select buy_forge_item('shield_5') result");assert.equal(state.sword.shields,5);assert.equal(state.sword.points,17500);
-state=await rpc("select buy_forge_item('whetstone_1') result");assert.equal(state.sword.whetstones,1);assert.equal(state.sword.points,17200);
-state=await rpc("select buy_forge_item('sword_20') result");assert.equal(state.sword.has_sword,true);assert.equal(state.sword.sword_level,20);assert.equal(state.sword.points,10700);
+state=await rpc("select buy_forge_item('stamina_1') result");assert.equal(state.sword.stamina,3);assert.equal(state.sword.points,19880);assert.equal(new Date(state.sword.stamina_updated_at).getTime(),new Date(before).getTime(),'구매 후 5 미만이면 타이머 유지');
+state=await rpc("select buy_forge_item('shield_5') result");assert.equal(state.sword.shields,5);assert.equal(state.sword.points,18980);
+state=await rpc("select buy_forge_item('whetstone_1') result");assert.equal(state.sword.whetstones,1);assert.equal(state.sword.points,18880);
+state=await rpc("select buy_forge_item('sword_20') result");assert.equal(state.sword.has_sword,true);assert.equal(state.sword.sword_level,20);assert.equal(state.sword.points,15880);
+state=await rpc("select buy_forge_item('shard_shield') result");assert.equal(state.sword.shields,6);assert.equal(state.sword.shards,25);
 
-await root("update shelter_forge_swords set sharpness_bonus=999,stamina=0 where user_id=$1",[a]);await login(a,true);state=await attempt(99);assert.equal(state.result.outcome,'destroy');assert.equal(state.result.points_gained,200);assert.equal(state.sword.has_sword,false);assert.equal(state.sword.points,10900);assert.equal(state.sword.sharpness_bonus,0);assert.equal((await root('select count(*)::int n from shelter_forge_graveyard where user_id=$1',[a])).rows[0].n,1);
+await root("update shelter_forge_swords set sharpness_bonus=999,stamina=0 where user_id=$1",[a]);await login(a,true);state=await attempt(99);assert.equal(state.result.outcome,'destroy');assert.equal(state.result.points_gained,200);assert.equal(state.sword.has_sword,false);assert.equal(state.sword.points,16080);assert.equal(state.sword.sharpness_bonus,0);assert.equal((await root('select count(*)::int n from shelter_forge_graveyard where user_id=$1',[a])).rows[0].n,1);
 
 await root("update shelter_forge_swords set has_sword=true,sword_level=20,sword_name=forge_level_name(20),sharpness_bonus=999 where user_id=$1",[a]);await login(a,true);state=await rpc("select register_forge_hall('태양의 맹세') result");assert.equal(state.transaction.appraisal,2000);assert.equal(state.sword.has_sword,false);assert.equal(state.leaderboard[0].appraisal,2000);
 await root("update shelter_forge_swords set has_sword=true,sword_level=12,sword_name=forge_level_name(12),sharpness_bonus=999 where user_id=$1",[a]);await login(a,true);const showcase=await rpc('select publish_forge_showcase() result');const post=(await root('select meta from publications where id=$1',[showcase.publication_id])).rows[0];assert.equal(post.meta.appraisal,330);
