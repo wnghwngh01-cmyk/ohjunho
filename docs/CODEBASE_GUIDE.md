@@ -27,7 +27,7 @@
 | 작성 양식 | `js/writing-templates.js`, `assets/writing-templates.css` | 본문·임시저장은 기존 기록 흐름 사용 | `tests/writing-templates-behavior.mjs` |
 | 운동·단백질 | `js/workout-ui.js`, `assets/workout.css` | `js/db.js`, 운동 마이그레이션 | `tests/workout-contract.mjs`, `tests/workout-db-behavior.mjs` |
 | 하루 쉼터·칭호 | `js/shelter-ui.js`, `assets/shelter.css` | `js/db.js`, `step26`·`step27` 마이그레이션 | `tests/shelter-contract.mjs`, `tests/shelter-db-behavior.mjs` |
-| 하루 쉼터·검 강화 | `js/forge-ui.js`, `assets/forge.css` | `js/db.js`, `step29`~`20261104220000_step31_forge_play_feedback.sql` | `tests/forge-contract.mjs`, `tests/forge-ui-behavior.mjs`, `tests/forge-db-behavior.mjs` |
+| 하루 쉼터·검 강화 | `js/forge-ui.js`, `assets/forge.css` | `js/db.js`, `step29`~`20261104223000_step32_forge_appraisal_cleanup.sql` | `tests/forge-contract.mjs`, `tests/forge-ui-behavior.mjs`, `tests/forge-db-behavior.mjs` |
 | 프로필 테두리 | `js/avatar-frame.js`, `assets/avatar-frame.css`, `assets/profile-frames/` | 프로필 색상 필드 | `tests/avatar-frame-*.mjs` |
 | 운영자 웹 | `admin.html`, `js/admin.js`, `js/admin-data.js` | 운영자 RPC/Edge Function | 운영자 전용 테스트 |
 

@@ -23,13 +23,20 @@ await db.exec(fs.readFileSync('supabase/migrations/20261104120000_step29_shelter
 await db.exec(fs.readFileSync('supabase/migrations/20261104190000_step30_forge_game_remake.sql','utf8'));
 await db.query("insert into shelter_forge_graveyard(user_id,author_name,sword_level,sword_name)values($1,'이전 기록',15,forge_level_name(15))",[a]);
 await db.exec(fs.readFileSync('supabase/migrations/20261104220000_step31_forge_play_feedback.sql','utf8'));
+await db.query("insert into shelter_forge_swords(user_id,sword_name,sharpness_bonus)values($1,forge_level_name(0),100)on conflict(user_id)do update set sharpness_bonus=100",[a]);
+await db.query("insert into shelter_forge_best(user_id,sword_level,sword_name,custom_name,appraisal,hammer_count)values($1,5,forge_level_name(5),'이전 명검',195,20)",[a]);
+await db.query("insert into shelter_forge_graveyard(user_id,author_name,sword_level,sword_name,appraisal)values($1,'이전 기록',20,forge_level_name(20),2999)",[a]);
+const legacyPublication=(await db.query("insert into publications(user_id,source_type,source_id,title,meta)values($1,'forge',gen_random_uuid(),'이전 감정서',jsonb_build_object('sword_level',5,'appraisal',195))returning id",[a])).rows[0].id;
+await db.exec(fs.readFileSync('supabase/migrations/20261104223000_step32_forge_appraisal_cleanup.sql','utf8'));
 
 async function login(id,service=false){await db.exec(`reset role;set test.uid='${id}';set test.jwt.role='${service?'service_role':'authenticated'}';set role authenticated;`)}
 async function root(sql,params=[]){await db.exec('reset role');return db.query(sql,params)}
 async function rpc(sql,params=[]){return (await db.query(sql,params)).rows[0].result}
 async function attempt(roll,options={}){return rpc('select attempt_forge($1,$2,$3,$4) result',[!!options.whetstone,!!options.shield,options.grade||'normal',roll])}
 
-assert.equal((await root('select count(*)::int n from shelter_forge_graveyard')).rows[0].n,0,'20강 미만 기존 묘지 데이터 정리');
+assert.equal((await root('select sharpness_bonus from shelter_forge_swords where user_id=$1',[a])).rows[0].sharpness_bonus,0);assert.equal((await root('select appraisal from shelter_forge_best where user_id=$1',[a])).rows[0].appraisal,35);assert.equal((await root('select appraisal from shelter_forge_graveyard where user_id=$1',[a])).rows[0].appraisal,2000);assert.equal((await root("select (meta->>'appraisal')::int appraisal from publications where id=$1",[legacyPublication])).rows[0].appraisal,35);
+await root('delete from publications where id=$1',[legacyPublication]);
+await root('delete from shelter_forge_best');await root('delete from shelter_forge_graveyard');assert.equal((await root('select count(*)::int n from shelter_forge_graveyard')).rows[0].n,0,'20강 미만 기존 묘지 데이터 정리');
 let rates=(await root('select * from forge_rates(29)')).rows[0];
 assert.deepEqual([Number(rates.success_rate),Number(rates.stay_rate),Number(rates.destroy_rate)],[1.5,33.5,65]);
 let values=(await root('select * from forge_level_value(30)')).rows[0];assert.deepEqual([values.appraisal,values.compensation,values.shards],[16000,1600,12]);
