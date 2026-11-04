@@ -9,6 +9,6 @@ assert.equal(forge.tierFor(0),0);assert.equal(forge.tierFor(15),15);assert.equal
 assert.equal(forge.auraFor(14),'aura-steel');assert.equal(forge.auraFor(15),'aura-blue');assert.equal(forge.auraFor(20),'aura-purple');assert.equal(forge.auraFor(25),'aura-gold');assert.equal(forge.auraFor(30),'aura-mythic');
 const gauge={left:0,width:100};assert.equal(forge.bellowsGrade({left:48,right:52},gauge),'perfect');assert.equal(forge.bellowsGrade({left:30,right:34},gauge),'good');assert.equal(forge.bellowsGrade({left:4,right:8},gauge),'normal');
 assert.equal(forge.NAMES.length,31);assert.equal(forge.SHOP.length,11);assert.equal(new Set(forge.NAMES.map((_,level)=>forge.renderSwordSvg(level))).size,31);assert.match(forge.renderSwordSvg(30),/aether-satellites/);
-assert.deepEqual(Array.from(forge.SHOP.slice(0,8),item=>item[4]),['150 P','300 P','500 P','2,250 P','4,250 P','600 P','2,000 P','6,500 P']);assert.deepEqual(Array.from(forge.SHOP.slice(8),item=>item[4]),['파편 5개','파편 10개','파편 30개']);
+assert.deepEqual(Array.from(forge.SHOP.slice(0,8),item=>item[4]),['250 P','300 P','500 P','2,250 P','4,250 P','600 P','2,000 P','6,500 P']);assert.deepEqual(Array.from(forge.SHOP.slice(8),item=>item[4]),['파편 5개','파편 10개','파편 30개']);
 assert.equal(forge.outcomeCopy.protected_destroy,'보호권 방어');assert.equal(forge.outcomeCopy.destroy,'검 파괴');
 console.log('forge UI behavior: PASS (31 sword artworks, tier aura, bellows zones, shop, outcome copy)');
