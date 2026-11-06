@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {PGlite} from '@electric-sql/pglite';
+const db=new PGlite(),user='00000000-0000-0000-0000-000000000001';
+await db.exec(`create role anon;create role authenticated;create schema auth;create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('test.uid',true),'')::uuid$$;create table public.profiles(id uuid primary key,today_layout jsonb,avatar_frame_tier text default 'none',avatar_frame_color text default 'sage',avatar_crown_color text);insert into profiles(id,today_layout) values('${user}','[{"id":"events","enabled":true},{"id":"quick_record","enabled":false},{"id":"finance_entry","enabled":false},{"id":"finance_budget","enabled":true}]');`);
+await db.exec(fs.readFileSync('supabase/migrations/20261106100000_step36_customization_support.sql','utf8'));
+await db.exec(`set test.uid='${user}'`);
+const layout=(await db.query('select today_layout from profiles where id=$1',[user])).rows[0].today_layout;
+assert.deepEqual(layout.slice(0,3),[{id:'events',enabled:true},{id:'records',enabled:false},{id:'budget',enabled:true}]);assert.equal(layout.length,7);
+await assert.rejects(()=>db.query("update profiles set avatar_frame_tier='spectrum' where id=$1",[user]));
+await db.query('insert into support_entitlements(user_id,total_amount) values($1,1000)',[user]);await db.query("update profiles set avatar_frame_tier='spectrum' where id=$1",[user]);
+await assert.rejects(()=>db.query("update profiles set avatar_frame_color='rainbow' where id=$1",[user]));
+await db.query('update support_entitlements set total_amount=5000 where user_id=$1',[user]);await db.query("update profiles set avatar_frame_tier='blossom',avatar_frame_color='rainbow' where id=$1",[user]);
+await db.query('update support_entitlements set total_amount=10000 where user_id=$1',[user]);await db.query("update profiles set avatar_frame_tier='crown' where id=$1",[user]);
+await db.query('update support_entitlements set total_amount=30000 where user_id=$1',[user]);const first=(await db.query('select certificate_no from pledge_certificates where user_id=$1',[user])).rows[0].certificate_no;await db.query('update support_entitlements set total_amount=40000 where user_id=$1',[user]);const second=(await db.query('select certificate_no from pledge_certificates where user_id=$1',[user])).rows[0].certificate_no;assert.equal(String(first),String(second));await db.query('update support_entitlements set total_amount=0 where user_id=$1',[user]);assert.deepEqual((await db.query('select avatar_frame_tier,avatar_frame_color from profiles where id=$1',[user])).rows[0],{avatar_frame_tier:'simple',avatar_frame_color:'sage'});await db.query('update support_entitlements set total_amount=40000 where user_id=$1',[user]);
+await db.exec('set role authenticated');const status=(await db.query('select get_my_support_status() status')).rows[0].status;assert.equal(status.total_amount,40000);assert.ok(status.certificate.certificate_no);await assert.rejects(()=>db.query('update support_entitlements set total_amount=0 where user_id=$1',[user]));
+await db.close();console.log('customization support DB: PASS');

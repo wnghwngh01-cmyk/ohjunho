@@ -2,11 +2,11 @@ import fs from 'node:fs';
 
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const app=fs.readFileSync(new URL('../js/app.js',import.meta.url),'utf8');
-const expectedPages=['today','calendar','more','diary','personal','workout','shelter','forge','records','books','lab','goals','square','notifications','search','bug','support','settings'];
+const expectedPages=['today','today-settings','calendar','more','diary','personal','workout','shelter','forge','records','books','lab','goals','square','notifications','search','bug','support','settings'];
 
 for(const page of expectedPages){
   if(!html.includes(`data-page="${page}"`))throw new Error(`Missing page section: ${page}`);
-  if(!app.includes(`${page}:[`))throw new Error(`Missing page title: ${page}`);
+  if(!app.includes(`${page}:[`)&&!app.includes(`'${page}':[`))throw new Error(`Missing page title: ${page}`);
 }
 
 const bottom=html.match(/<nav class="bottom-nav"[\s\S]*?<\/nav>/)?.[0]||'';

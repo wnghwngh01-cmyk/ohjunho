@@ -13,9 +13,12 @@ assert.equal(frame.safeTier('<svg>'),'none');
 assert.equal(frame.safeColor('javascript:alert(1)'),'sage');
 assert.equal(frame.safeCrownColor('javascript:alert(1)'),'');
 assert.equal(frame.safeCrownColor('sky'),'sky');
+assert.deepEqual(JSON.parse(JSON.stringify(frame.requirements)),{none:0,simple:0,spectrum:1000,blossom:5000,crown:10000});
+assert.deepEqual([...frame.unlockedTiers(4999)],['none','simple','spectrum']);
+assert.equal(frame.canUseRainbow(4999),false);assert.equal(frame.canUseRainbow(5000),true);
 assert.match(frame.art('blossom'),/avatar-frame-art/);
 assert.match(frame.art('crown'),/avatar-frame-art/);
-for(const tier of frame.tiers){assert.equal(frame.safeColor('rainbow',tier),['spectrum','blossom','crown'].includes(tier)?'rainbow':'sage');assert.equal(frame.colorsFor(tier).includes('rainbow'),['spectrum','blossom','crown'].includes(tier));}
+for(const tier of frame.tiers){assert.equal(frame.safeColor('rainbow',tier),'rainbow');assert.equal(frame.colorsFor(tier).includes('rainbow'),true);}
 assert.equal(frame.art('simple'),'');
 for(const file of ['ribbon-v3.png','blossom-v5.png','crown-v3.png'])assert.ok(fs.statSync(new URL('../assets/profile-frames/'+file,import.meta.url)).size>1000);
 assert.ok(css.includes('blossom-v5.png')&&css.includes('crown-v3.png')&&css.includes('.avatar-frame-art>canvas'));
@@ -27,6 +30,7 @@ assert.ok(!css.includes('.avatar:is([data-frame-tier="spectrum"],[data-frame-tie
 for(const amount of ['1000','5000','10000','30000'])assert.match(html,new RegExp(`data-support-amount="${amount}"`));
 for(const id of ['settingsFrameOpen','profileFramePanel','frameTierOptions','frameColorOptions','frameCrownColorGroup','frameCrownColorOptions'])assert.ok(html.includes(`id="${id}"`),id);
 for(const id of ['settings-cosmetics','cosmeticsAvatar','cosmeticsFrameHost','titleOptions','cosmeticsSave'])assert.ok(html.includes(`id="${id}"`),id);
+for(const id of ['openFrameBook','openTitleBook','frameBookModal','titleBookModal','pledgeCertificateModal'])assert.ok(html.includes(`id="${id}"`),id);
 for(const source of [html,publicHtml])assert.ok(source.includes('avatar-frame.css?v=20261024-avatar-frame-v13'));
 for(const source of [app,db,publicApp,sql])assert.ok(source.includes('avatar_frame_tier')&&source.includes('avatar_frame_color'));
 assert.ok(app.includes('avatar_frame_tier:state.frameDraftTier')&&app.includes('renderProfilePhotoEditor();renderFrameEditor()'));

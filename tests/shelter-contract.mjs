@@ -20,7 +20,7 @@ assert.match(sql27,/create table if not exists public\.shelter_weekly_settlement
 assert.match(sql27,/active_title is null or unlocked_titles \? active_title/);assert.match(sql27,/new_titles','\[\]'::jsonb/);assert.match(sql27,/expected_grade/);
 assert.match(sql27,/where p\.id=any\(coalesce\(p_ids,array\[\]::uuid\[\]\)\)/);assert.doesNotMatch(sql27,/p\.public_profile=true or p\.id=auth\.uid/);
 assert.match(sql27,/cron\.schedule\('settle-shelter-weekly-titles','0 15 \* \* 1'/);
-assert.match(sw,/daily-life-shell-v110/);assert.match(sw,/shelter-ui\.js\?v=20261104-forge-v2/);assert.match(html,/shelter-ui\.js\?v=20261104-forge-v2/);assert.match(publicHtml,/shelter-ui\.js\?v=20261104-forge-v2/);
+assert.match(sw,/daily-life-shell-v111/);assert.match(sw,/shelter-ui\.js\?v=20261104-forge-v2/);assert.match(html,/shelter-ui\.js\?v=20261104-forge-v2/);assert.match(publicHtml,/shelter-ui\.js\?v=20261104-forge-v2/);
 
 const context={window:{}};vm.runInNewContext(ui,context);const shelter=context.window.HaruShelterUI;
 assert.equal(shelter.formatMs(8420),'08.42초');assert.equal(shelter.gradeFor(9999),'master');assert.equal(shelter.gradeFor(10000),'diamond');assert.equal(shelter.gradeFor(12999),'diamond');assert.equal(shelter.gradeFor(13000),'gold');assert.equal(shelter.gradeFor(22000),'bronze');

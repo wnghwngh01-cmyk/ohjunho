@@ -2,8 +2,9 @@
 (function(){
   const tiers=['none','simple','spectrum','blossom','crown'];
   const colors=['sage','rose','sky','lilac','gold','rainbow'];
+  const requirements=Object.freeze({none:0,simple:0,spectrum:1000,blossom:5000,crown:10000});
   const safeTier=value=>tiers.includes(value)?value:'none';
-  const colorsFor=tier=>colors.filter(color=>color!=='rainbow'||['spectrum','blossom','crown'].includes(safeTier(tier)));
+  const colorsFor=()=>[...colors];
   const safeColor=(value,tier='none')=>colorsFor(tier).includes(value)?value:'sage';
   // Legacy database field: secondary ornament color, now also used by blossom.
   const safeCrownColor=value=>colors.includes(value)?value:'';
@@ -90,5 +91,8 @@
       }
     });
   }
-  window.HaruAvatarFrame={tiers,colors,colorsFor,safeTier,safeColor,safeCrownColor,art,decorate,recolor};
+  const unlockedTiers=total=>tiers.filter(tier=>Number(total||0)>=requirements[tier]);
+  const canUseTier=(tier,total)=>Number(total||0)>=requirements[safeTier(tier)];
+  const canUseRainbow=total=>Number(total||0)>=5000;
+  window.HaruAvatarFrame={tiers,colors,requirements,colorsFor,safeTier,safeColor,safeCrownColor,unlockedTiers,canUseTier,canUseRainbow,art,decorate,recolor};
 })();

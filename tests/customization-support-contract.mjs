@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const read=path=>fs.readFileSync(path,'utf8'),html=read('index.html'),app=read('js/app.js'),db=read('js/db.js'),css=read('assets/cosmetics-support.css'),sql=read('supabase/migrations/20261106100000_step36_customization_support.sql');
+for(const id of ['page-today-settings','todaySettingsList','todaySettingsReset','todaySettingsSave'])assert.match(html,new RegExp(`id="${id}"`));
+assert.match(html,/data-go="today-settings"[\s\S]*data-go="goals"/);assert.doesNotMatch(html,/id="profileTodayLayoutEditor"/);
+for(const id of ['openFrameBook','openTitleBook','frameBookModal','titleBookModal','pledgeCertificateModal','pledgeCertificateSave'])assert.match(html,new RegExp(`id="${id}"`));
+for(const amount of ['1000','5000','10000','30000'])assert.match(html,new RegExp(`data-support-amount="${amount}"`));
+assert.match(app,/DB\.updateProfile\(\{today_layout:state\.todayLayout\}\)/);assert.match(app,/renderOwnedTitles/);assert.match(app,/Cosmetics\.downloadCertificate/);assert.match(db,/get_my_support_status/);
+assert.match(sql,/support_entitlements/);assert.match(sql,/pledge_certificates/);assert.match(sql,/validate_profile_cosmetics/);assert.match(sql,/amount<5000/);assert.match(css,/@media\(max-width:520px\)/);
+const context={globalThis:{},window:undefined,document:{createElement:()=>({})}};vm.runInNewContext(read('js/cosmetics-support-ui.js'),context);const ui=context.globalThis.HaruCosmeticsSupport;
+assert.equal(ui.certificateNumber(42),'No. 00042');assert.equal(ui.titleCategory('forge_mythic'),'forge');assert.equal(ui.titleCategory('weekly_1st'),'shelter');
+console.log('customization support contract: PASS');
