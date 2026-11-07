@@ -1,0 +1,790 @@
+/* ==========================================================================
+   Stitch _5/code.html Precision Forge Redesign (100% Faithful Token Mapping)
+   ========================================================================== */
+
+#page-forge {
+  padding-bottom: 96px;
+}
+
+#page-forge .forge-page-head {
+  padding: 18px 16px 12px;
+}
+
+#page-forge .forge-page-head .eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  color: #416655;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 2px;
+}
+
+#page-forge .forge-page-head h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #191c1a;
+  letter-spacing: -0.015em;
+  margin: 0 0 4px;
+}
+
+#page-forge .forge-page-head p:not(.eyebrow) {
+  font-size: 13px;
+  color: #5e6661;
+  margin: 0;
+}
+
+#page-forge .forge-shell {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+/* 1. Resource Inventory Pill Strip (Stitch #forgeStatus) */
+#page-forge .forge-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 6px 10px;
+  border: 1px solid #e7e9e5;
+  border-radius: 9999px;
+  background: #f2f4f1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+#page-forge .forge-status-bar::-webkit-scrollbar {
+  display: none;
+}
+
+#page-forge .forge-status-bar > div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 4px;
+  border-right: none;
+  white-space: nowrap;
+}
+
+#page-forge .forge-stamina {
+  flex-shrink: 0;
+  background: #ffffff;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+#page-forge .forge-stamina span {
+  font-size: 11px;
+  font-weight: 600;
+  color: #416655;
+}
+
+#page-forge .forge-stamina b {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #dc9c27;
+}
+
+#page-forge .forge-stamina small {
+  font-size: 11px;
+  font-weight: 600;
+  color: #191c1a;
+}
+
+#page-forge .forge-points {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #191c1a;
+  padding: 0 4px;
+  position: relative;
+}
+
+#page-forge .forge-points::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: #c1c8c3;
+  opacity: 0.5;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+#page-forge .forge-points b {
+  font-size: 13px;
+  font-weight: 700;
+  color: #191c1a;
+}
+
+#page-forge .forge-inventory {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+#page-forge .forge-inventory::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: #c1c8c3;
+  opacity: 0.5;
+  margin-right: 2px;
+}
+
+#page-forge .forge-inventory span {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #191c1a;
+}
+
+#page-forge .forge-inventory b {
+  font-size: 12px;
+  color: #191c1a;
+}
+
+#page-forge .forge-status-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+#page-forge #forgeDailySupply {
+  background: #1e3a2f;
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+#page-forge #forgeDailySupply:active {
+  transform: scale(0.96);
+}
+
+#page-forge #forgeSoundToggle,
+#page-forge #forgeGuideOpen {
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid #e1e3e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+  color: #191c1a;
+}
+
+/* 2. Main Forge Weapon Card (Stitch #forgeCard) */
+#page-forge .forge-main-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px 16px;
+  border: 1px solid #ebe8e0;
+  box-shadow: 0 2px 14px rgba(30, 58, 47, 0.04);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Subtle Parchment & Anvil Ambient Background Texture */
+#page-forge .forge-main-card::before {
+  content: "";
+  position: absolute;
+  right: -24px;
+  top: -24px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(194, 236, 214, 0.35);
+  filter: blur(28px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#page-forge .forge-main-card::after {
+  content: "";
+  position: absolute;
+  left: -32px;
+  bottom: -32px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: rgba(202, 234, 218, 0.25);
+  filter: blur(32px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Header Meta: Title & Enchantment Tag */
+#page-forge .forge-identity {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+#page-forge .forge-identity > div.identity-left {
+  display: flex;
+  flex-direction: column;
+}
+
+#page-forge .forge-identity .forge-grade {
+  font-size: 11px;
+  font-weight: 600;
+  color: #416655;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+#page-forge .forge-identity h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #191c1a;
+  letter-spacing: -0.015em;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+#page-forge #forgeLevel {
+  color: #416655;
+  font-weight: 800;
+}
+
+#page-forge .forge-identity p {
+  font-size: 12px;
+  color: #5e6661;
+  margin: 3px 0 0;
+}
+
+#page-forge .forge-identity p strong {
+  color: #1e3a2f;
+  font-weight: 700;
+}
+
+/* Aura / Enhancement Badge Tag (Top Right) */
+#page-forge .forge-identity .forge-aura-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(194, 236, 214, 0.65);
+  color: #214838;
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+#page-forge .forge-identity .forge-aura-badge::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #416655;
+  animation: pulse-dot 1.8s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* 3. Center Enchanted Sword Graphic Canvas (#forgeSword) */
+#page-forge .forge-sword-stage {
+  width: 100%;
+  height: 224px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(194, 236, 214, 0.22) 0%, #f2f4f1 45%, rgba(242, 244, 241, 0.85) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.03);
+  margin: 2px 0 6px;
+  z-index: 1;
+  border: none;
+}
+
+/* Ambient Sparkle & Rune Accents */
+#page-forge .forge-sword-stage::before {
+  content: "ᚱ ᛟ ᚦ";
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(65, 102, 85, 0.45);
+  letter-spacing: 2px;
+  user-select: none;
+  pointer-events: none;
+}
+
+#page-forge .forge-sword-stage::after {
+  content: "❄ ❆ ✦";
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(65, 102, 85, 0.45);
+  letter-spacing: 2px;
+  user-select: none;
+  pointer-events: none;
+}
+
+#page-forge .forge-sword-visual {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 6px 16px rgba(65, 102, 85, 0.26));
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: 100%;
+  height: 100%;
+}
+
+#page-forge .forge-sword-visual svg {
+  max-height: 160px;
+  width: auto;
+}
+
+#page-forge .forge-sword-stage:active .forge-sword-visual {
+  transform: scale(1.04);
+}
+
+#page-forge .forge-anvil {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+/* 4. Probability Breakdown Segmented Bar (Stitch Multi-segmented Progress) */
+#page-forge .forge-chance-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+#page-forge .forge-chance-track {
+  width: 100%;
+  height: 10px;
+  border-radius: 9999px;
+  background: #edeeeb;
+  display: flex;
+  overflow: hidden;
+  padding: 2px;
+  gap: 2px;
+  box-sizing: border-box;
+}
+
+#page-forge .forge-chance-track .track-success {
+  height: 100%;
+  width: 100%;
+  border-radius: 9999px 0 0 9999px;
+  background: #416655;
+  transition: width 0.3s ease;
+}
+
+#page-forge .forge-chance-track .track-stay {
+  height: 100%;
+  width: 0%;
+  background: #c1c8c3;
+  transition: width 0.3s ease;
+}
+
+#page-forge .forge-chance-track .track-destroy {
+  height: 100%;
+  width: 0%;
+  border-radius: 0 9999px 9999px 0;
+  background: #ba1a1a;
+  transition: width 0.3s ease;
+}
+
+#page-forge .forge-chance {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  text-align: center;
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+#page-forge .forge-chance > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+#page-forge .forge-chance span {
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+#page-forge .forge-chance span::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+#page-forge .forge-chance > div:nth-child(1) span {
+  color: #416655;
+}
+#page-forge .forge-chance > div:nth-child(1) span::before {
+  background: #416655;
+}
+
+#page-forge .forge-chance > div:nth-child(2) span {
+  color: #5e6661;
+}
+#page-forge .forge-chance > div:nth-child(2) span::before {
+  background: #c1c8c3;
+}
+
+#page-forge .forge-chance > div:nth-child(3) span {
+  color: #ba1a1a;
+}
+#page-forge .forge-chance > div:nth-child(3) span::before {
+  background: #ba1a1a;
+}
+
+#page-forge .forge-chance strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: #191c1a;
+}
+
+#page-forge #forgeDestroyRate {
+  color: #ba1a1a;
+}
+
+/* 5. Auxiliary Catalysts Slots (Stitch 3 cols grid) */
+#page-forge .forge-item-slots {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin: 4px 0 2px;
+  position: relative;
+  z-index: 2;
+}
+
+#page-forge .forge-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  border-radius: 12px;
+  background: #f2f4f1;
+  border: 1.5px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-align: center;
+  min-height: 72px;
+  box-sizing: border-box;
+}
+
+#page-forge .forge-slot:active {
+  transform: scale(0.96);
+}
+
+#page-forge .forge-slot[aria-pressed="true"] {
+  background: #eef6f2;
+  border-color: #416655;
+  box-shadow: 0 0 0 2px rgba(65, 102, 85, 0.12);
+}
+
+#page-forge .forge-slot span:first-child {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+#page-forge .forge-slot b {
+  font-size: 11px;
+  font-weight: 600;
+  color: #191c1a;
+  margin: 0;
+  white-space: nowrap;
+}
+
+#page-forge .forge-slot small {
+  font-size: 10px;
+  font-weight: 600;
+  color: #416655;
+  margin-top: 1px;
+}
+
+#page-forge .forge-skip-switch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  border-radius: 12px;
+  background: #f2f4f1;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  min-height: 72px;
+  box-sizing: border-box;
+  font-size: 11px;
+  font-weight: 600;
+  color: #424844;
+  gap: 4px;
+}
+
+#page-forge .forge-skip-switch input {
+  width: 18px;
+  height: 18px;
+  accent-color: #1e3a2f;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Result Message Notice */
+#page-forge .forge-result-message {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #f8faf6;
+  font-size: 12px;
+  color: #424844;
+  text-align: center;
+  border: 1px solid #e1e3e0;
+  margin: 2px 0;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+}
+
+/* 6. Action Buttons Grid */
+#page-forge .forge-action-main {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+#page-forge #forgeEnhance {
+  width: 100%;
+  height: 48px;
+  border-radius: 12px;
+  background: #1e3a2f;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(30, 58, 47, 0.22);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+#page-forge #forgeEnhance:active {
+  transform: scale(0.98);
+  background: #162c23;
+}
+
+#page-forge .forge-disposal-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  position: relative;
+  z-index: 2;
+}
+
+#page-forge .forge-disposal-actions button {
+  height: 38px;
+  border-radius: 8px;
+  background: #edeeeb;
+  color: #191c1a;
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#page-forge .forge-disposal-actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+#page-forge .forge-disposal-actions button:not(:disabled):active {
+  transform: scale(0.97);
+  background: #e1e3e0;
+}
+
+/* 7. Sub-Tabs Bar (Stitch 5 Tab Switcher Pills) */
+#page-forge .forge-tabs {
+  display: flex;
+  gap: 4px;
+  background: #edeeeb;
+  border-radius: 9999px;
+  padding: 4px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px 0 14px;
+}
+
+#page-forge .forge-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+#page-forge .forge-tabs button {
+  padding: 7px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #5e6661;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+#page-forge .forge-tabs button.active {
+  background: #1e3a2f;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(30, 58, 47, 0.16);
+}
+
+/* 8. Forge Content Panes (Stitch Card Layout) */
+#page-forge .forge-pane {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px 16px;
+  border: 1px solid #ebe8e0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+#page-forge .forge-pane-head {
+  margin-bottom: 12px;
+}
+
+#page-forge .forge-pane-head h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #191c1a;
+  margin: 0 0 2px;
+}
+
+#page-forge .forge-pane-head p {
+  font-size: 12px;
+  color: #5e6661;
+  margin: 0;
+}
+
+/* Rank Rows (Stitch Leaderboard Row Design) */
+#page-forge .forge-rank-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f8faf6;
+  margin-bottom: 6px;
+  transition: background 0.15s;
+}
+
+#page-forge .forge-rank-row:hover {
+  background: #f2f4f1;
+}
+
+/* Shop Grid (Stitch Shop 2-cols Card) */
+#page-forge .forge-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+#page-forge .forge-shop-item {
+  background: #f8faf6;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid #e7e9e5;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+#page-forge .forge-shop-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Modals Modern Polish */
+.forge-bellows-backdrop,
+.forge-modal-backdrop {
+  backdrop-filter: blur(6px);
+  background: rgba(46, 49, 47, 0.45);
+}
+
+.forge-bellows-dialog,
+.forge-modal {
+  border-radius: 18px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.16);
+  border: 1px solid #ebe8e0;
+}

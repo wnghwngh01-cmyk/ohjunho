@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="./assets/workout-layout.css?v=20261027-workout-v1">
 <link rel="stylesheet" href="./assets/shelter.css?v=20261030-shelter-v2">
 <link rel="stylesheet" href="./assets/forge.css?v=20261104-forge-v3">
+  <link rel="stylesheet" href="./assets/forge-stitch.css?v=20261107-forge-v1">
 <link rel="stylesheet" href="./assets/cosmetics-support.css?v=20261106-customization-v1">
   <link rel="stylesheet" href="./assets/stitch-redesign.css?v=20261107-v3">
 </head>
@@ -309,12 +310,45 @@
       <section id="page-forge" class="page" data-page="forge">
         <div class="page-head forge-page-head"><div><p class="eyebrow">하루 쉼터 · 하루 대장간</p><h1>검 강화하기</h1><p>불꽃과 망치로 단 하나뿐인 명검을 벼려 보세요.</p></div></div>
         <div class="forge-shell">
-          <section class="forge-status-bar" aria-label="대장간 보유 현황"><div class="forge-stamina"><span>⚡ 풀무 기운</span><b id="forgeStaminaDots">●●●●●</b><small id="forgeStaminaCopy">5/5</small></div><div class="forge-points"><span>💰</span><b id="forgePoints">0 P</b></div><div class="forge-inventory"><span>🛡️<b id="forgeShields">0</b></span><span>💎<b id="forgeWhetstones">0</b></span><span>✨<b id="forgeShards">0</b></span></div><div class="forge-status-actions"><button id="forgeDailySupply" class="btn primary small" type="button">🎁 일일 보급</button><button id="forgeSoundToggle" class="btn ghost small" type="button" aria-label="효과음 켜기 또는 끄기">🔊</button><button id="forgeGuideOpen" class="btn ghost small" type="button" aria-label="대장간 가이드">❓</button></div></section>
+          <section class="forge-status-bar" aria-label="대장간 보유 현황">
+            <div class="forge-stamina"><span>⚡ 풀무 기운</span><b id="forgeStaminaDots">●●●●●</b><small id="forgeStaminaCopy">5/5</small></div>
+            <div class="forge-points"><span>💰</span><b id="forgePoints">0 P</b></div>
+            <div class="forge-inventory"><span>🛡️<b id="forgeShields">0</b></span><span>💎<b id="forgeWhetstones">0</b></span><span>✨<b id="forgeShards">0</b></span></div>
+            <div class="forge-status-actions"><button id="forgeDailySupply" class="btn primary small" type="button">🎁 일일 보급</button><button id="forgeSoundToggle" class="btn ghost small" type="button" aria-label="효과음 켜기 또는 끄기">🔊</button><button id="forgeGuideOpen" class="btn ghost small" type="button" aria-label="대장간 가이드">❓</button></div>
+          </section>
           <section class="forge-main-card">
-            <div class="forge-identity"><span id="forgeGrade" class="forge-grade">수련 등급</span><h2><b id="forgeLevel">+0강</b> <span id="forgeSwordName">수련용 목검</span></h2><p>판매가 <strong id="forgeAppraisal">0 P</strong></p></div>
-            <div class="forge-sword-stage"><div id="forgeAura" class="forge-aura aura-none" aria-hidden="true"></div><div id="forgeSwordVisual" class="forge-sword-visual" aria-label="현재 검 일러스트"></div><div class="forge-anvil" aria-hidden="true"><i></i></div></div>
-            <div class="forge-chance"><div><span>성공 확률</span><strong id="forgeSuccessRate">100.0%</strong></div><div><span>유지 확률</span><strong id="forgeStayRate">0.0%</strong></div><div><span>파괴 확률</span><strong id="forgeDestroyRate">0.0%</strong></div></div>
-            <div class="forge-item-slots"><button id="forgeUseShield" class="forge-slot shield" type="button" aria-pressed="false"><span>🛡️</span><b>보호권</b><small id="forgeShieldCopy">0장</small></button><button id="forgeUseWhetstone" class="forge-slot whetstone" type="button" aria-pressed="false"><span>💎</span><b>숫돌 +2%</b><small id="forgeWhetstoneCopy">0개</small></button><label class="forge-skip-switch"><input id="forgeSkipBellows" type="checkbox"><span>⚡ 풀무질 스킵</span></label></div>
+            <div class="forge-identity">
+              <div class="identity-left">
+                <span id="forgeGrade" class="forge-grade">수련 등급</span>
+                <h2><b id="forgeLevel">+0강</b> <span id="forgeSwordName">수련용 목검</span></h2>
+                <p>판매가 <strong id="forgeAppraisal">0 P</strong></p>
+              </div>
+              <div class="forge-aura-badge">
+                <span>대장간 모루</span>
+              </div>
+            </div>
+            <div class="forge-sword-stage">
+              <div id="forgeAura" class="forge-aura aura-none" aria-hidden="true"></div>
+              <div id="forgeSwordVisual" class="forge-sword-visual" aria-label="현재 검 일러스트"></div>
+              <div class="forge-anvil" aria-hidden="true"><i></i></div>
+            </div>
+            <div class="forge-chance-wrapper">
+              <div class="forge-chance-track">
+                <i id="forgeTrackSuccess" class="track-success"></i>
+                <i id="forgeTrackStay" class="track-stay"></i>
+                <i id="forgeTrackDestroy" class="track-destroy"></i>
+              </div>
+              <div class="forge-chance">
+                <div><span>성공 확률</span><strong id="forgeSuccessRate">100.0%</strong></div>
+                <div><span>유지 확률</span><strong id="forgeStayRate">0.0%</strong></div>
+                <div><span>파괴 확률</span><strong id="forgeDestroyRate">0.0%</strong></div>
+              </div>
+            </div>
+            <div class="forge-item-slots">
+              <button id="forgeUseShield" class="forge-slot shield" type="button" aria-pressed="false"><span>🛡️</span><b>보호권</b><small id="forgeShieldCopy">0장</small></button>
+              <button id="forgeUseWhetstone" class="forge-slot whetstone" type="button" aria-pressed="false"><span>💎</span><b>숫돌 +2%</b><small id="forgeWhetstoneCopy">0개</small></button>
+              <label class="forge-skip-switch"><input id="forgeSkipBellows" type="checkbox"><span>⚡ 풀무질 스킵</span></label>
+            </div>
             <p id="forgeResultMessage" class="forge-result-message" role="status" aria-live="polite">망치를 들고 강화를 시작해 보세요.</p>
             <div class="forge-action-main"><button id="forgeEnhance" class="btn primary forge-enhance" type="button">🔨 담금질하기</button></div>
             <div class="forge-disposal-actions"><button id="forgeHallOpen" class="btn secondary" type="button" disabled>🏆 명예의 전당 등록</button><button id="forgeSell" class="btn secondary" type="button" disabled>💰 대장간에 판매하기 <span id="forgeSellValue">(+0 P)</span></button><button id="forgeShowcase" class="btn secondary" type="button" disabled>📢 광장에 검 자랑하기</button></div>
