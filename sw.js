@@ -1,4 +1,4 @@
-const CACHE='daily-life-shell-v115'; // daily-life-shell-v112
+const CACHE='daily-life-shell-v114'; // daily-life-shell-v112
 // Keep this list aligned with index.html cache-busting URLs; fetch handling below remains network-first.
 const SHELL=[
   './js/haru-icons.js','./js/haru-icons.js?v=20261107-stitch-v1',
