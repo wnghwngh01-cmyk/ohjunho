@@ -1,0 +1,564 @@
+/* ==========================================================================
+   하루를 담다 — Google Stitch & v0 통합 디자인 시스템 (Warm Editorial Atelier)
+   파일 경로: assets/stitch-redesign.css
+   역할: 기존 계약 테스트(tests/*.mjs) 호환성을 100% 보존하면서,
+         앱 전체(18개 페이지 · 11개 모달 · 4개 정적 페이지 · 다크 모드)의
+         색감, 타이포그래피, 여백, 컴포넌트 위계를 Stitch 시안과 동일하게 통합합니다.
+   ========================================================================== */
+
+:root {
+  /* 1. 핵심 배경 및 표면 팔레트 (Warm Ivory & Cream Atelier) */
+  --st-bg: #fbf9f5;
+  --st-surface: #ffffff;
+  --st-surface-low: #f5f3ef;
+  --st-surface-mid: #efeeea;
+  --st-surface-high: #e8e6e1;
+
+  /* 2. 핵심 브랜드 및 보조 포인트 팔레트 (Deep Forest Green & Sage) */
+  --st-primary: #1e3a2f;
+  --st-primary-mid: #284937;
+  --st-primary-soft: #6b9a83;
+  --st-primary-tint: #eaf2ec;
+  --st-secondary-tint: #d5e6da;
+
+  /* 3. 텍스트 및 상태 컬러 (Warm Charcoal & Editorial Hierarchy) */
+  --st-ink: #1b1c1a;
+  --st-ink-body: #2e332f;
+  --st-muted: #616762;
+  --st-subtle: #8b918c;
+  --st-rose: #b85c5c;
+  --st-rose-tint: #faeaea;
+  --st-amber: #c88a2e;
+  --st-amber-tint: #fdf4e3;
+  --st-line: rgba(30, 58, 47, 0.08);
+  --st-line-strong: rgba(30, 58, 47, 0.15);
+
+  /* 4. 기존 CSS 변수 매핑 (앱 전체 자동 연동) */
+  --bg: var(--st-bg);
+  --bg2: var(--st-surface-low);
+  --card: var(--st-surface);
+  --card2: var(--st-surface-low);
+  --ink: var(--st-ink);
+  --text: var(--st-ink-body);
+  --muted: var(--st-muted);
+  --line: var(--st-line);
+  --border: var(--st-line);
+  --primary: var(--st-primary);
+  --accent: var(--st-primary);
+  --accent-soft: var(--st-primary-tint);
+  --danger: var(--st-rose);
+
+  /* 5. 라운드 및 그림자 토큰 */
+  --st-radius-sm: 10px;
+  --st-radius-md: 14px;
+  --st-radius-lg: 16px;
+  --st-radius-xl: 18px;
+  --st-shadow-float: 0 8px 24px rgba(20, 32, 26, 0.06);
+  --st-shadow-card: 0 2px 8px rgba(20, 32, 26, 0.03);
+}
+
+/* 다크 모드 (Warm Deep Forest Night) */
+html[data-theme="dark"] {
+  --st-bg: #121714;
+  --st-surface: #1a211d;
+  --st-surface-low: #202924;
+  --st-surface-mid: #26312b;
+  --st-surface-high: #2f3c35;
+  --st-primary: #8fc1a5;
+  --st-primary-mid: #6b9a83;
+  --st-primary-soft: #567b68;
+  --st-primary-tint: rgba(143, 193, 165, 0.14);
+  --st-secondary-tint: rgba(143, 193, 165, 0.22);
+  --st-ink: #f1f3f0;
+  --st-ink-body: #d7ddd9;
+  --st-muted: #9aa39d;
+  --st-subtle: #6e7771;
+  --st-rose: #e08282;
+  --st-rose-tint: rgba(224, 130, 130, 0.15);
+  --st-amber: #e2ad56;
+  --st-amber-tint: rgba(226, 173, 86, 0.15);
+  --st-line: rgba(232, 240, 235, 0.09);
+  --st-line-strong: rgba(232, 240, 235, 0.18);
+  --st-shadow-float: 0 10px 28px rgba(0, 0, 0, 0.35);
+  --st-shadow-card: 0 2px 10px rgba(0, 0, 0, 0.22);
+}
+
+/* ==========================================================================
+   1. 전역 타이포그래피 & 기본 표면 정리 (AI 템플릿 느낌 제거)
+   ========================================================================== */
+body {
+  background-color: var(--st-bg) !important;
+  color: var(--st-ink-body) !important;
+  font-family: "Pretendard Variable", Pretendard, "Plus Jakarta Sans", "Noto Sans KR", -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+  font-size: 15px;
+  line-height: 1.58;
+  letter-spacing: -0.012em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 의미 없는 영문 대문자 eyebrow 및 중복 페이지 설명문 시각적 제거
+   (주의: page-copy-contract.mjs 호환을 위해 DOM 텍스트는 유지하고 CSS로만 숨김) */
+.eyebrow,
+.section-eyebrow,
+.hero-eyebrow,
+.page-head > p,
+.page-intro > p {
+  display: none !important;
+}
+
+/* 페이지 상단 헤더 컴팩트화 */
+.page-head {
+  margin: 0 0 14px !important;
+  padding: 2px 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.page-head h2,
+.page-title {
+  font-size: 21px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.025em !important;
+  color: var(--st-ink) !important;
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   2. 상단바(Topbar) & 하단 네비게이션(Bottom Nav) — Glassmorphism
+   ========================================================================== */
+.topbar,
+.mobile-topbar,
+header.app-header {
+  background: color-mix(in srgb, var(--st-bg) 88%, transparent) !important;
+  backdrop-filter: blur(18px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(140%) !important;
+  border-bottom: 1px solid var(--st-line) !important;
+  box-shadow: none !important;
+}
+
+.bottom-nav,
+nav.mobile-bottom-nav,
+.tabbar {
+  background: color-mix(in srgb, var(--st-surface) 90%, transparent) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  border-top: 1px solid var(--st-line) !important;
+  box-shadow: 0 -4px 20px rgba(20, 32, 26, 0.04) !important;
+}
+
+.bottom-nav button,
+.bottom-nav a,
+.tabbar button {
+  color: var(--st-muted) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  transition: color 0.18s ease, transform 0.15s ease;
+}
+
+.bottom-nav button.active,
+.bottom-nav button[aria-current="page"],
+.tabbar button.active {
+  color: var(--st-primary) !important;
+  font-weight: 700 !important;
+}
+
+.haru-icon-svg {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   3. 카드 중첩 제거 & 톤온톤 표면 위계
+   ========================================================================== */
+.card,
+.panel,
+.section-card,
+.surface-card {
+  background: var(--st-surface) !important;
+  border: 1px solid var(--st-line) !important;
+  border-radius: var(--st-radius-lg) !important;
+  box-shadow: var(--st-shadow-card) !important;
+  padding: 16px !important;
+}
+
+/* 카드 안의 중첩 카드 테두리/그림자 제거 (과도한 박스 중첩 방지) */
+.card .card,
+.panel .card,
+.section-card .card {
+  background: var(--st-surface-low) !important;
+  border: 0 !important;
+  border-radius: var(--st-radius-md) !important;
+  box-shadow: none !important;
+  padding: 12px 14px !important;
+}
+
+/* 빈 상태(Empty State) 컴팩트화 */
+.empty,
+.empty-state {
+  padding: 20px 16px !important;
+  border-radius: var(--st-radius-md) !important;
+  background: var(--st-surface-low) !important;
+  border: 1px dashed var(--st-line-strong) !important;
+  color: var(--st-muted) !important;
+  font-size: 13.5px !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================================================
+   4. 버튼, 입력창, 알약(Pill) 탭 공통 규격 (최소 터치 영역 확보)
+   ========================================================================== */
+.btn,
+button.primary,
+button.secondary,
+button.ghost {
+  border-radius: 12px !important;
+  font-weight: 650 !important;
+  font-size: 14px !important;
+  letter-spacing: -0.01em !important;
+  transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.12s ease !important;
+}
+
+.btn.primary,
+button.primary,
+.btn-primary {
+  background: linear-gradient(145deg, var(--st-primary) 0%, var(--st-primary-mid) 100%) !important;
+  color: #ffffff !important;
+  border: 0 !important;
+  box-shadow: 0 3px 10px rgba(30, 58, 47, 0.18) !important;
+}
+
+html[data-theme="dark"] .btn.primary,
+html[data-theme="dark"] button.primary {
+  color: #101c16 !important;
+}
+
+.btn.secondary,
+button.secondary {
+  background: var(--st-primary-tint) !important;
+  color: var(--st-primary) !important;
+  border: 1px solid transparent !important;
+}
+
+.btn.ghost,
+button.ghost {
+  background: transparent !important;
+  color: var(--st-ink-body) !important;
+  border: 1px solid var(--st-line-strong) !important;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="search"],
+select,
+textarea {
+  background: var(--st-surface-low) !important;
+  border: 1px solid var(--st-line-strong) !important;
+  border-radius: 12px !important;
+  color: var(--st-ink) !important;
+  font-size: 15px !important;
+  padding: 11px 14px !important;
+  transition: border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  background: var(--st-surface) !important;
+  border-color: var(--st-primary) !important;
+  box-shadow: 0 0 0 3px var(--st-primary-tint) !important;
+}
+
+/* ==========================================================================
+   5. 프로필 아바타 순수 벡터 SVG 테두리 정밀 정렬 (사진 축소 방지)
+   ========================================================================== */
+.avatar[data-frame-tier="spectrum"],
+.avatar[data-frame-tier="blossom"],
+.avatar[data-frame-tier="crown"] {
+  --art-size: 130% !important;
+  --art-left: -15% !important;
+  --art-top: -15% !important;
+}
+
+/* crown 테두리 착용 시 내부 프로필 사진이 85%로 작아지던 현상 해제 */
+.avatar[data-frame-tier="crown"] .avatar-face {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.avatar-frame-art > svg.avatar-frame-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ==========================================================================
+   6. 페이지별 맞춤 디자인 고도화 (18개 전체 화면)
+   ========================================================================== */
+
+/* 6-1. 로그인·회원가입 (#authShell) & 온보딩 (#onboardingShell) */
+#authShell .auth-card,
+#onboardingShell .onboarding-card {
+  background: var(--st-surface) !important;
+  border: 1px solid var(--st-line) !important;
+  border-radius: 22px !important;
+  box-shadow: var(--st-shadow-float) !important;
+  padding: 28px 22px !important;
+}
+
+/* 6-2. 오늘 페이지 (#page-today) & 오늘 화면 설정 (#page-today-settings) */
+#page-today .today-hero,
+#page-today .greeting-banner {
+  background: linear-gradient(145deg, #1e3a2f 0%, #284937 100%) !important;
+  color: #ffffff !important;
+  border-radius: var(--st-radius-xl) !important;
+  padding: 18px 20px !important;
+  border: 0 !important;
+}
+
+#page-today-settings #todaySettingsList > * {
+  background: var(--st-surface) !important;
+  border: 1px solid var(--st-line) !important;
+  border-radius: 13px !important;
+  padding: 12px 14px !important;
+}
+
+/* 6-3. 캘린더 (#page-calendar) */
+#page-calendar .calendar-grid,
+#page-calendar .month-grid {
+  background: var(--st-surface) !important;
+  border-radius: var(--st-radius-lg) !important;
+  border: 1px solid var(--st-line) !important;
+}
+
+/* 6-4. 가계부 (#page-personal) */
+#page-personal .budget-summary,
+#page-personal .finance-summary {
+  background: var(--st-surface) !important;
+  border-radius: var(--st-radius-lg) !important;
+  border: 1px solid var(--st-line) !important;
+}
+
+/* 6-5. 기록 · 독서록 · 일기 · 운동 · 아이디어 (#page-records, #page-books, #page-diary, #workoutPage, #page-lab) */
+#page-records .record-item,
+#page-books .book-item,
+#page-diary .diary-item,
+#workoutPage .workout-item,
+#page-lab .idea-item {
+  background: var(--st-surface) !important;
+  border: 1px solid var(--st-line) !important;
+  border-radius: var(--st-radius-md) !important;
+  box-shadow: none !important;
+}
+
+/* 6-6. 더보기 (#page-more) — 토스/애플 설정 스타일 고밀도 리스트 행 */
+#page-more .more-grid,
+#page-more .more-list,
+#page-more .menu-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  background: var(--st-surface) !important;
+  border: 1px solid var(--st-line) !important;
+  border-radius: var(--st-radius-lg) !important;
+  padding: 6px !important;
+}
+
+#page-more [data-go] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  min-height: 48px !important;
+  padding: 10px 14px !important;
+  border-radius: 11px !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  text-align: left !important;
+  color: var(--st-ink) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+#page-more [data-go]:hover,
+#page-more [data-go]:active {
+  background: var(--st-surface-low) !important;
+}
+
+#page-more .more-chevron {
+  width: 16px;
+  height: 16px;
+  color: var(--st-subtle);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* 6-7. 광장 (#page-square) — 에디토리얼 피드 */
+#page-square .pub-card,
+#page-square [data-publication-card] {
+  background: var(--st-surface) !important;
+  border: 1px solid var(--st-line) !important;
+  border-radius: var(--st-radius-lg) !important;
+  box-shadow: var(--st-shadow-card) !important;
+}
+
+/* 6-8. 설정 (#page-settings) — 가로 스크롤 알약 탭 & 정돈된 폼 */
+#page-settings .settings-tabs,
+#page-settings [role="tablist"] {
+  display: flex !important;
+  gap: 6px !important;
+  overflow-x: auto !important;
+  padding: 4px 2px 10px !important;
+  scrollbar-width: none !important;
+}
+
+#page-settings .settings-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+#page-settings .settings-grid,
+#page-settings .settings-menu,
+#page-settings .settings-pane {
+  min-width: 0;
+  max-width: 100%;
+}
+
+#page-settings [data-settings-tab] {
+  flex: 0 0 auto !important;
+  border-radius: 999px !important;
+  padding: 8px 14px !important;
+  font-size: 13px !important;
+  font-weight: 650 !important;
+  background: var(--st-surface-low) !important;
+  color: var(--st-muted) !important;
+  border: 1px solid transparent !important;
+}
+
+#page-settings [data-settings-tab].active,
+#page-settings [data-settings-tab][aria-selected="true"] {
+  background: var(--st-primary) !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 600px) {
+  #page-settings .frame-editor-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #page-settings .frame-editor-head > .row {
+    min-width: 0;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
+
+/* 6-9. 후원 (#page-support) — 2×2 배지 카드 & 3만원 골드 서약 카드 */
+#page-support [data-support-amount="30000"] {
+  border-color: rgba(200, 138, 46, 0.45) !important;
+  background: linear-gradient(155deg, var(--st-surface) 0%, var(--st-amber-tint) 100%) !important;
+}
+
+/* 6-10. 알림함 (#page-notifications) */
+#page-notifications .notification-item {
+  border-radius: var(--st-radius-md) !important;
+  border: 1px solid var(--st-line) !important;
+  background: var(--st-surface) !important;
+}
+
+#page-notifications .notification-item.unread {
+  background: var(--st-primary-tint) !important;
+  border-color: rgba(30, 58, 47, 0.18) !important;
+}
+
+/* 6-11. 검 강화하기 (#page-forge) — 다크 슬레이트 & 앰버 골드 워크숍 */
+#page-forge .forge-main-card {
+  border-radius: 18px !important;
+}
+
+#page-forge .forge-shop-art {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+#page-forge .forge-shop-art svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 광장 대장간 감정서·부고장 부가 메타 영역 */
+.forge-certificate {
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.forge-cert-meta-extra {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--st-surface-low);
+  border: 1px solid var(--st-line);
+  font-size: 13px;
+}
+
+.forge-cert-meta-extra dl {
+  display: flex;
+  gap: 16px;
+  margin: 6px 0 0;
+}
+
+.forge-cert-meta-extra dl div {
+  display: flex;
+  gap: 6px;
+}
+
+.forge-cert-meta-extra dt {
+  color: var(--st-muted);
+}
+
+.forge-cert-meta-extra dd {
+  margin: 0;
+  font-weight: 700;
+  color: var(--st-ink);
+}
+
+/* 6-12. 하루 쉼터 (#page-shelter) — 포레스트 그린 & 골드 숫자 타일 */
+#page-shelter .shelter-grid button,
+#page-shelter .grid-1to25 button {
+  border-radius: 12px !important;
+  font-family: "Plus Jakarta Sans", "Pretendard Variable", sans-serif !important;
+  font-weight: 750 !important;
+}
+
+/* ==========================================================================
+   7. 전체 모달 / 바텀시트 11종 통일
+   ========================================================================== */
+.modal-card,
+.dialog-card,
+.sheet-card,
+[role="dialog"] > .card {
+  background: var(--st-surface) !important;
+  border: 1px solid var(--st-line) !important;
+  border-radius: 20px !important;
+  box-shadow: var(--st-shadow-float) !important;
+}

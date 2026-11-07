@@ -1,4 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#263d33"/>
-  <path d="M18 17v30M46 17v30M18 32h28" fill="none" stroke="#f7f8f5" stroke-width="7" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="하루를 담다">
+  <defs>
+    <linearGradient id="haru_bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#274a3c"/>
+      <stop offset="100%" stop-color="#162c23"/>
+    </linearGradient>
+    <linearGradient id="haru_leaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#bce3c8"/>
+      <stop offset="100%" stop-color="#76b48e"/>
+    </linearGradient>
+    <linearGradient id="haru_gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffeab3"/>
+      <stop offset="100%" stop-color="#d4a24c"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#haru_bg)"/>
+  <rect x="17" y="13" width="30" height="38" rx="6" fill="none" stroke="#f6f4ee" stroke-width="3.2"/>
+  <path d="M25 13v13l4.5-3.2L34 26V13" fill="url(#haru_gold)"/>
+  <path d="M32 42V29" stroke="url(#haru_leaf)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M32 34c-6 0-9-4-9-8 6 0 9 4 9 8Z" fill="url(#haru_leaf)"/>
+  <path d="M32 31c6 0 9-4 9-8-6 0-9 4-9 8Z" fill="#e8f6ec"/>
 </svg>
