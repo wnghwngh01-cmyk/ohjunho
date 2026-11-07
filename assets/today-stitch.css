@@ -118,3 +118,385 @@ html:not([data-theme="dark"]) #page-today .stitch-layout-empty p{margin:0 0 12px
   html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav [data-go="square"] .ico:before{content:'forum'}
 }
 @media(max-width:360px){html:not([data-theme="dark"]) #page-today{padding-left:14px;padding-right:14px}html:not([data-theme="dark"]) #page-today .stitch-section-head>div{gap:6px}html:not([data-theme="dark"]) #page-today .stitch-section-note{font-size:11px}}
+
+
+/* ==========================================================================
+   Stitch Variant _8 (오늘 페이지 고정밀 1:1 스타일 확장)
+   ========================================================================== */
+#page-today {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 12px 16px 36px;
+  background-color: var(--st-bg, #fbf9f5);
+  color: var(--st-ink, #1f2421);
+}
+
+#page-today .stitch-today-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 1. 인사 영역 및 날짜 */
+#page-today .stitch-greeting {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 2px;
+}
+
+#page-today .stitch-date {
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  color: #5e6661;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#page-today #greetingTitle {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #1f2421;
+  margin: 0;
+}
+
+/* 2. 통합 목표/D-Day 카드 */
+#todayGoalCard.stitch-goals {
+  border-radius: 14px !important;
+  padding: 4px 16px !important;
+  background: #ffffff !important;
+  border: 1px solid #e8e5dd !important;
+  box-shadow: 0 1px 3px rgba(30, 58, 47, 0.03) !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+#todayGoalCard .stitch-goal-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 10px 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid #e8e5dd !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  text-align: left !important;
+  width: 100% !important;
+  transition: opacity 0.15s ease;
+}
+
+#todayGoalCard .stitch-goal-row:last-child {
+  border-bottom: 0 !important;
+}
+
+#todayGoalCard .stitch-goal-label {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 2px 8px !important;
+  border-radius: 6px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  background: #f5f3ee !important;
+  color: #2d5a43 !important;
+  flex-shrink: 0 !important;
+}
+
+#todayGoalCard .stitch-goal-label.primary {
+  background: #eaf2ec !important;
+  color: #1e3a2f !important;
+  font-weight: 600 !important;
+}
+
+#todayGoalCard .stitch-goal-value {
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #1f2421 !important;
+  margin: 0 10px !important;
+  flex: 1 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+#todayGoalCard .stitch-countdowns {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 10px !important;
+  flex: 1 !important;
+}
+
+#todayGoalCard .stitch-countdowns strong {
+  display: inline-block !important;
+  padding: 2px 8px !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  background: rgba(45, 90, 67, 0.1) !important;
+  color: #2d5a43 !important;
+}
+
+#todayGoalCard .stitch-chevron {
+  width: 18px !important;
+  height: 18px !important;
+  color: #5e6661 !important;
+  flex-shrink: 0 !important;
+}
+
+/* 3. 오늘의 한마디 카드 */
+.today-quote-card {
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid #e8e5dd !important;
+  padding: 14px 16px 14px 18px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 0 1px 3px rgba(30, 58, 47, 0.02) !important;
+}
+
+.today-quote-card::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 3.5px !important;
+  background: #2d5a43 !important;
+}
+
+.today-quote-card .stitch-section-head {
+  display: none !important;
+}
+
+#todayQuote {
+  margin: 0 !important;
+  font-size: 14.5px !important;
+  line-height: 1.6 !important;
+  color: #1f2421 !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+}
+
+#todayQuote::before {
+  content: "“" !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+  color: #2d5a43 !important;
+  opacity: 0.8 !important;
+}
+
+/* 4. 공통 섹션 헤더 (오늘 일정, 할 일, 습관, 단백질, 가계부, 빠른 기록) */
+#page-today .stitch-section-head {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 2px 6px !important;
+  margin: 0 !important;
+}
+
+#page-today .stitch-section-head h3 {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #1f2421 !important;
+  letter-spacing: -0.01em !important;
+  margin: 0 !important;
+}
+
+#page-today .stitch-section-head button,
+#page-today .stitch-section-head a {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  font-size: 12.5px !important;
+  color: #5e6661 !important;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 4px 0 !important;
+  cursor: pointer !important;
+  transition: color 0.15s ease !important;
+}
+
+#page-today .stitch-section-head button:hover,
+#page-today .stitch-section-head a:hover {
+  color: #2d5a43 !important;
+}
+
+/* 5. 카드 리스트 및 아이템 */
+#todayEvents,
+#todayTodos,
+#todayHabits {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+#todayEvents .event-item,
+#todayTodos .todo-item,
+#todayHabits .habit-card {
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid #e8e5dd !important;
+  padding: 13px 14px !important;
+  box-shadow: 0 1px 2px rgba(30, 58, 47, 0.02) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+}
+
+/* 6. 할 일 입력창 (Quick Add) */
+.stitch-todo-entry {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 8px !important;
+}
+
+.stitch-todo-entry input,
+#todayTodoInput {
+  flex: 1 !important;
+  height: 40px !important;
+  padding: 0 14px !important;
+  border-radius: 13px !important;
+  background: #ffffff !important;
+  border: 1px solid #e8e5dd !important;
+  font-size: 13.5px !important;
+  color: #1f2421 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01) !important;
+}
+
+.stitch-todo-entry input:focus,
+#todayTodoInput:focus {
+  outline: none !important;
+  border-color: #2d5a43 !important;
+}
+
+.stitch-todo-entry button,
+#todayTodoAdd {
+  height: 40px !important;
+  padding: 0 16px !important;
+  border-radius: 13px !important;
+  background: #1e3a2f !important;
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  border: 0 !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+}
+
+/* 7. 할 일 완료 칩 배지 */
+#todayTodoCount.stitch-count,
+#todayProteinTotal.stitch-count {
+  display: inline-block !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  padding: 2px 8px !important;
+  border-radius: 999px !important;
+  background: #f5f3ee !important;
+  color: #2d5a43 !important;
+  margin-left: 8px !important;
+}
+
+/* 8. 단백질 섭취량 카드 & 인풋 */
+.stitch-protein-section {
+  border-radius: 14px !important;
+}
+
+.stitch-inline-form {
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid #e8e5dd !important;
+  padding: 13px 14px !important;
+  box-shadow: 0 1px 3px rgba(30, 58, 47, 0.02) !important;
+  display: flex !important;
+  gap: 8px !important;
+  align-items: center !important;
+}
+
+.stitch-inline-form input {
+  height: 40px !important;
+  border-radius: 12px !important;
+  background: #f5f3ee !important;
+  border: 1px solid #e8e5dd !important;
+  font-size: 13.5px !important;
+  padding: 0 12px !important;
+}
+
+.stitch-inline-form button,
+#todayProteinAdd {
+  height: 40px !important;
+  padding: 0 16px !important;
+  border-radius: 12px !important;
+  background: #1e3a2f !important;
+  color: #ffffff !important;
+  font-size: 13px !important;
+  border: 0 !important;
+  font-weight: 600 !important;
+  flex-shrink: 0 !important;
+}
+
+/* 9. 가계부 및 아코디언 */
+.today-block-group details.stitch-disclosure {
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid #e8e5dd !important;
+  box-shadow: 0 1px 3px rgba(30, 58, 47, 0.02) !important;
+  overflow: hidden !important;
+  margin-bottom: 8px !important;
+}
+
+.today-block-group details.stitch-disclosure summary {
+  padding: 13px 14px !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #1f2421 !important;
+}
+
+/* 10. 빠른 기록 카드 */
+.stitch-quick-record .stitch-record-box {
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid #e8e5dd !important;
+  padding: 14px !important;
+  box-shadow: 0 1px 3px rgba(30, 58, 47, 0.02) !important;
+}
+
+.stitch-quick-record textarea,
+#quickRecordText {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  border: 0 !important;
+  background: transparent !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  color: #1f2421 !important;
+  padding: 4px 0 !important;
+  resize: none !important;
+}
+
+.stitch-quick-record textarea:focus,
+#quickRecordText:focus {
+  outline: none !important;
+}
+
+.stitch-quick-record button,
+#quickRecordSave {
+  height: 38px !important;
+  padding: 0 16px !important;
+  border-radius: 12px !important;
+  background: #1e3a2f !important;
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  border: 0 !important;
+  cursor: pointer !important;
+}
