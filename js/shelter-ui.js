@@ -22,11 +22,18 @@
   function avatar(row){const Frame=global.HaruAvatarFrame,Storage=global.LabStorage,tier=Frame.safeTier(row.avatar_frame_tier),color=Frame.safeColor(row.avatar_frame_color,tier),crown=['crown','blossom'].includes(tier)?Frame.safeCrownColor(row.avatar_crown_color):'',path=row.avatar_path?Storage.publicUrl(row.avatar_path):'';return `<div class="avatar shelter-avatar" data-frame-tier="${tier}" data-frame-color="${color}" data-frame-crown-color="${crown}"><span class="avatar-face"><span class="avatar-letter">${esc(String(row.display_name||'하').slice(0,1))}</span>${path?`<img class="avatar-photo" src="${esc(path)}" alt="">`:''}</span>${Frame.art(tier)}</div>`}
   function renderLobby(){
     if(!board)return;
-    $('#shelterBest').textContent=formatMs(board.my_best_ms);$('#shelterRank').textContent=board.my_rank?`전체 ${board.total_players}명 중 ${board.my_rank}등`:`이번 주 미참여 · 전체 ${board.total_players}명`;
+    const exact=!!$('#page-shelter.stitch-exact-page');
+    $('#shelterBest').textContent=exact?formatMs(board.my_best_ms).replace('초',''):formatMs(board.my_best_ms);
+    $('#shelterRank').textContent=exact?(board.my_rank||'—'):(board.my_rank?`전체 ${board.total_players}명 중 ${board.my_rank}등`:`이번 주 미참여 · 전체 ${board.total_players}명`);
+    $('#shelterRank').title=board.my_rank?`전체 ${board.total_players}명 중 ${board.my_rank}등`:`이번 주 미참여 · 전체 ${board.total_players}명`;
     const rows=Array.isArray(board.top10)?board.top10:[];$('#shelterLeaderboard').innerHTML=rows.length?rows.map(row=>{const rankTitle=row.expected_rank_title||rankTitleFor(Number(row.rank)),grade=row.expected_grade||gradeFor(Number(row.best_ms));return `<div class="shelter-rank-row"><strong class="shelter-rank-number">${row.rank}</strong>${avatar(row)}<div class="shelter-rank-content"><div class="shelter-rank-person"><b>${esc(row.display_name||row.lab_name||'사용자')}</b></div><div class="shelter-rank-rewards"><small>정산 보상</small>${titleBadge(rankTitle)}${titleBadge(grade)}</div></div><time>${formatMs(row.best_ms)}</time></div>`}).join(''):'<div class="shelter-empty">이번 주 첫 기록의 주인공이 되어보세요.</div>';
   }
   async function load(){board=await global.LabDB.shelterLeaderboard();renderLobby();return board}
-  function show(view){for(const id of ['shelterLobby','shelterGame','shelterResult'])$(`#${id}`).classList.toggle('hidden',id!==view)}
+  function show(view){
+    const exact=$('#page-shelter.stitch-exact-page');
+    if(exact){$('#shelterGame').classList.remove('hidden');$('#shelterResult').classList.toggle('hidden',view!=='shelterResult');return}
+    for(const id of ['shelterLobby','shelterGame','shelterResult'])$(`#${id}`).classList.toggle('hidden',id!==view)
+  }
   function renderTiles(){expected=1;$('#shelterNext').textContent='1';$('#shelterTimer').textContent='00.00초';$('#shelterGrid').innerHTML=shuffle(Array.from({length:25},(_,index)=>index+1)).map(number=>`<button type="button" class="shelter-tile" data-shelter-number="${number}" aria-label="숫자 ${number}">${number}</button>`).join('')}
   function wait(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
   async function start(){

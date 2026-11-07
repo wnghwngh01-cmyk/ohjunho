@@ -35,7 +35,7 @@ assert.match(migration,/c\.created_at >= now\(\) - interval '7 days'/);
 assert.match(migration,/c\.user_id <> auth\.uid\(\)/);
 assert.match(migration,/admin_private\.case_replies/);
 assert.match(migration,/notification_states/);
-assert.match(sw,/daily-life-shell-v113/);
+assert.match(sw,/daily-life-shell-v114/);
 assert.match(sw,/notification-ui\.js\?v=20261107-notifications-v1/);
 
 console.log('notifications contract PASS');
