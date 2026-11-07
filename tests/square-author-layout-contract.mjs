@@ -29,8 +29,9 @@ assert.match(migration,/char_length\(new\.display_name\)>8/);
 assert.match(migration,/char_length\(new\.lab_name\)>12/);
 assert.match(migration,/is distinct from old\.display_name/);
 for(const token of ['enforce_profile_name_limits','profiles_name_limits','char_length(new.display_name)>8','char_length(new.lab_name)>12','step28_profile_name_probe'])assert.match(deployMigration,new RegExp(token.replace(/[().]/g,'\\$&')));
-assert.match(sw,/daily-life-shell-v111/);
-for(const asset of ['assets/styles.css','assets/light-theme.css'])assert.match(sw,new RegExp(asset.replace(/[./]/g,'\\$&')+'\\?v=20261030-square-author-v1'));
-for(const asset of ['js/db.js','js/app.js'])assert.match(sw,new RegExp(asset.replace(/[./]/g,'\\$&')+'\\?v=20261106-customization-v1'));
+assert.match(sw,/daily-life-shell-v112/);
+assert.match(sw,/assets\/styles\.css\?v=20261107-notifications-v1/);
+assert.match(sw,/assets\/light-theme\.css\?v=20261030-square-author-v1/);
+for(const asset of ['js/db.js','js/app.js'])assert.match(sw,new RegExp(asset.replace(/[./]/g,'\\$&')+'\\?v=20261107-notifications-v1'));
 
 console.log('square author layout contract: PASS');

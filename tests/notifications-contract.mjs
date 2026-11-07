@@ -1,0 +1,41 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+
+const html=fs.readFileSync('index.html','utf8');
+const app=fs.readFileSync('js/app.js','utf8');
+const db=fs.readFileSync('js/db.js','utf8');
+const ui=fs.readFileSync('js/notification-ui.js','utf8');
+const css=fs.readFileSync('assets/styles.css','utf8');
+const manifest=fs.readFileSync('android/app/src/main/AndroidManifest.xml','utf8');
+const migration=fs.readFileSync('supabase/migrations/20261107100000_step37_notifications.sql','utf8');
+const sw=fs.readFileSync('sw.js','utf8');
+
+assert.match(manifest,/android\.permission\.POST_NOTIFICATIONS/);
+assert.match(manifest,/android\.permission\.VIBRATE/);
+assert.match(html,/id="topbarNotifications"/);
+assert.match(html,/id="notificationBadge"/);
+assert.match(html,/data-settings="notifications"/);
+for(const id of ['notificationDeviceEnabled','notificationMorningEnabled','notificationMorningTime','notificationEveningEnabled','notificationEveningTime','notificationCommunityEnabled'])assert.match(html,new RegExp(`id="${id}"`));
+assert.match(html,/id="notificationPublicationModal"/);
+assert.match(html,/notification-ui\.js\?v=20261107-notifications-v1/);
+assert.match(css,/\.notification-badge\{[^}]*width:7px;[^}]*height:7px;[^}]*#e74c3c/);
+assert.match(ui,/@capacitor|LocalNotifications/);
+assert.match(ui,/title:'☀️ 좋은 아침이에요!'/);
+assert.match(ui,/title:'🌙 오늘 하루는 어떠셨나요\?'/);
+assert.match(ui,/repeats:true/);
+assert.match(ui,/localNotificationActionPerformed/);
+assert.match(app,/DB\.activityNotifications\(\)/);
+assert.match(app,/openNotificationPublication/);
+assert.match(app,/openDiaryFromNotification/);
+assert.match(app,/refreshNotificationBadge/);
+assert.match(app,/data-notification-delete/);
+assert.match(db,/get_my_activity_notifications/);
+assert.match(db,/mark_my_notification/);
+assert.match(migration,/c\.created_at >= now\(\) - interval '7 days'/);
+assert.match(migration,/c\.user_id <> auth\.uid\(\)/);
+assert.match(migration,/admin_private\.case_replies/);
+assert.match(migration,/notification_states/);
+assert.match(sw,/daily-life-shell-v112/);
+assert.match(sw,/notification-ui\.js\?v=20261107-notifications-v1/);
+
+console.log('notifications contract PASS');
