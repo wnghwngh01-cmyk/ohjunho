@@ -1,7 +1,7 @@
-const CACHE='daily-life-shell-v112';
+const CACHE='daily-life-shell-v113';
 // Keep this list aligned with index.html cache-busting URLs; fetch handling below remains network-first.
 const SHELL=[
-  './assets/stitch-redesign.css','./js/haru-icons.js','./assets/stitch-redesign.css?v=20261107-stitch-v1','./js/haru-icons.js?v=20261107-stitch-v1',
+  './assets/stitch-redesign.css','./js/haru-icons.js','./assets/stitch-redesign.css?v=20261107-stitch-v2','./js/haru-icons.js?v=20261107-stitch-v1',
   './js/recurring-ui.js?v=20261014-i1','./assets/recurring.css?v=20261014-i1','./js/writing-templates.js?v=20261014-h1','./assets/writing-templates.css?v=20261014-h1',
   './js/budget-ui.js?v=20261030-budget-preview-v1','./assets/budget.css?v=20261030-budget-preview-v1','./assets/shelter.css?v=20261030-shelter-v2','./assets/forge.css?v=20261104-forge-v3','./assets/cosmetics-support.css?v=20261106-customization-v1',
   './assets/profile-frames/ribbon-v3.png','./assets/profile-frames/blossom-v5.png','./assets/profile-frames/crown-v3.png','./assets/light-theme.css?v=20261030-square-author-v1','./assets/today-stitch.css?v=20261030-budget-preview-v2','./assets/material-symbols-outlined.ttf','./assets/contact.svg?v=20261017-operator-v2','./assets/avatar-frame.css?v=20261024-avatar-frame-v13',
