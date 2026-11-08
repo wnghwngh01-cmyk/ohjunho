@@ -1,0 +1,41 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+
+const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const app=fs.readFileSync(new URL('../js/app.js',import.meta.url),'utf8');
+const css=fs.readFileSync(new URL('../assets/more-stitch.css',import.meta.url),'utf8');
+const generated=fs.readFileSync(new URL('../assets/more-stitch.generated.css',import.meta.url),'utf8');
+const config=fs.readFileSync(new URL('../scripts/tailwind.more-stitch.config.cjs',import.meta.url),'utf8');
+const sw=fs.readFileSync(new URL('../sw.js',import.meta.url),'utf8');
+const section=html.match(/<section id="page-more"[\s\S]*?<\/section>\s*\n\s*<section id="page-shelter"/)?.[0]||'';
+const bottom=html.match(/<nav class="bottom-nav"[\s\S]*?<\/nav>/)?.[0]||'';
+
+assert.ok(section,'더보기 화면이 있어야 한다.');
+for(const label of ['생활 · DAILY LIFE','하루 쉼터 · PLAY','관리 · CONTROL & SOCIAL','도움 · SUPPORT & SYSTEM'])assert.match(section,new RegExp(label));
+for(const title of ['오늘의 하루','캘린더','일기','가계부','운동 기록','기록','독서록','아이디어','1 to 25','검 강화하기','오늘 화면 설정','목표 설정','광장','통합 검색','버그 제보','운영자 1:1 문의','창작자 후원하기','앱 환경 설정'])assert.match(section,new RegExp(`>${title.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}<`));
+const routes=[...section.matchAll(/data-go="([^"]+)" role="button"/g)].map(match=>match[1]);
+assert.deepEqual(routes,['settings','today','calendar','diary','personal','workout','records','books','lab','shelter','forge','today-settings','goals','square','search','bug','contact','support','settings']);
+assert.deepEqual([...bottom.matchAll(/data-go="([^"]+)"/g)].map(match=>match[1]),['today','calendar','personal','square','more']);
+assert.equal((bottom.match(/<svg\b/g)||[]).length,5);
+assert.match(section,/하루를 담다 · v2\.4\.0/);
+assert.match(section,/나의 하루를 안전하고 고요하게 담는 일상 앱/);
+assert.doesNotMatch(section,/NEW|미니멀 벡터 디자인 시스템|Made with Pure Minimal Vector Geometry/);
+assert.match(app,/more:\['더보기',''\]/);
+assert.match(app,/MoreProfile\.view\(p,u\)/);
+assert.match(app,/\[data-go\]\[role="button"\]/);
+assert.doesNotMatch(app,/data-copy-svg/);
+assert.match(config,/forest:'#1e3a2f'/);
+assert.match(config,/cream:'#faf9f6'/);
+assert.match(config,/fontFamily:\{sans:\['Noto Sans KR'/);
+assert.match(generated,/space-y-6/);
+assert.match(css,/max-width:430px/);
+assert.match(css,/font-size:22px/);
+assert.doesNotMatch(css,/bottom-nav[^}]*display\s*:\s*none/is);
+assert.match(html,/more-stitch\.generated\.css\?v=20261108-more-v4/);
+assert.match(html,/more-stitch\.css\?v=20261108-more-v4/);
+assert.match(sw,/daily-life-shell-v115/);
+assert.match(sw,/more-stitch\.generated\.css\?v=20261108-more-v4/);
+assert.match(sw,/more-stitch\.css\?v=20261108-more-v4/);
+assert.match(sw,/more-profile\.js\?v=20261108-more-v3/);
+
+console.log('More Stitch final single-file contract PASS');

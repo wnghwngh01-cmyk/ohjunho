@@ -11,10 +11,10 @@ for(const page of expectedPages){
 
 const bottom=html.match(/<nav class="bottom-nav"[\s\S]*?<\/nav>/)?.[0]||'';
 const bottomOrder=[...bottom.matchAll(/data-go="([^"]+)"/g)].map(x=>x[1]);
-const wantedBottom=['today','calendar','more','personal','square'];
+const wantedBottom=['today','calendar','personal','square','more'];
 if(JSON.stringify(bottomOrder)!==JSON.stringify(wantedBottom))throw new Error(`Unexpected bottom navigation: ${bottomOrder.join(',')}`);
 
-const more=html.match(/<section id="page-more"[\s\S]*?<\/section>/)?.[0]||'';
+const more=html.match(/<section id="page-more"[\s\S]*?<section id="page-shelter"/)?.[0]||'';
 for(const page of expectedPages.filter(x=>!['more','notifications'].includes(x)))if(!more.includes(`data-go="${page}"`))throw new Error(`More menu is missing: ${page}`);
 if(more.includes('data-go="notifications"'))throw new Error('Notifications must live in the top bar, not More');
 if(!html.match(/<header class="topbar">[\s\S]*?data-go="notifications"[\s\S]*?<\/header>/))throw new Error('Top bar notification button is missing');

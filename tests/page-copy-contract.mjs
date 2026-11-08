@@ -3,7 +3,7 @@ import fs from 'node:fs';
 const app=fs.readFileSync(new URL('../js/app.js',import.meta.url),'utf8');
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 
-const subtitles=['오늘을 한눈에','생각을 놓치지 않는 곳','날짜로 보는 하루','돈의 흐름 한눈에','떠오른 생각 보관함','기분과 함께 남기는 하루','읽고 남긴 생각','방향을 정하는 곳','내 기록을 한곳에서','놓치지 말아야 할 소식','불편을 알려주세요','하루를 담다 응원하기','필요한 기능 모아보기','함께 나누는 이야기','내 공간 관리'];
+const subtitles=['오늘을 한눈에','생각을 놓치지 않는 곳','날짜로 보는 하루','돈의 흐름 한눈에','떠오른 생각 보관함','기분과 함께 남기는 하루','읽고 남긴 생각','방향을 정하는 곳','내 기록을 한곳에서','놓치지 말아야 할 소식','불편을 알려주세요','하루를 담다 응원하기','함께 나누는 이야기','내 공간 관리'];
 for(const copy of subtitles){
   if(!app.includes(copy))throw new Error(`Missing page subtitle: ${copy}`);
 }
