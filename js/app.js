@@ -225,6 +225,7 @@
 
   const pageTitles={today:['오늘','오늘을 한눈에'],'today-settings':['오늘 화면 설정','홈 블록 순서와 노출 관리'],records:['기록','생각을 놓치지 않는 곳'],calendar:['캘린더','날짜로 보는 하루'],personal:['가계부','돈의 흐름 한눈에'],workout:['운동 기록','운동과 단백질 기록'],shelter:['1 to 25','하루 쉼터 · 타임어택 미니게임'],forge:['검 강화하기','하루 쉼터 · 전설의 대장간'],lab:['아이디어','떠오른 생각 보관함'],diary:['일기','기분과 함께 남기는 하루'],books:['독서록','읽고 남긴 생각'],goals:['목표 설정','방향을 정하는 곳'],search:['통합 검색','내 기록을 한곳에서'],notifications:['알림함','놓치지 말아야 할 소식'],contact:['운영자 문의','궁금한 점을 물어보세요'],bug:['버그 제보','불편을 알려주세요'],support:['후원','하루를 담다 응원하기'],more:['더보기','필요한 기능 모아보기'],square:['광장','함께 나누는 이야기'],settings:['설정','내 공간 관리']};
   async function route(page,opt={}){
+    document.body.dataset.activePage=page;
     if(!pageTitles[page])page='today';if(!opt.fromHistory&&state.page!==page){history.pushState({haruPage:page},'',location.href)}state.page=page;
     $$('[data-page]').forEach(el=>el.classList.toggle('active',el.dataset.page===page));$$('[data-go]').forEach(el=>el.classList.toggle('active',el.dataset.go===page));
     $('#topbarTitle').textContent=pageTitles[page][0];$('#topbarSub').textContent=pageTitles[page][1];if(!opt.silent)window.scrollTo({top:0,behavior:'smooth'});
