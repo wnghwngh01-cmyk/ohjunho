@@ -6,7 +6,7 @@ const read=path=>fs.readFileSync(new URL(`../${path}`,import.meta.url),'utf8');
 const html=read('index.html'),publicHtml=read('public.html'),ui=read('js/shelter-ui.js'),css=read('assets/shelter.css'),db=read('js/db.js'),app=read('js/app.js'),sql26=read('supabase/step26_shelter_1to25.sql'),sql27=read('supabase/step27_shelter_weekly_settlement.sql'),sw=read('sw.js');
 for(const id of ['page-shelter','shelterLobby','shelterBest','shelterRank','shelterLeaderboard','shelterStart','shelterGame','shelterNext','shelterTimer','shelterGrid','shelterResult','shelterResultTime','settings-cosmetics','titleOptions','cosmeticsSave','sideTitleBadge'])assert.match(html,new RegExp(`id="${id}"`),id);
 assert.doesNotMatch(html,/id="shelterActiveTitle"/);
-assert.match(html,/<h2 class="more-group-label">하루 쉼터<\/h2><button data-go="shelter"><b>◈<\/b><span>1 to 25<\/span>/);
+assert.match(html,/하루 쉼터[\s\S]*?data-go="shelter"[\s\S]*?1 to 25/);
 assert.match(html,/<p class="eyebrow">하루 쉼터 · HARU SHELTER<\/p><h1>1 to 25<\/h1>/);
 assert.match(html,/월요일 24:00 정산 보상 미리보기/);assert.match(html,/shelterCountdown/);
 assert.match(css,/grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);assert.match(css,/\.shelter-tile\.wrong/);assert.match(css,/\.shelter-rank-rewards/);assert.match(css,/@media\(max-width:370px\)/);

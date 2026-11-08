@@ -289,81 +289,347 @@
       </section>
 
       <section id="page-more" class="page" data-page="more">
-        <div class="page-head"><div><p class="eyebrow">ALL MENU</p><h1>더보기</h1><p>기록과 관리에 필요한 모든 기능을 한곳에서 빠르게 찾아보세요.</p></div></div>
-        <div class="more-content">
-          <div class="more-group-section">
-            <div class="more-group-header">
-              <span class="more-group-title">생활</span>
-              <span class="more-group-sublabel">Daily Life</span>
-            </div>
-            <div class="more-card-list"><h2 class="more-group-label">생활</h2><button data-go="today"><b>⌂</b><span>오늘의 하루</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-today" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+  <div class="stitch-more-canvas">
+
+<!-- Profile Summary Card -->
+<div class="mt-3 p-4 rounded-2xl bg-surface-container-lowest border border-surface-container-high/80 shadow-[0_2px_10px_rgba(0,0,0,0.02)] flex items-center justify-between">
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary-container font-semibold text-lg border border-surface-container-high">
+          민
+        </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="text-[16px] font-semibold text-on-surface">김민서 님</span>
+<span class="text-[11px] px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium">기록 128일째</span>
+</div>
+<p class="text-[12px] text-on-surface-variant mt-0.5">오늘도 단정하고 고요한 하루를 담아보세요</p>
+</div>
+</div>
+<button aria-label="프로필 수정" data-go="settings" class="p-2 text-on-surface-variant hover:text-on-surface transition-colors">
+<svg class="w-4 h-4 stroke-[1.5]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+<path d="M9 18l6-6-6-6"></path>
+</svg>
+</button>
+</div>
+<!-- Section: 생활 (Daily Life) -->
+<div class="mt-6">
+<div class="flex items-center justify-between px-1 mb-2">
+<span class="text-[12px] font-semibold uppercase tracking-wider text-on-surface-variant">생활 · Daily Life</span>
+
+</div>
+<div class="bg-surface-container-lowest rounded-2xl border border-surface-container-high/70 shadow-[0_1px_4px_rgba(0,0,0,0.02)] divide-y divide-surface-container/60 overflow-hidden">
+<!-- 1. 오늘 -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="today" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-today" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
 <path d="M3 10.5L12 3l9 7.5v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
 <path d="M9 21v-7a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v7"></path>
-</svg></span><span class="more-text-box"><span class="more-item-title">오늘의 하루</span><span class="more-item-desc">매일의 핵심 일정과 루틴 점검</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="calendar"><b>□</b><span>캘린더</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-calendar" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">오늘의 하루</span>
+<span class="text-[12px] text-on-surface-variant truncate">매일의 핵심 일정과 루틴 점검</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 2. 캘린더 -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="calendar" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-calendar" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
 <rect height="16" rx="3" width="18" x="3" y="4.5"></rect>
 <path d="M16 2.5v4"></path>
 <path d="M8 2.5v4"></path>
 <path d="M3 9.5h18"></path>
-</svg></span><span class="more-text-box"><span class="more-item-title">캘린더</span><span class="more-item-desc">월별 일정 및 이벤트 모아보기</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="diary"><b>✎</b><span>일기</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-journal" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">캘린더</span>
+<span class="text-[12px] text-on-surface-variant truncate">월별 일정 및 이벤트 모아보기</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 3. 일기 -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="diary" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-journal" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
 <rect height="17" rx="2.5" width="15" x="4.5" y="3.5"></rect>
 <path d="M8.5 8.5h7"></path>
 <path d="M8.5 13h5"></path>
-</svg></span><span class="more-text-box"><span class="more-item-title">일기</span><span class="more-item-desc">마음을 솔직하게 풀어내는 하루 기록</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="personal"><b>₩</b><span>가계부</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-finance" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2.5" class=""></rect><line x1="2" y1="10" x2="22" y2="10" class=""></line><line x1="6" y1="14.5" x2="11" y2="14.5" class=""></line></svg></span><span class="more-text-box"><span class="more-item-title">가계부</span><span class="more-item-desc">소비 내역과 절약 목표 흐름</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="workout"><b>◆</b><span>운동 기록</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-workout" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 12h6"></path><path d="M6 8a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z"></path><path d="M15 8a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1z"></path><path d="M3 10v4"></path><path d="M21 10v4"></path></svg></span><span class="more-text-box"><span class="more-item-title">운동 기록</span><span class="more-item-desc">루틴 수행 시간 및 피트니스 트래커</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="records"><b>▤</b><span>기록</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-archive" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">일기</span>
+<span class="text-[12px] text-on-surface-variant truncate">마음을 솔직하게 풀어내는 하루 기록</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 4. 가계부 -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="personal" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-finance" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2.5" class=""></rect><line x1="2" y1="10" x2="22" y2="10" class=""></line><line x1="6" y1="14.5" x2="11" y2="14.5" class=""></line></svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">가계부</span>
+<span class="text-[12px] text-on-surface-variant truncate">소비 내역과 절약 목표 흐름</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 5. 운동 기록 -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="workout" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-workout" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 12h6"></path><path d="M6 8a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z"></path><path d="M15 8a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1z"></path><path d="M3 10v4"></path><path d="M21 10v4"></path></svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">운동 기록</span>
+<span class="text-[12px] text-on-surface-variant truncate">루틴 수행 시간 및 피트니스 트래커</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 6. 아카이브 (메모/기록) -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="records" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-archive" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
 <path d="M15 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
 <polyline points="14 3 14 8 20 8"></polyline>
 <line x1="8" x2="16" y1="13" y2="13"></line>
 <line x1="8" x2="13" y1="17" y2="17"></line>
-</svg></span><span class="more-text-box"><span class="more-item-title">기록</span><span class="more-item-desc">보관된 메모와 웹 클리핑</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="books"><b>▣</b><span>독서록</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-books" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">기록</span>
+<span class="text-[12px] text-on-surface-variant truncate">보관된 메모와 웹 클리핑</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 7. 독서록 -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="books" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-books" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
 <path d="M2 5.5C4.5 4.5 8 4.5 12 6.5c4-2 7.5-2 10-1v13c-2.5-1-6-1-10 1-4-2-7.5-2-10-1z"></path>
 <line x1="12" x2="12" y1="6.5" y2="19.5"></line>
-</svg></span><span class="more-text-box"><span class="more-item-title">독서록</span><span class="more-item-desc">책 속 인상 깊은 문장과 서평</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="lab"><b>◇</b><span>아이디어</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-idea" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg></span><span class="more-text-box"><span class="more-item-title">아이디어</span><span class="more-item-desc">번뜩이는 영감과 초안 모음</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button></div>
-          </div>
-          <div class="more-group-section">
-            <div class="more-group-header">
-              <span class="more-group-title">하루 쉼터</span>
-              <span class="more-group-sublabel">Shelter & Play</span>
-            </div>
-            <div class="more-card-list"><h2 class="more-group-label">하루 쉼터</h2><button data-go="shelter"><b>◈</b><span>1 to 25</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-puzzle" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">독서록</span>
+<span class="text-[12px] text-on-surface-variant truncate">책 속 인상 깊은 문장과 서평</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 8. 아이디어 -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="lab" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-idea" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">아이디어</span>
+<span class="text-[12px] text-on-surface-variant truncate">번뜩이는 영감과 초안 모음</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+</div>
+</div>
+<!-- Section: 하루 쉼터 (Shelter & Play) -->
+<div class="mt-6">
+<div class="flex items-center justify-between px-1 mb-2">
+<span class="text-[12px] font-semibold uppercase tracking-wider text-on-surface-variant">하루 쉼터 · Play</span>
+
+</div>
+<div class="bg-surface-container-lowest rounded-2xl border border-surface-container-high/70 shadow-[0_1px_4px_rgba(0,0,0,0.02)] divide-y divide-surface-container/60 overflow-hidden">
+<!-- 9. 1 to 25 -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="shelter" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-puzzle" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
 <rect height="17" rx="2.5" width="17" x="3.5" y="3.5"></rect>
 <line x1="9.16" x2="9.16" y1="3.5" y2="20.5"></line>
 <line x1="14.83" x2="14.83" y1="3.5" y2="20.5"></line>
 <line x1="3.5" x2="20.5" y1="9.16" y2="9.16"></line>
 <line x1="3.5" x2="20.5" y1="14.83" y2="14.83"></line>
-</svg></span><span class="more-text-box"><span class="more-item-title">1 to 25</span><span class="more-item-desc">마음을 가다듬는 5×5 숫자 퍼즐</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="forge"><b>⚔</b><span>검 강화하기</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-forge" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"></path><path d="M13 19l6-6"></path><path d="M16 16l4 4"></path><path d="M19 21l2-2"></path></svg></span><span class="more-text-box"><span class="more-item-title">검 강화하기</span><span class="more-item-desc">미니멀 대장간 강화 시뮬레이션</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button></div>
-          </div>
-          <div class="more-group-section">
-            <div class="more-group-header">
-              <span class="more-group-title">관리</span>
-              <span class="more-group-sublabel">Control & Social</span>
-            </div>
-            <div class="more-card-list"><h2 class="more-group-label">관리</h2><button data-go="today-settings"><b>🎛️</b><span>오늘 화면 설정</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-home-settings" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" x2="6" y1="7" y2="7" class=""></line><line x1="11" x2="20" y1="7" y2="7" class=""></line><circle cx="8.5" cy="7" fill="none" r="2.5" class=""></circle><line x1="4" x2="13" y1="17" y2="17" class=""></line><line x1="18" x2="20" y1="17" y2="17" class=""></line><circle cx="15.5" cy="17" fill="none" r="2.5" class=""></circle></svg></span><span class="more-text-box"><span class="more-item-title">오늘 화면 설정</span><span class="more-item-desc">홈 위젯 순서 및 표시 카드 커스텀</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="goals"><b>◎</b><span>목표 설정</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-goals" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="text-[15px] font-medium text-on-surface">1 to 25</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-medium bg-secondary-container text-on-secondary-container">NEW</span>
+</div>
+<span class="text-[12px] text-on-surface-variant truncate">마음을 가다듬는 5×5 숫자 퍼즐</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 10. 검 강화하기 (정갈한 수평 모루 + 수직 망치) -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="forge" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-forge" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"></path><path d="M13 19l6-6"></path><path d="M16 16l4 4"></path><path d="M19 21l2-2"></path></svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">검 강화하기</span>
+<span class="text-[12px] text-on-surface-variant truncate">미니멀 대장간 강화 시뮬레이션</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+</div>
+</div>
+<!-- Section: 관리 (Control & Social) -->
+<div class="mt-6">
+<div class="flex items-center justify-between px-1 mb-2">
+<span class="text-[12px] font-semibold uppercase tracking-wider text-on-surface-variant">관리 · Control &amp; Social</span>
+
+</div>
+<div class="bg-surface-container-lowest rounded-2xl border border-surface-container-high/70 shadow-[0_1px_4px_rgba(0,0,0,0.02)] divide-y divide-surface-container/60 overflow-hidden">
+<!-- 11. 오늘 화면 설정 -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="today-settings" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-home-settings" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" x2="6" y1="7" y2="7" class=""></line><line x1="11" x2="20" y1="7" y2="7" class=""></line><circle cx="8.5" cy="7" fill="none" r="2.5" class=""></circle><line x1="4" x2="13" y1="17" y2="17" class=""></line><line x1="18" x2="20" y1="17" y2="17" class=""></line><circle cx="15.5" cy="17" fill="none" r="2.5" class=""></circle></svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">오늘 화면 설정</span>
+<span class="text-[12px] text-on-surface-variant truncate">홈 위젯 순서 및 표시 카드 커스텀</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 12. 목표 설정 (동심원 과녁) -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="goals" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-goals" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="9"></circle>
 <circle cx="12" cy="12" r="5"></circle>
 <circle cx="12" cy="12" fill="currentColor" r="1.5"></circle>
-</svg></span><span class="more-text-box"><span class="more-item-title">목표 설정</span><span class="more-item-desc">주기별 달성률과 마일스톤 관리</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="square"><b>◉</b><span>광장</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-square" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" class=""></path></svg></span><span class="more-text-box"><span class="more-item-title">광장</span><span class="more-item-desc">사용자들과 나누는 하루의 단상</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="search"><b>⌕</b><span>통합 검색</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-search" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">목표 설정</span>
+<span class="text-[12px] text-on-surface-variant truncate">주기별 달성률과 마일스톤 관리</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 13. 광장 (부드러운 미니멀 말풍선) -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="square" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-square" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" class=""></path></svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">광장</span>
+<span class="text-[12px] text-on-surface-variant truncate">사용자들과 나누는 하루의 단상</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 14. 통합 검색 (정직한 45도 손잡이) -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="search" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-search" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
 <circle cx="11" cy="11" r="7"></circle>
 <line x1="16.5" x2="21" y1="16.5" y2="21"></line>
-</svg></span><span class="more-text-box"><span class="more-item-title">통합 검색</span><span class="more-item-desc">작성한 일기, 메모, 가계부 전체 색인</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button></div>
-          </div>
-          <div class="more-group-section">
-            <div class="more-group-header">
-              <span class="more-group-title">도움</span>
-              <span class="more-group-sublabel">Support & System</span>
-            </div>
-            <div class="more-card-list"><h2 class="more-group-label">도움</h2><button data-go="bug"><b>!</b><span>버그 제보</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-bug" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88" class=""></path><path d="M14.12 3.88 16 2" class=""></path><rect height="14" rx="4" width="8" x="8" y="6" class=""></rect><path d="M19 7h-3" class=""></path><path d="M5 7h3" class=""></path><path d="m19 19-3-1.5" class=""></path><path d="m5 19 3-1.5" class=""></path><path d="M20 13h-4" class=""></path><path d="M4 13h4" class=""></path></svg></span><span class="more-text-box"><span class="more-item-title">버그 제보</span><span class="more-item-desc">불편한 점 및 비정상 동작 리포트</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="contact"><b>?</b><span>운영자 1:1 문의</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-support" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">통합 검색</span>
+<span class="text-[12px] text-on-surface-variant truncate">작성한 일기, 메모, 가계부 전체 색인</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+</div>
+</div>
+<!-- Section: 도움 (Support & System) -->
+<div class="mt-6">
+<div class="flex items-center justify-between px-1 mb-2">
+<span class="text-[12px] font-semibold uppercase tracking-wider text-on-surface-variant">도움 · Support &amp; System</span>
+
+</div>
+<div class="bg-surface-container-lowest rounded-2xl border border-surface-container-high/70 shadow-[0_1px_4px_rgba(0,0,0,0.02)] divide-y divide-surface-container/60 overflow-hidden">
+<!-- 15. 버그 제보 (단정하고 깔끔한 실드 비틀) -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="bug" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-bug" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88" class=""></path><path d="M14.12 3.88 16 2" class=""></path><rect height="14" rx="4" width="8" x="8" y="6" class=""></rect><path d="M19 7h-3" class=""></path><path d="M5 7h3" class=""></path><path d="m19 19-3-1.5" class=""></path><path d="m5 19 3-1.5" class=""></path><path d="M20 13h-4" class=""></path><path d="M4 13h4" class=""></path></svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">버그 제보</span>
+<span class="text-[12px] text-on-surface-variant truncate">불편한 점 및 비정상 동작 리포트</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 16. 운영자 문의 (단정하고 현대적인 헤드셋 라인) -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="contact" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-support" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
 <path d="M4 13a8 8 0 0 1 16 0"></path>
 <rect height="6" rx="1.5" width="3" x="2.5" y="12"></rect>
 <rect height="6" rx="1.5" width="3" x="18.5" y="12"></rect>
 <path d="M20 18v1.5a2 2 0 0 1-2 2h-3"></path>
-</svg></span><span class="more-text-box"><span class="more-item-title">운영자 1:1 문의</span><span class="more-item-desc">서비스 이용 및 라이선스 문의</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="support"><b>♥</b><span>창작자 후원하기</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-heart" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">운영자 1:1 문의</span>
+<span class="text-[12px] text-on-surface-variant truncate">서비스 이용 및 라이선스 문의</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 17. 후원 (정교한 기하학적 하트) -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="support" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-heart" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-</svg></span><span class="more-text-box"><span class="more-item-title">창작자 후원하기</span><span class="more-item-desc">마음 담긴 커피 한 잔으로 힘을 보태주세요</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button><button data-go="settings"><b>⚙</b><span>앱 환경 설정</span><span class="more-item-body"><span class="more-item-main"><span class="more-icon-box"><svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-settings" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">창작자 후원하기</span>
+<span class="text-[12px] text-on-surface-variant truncate">마음 담긴 커피 한 잔으로 힘을 보태주세요</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+<!-- 18. 설정 -->
+<a class="group flex items-center justify-between p-3.5 hover:bg-surface-container-low transition-colors" href="#" data-go="settings" role="button">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-9 h-9 rounded-xl bg-surface-container-low flex items-center justify-center text-primary-container group-hover:bg-secondary-container/40 transition-colors shrink-0">
+<svg class="w-5 h-5 stroke-[1.5]" fill="none" id="icon-settings" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="3"></circle>
 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-</svg></span><span class="more-text-box"><span class="more-item-title">앱 환경 설정</span><span class="more-item-desc">테마, 로컬 백업, 생체 인증 잠금</span></span></span><svg class="more-item-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></span></button></div>
-          </div>
-        </div>
-      </section>
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[15px] font-medium text-on-surface">앱 환경 설정</span>
+<span class="text-[12px] text-on-surface-variant truncate">테마, 로컬 백업, 생체 인증 잠금</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-outline-variant stroke-[1.5] group-hover:text-on-surface transition-colors shrink-0 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+</a>
+</div>
+</div>
+
+  </div>
+</section>
 
       <section id="page-shelter" class="page" data-page="shelter">
         <div class="page-head"><div><p class="eyebrow">하루 쉼터 · HARU SHELTER</p><h1>1 to 25</h1><p>1부터 25까지 가장 빠른 손끝으로 순서대로 터치해 보세요.</p></div></div>
