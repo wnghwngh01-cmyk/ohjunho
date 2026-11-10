@@ -24,6 +24,6 @@ assert.match(sql,/add column if not exists has_sword boolean not null default tr
 assert.match(balanceSql,/successes numeric\[\]:=array\[100,95,90,85/);assert.match(balanceSql,/stays numeric\[\]:=array\[0,5,10,14/);assert.match(balanceSql,/destroys numeric\[\]:=array\[0,0,0,1/);assert.match(balanceSql,/when'stamina_1'then cost:=250/);
 for(const contract of ["when'stamina_1'then cost:=120","when'whetstone_1'then cost:=100","when'shield_1'then cost:=200","when'shield_5'then cost:=900","when'shield_10'then cost:=1700","when'sword_10'then cost:=300","when'sword_15'then cost:=1000","when'sword_20'then cost:=3000","when'shard_shield'then fragment_cost:=25"])assert.match(shopSql,new RegExp(contract));
 assert.match(stateFixSql,/rates_json jsonb:=null/);assert.match(stateFixSql,/'rates',rates_json/);assert.doesNotMatch(stateFixSql,/rates record/);
-assert.match(sw,/daily-life-shell-v116/);
+assert.match(sw,/daily-life-shell-v117/);
 
 console.log('forge contract: PASS (empty anvil, draw-only stamina, compact game/shop, 5 tabs, 20+ graveyard, atomic RPCs)');

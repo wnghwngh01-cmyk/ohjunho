@@ -105,16 +105,5 @@ html:not([data-theme="dark"]) #page-today .stitch-layout-empty p{margin:0 0 12px
   html:not([data-theme="dark"]) .app-main:has(#page-today.active) .sync-state{margin-left:auto;gap:6px;padding:2px 8px;border-radius:999px;background:var(--st-surface-low);color:var(--st-secondary);font-size:11px;line-height:17px;font-weight:500}
   html:not([data-theme="dark"]) .app-main:has(#page-today.active) .sync-state i{width:6px;height:6px;background:var(--st-secondary)}
   html:not([data-theme="dark"]) .app-main:has(#page-today.active) .topbar .icon-btn{width:44px;height:44px;padding:0;border:0;background:transparent;color:var(--st-muted);font-size:0;box-shadow:none}
-  html:not([data-theme="dark"]) .app-main:has(#page-today.active) .topbar .icon-btn:before{content:'notifications';font:400 22px/1 'Material Symbols Outlined'}
-  html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav{height:calc(64px + env(safe-area-inset-bottom,0px));padding:0 0 env(safe-area-inset-bottom,0px);border-top:1px solid var(--st-line);background:rgba(251,249,245,.95);backdrop-filter:blur(12px)}
-  html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav button,html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav .quick-main{width:auto;height:64px;min-height:48px;border-radius:0;background:transparent;box-shadow:none;color:var(--st-muted);font-size:11px;line-height:16px;font-weight:400;gap:2px}
-  html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav button.active{background:transparent;color:var(--st-primary);font-weight:600}
-  html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav .ico{font-size:0;font-family:'Material Symbols Outlined';font-weight:400}
-  html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav .ico:before{font-size:22px;line-height:1}
-  html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav [data-go="today"] .ico:before{content:'calendar_today'}
-  html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav [data-go="calendar"] .ico:before{content:'calendar_month'}
-  html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav [data-go="more"] .ico:before{content:'grid_view'}
-  html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav [data-go="personal"] .ico:before{content:'account_balance_wallet'}
-  html:not([data-theme="dark"]) .app-shell:has(#page-today.active) .bottom-nav [data-go="square"] .ico:before{content:'forum'}
 }
 @media(max-width:360px){html:not([data-theme="dark"]) #page-today{padding-left:14px;padding-right:14px}html:not([data-theme="dark"]) #page-today .stitch-section-head>div{gap:6px}html:not([data-theme="dark"]) #page-today .stitch-section-note{font-size:11px}}

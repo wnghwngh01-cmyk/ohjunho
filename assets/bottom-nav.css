@@ -1,0 +1,57 @@
+/* Shared mobile navigation: one visual contract for every page. */
+@media(max-width:760px){
+  html:not([data-theme="dark"]) .app-shell .bottom-nav{
+    left:0;right:0;bottom:0;width:100%;max-width:none;transform:none;
+    display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+    height:calc(64px + env(safe-area-inset-bottom,0px));
+    padding:0 0 env(safe-area-inset-bottom,0px);
+    border-top:1px solid #e9e8e5;
+    background:rgba(250,249,246,.95);
+    box-shadow:none;backdrop-filter:blur(12px);z-index:60;
+  }
+  html:not([data-theme="dark"]) .app-shell .bottom-nav button,
+  html:not([data-theme="dark"]) .app-shell .bottom-nav .quick-main{
+    width:auto;height:64px;min-width:0;min-height:48px;padding:0;
+    border:0;border-radius:0;background:transparent;box-shadow:none;
+    color:#66716b;font-size:10px;line-height:14px;font-weight:500;gap:4px;
+  }
+  html:not([data-theme="dark"]) .app-shell .bottom-nav button.active,
+  html:not([data-theme="dark"]) .app-shell .bottom-nav .quick-main.active{
+    background:transparent;color:#1e3a2f;font-weight:600;
+  }
+  .app-shell .bottom-nav svg{
+    display:block;width:20px;height:20px;min-width:20px;max-width:20px;
+    min-height:20px;max-height:20px;flex:0 0 20px;stroke-width:1.5;
+  }
+}
+
+@media(max-width:760px){
+  html[data-theme="dark"] .app-shell .bottom-nav{
+    height:calc(64px + env(safe-area-inset-bottom,0px));
+    padding:0 0 env(safe-area-inset-bottom,0px);
+    grid-template-columns:repeat(5,minmax(0,1fr));
+  }
+  html[data-theme="dark"] .app-shell .bottom-nav button,
+  html[data-theme="dark"] .app-shell .bottom-nav .quick-main{
+    width:auto;height:64px;min-width:0;min-height:48px;padding:0;
+    border-radius:0;background:transparent;box-shadow:none;
+    font-size:10px;line-height:14px;font-weight:500;gap:4px;
+  }
+  html[data-theme="dark"] .app-shell .bottom-nav button.active,
+  html[data-theme="dark"] .app-shell .bottom-nav .quick-main.active{
+    background:transparent;font-weight:600;
+  }
+}
+
+html.native-app .app-shell .bottom-nav{
+  left:0;right:0;bottom:0;width:100%;max-width:none;transform:none;
+  height:calc(64px + env(safe-area-inset-bottom,0px));
+  padding:0 0 env(safe-area-inset-bottom,0px);
+  grid-template-columns:repeat(5,minmax(0,1fr));
+}
+html.native-app .app-shell .bottom-nav button,
+html.native-app .app-shell .bottom-nav .quick-main{
+  width:auto;height:64px;min-width:0;min-height:48px;padding:0;
+  border-radius:0;background:transparent;box-shadow:none;
+  font-size:10px;line-height:14px;font-weight:500;gap:4px;
+}
