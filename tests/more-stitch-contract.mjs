@@ -17,6 +17,7 @@ const routes=[...section.matchAll(/data-go="([^"]+)" role="button"/g)].map(match
 assert.deepEqual(routes,['settings','today','calendar','diary','personal','workout','records','books','lab','shelter','forge','today-settings','goals','square','search','bug','contact','support','settings']);
 assert.deepEqual([...bottom.matchAll(/data-go="([^"]+)"/g)].map(match=>match[1]),['today','calendar','personal','square','more']);
 assert.equal((bottom.match(/<svg\b/g)||[]).length,5);
+assert.equal((bottom.match(/<svg\b[^>]*width="20"[^>]*height="20"/g)||[]).length,5);
 assert.match(section,/하루를 담다 · v2\.4\.0/);
 assert.match(section,/나의 하루를 안전하고 고요하게 담는 일상 앱/);
 assert.doesNotMatch(section,/NEW|미니멀 벡터 디자인 시스템|Made with Pure Minimal Vector Geometry/);
@@ -30,12 +31,13 @@ assert.match(config,/fontFamily:\{sans:\['Noto Sans KR'/);
 assert.match(generated,/space-y-6/);
 assert.match(css,/max-width:430px/);
 assert.match(css,/font-size:22px/);
+assert.match(css,/\.bottom-nav svg\{display:block;width:20px;height:20px;min-width:20px;max-width:20px/);
 assert.doesNotMatch(css,/bottom-nav[^}]*display\s*:\s*none/is);
-assert.match(html,/more-stitch\.generated\.css\?v=20261108-more-v4/);
-assert.match(html,/more-stitch\.css\?v=20261108-more-v4/);
-assert.match(sw,/daily-life-shell-v115/);
-assert.match(sw,/more-stitch\.generated\.css\?v=20261108-more-v4/);
-assert.match(sw,/more-stitch\.css\?v=20261108-more-v4/);
+assert.match(html,/more-stitch\.generated\.css\?v=20261110-more-v5/);
+assert.match(html,/more-stitch\.css\?v=20261110-more-v5/);
+assert.match(sw,/daily-life-shell-v116/);
+assert.match(sw,/more-stitch\.generated\.css\?v=20261110-more-v5/);
+assert.match(sw,/more-stitch\.css\?v=20261110-more-v5/);
 assert.match(sw,/more-profile\.js\?v=20261108-more-v3/);
 
 console.log('More Stitch final single-file contract PASS');
