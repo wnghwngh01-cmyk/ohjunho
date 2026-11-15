@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="./assets/styles.css?v=20261107-notifications-v1">
   <link rel="stylesheet" href="./assets/light-theme.css?v=20261030-square-author-v1">
   <link rel="stylesheet" href="./assets/today-stitch.css?v=20261111-today-final-v1">
-  <link rel="stylesheet" href="./assets/calendar-stitch.css?v=20261115-calendar-final-v1">
+  <link rel="stylesheet" href="./assets/calendar-stitch.css?v=20261115-calendar-final-v2">
   <link rel="stylesheet" href="./assets/avatar-frame.css?v=20261024-avatar-frame-v13">
   <link rel="stylesheet" href="./assets/budget.css?v=20261030-budget-preview-v1">
 <link rel="stylesheet" href="./assets/writing-templates.css?v=20261014-h1">
@@ -226,11 +226,11 @@
             <div id="selectedHoliday" class="selected-holiday hidden"></div>
             <div id="selectedEvents" class="selected-event-list"></div>
             <details id="eventComposer" class="module-add calendar-disclosure">
-              <summary><span id="eventComposerTitle">일정 추가</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
-              <div class="calendar-form-stack">
-                <input id="eventName" class="calendar-main-input" maxlength="120" placeholder="예: 프로젝트 마감 / 가족 모임">
+              <summary><span id="eventComposerTitle">일정 추가</span><svg class="chevron chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+              <div class="calendar-form-panel calendar-form-stack">
+                <label class="calendar-field"><span>일정 내용</span><input id="eventName" maxlength="120" placeholder="예: 프로젝트 마감 / 가족 모임"></label>
                 <div class="date-range"><label class="calendar-field"><span>시작일</span><input id="eventStart" type="date"></label><label class="calendar-field"><span>종료일</span><input id="eventEnd" type="date"></label></div>
-                <fieldset class="event-color-field"><legend>일정 색상</legend><div id="eventColorPicker" class="event-color-picker"><label title="초록"><input type="radio" name="eventColor" value="forest" checked><span class="color-swatch color-forest"></span></label><label title="연두"><input type="radio" name="eventColor" value="sage"><span class="color-swatch color-sage"></span></label><label title="파랑"><input type="radio" name="eventColor" value="blue"><span class="color-swatch color-blue"></span></label><label title="주황"><input type="radio" name="eventColor" value="amber"><span class="color-swatch color-amber"></span></label><label title="분홍"><input type="radio" name="eventColor" value="rose"><span class="color-swatch color-rose"></span></label><label title="보라"><input type="radio" name="eventColor" value="violet"><span class="color-swatch color-violet"></span></label></div></fieldset>
+                <fieldset class="event-color-field"><legend>색상 테마</legend><div id="eventColorPicker" class="event-color-picker"><label title="초록"><input type="radio" name="eventColor" value="forest" checked><span class="color-swatch color-forest"></span></label><label title="연두"><input type="radio" name="eventColor" value="sage"><span class="color-swatch color-sage"></span></label><label title="파랑"><input type="radio" name="eventColor" value="blue"><span class="color-swatch color-blue"></span></label><label title="주황"><input type="radio" name="eventColor" value="amber"><span class="color-swatch color-amber"></span></label><label title="분홍"><input type="radio" name="eventColor" value="rose"><span class="color-swatch color-rose"></span></label><label title="보라"><input type="radio" name="eventColor" value="violet"><span class="color-swatch color-violet"></span></label></div></fieldset>
                 <label class="calendar-check-label"><input id="eventImportant" type="checkbox"><span>중요한 날짜로 표시하고 D-Day 보기</span></label>
                 <div class="calendar-form-actions"><button id="eventAdd" type="button">일정 추가</button><button id="eventCancel" type="button" class="hidden">취소</button></div>
               </div>
@@ -241,13 +241,15 @@
             <div class="checklist-head"><h3>선택한 날짜의 습관 체크리스트</h3><span id="selectedHabitSubDate"></span></div>
             <div id="selectedHabits" class="selected-habit-list"></div>
             <details class="module-add habit-settings calendar-disclosure">
-              <summary><span>체크리스트 항목 설정</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+              <summary><span>체크리스트 항목 설정</span><svg class="chevron chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
               <div class="habit-settings-body">
+                <div class="habit-template-heading">등록된 습관 목록</div>
                 <div id="habitTemplateList" class="habit-template-list"></div>
-                <div class="calendar-form-stack habit-editor">
-                  <input id="habitNewName" class="calendar-main-input" placeholder="예: 운동하기">
+                <div class="calendar-form-stack habit-editor calendar-form-panel">
+                  <div id="habitComposerTitle" class="habit-composer-title">새 습관 추가</div>
+                  <label class="calendar-field"><span>습관 이름</span><input id="habitNewName" placeholder="예: 운동하기"></label>
                   <label class="calendar-field"><span>반복 주기</span><select id="habitSchedule"><option value="daily">매일</option><option value="weekdays">평일</option><option value="selected_weekdays">요일 선택</option><option value="weekly_n">주 N회</option></select></label>
-                  <fieldset id="habitWeekdayPicker" class="weekday-picker hidden"><legend>요일</legend><label><input type="checkbox" value="0"><span>일</span></label><label><input type="checkbox" value="1"><span>월</span></label><label><input type="checkbox" value="2"><span>화</span></label><label><input type="checkbox" value="3"><span>수</span></label><label><input type="checkbox" value="4"><span>목</span></label><label><input type="checkbox" value="5"><span>금</span></label><label><input type="checkbox" value="6"><span>토</span></label></fieldset>
+                  <fieldset id="habitWeekdayPicker" class="weekday-picker hidden"><legend>실행 요일 선택</legend><label><input type="checkbox" value="0"><span>일</span></label><label><input type="checkbox" value="1"><span>월</span></label><label><input type="checkbox" value="2"><span>화</span></label><label><input type="checkbox" value="3"><span>수</span></label><label><input type="checkbox" value="4"><span>목</span></label><label><input type="checkbox" value="5"><span>금</span></label><label><input type="checkbox" value="6"><span>토</span></label></fieldset>
                   <label id="habitWeeklyCountWrap" class="calendar-field hidden"><span>주간 목표 횟수</span><input id="habitWeeklyCount" type="number" min="1" max="7" value="3"></label>
                   <div class="calendar-form-actions"><button id="habitAdd" type="button">추가</button><button id="habitCancel" type="button" class="hidden">취소</button></div>
                 </div>
@@ -803,7 +805,7 @@
 <script src="./js/shelter-ui.js?v=20261104-forge-v2"></script>
 <script src="./js/forge-ui.js?v=20261104-forge-v5"></script>
 <script src="./js/more-profile.js?v=20261108-more-v3"></script>
-<script src="./js/app.js?v=20261115-calendar-final-v1"></script>
+<script src="./js/app.js?v=20261115-calendar-final-v2"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>
