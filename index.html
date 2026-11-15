@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="./assets/styles.css?v=20261107-notifications-v1">
   <link rel="stylesheet" href="./assets/light-theme.css?v=20261030-square-author-v1">
   <link rel="stylesheet" href="./assets/today-stitch.css?v=20261111-today-final-v1">
+  <link rel="stylesheet" href="./assets/calendar-stitch.css?v=20261115-calendar-final-v1">
   <link rel="stylesheet" href="./assets/avatar-frame.css?v=20261024-avatar-frame-v13">
   <link rel="stylesheet" href="./assets/budget.css?v=20261030-budget-preview-v1">
 <link rel="stylesheet" href="./assets/writing-templates.css?v=20261014-h1">
@@ -205,11 +206,54 @@
         </div>
       </section>
 
-      <section id="page-calendar" class="page wide" data-page="calendar">
-        <div class="page-head"><div><p class="eyebrow">TIME MANAGEMENT</p><h1>캘린더</h1><p>일정과 중요한 날, 습관의 흐름을 달력에서 한눈에 살펴보세요.</p></div><div class="head-actions"><button id="calPrev" class="btn secondary small">‹ 이전</button><button id="calToday" class="btn secondary small">오늘</button><button id="calNext" class="btn secondary small">다음 ›</button></div></div>
-        <div class="calendar-shell">
-          <section class="calendar-card"><div class="month-head"><button id="calPrevMobile" class="icon-btn">‹</button><h3 id="calendarMonth">2026년 9월</h3><button id="calNextMobile" class="icon-btn">›</button></div><div class="week"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div><div id="calendarDays" class="days"></div></section>
-          <aside class="day-detail"><h3 id="selectedDayTitle">오늘</h3><div id="selectedHoliday" class="selected-holiday hidden"></div><div id="selectedEvents"></div><details id="eventComposer" class="module-add"><summary>일정 추가</summary><div class="stack"><label class="field"><span>일정</span><input id="eventName" placeholder="예: 헬스 19:00 / 과제 제출"></label><div class="date-range"><label class="field"><span>시작일</span><input id="eventStart" type="date"></label><label class="field"><span>종료일</span><input id="eventEnd" type="date"></label></div><fieldset class="event-color-field"><legend>일정 색상</legend><div id="eventColorPicker" class="event-color-picker"><label title="초록"><input type="radio" name="eventColor" value="forest" checked><span class="color-swatch color-forest"></span></label><label title="연두"><input type="radio" name="eventColor" value="sage"><span class="color-swatch color-sage"></span></label><label title="파랑"><input type="radio" name="eventColor" value="blue"><span class="color-swatch color-blue"></span></label><label title="주황"><input type="radio" name="eventColor" value="amber"><span class="color-swatch color-amber"></span></label><label title="분홍"><input type="radio" name="eventColor" value="rose"><span class="color-swatch color-rose"></span></label><label title="보라"><input type="radio" name="eventColor" value="violet"><span class="color-swatch color-violet"></span></label></div></fieldset><label class="consent compact"><input id="eventImportant" type="checkbox"><span>중요한 날짜로 표시하고 D-Day 보기</span></label><div class="row"><button id="eventAdd" class="btn primary">일정 추가</button><button id="eventCancel" class="btn ghost hidden" type="button">취소</button></div></div></details><div class="checklist-section"><div class="section-label">선택한 날짜의 습관 체크리스트</div><div id="selectedHabits" class="list"></div></div><details class="module-add habit-settings"><summary>체크리스트 항목 설정</summary><div id="habitTemplateList" class="stack"></div><div class="stack"><input id="habitNewName" class="input" placeholder="예: 운동하기"><div class="two-col"><label class="field"><span>반복</span><select id="habitSchedule"><option value="daily">매일</option><option value="weekdays">평일</option><option value="selected_weekdays">요일 선택</option><option value="weekly_n">주 N회</option></select></label><label id="habitWeeklyCountWrap" class="field hidden"><span>목표 횟수</span><input id="habitWeeklyCount" type="number" min="1" max="7" value="3"></label></div><div class="row"><button id="habitAdd" class="btn secondary small">추가</button><button id="habitCancel" class="btn ghost small hidden" type="button">취소</button></div></div></details></aside>
+      <section id="page-calendar" class="page wide stitch-calendar" data-page="calendar">
+        <div class="stitch-calendar-canvas">
+          <section class="calendar-card" aria-label="월간 달력">
+            <div class="month-head">
+              <h1 id="calendarMonth">2026년 11월</h1>
+              <div class="calendar-controls">
+                <button id="calPrev" type="button" class="calendar-arrow" aria-label="이전 달"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+                <button id="calToday" type="button" class="calendar-today">오늘</button>
+                <button id="calNext" type="button" class="calendar-arrow" aria-label="다음 달"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+              </div>
+            </div>
+            <div class="week" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
+            <div id="calendarDays" class="days calendar-grid"></div>
+          </section>
+
+          <aside class="day-detail">
+            <div class="selected-day-head"><h2 id="selectedDayTitle">선택한 날짜</h2><span id="selectedEventCount">0건의 일정</span></div>
+            <div id="selectedHoliday" class="selected-holiday hidden"></div>
+            <div id="selectedEvents" class="selected-event-list"></div>
+            <details id="eventComposer" class="module-add calendar-disclosure">
+              <summary><span id="eventComposerTitle">일정 추가</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+              <div class="calendar-form-stack">
+                <input id="eventName" class="calendar-main-input" maxlength="120" placeholder="예: 프로젝트 마감 / 가족 모임">
+                <div class="date-range"><label class="calendar-field"><span>시작일</span><input id="eventStart" type="date"></label><label class="calendar-field"><span>종료일</span><input id="eventEnd" type="date"></label></div>
+                <fieldset class="event-color-field"><legend>일정 색상</legend><div id="eventColorPicker" class="event-color-picker"><label title="초록"><input type="radio" name="eventColor" value="forest" checked><span class="color-swatch color-forest"></span></label><label title="연두"><input type="radio" name="eventColor" value="sage"><span class="color-swatch color-sage"></span></label><label title="파랑"><input type="radio" name="eventColor" value="blue"><span class="color-swatch color-blue"></span></label><label title="주황"><input type="radio" name="eventColor" value="amber"><span class="color-swatch color-amber"></span></label><label title="분홍"><input type="radio" name="eventColor" value="rose"><span class="color-swatch color-rose"></span></label><label title="보라"><input type="radio" name="eventColor" value="violet"><span class="color-swatch color-violet"></span></label></div></fieldset>
+                <label class="calendar-check-label"><input id="eventImportant" type="checkbox"><span>중요한 날짜로 표시하고 D-Day 보기</span></label>
+                <div class="calendar-form-actions"><button id="eventAdd" type="button">일정 추가</button><button id="eventCancel" type="button" class="hidden">취소</button></div>
+              </div>
+            </details>
+          </aside>
+
+          <section class="checklist-section">
+            <div class="checklist-head"><h3>선택한 날짜의 습관 체크리스트</h3><span id="selectedHabitSubDate"></span></div>
+            <div id="selectedHabits" class="selected-habit-list"></div>
+            <details class="module-add habit-settings calendar-disclosure">
+              <summary><span>체크리스트 항목 설정</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+              <div class="habit-settings-body">
+                <div id="habitTemplateList" class="habit-template-list"></div>
+                <div class="calendar-form-stack habit-editor">
+                  <input id="habitNewName" class="calendar-main-input" placeholder="예: 운동하기">
+                  <label class="calendar-field"><span>반복 주기</span><select id="habitSchedule"><option value="daily">매일</option><option value="weekdays">평일</option><option value="selected_weekdays">요일 선택</option><option value="weekly_n">주 N회</option></select></label>
+                  <fieldset id="habitWeekdayPicker" class="weekday-picker hidden"><legend>요일</legend><label><input type="checkbox" value="0"><span>일</span></label><label><input type="checkbox" value="1"><span>월</span></label><label><input type="checkbox" value="2"><span>화</span></label><label><input type="checkbox" value="3"><span>수</span></label><label><input type="checkbox" value="4"><span>목</span></label><label><input type="checkbox" value="5"><span>금</span></label><label><input type="checkbox" value="6"><span>토</span></label></fieldset>
+                  <label id="habitWeeklyCountWrap" class="calendar-field hidden"><span>주간 목표 횟수</span><input id="habitWeeklyCount" type="number" min="1" max="7" value="3"></label>
+                  <div class="calendar-form-actions"><button id="habitAdd" type="button">추가</button><button id="habitCancel" type="button" class="hidden">취소</button></div>
+                </div>
+              </div>
+            </details>
+          </section>
         </div>
       </section>
 
@@ -759,7 +803,7 @@
 <script src="./js/shelter-ui.js?v=20261104-forge-v2"></script>
 <script src="./js/forge-ui.js?v=20261104-forge-v5"></script>
 <script src="./js/more-profile.js?v=20261108-more-v3"></script>
-<script src="./js/app.js?v=20261111-today-final-v1"></script>
+<script src="./js/app.js?v=20261115-calendar-final-v1"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>
