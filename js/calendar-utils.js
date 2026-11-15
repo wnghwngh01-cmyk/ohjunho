@@ -94,24 +94,12 @@
 
   function buildEventLayout(events,gridStart,dayCount=42,maxVisible=2){
     const cells=new Map();
-    for(let i=0;i<dayCount;i++)cells.set(shiftDay(gridStart,i),{slots:Array(maxVisible).fill(null),hidden:0});
-    for(let week=0;week<dayCount;week+=7){
-      const weekStart=shiftDay(gridStart,week),weekEnd=shiftDay(weekStart,6),laneEnds=[];
-      const inWeek=(events||[]).filter(e=>e.start_date<=weekEnd&&e.end_date>=weekStart).sort((a,b)=>
-        eventDuration(b)-eventDuration(a)||Number(!!a.system)-Number(!!b.system)||String(a.start_date).localeCompare(String(b.start_date))||String(a.id||a.name).localeCompare(String(b.id||b.name))
+    for(let i=0;i<dayCount;i++){
+      const day=shiftDay(gridStart,i);
+      const active=(events||[]).filter(event=>event.start_date<=day&&event.end_date>=day).sort((a,b)=>
+        Number(!!a.system)-Number(!!b.system)||eventDuration(b)-eventDuration(a)||String(a.start_date).localeCompare(String(b.start_date))||String(a.id||a.name).localeCompare(String(b.id||b.name))
       );
-      for(const event of inWeek){
-        const segmentStart=event.start_date<weekStart?weekStart:event.start_date;
-        const segmentEnd=event.end_date>weekEnd?weekEnd:event.end_date;
-        let lane=laneEnds.findIndex(end=>end<segmentStart);
-        if(lane<0)lane=laneEnds.length;
-        laneEnds[lane]=segmentEnd;
-        for(let key=segmentStart;key<=segmentEnd;key=shiftDay(key,1)){
-          const cell=cells.get(key);if(!cell)continue;
-          if(lane<maxVisible)cell.slots[lane]={event,start:key===segmentStart,end:key===segmentEnd};
-          else cell.hidden+=1;
-        }
-      }
+      cells.set(day,{slots:active.slice(0,maxVisible).map(event=>({event,start:day===event.start_date,end:day===event.end_date})),hidden:Math.max(0,active.length-maxVisible)});
     }
     return cells;
   }

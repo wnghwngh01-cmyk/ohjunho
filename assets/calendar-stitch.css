@@ -294,7 +294,7 @@ html:not([data-theme="dark"]) #page-calendar .event-row,
 html:not([data-theme="dark"]) #page-calendar .check,
 #page-calendar .check { width: 16px !important; height: 16px !important; min-height: 16px !important; padding: 0 !important; flex: 0 0 16px !important; display: grid !important; place-items: center !important; border: 1px solid #dcd8d0 !important; border-radius: 4px !important; color: #fff !important; background: #fff !important; box-shadow: none !important; cursor: pointer !important; }
 #page-calendar .check.done { border-color: #1e3a2f !important; background: #1e3a2f !important; }
-#page-calendar .check.done::after { content: "" !important; width: 4px !important; height: 7px !important; display: block !important; border: 0 solid #fff !important; border-width: 0 2px 2px 0 !important; transform: translateY(-1px) rotate(45deg) !important; }
+#page-calendar .calendar-check-glyph { display: block !important; color: #fff !important; font-size: 12px !important; line-height: 1 !important; font-weight: 800 !important; font-family: Arial, sans-serif !important; transform: translateY(-.5px) !important; }
 #page-calendar .event-copy,
 #page-calendar .mini-item .body { min-width: 0 !important; flex: 1 1 auto !important; display: block !important; overflow: hidden !important; }
 #page-calendar .event-copy strong,

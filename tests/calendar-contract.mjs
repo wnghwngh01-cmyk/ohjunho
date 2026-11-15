@@ -15,6 +15,9 @@ const sameDay=[1,2,3,4].map(id=>({id,name:`일정 ${id}`,start_date:'2026-10-14'
 const crowded=Cal.buildEventLayout(sameDay,'2026-10-11',7,2).get('2026-10-14');
 assert.equal(crowded.slots.filter(Boolean).length,2,'two events should remain visible');
 assert.equal(crowded.hidden,2,'the remaining events should be represented by +2');
+const exactlyTwo=Cal.buildEventLayout(sameDay.slice(0,2),'2026-10-11',7,2).get('2026-10-14');
+assert.equal(exactlyTwo.slots.length,2,'both same-day events should render as badges');
+assert.equal(exactlyTwo.hidden,0,'two same-day events must not produce a false +1 count');
 
 const userEventsBeforeHoliday=Cal.buildEventLayout([
   {id:'holiday:2026-10-14',name:'공휴일',start_date:'2026-10-14',end_date:'2026-10-14',system:true},
@@ -98,7 +101,8 @@ assert.match(calendarCss,/button\.day\.calendar-cell\s*\{[^}]*min-height:\s*76px
 assert.match(calendarCss,/\.day-habit-status\.pending\s*\{[^}]*width:\s*6px !important;[^}]*height:\s*6px !important;[^}]*background:\s*#1e3a2f !important;/,'pending state should be a forest dot');
 assert.match(calendarCss,/\.day-habit-status\.complete\s*\{[^}]*color:\s*#1e3a2f !important;[^}]*background:\s*transparent !important;/,'complete state should be a standalone forest check');
 assert.match(calendarCss,/\.day-habit-status\.complete::after\s*\{[^}]*border-width:\s*0 2px 2px 0 !important;[^}]*rotate\(45deg\)/,'completed calendar habits should render a CSS check that cannot be lost by SVG styling');
-assert.match(calendarCss,/\.check\.done::after\s*\{[^}]*border-width:\s*0 2px 2px 0 !important;[^}]*rotate\(45deg\)/,'completed event and habit controls should render a visible CSS check');
+assert.match(app,/class="calendar-check-glyph"[^>]*>✓<\/span>/,'completed event and habit controls should contain a visible check glyph');
+assert.match(calendarCss,/\.calendar-check-glyph\s*\{[^}]*color:\s*#fff !important;[^}]*font-size:\s*12px !important;/,'completed event and habit controls should style the check glyph clearly');
 assert.match(calendarCss,/\.mini-item:has\(\.check\.done\) strong\s*\{[^}]*text-decoration:\s*line-through !important;/,'completed checklist labels should use a strikethrough');
 assert.match(calendarCss,/button\.day\.calendar-cell\s*\{[^}]*justify-content:\s*flex-start !important;/,'event badges should stay directly below the date instead of dropping to the bottom');
 assert.match(calendarCss,/\.day-events\s*\{[^}]*flex:\s*0 0 auto !important;/,'event badge rows should not stretch vertically');
