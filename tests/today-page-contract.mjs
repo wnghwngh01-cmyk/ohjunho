@@ -21,13 +21,14 @@ if(!app.includes('data-today-countdown-day')||!app.includes('state.calendarView=
 if(!app.includes('DB.listImportantEvents(day)'))throw new Error('Today must load upcoming important days without an end-date cap');
 const importantQuery=db.match(/async function listImportantEvents[\s\S]*?return data\|\|\[\]\}/)?.[0]||'';
 if(!importantQuery||importantQuery.includes('.limit('))throw new Error('Upcoming important days must not have a fixed row limit');
-if(!todayTheme.includes('--st-bg:#fbf9f5')||!todayTheme.includes('--st-primary:#1e3a2f'))throw new Error('Stitch color tokens must remain intact');
+if(!todayTheme.includes('--st-bg:#faf9f6')||!todayTheme.includes('--st-surface:#fff')||!todayTheme.includes('--st-line:#e9e8e5')||!todayTheme.includes('--st-primary:#1e3a2f'))throw new Error('Final Stitch color tokens must remain intact');
 if(!app.includes('class="stitch-row event-item ')||!app.includes('class="stitch-move"'))throw new Error('Mobile Today rows must use the Stitch list geometry');
 if(app.includes('class="todo-delete"'))throw new Error('Today must not expose a delete X beside todos');
-if(!html.includes('today-stitch.css?v=20261030-budget-preview-v2'))throw new Error('Today Variant A stylesheet is not loaded');
-if(!todayTheme.includes("url('./material-symbols-outlined.ttf')"))throw new Error('Stitch icon font must be self-hosted');
-if(!todayTheme.includes('grid-template-columns:66px minmax(0,1fr) 16px')||!todayTheme.includes('gap:18px'))throw new Error('Stitch A alignment and vertical rhythm must remain exact');
-if(!todayTheme.includes('overflow-wrap:anywhere')||todayTheme.includes('.stitch-goal-value{')&&!todayTheme.includes('word-break:keep-all'))throw new Error('Long goals must wrap without a fixed-height clamp');
+if(!html.includes('today-stitch.css?v=20261111-today-final-v1'))throw new Error('Final Today Stitch stylesheet is not loaded');
+if(!todayTheme.includes('grid-template-columns:auto minmax(0,1fr) 16px')||!todayTheme.includes('gap:16px'))throw new Error('Final Stitch alignment and vertical rhythm must remain exact');
+if(!todayTheme.includes('max-width:480px')||!todayTheme.includes('border-radius:16px'))throw new Error('Final Stitch mobile canvas and card radius must remain exact');
+if(!page.includes('stroke-width="1.5"')&&!todayTheme.includes('stroke-width:1.5'))throw new Error('Today icons must use the Stitch 1.5px line weight');
+if(/style\s*=/.test(page))throw new Error('Today markup must not contain inline style attributes');
 if(!app.includes('stitch-habit-dots')||!app.includes('`주 ${progress.completed}/${progress.target}일`')||!app.includes("scheduleType==='weekdays'?5")||!app.includes("scheduleType==='selected_weekdays'"))throw new Error('Weekly habit progress dots must cover every schedule type');
 for(const hook of ['topbarTitle','topbarSub','syncState','page-today','todayDate','greetingTitle','todayGoalCard','todayFinalGoal','todayMonthlyGoal','todayDdayAction','todayCountdowns','todayEvents','todayTodoCount','todayTodoInput','todayTodoAdd','todayTodos','todayHabits','quickRecordText','quickRecordSave'])if(!html.includes(`id="${hook}"`))throw new Error(`Today hook is missing: ${hook}`);
 
@@ -38,12 +39,10 @@ if(!app.includes('applyTodayLayout()')||!app.includes('section.hidden=!item.enab
 if(!page.includes('표시할 오늘 화면 항목이 없습니다.')||!page.includes('id="todayLayoutEmpty"'))throw new Error('Today all-disabled empty state is missing');
 if(!page.includes('id="todayHabitSettings"')||!app.includes("details.habit-settings")||!app.includes('settings.open=true'))throw new Error('Habit settings shortcut behavior is missing');
 for(const hook of ['todayProteinTotal','todayProteinLabel','todayProteinGrams','todayProteinAdd','todayFinanceType','todayFinanceDate','todayFinanceTitle','todayFinanceAmount','todayFinanceCategory','todayFinanceAdd','todayBudgetRemaining','todayBudgetRows','todayBudgetUnassigned'])if(!html.includes(`id="${hook}"`))throw new Error(`Today optional hook is missing: ${hook}`);
-const budgetCard=page.match(/<section class="today-block-group" data-today-section="budget">[\s\S]*?<\/section>/)?.[0]||'';
-const budgetSummary=budgetCard.match(/<summary><span class="stitch-budget-summary-copy">[\s\S]*?<\/summary>/)?.[0]||'';
-if(!budgetSummary.includes('가계부 남은 예산')||!budgetSummary.includes('id="todayBudgetRemaining"'))throw new Error('Collapsed Today budget card must preview the total remaining budget');
+const budgetCard=page.match(/<section class="stitch-card stitch-section stitch-budget-section" data-today-section="budget">[\s\S]*?<\/section>/)?.[0]||'';
+if(!budgetCard.includes('가계부 요약')||!budgetCard.includes('id="todayBudgetRemaining"')||!budgetCard.includes('id="todayBudgetProgress"'))throw new Error('Today budget card must show the final Stitch summary gauge');
 if(!app.includes('`\${money(summary.remaining)} 남음 · 총 \${money(summary.budget)}`')||!app.includes('`\${money(Math.abs(summary.remaining))} 초과 · 총 \${money(summary.budget)}`'))throw new Error('Collapsed Today budget preview must include remaining and total monthly budget');
-if(!todayTheme.includes('.stitch-budget-summary-copy{display:flex;flex-wrap:wrap')||!todayTheme.includes('.stitch-budget-summary-title{flex-basis:100%'))throw new Error('Narrow Today budget summary must wrap into clean rows');
-if(!budgetCard.includes('data-go="personal"')||!budgetCard.includes('id="todayBudgetRows"')||!budgetCard.includes('id="todayBudgetUnassigned"'))throw new Error('Expanded Today budget card must expose category details and finance navigation');
+if(!budgetCard.includes('data-go="personal"')||!budgetCard.includes('id="todayBudgetRows"')||!budgetCard.includes('id="todayBudgetUnassigned"'))throw new Error('Today budget card must retain category detail and finance navigation hooks');
 for(const removed of ['<h3>오늘의 문장</h3>','<h3>중요한 날짜</h3>','<h3>오늘 할 일</h3>','<h3>반복 습관</h3>']){
   if(page.includes(removed))throw new Error(`Removed Today card or label remains: ${removed}`);
 }

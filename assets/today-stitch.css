@@ -1,109 +1,102 @@
-/* Google Stitch export, scoped to the Today page. */
-@font-face{font-family:'Material Symbols Outlined';font-style:normal;font-weight:400;src:url('./material-symbols-outlined.ttf') format('truetype');font-display:block}
-.material-symbols-outlined{font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;font-feature-settings:'liga';-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased}
-html:not([data-theme="dark"]){--st-bg:#fbf9f5;--st-surface:#fff;--st-surface-low:#f5f2eb;--st-surface-mid:#f0ede6;--st-surface-high:#ebe7dd;--st-surface-highest:#e6e2d8;--st-primary:#1e3a2f;--st-secondary:#2d5a43;--st-secondary-container:#d7eedb;--st-text:#191c1a;--st-muted:#58625b;--st-outline:#7a827b;--st-line:#eae6dc}
-html:not([data-theme="dark"]) .app-main:has(#page-today.active){background:var(--st-bg)}
-html:not([data-theme="dark"]) #page-today{width:100%;max-width:390px;margin:0 auto;padding:8px 16px calc(96px + env(safe-area-inset-bottom,0px));background:var(--st-bg);color:var(--st-text);font-family:'Noto Sans KR','Plus Jakarta Sans',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;letter-spacing:-.025em}
-html:not([data-theme="dark"]) #page-today .stitch-today-stack{display:flex;flex-direction:column;width:100%;gap:18px}
-html:not([data-theme="dark"]) #page-today .stitch-intro{display:flex;flex-direction:column;gap:10px}
-html:not([data-theme="dark"]) #page-today .stitch-greeting{padding-top:2px}
-html:not([data-theme="dark"]) #page-today .stitch-date{display:flex;align-items:center;gap:6px;color:var(--st-secondary);font-size:12.5px;line-height:20px;font-weight:500}
-html:not([data-theme="dark"]) #page-today .stitch-date .material-symbols-outlined{font-size:16px;color:var(--st-secondary)}
-html:not([data-theme="dark"]) #page-today #greetingTitle{margin:2px 0 0;color:var(--st-text);font-family:inherit;font-size:21px;line-height:30px;font-weight:700;letter-spacing:-.025em}
-html:not([data-theme="dark"]) #page-today .stitch-goals{display:flex;flex-direction:column;padding:14px;border:1px solid var(--st-line);border-radius:13px;background:var(--st-surface);box-shadow:0 1px 2px rgba(25,28,26,.04)}
-html:not([data-theme="dark"]) #page-today .stitch-goal-row{display:grid;grid-template-columns:66px minmax(0,1fr) 16px;align-items:start;gap:10px;width:100%;margin:0;padding:8px 0;border:0;background:transparent;color:inherit;text-align:left;font:inherit;cursor:pointer}
-html:not([data-theme="dark"]) #page-today .stitch-goal-row:first-child{padding-top:0;padding-bottom:6px}
+:root{--st-bg:#faf9f6;--st-surface:#fff;--st-line:#e9e8e5;--st-divider:#efeeeb;--st-text:#1a1c1a;--st-secondary:#424844;--st-muted:#8e928f;--st-primary:#1e3a2f;--st-primary-hover:#2d5545;--st-primary-soft:#e8f1ec;--st-mint:#c3ecd6;--st-mint-text:#133e2b}
+html:not([data-theme="dark"]) body:has(#page-today.active),html:not([data-theme="dark"]) .app-main:has(#page-today.active){background:var(--st-bg)}
+html:not([data-theme="dark"]) .app-main:has(#page-today.active){padding-bottom:0}
+html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar{position:absolute;inset:0 0 auto;height:0;min-height:0;padding:0;border:0;background:transparent;overflow:visible;z-index:50}
+html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar>div,html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar>.sync-state{display:none}
+html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar .topbar-notification-btn{position:absolute;top:24px;right:max(20px,calc((100% - 480px)/2 + 20px));display:flex;width:40px;height:40px;margin:0;padding:0;border:1px solid var(--st-line);border-radius:12px;background:#fff;color:var(--st-primary);box-shadow:0 1px 4px rgba(0,0,0,.04)}
+html:not([data-theme="dark"]) #page-today{width:100%;max-width:480px;margin:0 auto;padding:24px 16px calc(104px + env(safe-area-inset-bottom,0px));background:var(--st-bg);color:var(--st-text);font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;letter-spacing:-.025em}
+html:not([data-theme="dark"]) #page-today *{box-sizing:border-box}
+html:not([data-theme="dark"]) #page-today .stitch-today-stack{display:flex;flex-direction:column;gap:16px;width:100%}
+html:not([data-theme="dark"]) #page-today .stitch-intro{display:flex;flex-direction:column;gap:10px;padding:0}
+html:not([data-theme="dark"]) #page-today .stitch-greeting{padding:0 4px}
+html:not([data-theme="dark"]) #page-today .stitch-date{display:inline-flex;align-items:center;gap:6px;width:max-content;margin-bottom:8px;padding:4px 10px;border-radius:999px;background:var(--st-primary-soft);color:var(--st-primary);font-size:12px;line-height:18px;font-weight:500}
+html:not([data-theme="dark"]) #page-today .stitch-date svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+html:not([data-theme="dark"]) #page-today #greetingTitle{max-width:calc(100% - 50px);margin:0;color:var(--st-text);font:700 23px/1.38 inherit;letter-spacing:-.035em;word-break:keep-all}
+html:not([data-theme="dark"]) #page-today .stitch-goals{display:flex;flex-direction:column;padding:16px;border:1px solid var(--st-line);border-radius:16px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.02)}
+html:not([data-theme="dark"]) #page-today .stitch-goal-row{display:grid;grid-template-columns:auto minmax(0,1fr) 16px;align-items:center;gap:10px;width:100%;min-height:35px;margin:0;padding:8px 0;border:0;background:transparent;color:inherit;text-align:left;font:inherit;cursor:pointer}
+html:not([data-theme="dark"]) #page-today .stitch-goal-row:first-child{padding-top:0}
 html:not([data-theme="dark"]) #page-today .stitch-goal-row:last-child{padding-bottom:0}
-html:not([data-theme="dark"]) #page-today .stitch-goal-row+.stitch-goal-row{border-top:1px solid rgba(234,230,220,.6)}
-html:not([data-theme="dark"]) #page-today .stitch-goal-row:active{opacity:.9}
-html:not([data-theme="dark"]) #page-today .stitch-goal-label{display:inline-flex;align-items:center;justify-content:center;width:66px;margin-top:2px;padding:2px 6px;border-radius:4px;background:rgba(215,238,219,.72);color:var(--st-primary);font-size:11px;line-height:16px;font-weight:600;letter-spacing:-.025em;box-sizing:border-box}
+html:not([data-theme="dark"]) #page-today .stitch-goal-row+.stitch-goal-row{border-top:1px solid var(--st-divider)}
+html:not([data-theme="dark"]) #page-today .stitch-goal-label{display:inline-flex;align-items:center;justify-content:center;padding:2px 8px;border-radius:999px;background:var(--st-primary-soft);color:var(--st-primary);font-size:11px;line-height:17px;font-weight:600;white-space:nowrap}
 html:not([data-theme="dark"]) #page-today .stitch-goal-label.primary{background:var(--st-primary);color:#fff}
-html:not([data-theme="dark"]) #page-today .stitch-goal-value{min-width:0;color:var(--st-muted);font-size:13px;line-height:1.625;font-weight:500;overflow-wrap:anywhere;word-break:keep-all}
-html:not([data-theme="dark"]) #page-today .stitch-goal-value.final{color:var(--st-text);font-size:13.5px}
-html:not([data-theme="dark"]) #page-today .stitch-chevron{width:16px;height:16px;margin-top:4px;fill:none;stroke:var(--st-outline);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;transition:color 180ms ease-out;flex:none}
-html:not([data-theme="dark"]) #page-today .stitch-countdowns{display:flex;align-items:center;gap:8px;min-width:0;align-self:center}
-html:not([data-theme="dark"]) #page-today .stitch-countdown{display:inline-flex;align-items:center;gap:6px;min-width:0;padding:2px 10px;border-radius:999px;background:rgba(215,238,219,.72);color:var(--st-primary);font-size:12px;line-height:18px;font-weight:500}
-html:not([data-theme="dark"]) #page-today .stitch-countdown:before{content:'';width:6px;height:6px;border-radius:50%;background:var(--st-secondary);flex:none}
+html:not([data-theme="dark"]) #page-today .stitch-goal-value{min-width:0;color:var(--st-text);font-size:13.5px;line-height:21px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html:not([data-theme="dark"]) #page-today .stitch-chevron{width:16px;height:16px;fill:none;stroke:var(--st-muted);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+html:not([data-theme="dark"]) #page-today .stitch-countdowns{display:flex;align-items:center;gap:5px;min-width:0;overflow:hidden}
+html:not([data-theme="dark"]) #page-today .stitch-countdown{display:flex;align-items:center;gap:4px;min-width:0;color:var(--st-text);font-size:13.5px;font-weight:500}
 html:not([data-theme="dark"]) #page-today .stitch-countdown span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-countdown strong{flex:none;color:var(--st-primary);font-weight:700}
-html:not([data-theme="dark"]) #page-today .stitch-countdown-more{flex:none;color:var(--st-muted);font-size:12px;line-height:18px;font-weight:500;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-countdown-empty{color:var(--st-muted);font-size:12px;line-height:18px;font-weight:500}
-html:not([data-theme="dark"]) #page-today .stitch-dday-row{align-items:center}
-html:not([data-theme="dark"]) #page-today .stitch-dday-row .stitch-goal-label{margin-top:0}
-html:not([data-theme="dark"]) #page-today .stitch-dday-row .stitch-chevron{margin-top:0}
-html:not([data-theme="dark"]) #page-today .stitch-dday-row.is-empty{cursor:default}
-html:not([data-theme="dark"]) #page-today .stitch-dday-row.is-empty .stitch-chevron{visibility:hidden}
-html:not([data-theme="dark"]) #page-today .stitch-section{display:flex;flex-direction:column;gap:8px}
-html:not([data-theme="dark"]) #page-today .stitch-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+html:not([data-theme="dark"]) #page-today .stitch-countdown strong{color:var(--st-primary);white-space:nowrap}
+html:not([data-theme="dark"]) #page-today .stitch-countdown-more,html:not([data-theme="dark"]) #page-today .stitch-countdown-empty{color:var(--st-muted);font-size:12px;white-space:nowrap}
+html:not([data-theme="dark"]) #page-today .today-quote-card{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;border:1px solid var(--st-line);border-radius:16px;background:#f4f3f0;color:var(--st-secondary)}
+html:not([data-theme="dark"]) #page-today .today-quote-card>span{margin-top:2px;color:var(--st-primary);font:400 18px/1 Georgia,serif}
+html:not([data-theme="dark"]) #page-today .today-quote-card blockquote{margin:0;font-size:13px;line-height:1.65;font-weight:500;white-space:pre-line;word-break:keep-all}
+html:not([data-theme="dark"]) #page-today .stitch-card{display:flex;flex-direction:column;gap:12px;padding:16px;border:1px solid var(--st-line);border-radius:16px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.025)}
+html:not([data-theme="dark"]) #page-today .stitch-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:20px}
 html:not([data-theme="dark"]) #page-today .stitch-section-head>div{display:flex;align-items:center;gap:8px;min-width:0}
-html:not([data-theme="dark"]) #page-today .stitch-section-head h3{margin:0;color:var(--st-text);font-size:16px;line-height:24px;font-weight:700;letter-spacing:-.025em}
-html:not([data-theme="dark"]) #page-today .stitch-section-head>button{min-height:44px;padding:8px 0 8px 10px;border:0;background:transparent;color:var(--st-secondary);font-size:12.5px;line-height:20px;font-weight:500;display:flex;align-items:center}
-html:not([data-theme="dark"]) #page-today .stitch-section-head>button .material-symbols-outlined{font-size:14px}
-html:not([data-theme="dark"]) #page-today .stitch-section-note{color:var(--st-muted);font-size:12px;line-height:18px;font-weight:400}
-html:not([data-theme="dark"]) #page-today .stitch-count{padding:2px 8px;border-radius:999px;background:rgba(215,238,219,.7);color:var(--st-primary);font-size:11.5px;line-height:18px;font-weight:600}
-html:not([data-theme="dark"]) #page-today .stitch-list{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--st-line);border-radius:13px;background:var(--st-surface);box-shadow:0 1px 2px rgba(25,28,26,.04)}
-html:not([data-theme="dark"]) #page-today .stitch-row{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px;padding:6px 12px;border:0;background:var(--st-surface)}
-html:not([data-theme="dark"]) #page-today .stitch-row+.stitch-row{border-top:1px solid var(--st-line)}
-html:not([data-theme="dark"]) #page-today .stitch-row-main{display:flex;align-items:center;gap:4px;min-width:0;flex:1}
+html:not([data-theme="dark"]) #page-today .stitch-section-head svg{width:16px;height:16px;fill:none;stroke:var(--st-primary);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+html:not([data-theme="dark"]) #page-today .stitch-section-head h3{margin:0;color:var(--st-text);font-size:15px;line-height:22px;font-weight:700;letter-spacing:-.025em;white-space:nowrap}
+html:not([data-theme="dark"]) #page-today .stitch-section-head>button{display:inline-flex;align-items:center;gap:4px;min-height:28px;padding:3px 0 3px 8px;border:0;background:transparent;color:var(--st-secondary);font:500 12px/18px inherit;white-space:nowrap}
+html:not([data-theme="dark"]) #page-today .stitch-section-head>button svg{width:14px;height:14px;stroke:var(--st-muted)}
+html:not([data-theme="dark"]) #page-today .stitch-count{padding:2px 8px;border-radius:999px;background:var(--st-primary-soft);color:var(--st-primary);font-size:12px;line-height:18px;font-weight:600;white-space:nowrap}
+html:not([data-theme="dark"]) #page-today .stitch-list{display:flex;flex-direction:column;gap:10px}
+html:not([data-theme="dark"]) #page-today .stitch-row{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:36px;padding:8px;border:0;border-radius:12px;background:transparent}
+html:not([data-theme="dark"]) #page-today .stitch-events-section .stitch-row,html:not([data-theme="dark"]) #page-today .stitch-habits-section .stitch-row{padding:10px;border:1px solid var(--st-divider);background:var(--st-bg)}
+html:not([data-theme="dark"]) #page-today .stitch-habits-section .stitch-row{align-items:flex-start;padding:12px}
+html:not([data-theme="dark"]) #page-today .stitch-row-main{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
 html:not([data-theme="dark"]) #page-today .stitch-row-copy{display:flex;flex-direction:column;min-width:0;flex:1}
-html:not([data-theme="dark"]) #page-today .stitch-row-copy strong{color:var(--st-text);font-size:13.5px;line-height:21px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-html:not([data-theme="dark"]) #page-today .stitch-row-copy span{color:var(--st-muted);font-size:12px;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html:not([data-theme="dark"]) #page-today .stitch-row-copy strong{color:var(--st-text);font-size:13.5px;line-height:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html:not([data-theme="dark"]) #page-today .stitch-row-copy>span{color:var(--st-muted);font-size:11px;line-height:17px}
 html:not([data-theme="dark"]) #page-today .stitch-row.done .stitch-row-copy strong{text-decoration:line-through;color:var(--st-muted)}
-html:not([data-theme="dark"]) #page-today .stitch-check{position:relative;width:32px;min-width:32px;height:44px;padding:0;border:0;background:transparent;color:transparent}
-html:not([data-theme="dark"]) #page-today .stitch-check:before{content:'';position:absolute;left:8px;top:14px;width:16px;height:16px;border:1px solid var(--st-outline);border-radius:4px;background:#fff;box-sizing:border-box}
-html:not([data-theme="dark"]) #page-today .stitch-check.done:before{border-color:var(--st-secondary);background:var(--st-secondary)}
-html:not([data-theme="dark"]) #page-today .stitch-check.done:after{content:'check';position:absolute;left:7px;top:13px;width:18px;height:18px;color:#fff;font:400 15px/18px 'Material Symbols Outlined';text-align:center}
-html:not([data-theme="dark"]) #page-today .stitch-move{flex:none;min-height:44px;padding:8px 0 8px 8px;border:0;background:transparent;color:var(--st-outline);font-size:11.5px;line-height:18px;font-weight:500}
-html:not([data-theme="dark"]) #page-today .stitch-empty{padding:16px 12px;color:var(--st-muted);font-size:13px;line-height:20px;text-align:left}
-html:not([data-theme="dark"]) #page-today .stitch-todo-entry{display:flex;align-items:center;gap:8px;padding:6px 6px 6px 12px;border:1px solid var(--st-line);border-radius:13px;background:var(--st-surface);box-shadow:0 1px 2px rgba(25,28,26,.04)}
-html:not([data-theme="dark"]) #page-today .stitch-todo-entry>.material-symbols-outlined{font-size:18px;color:var(--st-outline);flex:none}
-html:not([data-theme="dark"]) #page-today .stitch-todo-entry input{min-width:0;flex:1;height:36px;padding:4px 0;border:0;background:transparent;color:var(--st-text);font-size:13.5px;line-height:21px;outline:0;box-shadow:none}
-html:not([data-theme="dark"]) #page-today .stitch-todo-entry input::placeholder{color:var(--st-outline)}
-html:not([data-theme="dark"]) #page-today .stitch-todo-entry button{height:32px;padding:0 12px;border:0;border-radius:8px;background:var(--st-primary);color:#fff;font-size:12.5px;font-weight:500;flex:none}
-html:not([data-theme="dark"]) #page-today .stitch-habit-meta{display:flex;align-items:center;gap:8px;margin-top:2px}
-html:not([data-theme="dark"]) #page-today .stitch-habit-meta>span{color:var(--st-muted);font-size:12px;line-height:18px;font-weight:500}
-html:not([data-theme="dark"]) #page-today .stitch-habit-dots{display:flex;align-items:center;gap:4px}
-html:not([data-theme="dark"]) #page-today .stitch-habit-dots i{width:6px;height:6px;border-radius:50%;background:var(--st-surface-highest)}
-html:not([data-theme="dark"]) #page-today .stitch-habit-dots i.on{background:var(--st-secondary)}
-html:not([data-theme="dark"]) #page-today .stitch-lock{font-size:15px;color:var(--st-outline)}
-html:not([data-theme="dark"]) #page-today .stitch-private{margin-left:-4px;color:var(--st-outline);font-size:11px;line-height:17px}
-html:not([data-theme="dark"]) #page-today .stitch-record-box{display:flex;flex-direction:column;gap:10px;padding:12px;border:1px solid var(--st-line);border-radius:13px;background:var(--st-surface);box-shadow:0 1px 2px rgba(25,28,26,.04)}
-html:not([data-theme="dark"]) #page-today .stitch-record-box textarea{width:100%;min-height:68px;padding:0;border:0;background:transparent;color:var(--st-text);font-size:13.5px;line-height:1.55;resize:none;outline:0;box-shadow:none}
-html:not([data-theme="dark"]) #page-today .stitch-record-box textarea::placeholder{color:var(--st-outline)}
-html:not([data-theme="dark"]) #page-today .stitch-record-box>div{display:flex;justify-content:flex-end;padding-top:4px;border-top:1px solid var(--st-surface-low)}
-html:not([data-theme="dark"]) #page-today .stitch-record-box button{height:32px;padding:0 14px;border:0;border-radius:8px;background:var(--st-primary);color:#fff;font-size:12.5px;font-weight:500}
-html:not([data-theme="dark"]) #page-today [data-today-section][hidden]{display:none!important}
-html:not([data-theme="dark"]) #page-today .stitch-inline-form{display:grid;grid-template-columns:minmax(0,1fr) 100px auto;gap:8px;padding:10px;border:1px solid var(--st-line);border-radius:13px;background:var(--st-surface)}
-html:not([data-theme="dark"]) #page-today .stitch-inline-form input{min-width:0;width:100%;height:38px;padding:0 10px;border:1px solid var(--st-line);border-radius:8px;background:var(--st-surface-low);font:inherit;font-size:13px}
-html:not([data-theme="dark"]) #page-today .stitch-inline-form button,html:not([data-theme="dark"]) #page-today .stitch-layout-empty button{min-height:38px;padding:0 13px;border:0;border-radius:8px;background:var(--st-primary);color:#fff;font-weight:600}
-html:not([data-theme="dark"]) #page-today .stitch-disclosure{display:block;padding:0;border:1px solid var(--st-line);border-radius:13px;background:var(--st-surface);overflow:hidden}
-html:not([data-theme="dark"]) #page-today .stitch-disclosure>summary{display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:10px 12px;font-size:16px;font-weight:700;cursor:pointer;list-style:none}
-html:not([data-theme="dark"]) #page-today .stitch-disclosure>summary::-webkit-details-marker{display:none}
-html:not([data-theme="dark"]) #page-today .stitch-budget-summary-copy{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2px 10px;min-width:0;flex:1}
-html:not([data-theme="dark"]) #page-today .stitch-budget-summary-title{flex:1 1 118px;min-width:0}
-html:not([data-theme="dark"]) #page-today .stitch-budget-summary-copy strong{flex:0 1 auto;min-width:0;margin-left:auto;color:var(--st-primary);font-size:13px;line-height:1.35;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;overflow-wrap:anywhere}
-html:not([data-theme="dark"]) #page-today .stitch-finance-form{display:flex;flex-direction:column;gap:10px;padding:0 12px 12px;border-top:1px solid var(--st-line)}
-html:not([data-theme="dark"]) #page-today .stitch-budget-brief{min-width:0;padding:0 12px 12px;border-top:1px solid var(--st-line)}
-html:not([data-theme="dark"]) #page-today .stitch-budget-brief .stitch-section-head{justify-content:flex-end;margin:0}
-html:not([data-theme="dark"]) #page-today .stitch-budget-brief button{min-height:44px;border:0;background:transparent;color:var(--st-secondary);display:flex;align-items:center}
-html:not([data-theme="dark"]) #page-today .stitch-budget-brief .budget-overview{width:100%;min-width:0}
-html:not([data-theme="dark"]) #page-today .stitch-budget-brief .budget-empty{margin:6px 0 2px}
-html:not([data-theme="dark"]) #page-today #todayBudgetUnassigned{margin:10px 0 0;color:var(--st-muted);font-size:12px;line-height:1.45;overflow-wrap:anywhere}
-html:not([data-theme="dark"]) #page-today .stitch-layout-empty{padding:22px 14px;border:1px dashed var(--st-outline);border-radius:13px;text-align:center;color:var(--st-muted)}
-html:not([data-theme="dark"]) #page-today .stitch-layout-empty[hidden]{display:none}
+html:not([data-theme="dark"]) #page-today .stitch-check{position:relative;width:20px;min-width:20px;height:20px;padding:0;border:1px solid var(--st-muted);border-radius:6px;background:#fff;color:transparent}
+html:not([data-theme="dark"]) #page-today .stitch-check.done{border-color:var(--st-primary);background:var(--st-primary)}
+html:not([data-theme="dark"]) #page-today .stitch-check.done:after{content:'✓';position:absolute;inset:0;color:#fff;font:700 13px/18px system-ui;text-align:center}
+html:not([data-theme="dark"]) #page-today .stitch-events-section .stitch-check{width:8px;min-width:8px;height:8px;border:0;border-radius:50%;background:var(--st-primary)}
+html:not([data-theme="dark"]) #page-today .stitch-events-section .stitch-check.done:after{display:none}
+html:not([data-theme="dark"]) #page-today .stitch-move{min-height:30px;padding:4px 3px;border:0;background:transparent;color:var(--st-muted);font-size:11px}
+html:not([data-theme="dark"]) #page-today .stitch-empty{padding:10px;color:var(--st-muted);font-size:13px;line-height:20px}
+html:not([data-theme="dark"]) #page-today .stitch-todo-entry,html:not([data-theme="dark"]) #page-today .stitch-inline-form{display:flex;align-items:center;gap:8px;width:100%}
+html:not([data-theme="dark"]) #page-today input,html:not([data-theme="dark"]) #page-today select,html:not([data-theme="dark"]) #page-today textarea{min-width:0;border:1px solid var(--st-line);border-radius:12px;background:var(--st-bg);color:var(--st-text);font:400 13px/20px inherit;outline:0}
+html:not([data-theme="dark"]) #page-today input:focus,html:not([data-theme="dark"]) #page-today select:focus,html:not([data-theme="dark"]) #page-today textarea:focus{border-color:var(--st-primary)}
+html:not([data-theme="dark"]) #page-today input::placeholder,html:not([data-theme="dark"]) #page-today textarea::placeholder{color:var(--st-muted)}
+html:not([data-theme="dark"]) #page-today .stitch-todo-entry input,html:not([data-theme="dark"]) #page-today .stitch-inline-form input{height:34px;padding:6px 12px;flex:1}
+html:not([data-theme="dark"]) #page-today .stitch-todo-entry button,html:not([data-theme="dark"]) #page-today .stitch-inline-form button,html:not([data-theme="dark"]) #page-today .stitch-record-box button,html:not([data-theme="dark"]) #page-today .stitch-finance-form button{height:34px;padding:0 14px;border:0;border-radius:12px;background:var(--st-primary);color:#fff;font:500 13px/34px inherit;white-space:nowrap}
+html:not([data-theme="dark"]) #page-today .stitch-inline-form #todayProteinGrams{width:96px;flex:0 0 96px;text-align:right}
+html:not([data-theme="dark"]) #page-today .stitch-protein-section #todayProteinTotal{color:var(--st-primary);font-size:16px;line-height:22px;white-space:nowrap}
+html:not([data-theme="dark"]) #page-today .stitch-habit-meta{display:flex;align-items:center;gap:8px;margin-top:8px}
+html:not([data-theme="dark"]) #page-today .stitch-habit-meta>span{padding:2px 8px;border-radius:999px;background:var(--st-primary-soft);color:var(--st-primary);font-size:11px;line-height:17px;font-weight:600}
+html:not([data-theme="dark"]) #page-today .stitch-habit-dots{display:flex;align-items:center;gap:6px}
+html:not([data-theme="dark"]) #page-today .stitch-habit-dots i{width:6px;height:6px;border-radius:50%;background:var(--st-line)}
+html:not([data-theme="dark"]) #page-today .stitch-habit-dots i.on{background:var(--st-primary)}
+html:not([data-theme="dark"]) #page-today .stitch-budget-gauge{padding:12px;border:1px solid var(--st-divider);border-radius:12px;background:var(--st-bg)}
+html:not([data-theme="dark"]) #page-today .stitch-budget-gauge>div{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px;font-size:12.5px;color:var(--st-secondary)}
+html:not([data-theme="dark"]) #page-today .stitch-budget-gauge strong{color:var(--st-primary);font-weight:700;text-align:right}
+html:not([data-theme="dark"]) #page-today .stitch-budget-gauge strong.budget-over{color:#a23f43}
+html:not([data-theme="dark"]) #page-today .stitch-budget-gauge progress{display:block;width:100%;height:8px;border:0;border-radius:999px;background:var(--st-line);overflow:hidden;appearance:none}
+html:not([data-theme="dark"]) #page-today .stitch-budget-gauge progress::-webkit-progress-bar{background:var(--st-line)}
+html:not([data-theme="dark"]) #page-today .stitch-budget-gauge progress::-webkit-progress-value{border-radius:999px;background:var(--st-primary)}
+html:not([data-theme="dark"]) #page-today .stitch-budget-gauge progress::-moz-progress-bar{border-radius:999px;background:var(--st-primary)}
+html:not([data-theme="dark"]) #page-today #todayBudgetRows{display:flex;flex-direction:column;gap:8px}
+html:not([data-theme="dark"]) #page-today #todayBudgetRows:empty,html:not([data-theme="dark"]) #page-today #todayBudgetUnassigned:empty{display:none}
+html:not([data-theme="dark"]) #page-today #todayBudgetRows .budget-row{padding:8px 10px;border:1px solid var(--st-divider);border-radius:10px;background:var(--st-bg)}
+html:not([data-theme="dark"]) #page-today #todayBudgetRows .budget-row-head,html:not([data-theme="dark"]) #page-today #todayBudgetRows .budget-row-bottom{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--st-muted)}
+html:not([data-theme="dark"]) #page-today #todayBudgetRows .budget-row-head strong{color:var(--st-text);font-size:12px}
+html:not([data-theme="dark"]) #page-today #todayBudgetRows progress{width:100%;height:6px;margin:6px 0;border:0;border-radius:999px;appearance:none;overflow:hidden}
+html:not([data-theme="dark"]) #page-today #todayBudgetUnassigned{margin:0;color:var(--st-muted);font-size:11px}
+html:not([data-theme="dark"]) #page-today .stitch-finance-form{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+html:not([data-theme="dark"]) #page-today .stitch-finance-form input,html:not([data-theme="dark"]) #page-today .stitch-finance-form select{width:100%;height:36px;padding:6px 11px}
+html:not([data-theme="dark"]) #page-today .stitch-finance-type{grid-column:1/-1;display:flex;width:140px;padding:2px;border:1px solid var(--st-divider);border-radius:8px;background:var(--st-bg)}
+html:not([data-theme="dark"]) #page-today .stitch-finance-type button{flex:1;height:27px;padding:0;border:0;border-radius:6px;background:transparent;color:var(--st-muted);font:500 12px/27px inherit}
+html:not([data-theme="dark"]) #page-today .stitch-finance-type button.active{background:#fff;color:var(--st-primary);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+html:not([data-theme="dark"]) #page-today .stitch-finance-type select{position:absolute;width:1px;height:1px;padding:0;border:0;clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+html:not([data-theme="dark"]) #page-today #todayFinanceTitle,html:not([data-theme="dark"]) #page-today .stitch-finance-form button{grid-column:1/-1}
+html:not([data-theme="dark"]) #page-today .stitch-finance-form button{width:100%}
+html:not([data-theme="dark"]) #page-today .stitch-private{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border:1px solid var(--st-divider);border-radius:999px;background:var(--st-bg);color:var(--st-secondary);font-size:11px;line-height:17px;white-space:nowrap}
+html:not([data-theme="dark"]) #page-today .stitch-private svg{width:12px;height:12px}
+html:not([data-theme="dark"]) #page-today .stitch-record-box{display:flex;flex-direction:column;gap:10px}
+html:not([data-theme="dark"]) #page-today .stitch-record-box textarea{width:100%;min-height:78px;padding:12px;resize:none}
+html:not([data-theme="dark"]) #page-today .stitch-record-box>div{display:flex;justify-content:flex-end}
+html:not([data-theme="dark"]) #page-today [data-today-section][hidden],html:not([data-theme="dark"]) #page-today .stitch-layout-empty[hidden]{display:none!important}
+html:not([data-theme="dark"]) #page-today .stitch-layout-empty{padding:22px 14px;border:1px dashed var(--st-muted);border-radius:16px;text-align:center;color:var(--st-muted)}
 html:not([data-theme="dark"]) #page-today .stitch-layout-empty p{margin:0 0 12px}
-@media(max-width:390px){html:not([data-theme="dark"]) #page-today .stitch-inline-form{grid-template-columns:minmax(0,1fr) 92px auto;gap:6px}html:not([data-theme="dark"]) #page-today .stitch-inline-form input{padding:0 8px}}
-@media(max-width:390px){html:not([data-theme="dark"]) #page-today [data-today-section="finance_budget"]>summary{align-items:flex-start}html:not([data-theme="dark"]) #page-today .stitch-budget-summary-copy{gap:2px 6px}html:not([data-theme="dark"]) #page-today .stitch-budget-summary-title{flex-basis:100%;font-size:15px;line-height:1.35}html:not([data-theme="dark"]) #page-today .stitch-budget-summary-copy strong{flex-basis:100%;font-size:12px;line-height:1.4}}
-@media(max-width:760px){
-  html:not([data-theme="dark"]) body:has(#page-today.active){background:var(--st-bg)}
-  html:not([data-theme="dark"]) .app-main:has(#page-today.active){padding-bottom:0}
-  html:not([data-theme="dark"]) .app-main:has(#page-today.active) .topbar{position:sticky;top:0;z-index:50;height:calc(56px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 16px 0;border-bottom:1px solid var(--st-line);background:rgba(251,249,245,.9);backdrop-filter:blur(12px);gap:8px}
-  html:not([data-theme="dark"]) .app-main:has(#page-today.active) .topbar>div:first-child{display:flex;align-items:center;gap:8px;min-width:0}
-  html:not([data-theme="dark"]) .app-main:has(#page-today.active) .topbar-title{color:var(--st-primary);font-size:20px;line-height:28px;font-weight:600;letter-spacing:-.025em}
-  html:not([data-theme="dark"]) .app-main:has(#page-today.active) .topbar-sub{display:flex;align-items:center;gap:8px;color:var(--st-muted);font-size:13px;line-height:20px;white-space:nowrap}
-  html:not([data-theme="dark"]) .app-main:has(#page-today.active) .topbar-sub:before{content:'•';color:#c8cdc5;font-size:12px}
-  html:not([data-theme="dark"]) .app-main:has(#page-today.active) .sync-state{margin-left:auto;gap:6px;padding:2px 8px;border-radius:999px;background:var(--st-surface-low);color:var(--st-secondary);font-size:11px;line-height:17px;font-weight:500}
-  html:not([data-theme="dark"]) .app-main:has(#page-today.active) .sync-state i{width:6px;height:6px;background:var(--st-secondary)}
-  html:not([data-theme="dark"]) .app-main:has(#page-today.active) .topbar .icon-btn{width:44px;height:44px;padding:0;border:0;background:transparent;color:var(--st-muted);font-size:0;box-shadow:none}
-}
-@media(max-width:360px){html:not([data-theme="dark"]) #page-today{padding-left:14px;padding-right:14px}html:not([data-theme="dark"]) #page-today .stitch-section-head>div{gap:6px}html:not([data-theme="dark"]) #page-today .stitch-section-note{font-size:11px}}
+html:not([data-theme="dark"]) #page-today .stitch-layout-empty button{min-height:38px;padding:0 13px;border:0;border-radius:10px;background:var(--st-primary);color:#fff;font-weight:600}
+@media(max-width:390px){html:not([data-theme="dark"]) #page-today{padding-left:14px;padding-right:14px}html:not([data-theme="dark"]) #page-today .stitch-goals,html:not([data-theme="dark"]) #page-today .stitch-card{padding:14px}html:not([data-theme="dark"]) #page-today .stitch-inline-form{gap:6px}html:not([data-theme="dark"]) #page-today .stitch-inline-form #todayProteinGrams{width:88px;flex-basis:88px}html:not([data-theme="dark"]) #page-today .stitch-inline-form button{padding:0 12px}}
+@media(max-width:360px){html:not([data-theme="dark"]) #page-today #greetingTitle{font-size:21px}html:not([data-theme="dark"]) #page-today .stitch-goal-row{gap:7px}html:not([data-theme="dark"]) #page-today .stitch-card{padding:13px}html:not([data-theme="dark"]) #page-today .stitch-section-head h3{font-size:14px}html:not([data-theme="dark"]) #page-today .stitch-protein-section .stitch-section-head{align-items:flex-start;flex-wrap:wrap}html:not([data-theme="dark"]) #page-today .stitch-inline-form{display:grid;grid-template-columns:minmax(0,1fr) 88px auto}}
