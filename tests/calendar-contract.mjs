@@ -16,6 +16,14 @@ const crowded=Cal.buildEventLayout(sameDay,'2026-10-11',7,2).get('2026-10-14');
 assert.equal(crowded.slots.filter(Boolean).length,2,'two events should remain visible');
 assert.equal(crowded.hidden,2,'the remaining events should be represented by +2');
 
+const userEventsBeforeHoliday=Cal.buildEventLayout([
+  {id:'holiday:2026-10-14',name:'공휴일',start_date:'2026-10-14',end_date:'2026-10-14',system:true},
+  {id:'user-a',name:'사용자 일정 A',start_date:'2026-10-14',end_date:'2026-10-14'},
+  {id:'user-b',name:'사용자 일정 B',start_date:'2026-10-14',end_date:'2026-10-14'}
+],'2026-10-11',7,2).get('2026-10-14');
+assert.equal(userEventsBeforeHoliday.slots.filter(Boolean).map(slot=>slot.event.id).join(','),'user-a,user-b','two user-created events should stay visible before a system holiday');
+assert.equal(userEventsBeforeHoliday.hidden,1,'the remaining holiday should be represented by +1');
+
 const ranged=Cal.buildEventLayout([
   {id:'one',name:'하루 일정',start_date:'2026-10-15',end_date:'2026-10-15'},
   {id:'middle',name:'중간 일정',start_date:'2026-10-14',end_date:'2026-10-16'},
@@ -77,6 +85,7 @@ assert.match(app,/Cal\.buildEventLayout\(calendarItems,gridStart,42,2\)/);
 assert.match(app,/Cal\.habitRunsOn\(day,h,state\.habitChecks,\{includeBeforeStart:day<DB\.today\(\)\}\)/,'past calendar details should show applicable checklist items even before their creation date');
 assert.doesNotMatch(app,/목표를 넘겨도 계속 체크할 수 있어요/,'weekly habits must stop appearing after the target is reached');
 assert.match(app,/class="day calendar-cell/,'each rendered date should retain the Stitch calendar-cell contract');
+assert.match(app,/\.slots\|\|\[\]\)\.filter\(Boolean\)\.slice\(0,2\)/,'calendar cells should render exactly two real event badges without blank lane spacers');
 assert.match(app,/class="day-events">\$\{eventHtml\}\$\{cell\?\.hidden\?`<div class="day-more">\+\$\{cell\.hidden\}개<\/div>`/,'overflow count should render below the two event badges');
 assert.match(app,/class="event-actions-inline"/,'calendar event actions should be inline chips');
 assert.doesNotMatch(app,/action-menu event-actions/,'legacy ellipsis event menu must be removed');
@@ -88,7 +97,11 @@ assert.match(calendarCss,/\.calendar-grid\s*\{[^}]*grid-template-columns:\s*repe
 assert.match(calendarCss,/button\.day\.calendar-cell\s*\{[^}]*min-height:\s*76px !important;[^}]*height:\s*auto !important;[^}]*padding:\s*4px !important;[^}]*overflow:\s*hidden !important;/,'date cells should preserve the final Stitch dimensions and containment');
 assert.match(calendarCss,/\.day-habit-status\.pending\s*\{[^}]*width:\s*6px !important;[^}]*height:\s*6px !important;[^}]*background:\s*#1e3a2f !important;/,'pending state should be a forest dot');
 assert.match(calendarCss,/\.day-habit-status\.complete\s*\{[^}]*color:\s*#1e3a2f !important;[^}]*background:\s*transparent !important;/,'complete state should be a standalone forest check');
-assert.match(app,/class="habit-check-icon"/,'completed calendar habits should render a check icon');
+assert.match(calendarCss,/\.day-habit-status\.complete::after\s*\{[^}]*border-width:\s*0 2px 2px 0 !important;[^}]*rotate\(45deg\)/,'completed calendar habits should render a CSS check that cannot be lost by SVG styling');
+assert.match(calendarCss,/\.check\.done::after\s*\{[^}]*border-width:\s*0 2px 2px 0 !important;[^}]*rotate\(45deg\)/,'completed event and habit controls should render a visible CSS check');
+assert.match(calendarCss,/\.mini-item:has\(\.check\.done\) strong\s*\{[^}]*text-decoration:\s*line-through !important;/,'completed checklist labels should use a strikethrough');
+assert.match(calendarCss,/button\.day\.calendar-cell\s*\{[^}]*justify-content:\s*flex-start !important;/,'event badges should stay directly below the date instead of dropping to the bottom');
+assert.match(calendarCss,/\.day-events\s*\{[^}]*flex:\s*0 0 auto !important;/,'event badge rows should not stretch vertically');
 assert.match(calendarCss,/button\.day\.today \.day-number\s*\{[^}]*width:\s*18px !important;[^}]*height:\s*18px !important;[^}]*background:\s*#1e3a2f !important;/,'today marker should match the 18px forest circle');
 assert.match(calendarCss,/\.day-event\.color-forest\s*\{\s*color:\s*#1e3a2f !important;\s*background:\s*#ebf7f0 !important;/);
 assert.match(calendarCss,/\.day-event\.color-amber\s*\{\s*color:\s*#b86b19 !important;\s*background:\s*#fef6ec !important;/);

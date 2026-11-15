@@ -98,7 +98,7 @@
     for(let week=0;week<dayCount;week+=7){
       const weekStart=shiftDay(gridStart,week),weekEnd=shiftDay(weekStart,6),laneEnds=[];
       const inWeek=(events||[]).filter(e=>e.start_date<=weekEnd&&e.end_date>=weekStart).sort((a,b)=>
-        eventDuration(b)-eventDuration(a)||String(a.start_date).localeCompare(String(b.start_date))||String(a.id||a.name).localeCompare(String(b.id||b.name))
+        eventDuration(b)-eventDuration(a)||Number(!!a.system)-Number(!!b.system)||String(a.start_date).localeCompare(String(b.start_date))||String(a.id||a.name).localeCompare(String(b.id||b.name))
       );
       for(const event of inWeek){
         const segmentStart=event.start_date<weekStart?weekStart:event.start_date;

@@ -116,7 +116,7 @@ html:not([data-theme="dark"]) #page-calendar button.day,
   position: relative !important;
   display: flex !important;
   flex-direction: column !important;
-  justify-content: space-between !important;
+  justify-content: flex-start !important;
   overflow: hidden !important;
   border: 0 !important;
   border-radius: 0 !important;
@@ -193,7 +193,7 @@ html:not([data-theme="dark"]) #page-calendar .day-habit-status,
 }
 #page-calendar .day-habit-status.pending { width: 6px !important; height: 6px !important; border: 0 !important; border-radius: 9999px !important; background: #1e3a2f !important; box-shadow: none !important; }
 #page-calendar .day-habit-status.complete { color: #1e3a2f !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; }
-#page-calendar .habit-check-icon { width: 12px !important; height: 12px !important; fill: none !important; stroke: currentColor !important; stroke-width: 2.5 !important; stroke-linecap: round !important; stroke-linejoin: round !important; }
+#page-calendar .day-habit-status.complete::after { content: "" !important; width: 5px !important; height: 9px !important; display: block !important; border: 0 solid #1e3a2f !important; border-width: 0 2px 2px 0 !important; transform: translateY(-1px) rotate(45deg) !important; }
 #page-calendar .day-mood { display: none !important; }
 
 html:not([data-theme="dark"]) #page-calendar .day-events,
@@ -203,7 +203,7 @@ html:not([data-theme="dark"]) #page-calendar .day-events,
   min-height: 0 !important;
   margin: 2px 0 0 !important;
   padding: 0 !important;
-  flex: 1 1 auto !important;
+  flex: 0 0 auto !important;
   display: flex !important;
   flex-direction: column !important;
   gap: 2px !important;
@@ -294,7 +294,7 @@ html:not([data-theme="dark"]) #page-calendar .event-row,
 html:not([data-theme="dark"]) #page-calendar .check,
 #page-calendar .check { width: 16px !important; height: 16px !important; min-height: 16px !important; padding: 0 !important; flex: 0 0 16px !important; display: grid !important; place-items: center !important; border: 1px solid #dcd8d0 !important; border-radius: 4px !important; color: #fff !important; background: #fff !important; box-shadow: none !important; cursor: pointer !important; }
 #page-calendar .check.done { border-color: #1e3a2f !important; background: #1e3a2f !important; }
-#page-calendar .check svg { width: 10px !important; height: 10px !important; fill: none !important; stroke: currentColor !important; stroke-width: 3 !important; }
+#page-calendar .check.done::after { content: "" !important; width: 4px !important; height: 7px !important; display: block !important; border: 0 solid #fff !important; border-width: 0 2px 2px 0 !important; transform: translateY(-1px) rotate(45deg) !important; }
 #page-calendar .event-copy,
 #page-calendar .mini-item .body { min-width: 0 !important; flex: 1 1 auto !important; display: block !important; overflow: hidden !important; }
 #page-calendar .event-copy strong,
@@ -302,7 +302,7 @@ html:not([data-theme="dark"]) #page-calendar .check,
 #page-calendar .event-copy > span,
 #page-calendar .mini-item .body > span { display: block !important; margin-top: 2px !important; color: #8c8880 !important; font-size: 10.5px !important; line-height: 1 !important; font-weight: 400 !important; }
 #page-calendar .event-row:has(.check.done) .event-copy strong { color: #9e9b94 !important; text-decoration: line-through !important; }
-#page-calendar .mini-item:has(.check.done) strong { color: #8c8880 !important; }
+#page-calendar .mini-item:has(.check.done) strong { color: #8c8880 !important; text-decoration: line-through !important; text-decoration-thickness: 1px !important; }
 #page-calendar .important-star { color: #d97706 !important; font-weight: 700 !important; }
 #page-calendar .event-row.system-row .event-copy strong { color: #b45650 !important; font-weight: 700 !important; }
 #page-calendar .event-row.system-row .event-copy > span { color: #a69d95 !important; font-size: 10px !important; }
