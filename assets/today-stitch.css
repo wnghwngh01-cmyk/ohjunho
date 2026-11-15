@@ -49,8 +49,8 @@ html:not([data-theme="dark"]) #page-today .stitch-row.done .stitch-row-copy stro
 html:not([data-theme="dark"]) #page-today .stitch-check{position:relative;width:20px;min-width:20px;height:20px;padding:0;border:1px solid var(--st-muted);border-radius:6px;background:#fff;color:transparent}
 html:not([data-theme="dark"]) #page-today .stitch-check.done{border-color:var(--st-primary);background:var(--st-primary)}
 html:not([data-theme="dark"]) #page-today .stitch-check.done:after{content:'✓';position:absolute;inset:0;color:#fff;font:700 13px/18px system-ui;text-align:center}
-html:not([data-theme="dark"]) #page-today .stitch-events-section .stitch-check{width:8px;min-width:8px;height:8px;border:0;border-radius:50%;background:var(--st-primary)}
 html:not([data-theme="dark"]) #page-today .stitch-events-section .stitch-check.done:after{display:none}
+html:not([data-theme="dark"]) #page-today .stitch-events-section .stitch-check-glyph{display:block;color:#fff;font:700 13px/18px system-ui;text-align:center}
 html:not([data-theme="dark"]) #page-today .stitch-move{min-height:30px;padding:4px 3px;border:0;background:transparent;color:var(--st-muted);font-size:11px}
 html:not([data-theme="dark"]) #page-today .stitch-empty{padding:10px;color:var(--st-muted);font-size:13px;line-height:20px}
 html:not([data-theme="dark"]) #page-today .stitch-todo-entry,html:not([data-theme="dark"]) #page-today .stitch-inline-form{display:flex;align-items:center;gap:8px;width:100%}

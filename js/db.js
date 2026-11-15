@@ -85,7 +85,7 @@
     const d=new Date(`${day}T00:00:00`),mk=monthKey(d);
     const [goals,events,habits,checks,projects]=await Promise.all([
       client.from('goals').select('*').eq('user_id',uid()).or(`and(kind.eq.final,period_key.eq.),and(kind.eq.monthly,period_key.eq.${mk})`),
-      client.from('events').select('*').eq('user_id',uid()).lte('start_date',day).gte('end_date',day).order('created_at'),
+      client.from('events').select('*').eq('user_id',uid()).lte('start_date',day).gte('end_date',day).order('created_at').order('id'),
       client.from('habits').select('*').eq('user_id',uid()).eq('active',true).order('created_at'),
       client.from('habit_checks').select('*').eq('user_id',uid()).eq('day',day),
       client.from('projects').select('*').eq('user_id',uid()).eq('status','active').order('updated_at',{ascending:false}).limit(6)
@@ -102,7 +102,7 @@
   async function removeRecordMedia(id){const {data,error}=await client.from('record_media').delete().eq('id',id).eq('user_id',uid()).select().maybeSingle();fail(error,'사진 삭제');return data}
   async function reorderRecordMedia(recordId,orderedIds){const rows=(orderedIds||[]).map((id,index)=>({id,sort_order:index}));for(const row of rows){const {error}=await client.from('record_media').update({sort_order:row.sort_order}).eq('id',row.id).eq('record_id',recordId).eq('user_id',uid());fail(error,'사진 순서 저장')}return rows}
 
-  async function listEventsForMonth(start,end){const {data,error}=await client.from('events').select('*').eq('user_id',uid()).lte('start_date',end).gte('end_date',start).order('start_date');fail(error,'일정 불러오기');return data||[]}
+  async function listEventsForMonth(start,end){const {data,error}=await client.from('events').select('*').eq('user_id',uid()).lte('start_date',end).gte('end_date',start).order('start_date').order('created_at').order('id');fail(error,'일정 불러오기');return data||[]}
   const eventColor=value=>['forest','sage','blue','amber','rose','violet'].includes(value)?value:'forest';
   async function addEvent(name,startDate,endDate,important=false,colorKey='forest'){const clean=String(name||'').trim().slice(0,300);if(!clean)throw new Error('일정 내용을 입력해 주세요.');const end=endDate||startDate;if(!startDate||!end||end<startDate)throw new Error('일정 날짜 범위를 확인해 주세요.');const {data,error}=await client.from('events').insert({user_id:uid(),name:clean,start_date:startDate,end_date:end,important:!!important,color_key:eventColor(colorKey)}).select().single();fail(error,'일정 추가');return data}
   async function updateEvent(id,name,startDate,endDate,important=false,colorKey='forest'){const clean=String(name||'').trim().slice(0,300);const end=endDate||startDate;if(!clean)throw new Error('일정 내용을 입력해 주세요.');if(!startDate||!end||end<startDate)throw new Error('일정 날짜 범위를 확인해 주세요.');const {data,error}=await client.from('events').update({name:clean,start_date:startDate,end_date:end,important:!!important,color_key:eventColor(colorKey)}).eq('id',id).eq('user_id',uid()).select().single();fail(error,'일정 수정');return data}

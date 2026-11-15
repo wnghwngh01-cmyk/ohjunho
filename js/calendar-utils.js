@@ -92,17 +92,19 @@
     return Math.round((new Date(`${event.end_date}T12:00:00`)-new Date(`${event.start_date}T12:00:00`))/86400000)+1;
   }
 
+  function compareEvents(a,b){
+    return Number(!!a.system)-Number(!!b.system)||eventDuration(b)-eventDuration(a)||String(a.start_date).localeCompare(String(b.start_date))||String(a.created_at||'').localeCompare(String(b.created_at||''))||String(a.id||a.name).localeCompare(String(b.id||b.name));
+  }
+
   function buildEventLayout(events,gridStart,dayCount=42,maxVisible=2){
     const cells=new Map();
     for(let i=0;i<dayCount;i++){
       const day=shiftDay(gridStart,i);
-      const active=(events||[]).filter(event=>event.start_date<=day&&event.end_date>=day).sort((a,b)=>
-        Number(!!a.system)-Number(!!b.system)||eventDuration(b)-eventDuration(a)||String(a.start_date).localeCompare(String(b.start_date))||String(a.id||a.name).localeCompare(String(b.id||b.name))
-      );
+      const active=(events||[]).filter(event=>event.start_date<=day&&event.end_date>=day).sort(compareEvents);
       cells.set(day,{slots:active.slice(0,maxVisible).map(event=>({event,start:day===event.start_date,end:day===event.end_date})),hidden:Math.max(0,active.length-maxVisible)});
     }
     return cells;
   }
 
-  global.HaruCalendar={COLOR_KEYS,HOLIDAYS,sanitizeColor,holidayFor,holidayEvents,fixedHabitRunsOn,habitStartDay,weekBounds,weeklyProgress,habitRunsOn,habitMarker,buildEventLayout,shiftDay};
+  global.HaruCalendar={COLOR_KEYS,HOLIDAYS,sanitizeColor,holidayFor,holidayEvents,fixedHabitRunsOn,habitStartDay,weekBounds,weeklyProgress,habitRunsOn,habitMarker,compareEvents,buildEventLayout,shiftDay};
 })(typeof window!=='undefined'?window:globalThis);

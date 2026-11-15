@@ -26,6 +26,13 @@ const userEventsBeforeHoliday=Cal.buildEventLayout([
 ],'2026-10-11',7,2).get('2026-10-14');
 assert.equal(userEventsBeforeHoliday.slots.filter(Boolean).map(slot=>slot.event.id).join(','),'user-a,user-b','two user-created events should stay visible before a system holiday');
 assert.equal(userEventsBeforeHoliday.hidden,1,'the remaining holiday should be represented by +1');
+const stableOrder=[
+  {id:'later-id',name:'나중 일정',start_date:'2026-10-14',end_date:'2026-10-14',created_at:'2026-10-14T01:00:00Z',done:false},
+  {id:'earlier-id',name:'먼저 만든 일정',start_date:'2026-10-14',end_date:'2026-10-14',created_at:'2026-10-14T00:00:00Z',done:false}
+];
+assert.equal([...stableOrder].sort(Cal.compareEvents).map(event=>event.id).join(','),'earlier-id,later-id','same-day events should keep their creation order');
+stableOrder[1].done=true;
+assert.equal([...stableOrder].sort(Cal.compareEvents).map(event=>event.id).join(','),'earlier-id,later-id','checking an event must not change its position');
 
 const ranged=Cal.buildEventLayout([
   {id:'one',name:'하루 일정',start_date:'2026-10-15',end_date:'2026-10-15'},
@@ -84,6 +91,7 @@ assert.match(html,/id="habitWeekdayPicker"[^]*?value="0"[^]*?value="6"/,'weekday
 assert.equal((html.match(/id="habitWeekdayPicker"/g)||[]).length,1,'weekday picker id must not be duplicated');
 assert.match(html,/calendar-stitch\.css\?v=/);
 assert.match(db,/color_key:eventColor\(colorKey\)/);
+assert.match(db,/listEventsForMonth[^\n]*\.order\('start_date'\)\.order\('created_at'\)\.order\('id'\)/,'calendar event queries should have a deterministic order');
 assert.match(app,/Cal\.buildEventLayout\(calendarItems,gridStart,42,2\)/);
 assert.match(app,/Cal\.habitRunsOn\(day,h,state\.habitChecks,\{includeBeforeStart:day<DB\.today\(\)\}\)/,'past calendar details should show applicable checklist items even before their creation date');
 assert.doesNotMatch(app,/목표를 넘겨도 계속 체크할 수 있어요/,'weekly habits must stop appearing after the target is reached');
@@ -102,6 +110,7 @@ assert.match(calendarCss,/\.day-habit-status\.pending\s*\{[^}]*width:\s*6px !imp
 assert.match(calendarCss,/\.day-habit-status\.complete\s*\{[^}]*color:\s*#1e3a2f !important;[^}]*background:\s*transparent !important;/,'complete state should be a standalone forest check');
 assert.match(calendarCss,/\.day-habit-status\.complete::after\s*\{[^}]*border-width:\s*0 2px 2px 0 !important;[^}]*rotate\(45deg\)/,'completed calendar habits should render a CSS check that cannot be lost by SVG styling');
 assert.match(app,/class="calendar-check-glyph"[^>]*>✓<\/span>/,'completed event and habit controls should contain a visible check glyph');
+assert.match(app,/const updated=await withError\(\(\)=>DB\.toggleEvent[^\n]*state\.calendarEvents\[index\]=\{\.\.\.state\.calendarEvents\[index\],\.\.\.updated\}/,'checking a calendar event should update in place without reordering the list');
 assert.match(calendarCss,/\.calendar-check-glyph\s*\{[^}]*color:\s*#fff !important;[^}]*font-size:\s*12px !important;/,'completed event and habit controls should style the check glyph clearly');
 assert.match(calendarCss,/\.mini-item:has\(\.check\.done\) strong\s*\{[^}]*text-decoration:\s*line-through !important;/,'completed checklist labels should use a strikethrough');
 assert.match(calendarCss,/button\.day\.calendar-cell\s*\{[^}]*justify-content:\s*flex-start !important;/,'event badges should stay directly below the date instead of dropping to the bottom');
