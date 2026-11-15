@@ -112,6 +112,8 @@ assert.match(calendarCss,/\.day-habit-status\.complete::after\s*\{[^}]*border-wi
 assert.match(app,/class="calendar-check-glyph"[^>]*>✓<\/span>/,'completed event and habit controls should contain a visible check glyph');
 assert.match(app,/const updated=await withError\(\(\)=>DB\.toggleEvent[^\n]*state\.calendarEvents\[index\]=\{\.\.\.state\.calendarEvents\[index\],\.\.\.updated\}/,'checking a calendar event should update in place without reordering the list');
 assert.match(calendarCss,/\.calendar-check-glyph\s*\{[^}]*color:\s*#fff !important;[^}]*font-size:\s*12px !important;/,'completed event and habit controls should style the check glyph clearly');
+assert.match(calendarCss,/html:not\(\[data-theme="dark"\]\) #page-calendar \.check\.done,[^}]*background:\s*#1e3a2f !important;/,'completed checkboxes must override the higher-specificity light-theme base rule');
+assert.match(calendarCss,/#page-calendar \.calendar-field\.hidden\s*\{\s*display:\s*none !important;/,'weekly target input must stay hidden unless weekly_n is selected');
 assert.match(calendarCss,/\.mini-item:has\(\.check\.done\) strong\s*\{[^}]*text-decoration:\s*line-through !important;/,'completed checklist labels should use a strikethrough');
 assert.match(calendarCss,/button\.day\.calendar-cell\s*\{[^}]*justify-content:\s*flex-start !important;/,'event badges should stay directly below the date instead of dropping to the bottom');
 assert.match(calendarCss,/\.day-events\s*\{[^}]*flex:\s*0 0 auto !important;/,'event badge rows should not stretch vertically');

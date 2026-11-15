@@ -46,7 +46,7 @@ assert.match(bottomNavCss,/color:#1e3a2f;font-weight:600/);
 assert.match(html,/bottom-nav\.css\?v=20261110-nav-v1/);
 assert.match(html,/more-stitch\.generated\.css\?v=20261110-more-v5/);
 assert.match(html,/more-stitch\.css\?v=20261110-more-v5/);
-assert.match(sw,/daily-life-shell-v123/);
+assert.match(sw,/daily-life-shell-v124/);
 assert.match(sw,/bottom-nav\.css\?v=20261110-nav-v1/);
 assert.match(sw,/more-stitch\.generated\.css\?v=20261110-more-v5/);
 assert.match(sw,/more-stitch\.css\?v=20261110-more-v5/);

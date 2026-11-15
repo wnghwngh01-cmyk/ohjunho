@@ -293,6 +293,7 @@ html:not([data-theme="dark"]) #page-calendar .event-row,
 #page-calendar .event-color-dot.color-violet { background: #786b9c !important; }
 html:not([data-theme="dark"]) #page-calendar .check,
 #page-calendar .check { width: 16px !important; height: 16px !important; min-height: 16px !important; padding: 0 !important; flex: 0 0 16px !important; display: grid !important; place-items: center !important; border: 1px solid #dcd8d0 !important; border-radius: 4px !important; color: #fff !important; background: #fff !important; box-shadow: none !important; cursor: pointer !important; }
+html:not([data-theme="dark"]) #page-calendar .check.done,
 #page-calendar .check.done { border-color: #1e3a2f !important; background: #1e3a2f !important; }
 #page-calendar .calendar-check-glyph { display: block !important; color: #fff !important; font-size: 12px !important; line-height: 1 !important; font-weight: 800 !important; font-family: Arial, sans-serif !important; transform: translateY(-.5px) !important; }
 #page-calendar .event-copy,
@@ -346,6 +347,7 @@ html:not([data-theme="dark"]) #page-calendar .calendar-disclosure > summary,
 #page-calendar .calendar-form-stack { display: grid !important; gap: 12px !important; }
 #page-calendar .calendar-form-panel { margin-top: 12px !important; padding: 14px !important; border: 1px solid #f0efea !important; border-radius: 12px !important; background: #faf9f7 !important; }
 #page-calendar .calendar-field { min-width: 0 !important; display: grid !important; gap: 4px !important; color: #5a5751 !important; font-size: 11px !important; line-height: 16px !important; font-weight: 600 !important; }
+#page-calendar .calendar-field.hidden { display: none !important; }
 html:not([data-theme="dark"]) #page-calendar .calendar-field input,
 html:not([data-theme="dark"]) #page-calendar .calendar-field select,
 #page-calendar .calendar-field input,
