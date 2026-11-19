@@ -20,7 +20,8 @@ assert.deepEqual([...bottom.matchAll(/data-go="([^"]+)"/g)].map(match=>match[1])
 assert.equal((bottom.match(/<svg\b/g)||[]).length,5);
 assert.equal((bottom.match(/<svg\b[^>]*width="20"[^>]*height="20"/g)||[]).length,5);
 assert.equal((bottom.match(/<svg\b[^>]*stroke-width="1\.5"/g)||[]).length,5);
-assert.match(section,/하루를 담다 · v2\.4\.0/);
+// The footer keeps the Stitch wording; the number comes from js/app-version.js (single version source).
+assert.match(section,/하루를 담다 · v<span id="appVersionLabel"><\/span>/);
 assert.match(section,/나의 하루를 안전하고 고요하게 담는 일상 앱/);
 assert.doesNotMatch(section,/NEW|미니멀 벡터 디자인 시스템|Made with Pure Minimal Vector Geometry/);
 assert.match(app,/more:\['더보기',''\]/);
@@ -46,7 +47,7 @@ assert.match(bottomNavCss,/color:#1e3a2f;font-weight:600/);
 assert.match(html,/bottom-nav\.css\?v=20261119-native-v1/);
 assert.match(html,/more-stitch\.generated\.css\?v=20261110-more-v5/);
 assert.match(html,/more-stitch\.css\?v=20261110-more-v5/);
-assert.match(sw,/daily-life-shell-v125/);
+assert.match(sw,/daily-life-shell-v126/);
 assert.match(sw,/bottom-nav\.css\?v=20261119-native-v1/);
 assert.match(sw,/more-stitch\.generated\.css\?v=20261110-more-v5/);
 assert.match(sw,/more-stitch\.css\?v=20261110-more-v5/);

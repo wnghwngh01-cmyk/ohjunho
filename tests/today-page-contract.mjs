@@ -28,7 +28,7 @@ if(!todayEventsRender||todayEventsRender.includes('data-move-event')||todayEvent
 if(!todayEventsRender.includes('stitch-check-glyph')||!todayEventsRender.includes('✓'))throw new Error('Completed Today events must render a visible check glyph');
 if(todayTheme.includes('.stitch-events-section .stitch-check{width:8px'))throw new Error('Today event checkboxes must not collapse into status dots');
 if(app.includes('class="todo-delete"'))throw new Error('Today must not expose a delete X beside todos');
-if(!html.includes('today-stitch.css?v=20261115-today-check-v1'))throw new Error('Final Today Stitch stylesheet is not loaded');
+if(!html.includes('today-stitch.css?v=20261119-batch3-v1'))throw new Error('Final Today Stitch stylesheet is not loaded');
 if(!todayTheme.includes('grid-template-columns:auto minmax(0,1fr) 16px')||!todayTheme.includes('gap:16px'))throw new Error('Final Stitch alignment and vertical rhythm must remain exact');
 if(!todayTheme.includes('max-width:480px')||!todayTheme.includes('border-radius:16px'))throw new Error('Final Stitch mobile canvas and card radius must remain exact');
 if(!page.includes('stroke-width="1.5"')&&!todayTheme.includes('stroke-width:1.5'))throw new Error('Today icons must use the Stitch 1.5px line weight');

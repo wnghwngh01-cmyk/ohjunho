@@ -3,7 +3,7 @@ html:not([data-theme="dark"]) body:has(#page-today.active),html:not([data-theme=
 html:not([data-theme="dark"]) .app-main:has(#page-today.active){padding-bottom:0}
 html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar{position:absolute;inset:0 0 auto;height:0;min-height:0;padding:0;border:0;background:transparent;overflow:visible;z-index:50}
 html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar>div,html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar>.sync-state{display:none}
-html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar .topbar-notification-btn{position:absolute;top:24px;right:max(20px,calc((100% - 480px)/2 + 20px));display:flex;width:40px;height:40px;margin:0;padding:0;border:1px solid var(--st-line);border-radius:12px;background:#fff;color:var(--st-primary);box-shadow:0 1px 4px rgba(0,0,0,.04)}
+html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar .topbar-notification-btn{position:absolute;top:24px;right:max(20px,calc((100% - 480px)/2 + 20px));display:flex;align-items:center;justify-content:center;width:40px;height:40px;margin:0;padding:0;border:1px solid var(--st-line);border-radius:12px;background:#fff;color:var(--st-primary);box-shadow:0 1px 4px rgba(0,0,0,.04)}
 html:not([data-theme="dark"]) #page-today{width:100%;max-width:480px;margin:0 auto;padding:24px 16px calc(104px + env(safe-area-inset-bottom,0px));background:var(--st-bg);color:var(--st-text);font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;letter-spacing:-.025em}
 html:not([data-theme="dark"]) #page-today *{box-sizing:border-box}
 html:not([data-theme="dark"]) #page-today .stitch-today-stack{display:flex;flex-direction:column;gap:16px;width:100%}
@@ -47,6 +47,7 @@ html:not([data-theme="dark"]) #page-today .stitch-row-copy strong{color:var(--st
 html:not([data-theme="dark"]) #page-today .stitch-row-copy>span{color:var(--st-muted);font-size:11px;line-height:17px}
 html:not([data-theme="dark"]) #page-today .stitch-row.done .stitch-row-copy strong{text-decoration:line-through;color:var(--st-muted)}
 html:not([data-theme="dark"]) #page-today .stitch-check{position:relative;width:20px;min-width:20px;height:20px;padding:0;border:1px solid var(--st-muted);border-radius:6px;background:#fff;color:transparent}
+html:not([data-theme="dark"]) #page-today .stitch-check:before{content:'';position:absolute;inset:-12px}
 html:not([data-theme="dark"]) #page-today .stitch-check.done{border-color:var(--st-primary);background:var(--st-primary)}
 html:not([data-theme="dark"]) #page-today .stitch-check.done:after{content:'✓';position:absolute;inset:0;color:#fff;font:700 13px/18px system-ui;text-align:center}
 html:not([data-theme="dark"]) #page-today .stitch-events-section .stitch-check.done:after{display:none}
