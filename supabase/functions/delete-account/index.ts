@@ -1,6 +1,7 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
 
-const allowedOrigins = new Set(['https://ohjunho.com', 'https://test1.ohjunho.com', 'https://test2.ohjunho.com']);
+// https://localhost is the Capacitor Android app's WebView origin (bundled assets).
+const allowedOrigins = new Set(['https://ohjunho.com', 'https://test1.ohjunho.com', 'https://test2.ohjunho.com', 'https://localhost']);
 function corsHeaders(origin: string | null) {
   return {
     'Access-Control-Allow-Origin': origin && allowedOrigins.has(origin) ? origin : 'https://ohjunho.com',
