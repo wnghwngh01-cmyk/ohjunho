@@ -37,7 +37,11 @@ Android Studio에서 열 때는 저장소 루트에서 `pnpm run android:open`�
 
 - Android 자동 백업 비활성화
 - 평문 HTTP 통신 비활성화
-- 현재 선언된 Android 권한은 인터넷 접근뿐
+- 현재 앱이 직접 선언한 Android 권한: `INTERNET`, `POST_NOTIFICATIONS`(기기 알림), `VIBRATE`, `SCHEDULE_EXACT_ALARM`(정시 알림, 사용자가 '알람 및 리마인더'에서 허용해야 동작하며 거부 시 오차 있는 알림으로 대체)
+- `@capacitor/local-notifications`가 병합하는 권한: `RECEIVE_BOOT_COMPLETED`(재부팅 후 예약 복원), `WAKE_LOCK`, `POST_NOTIFICATIONS`
+- 하루 알림은 반복 예약 대신 앞으로 14일 치를 하루씩 정확한 알람으로 예약하고, 앱 실행·복귀 때마다 다시 채운다(`js/notification-ui.js`).
+- 뒤로가기는 `@capacitor/app`의 `backButton`으로 처리한다: 창 닫기 → 앱 안 이전 화면 → 오늘 → 백그라운드(`js/app.js` `handleNativeBack`).
+- `USE_EXACT_ALARM`은 Google Play에서 알람·캘린더 앱 전용으로 제한되므로 선언하지 않는다. Play Console 제출 시점의 정확한 알람 정책과 선언 양식은 다시 확인한다.
 - Supabase 관리자 키는 앱에 포함하지 않음
 
 릴리스 서명 키는 저장소에 커밋하지 않는다. 키 생성과 Play App Signing 연결은 Play Console 준비 단계에서 별도로 수행한다.

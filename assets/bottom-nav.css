@@ -55,3 +55,6 @@ html.native-app .app-shell .bottom-nav .quick-main{
   border-radius:0;background:transparent;box-shadow:none;
   font-size:10px;line-height:14px;font-weight:500;gap:4px;
 }
+
+/* While the on-screen keyboard is open (js/app.js updateKeyboardState), give the space back to the input. */
+html.keyboard-open .app-shell .bottom-nav{visibility:hidden!important;pointer-events:none!important}

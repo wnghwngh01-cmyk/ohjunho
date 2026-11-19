@@ -17,12 +17,22 @@ assert.match(html,/id="notificationBadge"/);
 assert.match(html,/data-settings="notifications"/);
 for(const id of ['notificationDeviceEnabled','notificationMorningEnabled','notificationMorningTime','notificationEveningEnabled','notificationEveningTime','notificationCommunityEnabled'])assert.match(html,new RegExp(`id="${id}"`));
 assert.match(html,/id="notificationPublicationModal"/);
-assert.match(html,/notification-ui\.js\?v=20261107-notifications-v1/);
+assert.match(html,/notification-ui\.js\?v=20261119-native-v1/);
 assert.match(css,/\.notification-badge\{[^}]*width:7px;[^}]*height:7px;[^}]*#e74c3c/);
 assert.match(ui,/@capacitor|LocalNotifications/);
 assert.match(ui,/title:'☀️ 좋은 아침이에요!'/);
 assert.match(ui,/title:'🌙 오늘 하루는 어떠셨나요\?'/);
-assert.match(ui,/repeats:true/);
+// Daily reminders are one-shot exact alarms over a rolling window (refreshed on launch/resume), not plugin repeats,
+// because the plugin re-arms repeats with a non-wakeup alarm that Doze can delay.
+assert.match(ui,/schedule:\{at:slot\.at,allowWhileIdle:true\}/);
+assert.doesNotMatch(ui,/repeats:true/);
+assert.match(ui,/checkExactNotificationSetting/);
+assert.match(ui,/changeExactNotificationSetting/);
+assert.match(manifest,/android\.permission\.SCHEDULE_EXACT_ALARM/);
+assert.doesNotMatch(manifest,/android\.permission\.USE_EXACT_ALARM/,'USE_EXACT_ALARM is restricted to alarm/calendar apps on Google Play');
+assert.match(html,/id="notificationExactRow"/);
+assert.match(html,/id="notificationExactRequest"/);
+assert.match(app,/appStateChange[\s\S]{0,120}Notify\?\.refresh/);
 assert.match(ui,/localNotificationActionPerformed/);
 assert.match(app,/DB\.activityNotifications\(\)/);
 assert.match(app,/openNotificationPublication/);
@@ -35,7 +45,7 @@ assert.match(migration,/c\.created_at >= now\(\) - interval '7 days'/);
 assert.match(migration,/c\.user_id <> auth\.uid\(\)/);
 assert.match(migration,/admin_private\.case_replies/);
 assert.match(migration,/notification_states/);
-assert.match(sw,/daily-life-shell-v124/);
-assert.match(sw,/notification-ui\.js\?v=20261107-notifications-v1/);
+assert.match(sw,/daily-life-shell-v125/);
+assert.match(sw,/notification-ui\.js\?v=20261119-native-v1/);
 
 console.log('notifications contract PASS');
