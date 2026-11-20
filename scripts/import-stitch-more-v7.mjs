@@ -43,6 +43,9 @@ const designForge = '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke
 const userForge = '<svg class="w-5 h-5" id="icon-forge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"></path><path d="M13 19l6-6"></path><path d="M16 16l4 4"></path><path d="M19 21l2-2"></path></svg>';
 replaceOnce(designForge, userForge, 'forge icon');
 
+// Bug-report icon: the Stitch legs (x 6→10 / 14→18) ran into the body (x 8–16); they now stop at the body edge.
+replaceOnce('<path d="M6 10h4"></path><path d="M14 10h4"></path><path d="M6 15h4"></path><path d="M14 15h4"></path>', '<path d="M4 10h4"></path><path d="M16 10h4"></path><path d="M4 15h4"></path><path d="M16 15h4"></path>', 'bug icon legs');
+
 // The Stitch screen drops the footer, but the user decided to show the app version (1.1.0) until release,
 // so the previously approved footer meta is kept below the menus (version comes from js/app-version.js).
 content += `\n<footer class="pt-2 pb-6 text-center text-xs text-gray-400 space-y-1">\n  <p class="font-medium text-gray-500">하루를 담다 · v<span id="appVersionLabel"></span></p>\n  <p class="text-[11px] text-gray-400">나의 하루를 안전하고 고요하게 담는 일상 앱</p>\n</footer>`;

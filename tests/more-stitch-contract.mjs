@@ -50,6 +50,20 @@ assert.match(importer,/userForge/);
 assert.deepEqual([...bottom.matchAll(/data-go="([^"]+)"/g)].map(match=>match[1]),['today','calendar','personal','square','more']);
 assert.equal((bottom.match(/<svg\b[^>]*width="20"[^>]*height="20"/g)||[]).length,5);
 assert.match(bottomNavCss,/color:#1e3a2f;font-weight:600/);
+// Bottom-nav icons use the same drawings as the Stitch More rows for the same destination (only the size attributes differ).
+const iconBody=svg=>svg.replace(/^<svg\b[^>]*>/,'').replace(/<\/svg>$/,'');
+for(const go of ['today','calendar','personal','square']){
+  const navSvg=bottom.match(new RegExp(`data-go="${go}"><svg\\b[\\s\\S]*?<\\/svg>`))?.[0].replace(/^data-go="[^"]+">/,'')||'';
+  const rowSvg=section.match(new RegExp(`data-go="${go}" role="button"[\\s\\S]*?(<svg\\b[\\s\\S]*?<\\/svg>)`))?.[1]||'';
+  assert.ok(navSvg&&rowSvg,`icon for ${go} exists in both places`);
+  assert.equal(iconBody(navSvg),iconBody(rowSvg),`bottom-nav ${go} icon matches the Stitch More row icon`);
+}
+// 버그 제보 icon: legs stop at the body edge (body rect x 8–16) instead of crossing it.
+const bugSvg=section.match(/data-go="bug" role="button"[\s\S]*?(<svg\b[\s\S]*?<\/svg>)/)?.[1]||'';
+assert.match(bugSvg,/<rect width="8" height="12" x="8" y="7" rx="4"><\/rect>/);
+for(const [, x1, len] of bugSvg.matchAll(/<path d="M(\d+) (?:10|15)h(\d+)"><\/path>/g)){const a=Number(x1),b=a+Number(len);assert.ok(b<=8||a>=16,`bug leg ${a}→${b} must not cross the body`)}
+assert.equal((bugSvg.match(/<path d="M\d+ (?:10|15)h4"><\/path>/g)||[]).length,4,'four legs');
+assert.match(importer,/bug icon legs/);
 assert.match(app,/\[data-go\]\[role="button"\]/);
 // Cache busting.
 assert.match(html,/more-stitch\.generated\.css\?v=20261120-more-v8/);
