@@ -11,8 +11,8 @@
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./assets/styles.css?v=20261107-notifications-v1">
   <link rel="stylesheet" href="./assets/light-theme.css?v=20261030-square-author-v1">
-  <link rel="stylesheet" href="./assets/today-stitch.css?v=20261119-batch3-v1">
-  <link rel="stylesheet" href="./assets/calendar-stitch.css?v=20261119-batch3-v1">
+  <link rel="stylesheet" href="./assets/today-stitch.css?v=20261120-stitch-v1">
+  <link rel="stylesheet" href="./assets/calendar-stitch.css?v=20261120-stitch-v1">
   <link rel="stylesheet" href="./assets/avatar-frame.css?v=20261024-avatar-frame-v13">
   <link rel="stylesheet" href="./assets/budget.css?v=20261030-budget-preview-v1">
 <link rel="stylesheet" href="./assets/writing-templates.css?v=20261014-h1">
@@ -22,8 +22,10 @@
 <link rel="stylesheet" href="./assets/shelter.css?v=20261030-shelter-v2">
 <link rel="stylesheet" href="./assets/forge.css?v=20261104-forge-v3">
 <link rel="stylesheet" href="./assets/cosmetics-support.css?v=20261106-customization-v1">
-  <link rel="stylesheet" href="./assets/more-stitch.generated.css?v=20261110-more-v5">
-  <link rel="stylesheet" href="./assets/more-stitch.css?v=20261110-more-v5">
+  <link rel="stylesheet" href="./assets/more-stitch.generated.css?v=20261120-more-v8">
+  <link rel="stylesheet" href="./assets/more-stitch.css?v=20261120-more-v7">
+<link rel="stylesheet" href="./assets/today-stitch.generated.css?v=20261120-stitch-v2">
+<link rel="stylesheet" href="./assets/calendar-stitch.generated.css?v=20261120-stitch-v2">
   <link rel="stylesheet" href="./assets/bottom-nav.css?v=20261119-native-v1">
 </head>
 <body>
@@ -118,65 +120,122 @@
         <button class="icon-btn topbar-notification-btn" data-go="notifications" id="topbarNotifications" aria-label="알림"><svg aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg><span class="notification-badge hidden" id="notificationBadge"></span></button>
       </header>
 
-      <section id="page-today" class="page active wide stitch-today" data-page="today">
-        <div class="stitch-today-stack">
-          <section class="stitch-intro">
-            <div class="stitch-greeting">
-              <div class="stitch-date"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg><span id="todayDate">오늘</span></div>
-              <h2 id="greetingTitle">좋은 하루 되세요</h2>
-            </div>
-            <div id="todayGoalCard" class="stitch-goals" data-go="goals">
-              <button class="stitch-goal-row" type="button" data-go="goals">
-                <span class="stitch-goal-label primary">최종 목표</span>
-                <span id="todayFinalGoal" class="stitch-goal-value final">아직 최종 목표가 없습니다.</span>
-                <svg class="stitch-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-              </button>
-              <button class="stitch-goal-row" type="button" data-go="goals">
-                <span class="stitch-goal-label">이번 달</span>
-                <span id="todayMonthlyGoal" class="stitch-goal-value">이번 달 목표를 정해보세요.</span>
-                <svg class="stitch-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-              </button>
-              <button id="todayDdayAction" class="stitch-goal-row stitch-dday-row" type="button">
-                <span class="stitch-goal-label">D-Day</span>
-                <span id="todayCountdowns" class="stitch-countdowns"><span class="stitch-countdown-empty">중요한 날짜가 없습니다</span></span>
-                <svg class="stitch-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-              </button>
-            </div>
-          </section>
+      <section id="page-today" class="page active" data-page="today">
+        <!-- Stitch final Today screen (1_1, 2026-11-20). Lists are rendered with the same Stitch markup by js/stitch-views.js. -->
+        <div class="stitch-today-canvas w-full max-w-[480px] mx-auto flex flex-col bg-[#FAF9F6] relative pb-10">
+          <!-- 1. Top Bar & Intro Area -->
+          <header class="pt-6 px-5 pb-3"><div class="flex items-start justify-between"><div class="flex flex-col min-w-0"><div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-[#E8F1EC] text-[#1E3A2F] text-[12px] font-medium tracking-tight mb-2 w-fit"><svg class="w-3.5 h-3.5 text-[#1E3A2F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg><span id="todayDate">오늘</span></div><h1 id="greetingTitle" class="text-[23px] font-bold text-[#1A1C1A] tracking-tight leading-snug">좋은 하루 되세요</h1></div><button id="todayNotifications" type="button" data-go="notifications" aria-label="알림함" class="relative w-10 h-10 bg-white rounded-xl border border-[#E9E8E5] shadow-sm flex items-center justify-center text-[#424844] hover:bg-[#FAF9F6] transition-colors tap-active shrink-0 ml-3 mt-0.5"><svg class="w-5 h-5 text-[#1E3A2F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg><span id="todayNotificationDot" class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#1E3A2F] ring-2 ring-white hidden"></span></button></div></header>
+          <!-- Main Content Stack -->
+          <main class="stitch-today-stack flex-1 px-4 space-y-4">
+            <!-- 2. Goal Summary Card -->
+            <section id="todayGoalCard" class="bg-white rounded-2xl p-4 shadow-subtle border border-[#E9E8E5]">
+              <div class="space-y-3">
+                <button type="button" data-go="goals" class="w-full flex items-center justify-between cursor-pointer group text-left">
+                  <div class="flex items-center space-x-2.5 min-w-0 pr-2"><span class="shrink-0 px-2 py-0.5 rounded-full bg-[#1E3A2F] text-white text-[11px] font-semibold tracking-tight">최종 목표</span><p id="todayFinalGoal" class="text-[13.5px] font-medium text-[#1A1C1A] truncate">아직 최종 목표가 없습니다.</p></div>
+                  <svg class="w-4 h-4 text-[#8E928F] shrink-0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+                </button>
+                <div class="h-[1px] bg-[#EFEEEB]"></div>
+                <button type="button" data-go="goals" class="w-full flex items-center justify-between cursor-pointer group text-left">
+                  <div class="flex items-center space-x-2.5 min-w-0 pr-2"><span class="shrink-0 px-2 py-0.5 rounded-full bg-[#E8F1EC] text-[#1E3A2F] text-[11px] font-semibold tracking-tight">이번 달</span><p id="todayMonthlyGoal" class="text-[13.5px] font-medium text-[#1A1C1A] truncate">이번 달 목표를 정해보세요.</p></div>
+                  <svg class="w-4 h-4 text-[#8E928F] shrink-0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+                </button>
+                <div class="h-[1px] bg-[#EFEEEB]"></div>
+                <button id="todayDdayAction" type="button" class="w-full flex items-center justify-between cursor-pointer group text-left">
+                  <div class="flex items-center space-x-2.5 min-w-0 pr-2"><span class="shrink-0 px-2 py-0.5 rounded-full bg-[#C3ECD6] text-[#133E2B] text-[11px] font-semibold tracking-tight">D-Day</span><p id="todayCountdowns" class="text-[13.5px] font-medium text-[#1A1C1A] truncate">중요한 날짜가 없습니다</p></div>
+                  <svg class="w-4 h-4 text-[#8E928F] shrink-0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+                </button>
+              </div>
+            </section>
 
-	          <section class="today-quote-card" data-today-section="quote"><span aria-hidden="true">“</span><blockquote id="todayQuote">오늘의 작은 한 걸음이 내일의 나를 만듭니다.</blockquote></section>
+            <!-- 3. Daily Quote Card -->
+            <section data-today-section="quote" class="bg-[#F4F3F0] rounded-2xl px-4 py-3.5 border border-[#E9E8E5] relative flex items-start gap-2.5 transition-colors group">
+              <span aria-hidden="true" class="text-[#1E3A2F] font-serif text-lg leading-none select-none shrink-0 mt-0.5">“</span>
+              <div class="flex-1 min-w-0"><p id="todayQuote" class="text-[13px] text-[#424844] font-medium leading-relaxed tracking-tight break-keep whitespace-pre-line"></p></div>
+            </section>
 
-          <section class="stitch-card stitch-section stitch-events-section" data-today-section="events">
-            <div class="stitch-section-head"><div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg><h3>오늘 일정</h3></div><button type="button" data-go="calendar">캘린더 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>
-            <div id="todayEvents" class="stitch-list"></div>
-          </section>
+            <!-- 4. Schedule Card -->
+            <section data-today-section="events" class="bg-white rounded-2xl p-4 shadow-subtle border border-[#E9E8E5]">
+              <div class="flex items-center justify-between mb-3.5">
+                <div class="flex items-center space-x-2"><svg class="w-4 h-4 text-[#1E3A2F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg><h2 class="text-[15px] font-bold text-[#1A1C1A]">오늘 일정</h2></div>
+                <button type="button" data-go="calendar" class="inline-flex items-center space-x-1 text-[12px] font-medium text-[#424844] hover:text-[#1E3A2F] tap-active"><span>캘린더</span><svg class="w-3.5 h-3.5 text-[#8E928F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+              </div>
+              <div id="todayEvents" class="space-y-2.5"></div>
+            </section>
 
-          <section class="stitch-card stitch-section stitch-todos-section" data-today-section="todos">
-            <div class="stitch-section-head"><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg><h3>할 일</h3></div><span id="todayTodoCount" class="stitch-count">0/0 완료</span></div>
-            <div class="stitch-todo-entry"><input id="todayTodoInput" maxlength="120" placeholder="새로운 할 일을 입력하세요"><button id="todayTodoAdd" type="button">추가</button></div>
-            <div id="todayTodos" class="stitch-list"></div>
-          </section>
+            <!-- 5. Todo Card -->
+            <section data-today-section="todos" class="bg-white rounded-2xl p-4 shadow-subtle border border-[#E9E8E5]">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2"><svg class="w-4 h-4 text-[#1E3A2F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg><h2 class="text-[15px] font-bold text-[#1A1C1A]">할 일</h2></div>
+                <span id="todayTodoCount" class="text-[12px] font-semibold text-[#1E3A2F] bg-[#E8F1EC] px-2 py-0.5 rounded-full">0/0 완료</span>
+              </div>
+              <div class="flex items-center space-x-2 mb-3">
+                <input id="todayTodoInput" maxlength="120" class="flex-1 min-w-0 bg-[#FAF9F6] border border-[#E9E8E5] rounded-xl px-3.5 py-2 text-[13px] text-[#1A1C1A] placeholder-[#8E928F] focus:outline-none focus:border-[#1E3A2F] transition-colors" placeholder="새로운 할 일을 입력하세요" type="text">
+                <button id="todayTodoAdd" type="button" class="bg-[#1E3A2F] text-white px-3.5 py-2 rounded-xl text-[13px] font-medium tap-active hover:bg-[#2D5545] transition-colors shrink-0">추가</button>
+              </div>
+              <div id="todayTodos" class="space-y-2"></div>
+            </section>
 
-          <section class="stitch-card stitch-section stitch-habits-section" data-today-section="habits">
-            <div class="stitch-section-head"><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 0 0-15.74-6.26L3 8"></path><path d="M3 3v5h5M3 12a9 9 0 0 0 15.74 6.26L21 16"></path><path d="M21 21v-5h-5"></path></svg><h3>습관</h3></div><button id="todayHabitSettings" type="button">습관 설정 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>
-            <div id="todayHabits" class="stitch-list"></div>
-          </section>
+            <!-- 6. Habit Card -->
+            <section data-today-section="habits" class="bg-white rounded-2xl p-4 shadow-subtle border border-[#E9E8E5]">
+              <div class="flex items-center justify-between mb-3">
+                <div><div class="flex items-center space-x-2"><svg class="w-4 h-4 text-[#1E3A2F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><path d="M21 21v-5h-5"></path></svg><h2 class="text-[15px] font-bold text-[#1A1C1A]">습관</h2></div></div>
+                <button id="todayHabitSettings" type="button" class="inline-flex items-center space-x-1 text-[12px] font-medium text-[#424844] hover:text-[#1E3A2F] tap-active"><span>습관 설정</span><svg class="w-3.5 h-3.5 text-[#8E928F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+              </div>
+              <div id="todayHabits" class="space-y-3 pt-1"></div>
+            </section>
 
-          <section class="stitch-card stitch-section stitch-protein-section" data-today-section="protein">
-            <div class="stitch-section-head"><div><h3>단백질 섭취량</h3><strong id="todayProteinTotal">오늘 0 g</strong></div><button id="todayProteinOpen" type="button">단백질 기록 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>
-            <div class="stitch-inline-form"><input id="todayProteinLabel" maxlength="80" placeholder="음식 이름 (선택)"><input id="todayProteinGrams" type="number" inputmode="decimal" min="0.1" max="9999.9" step="0.1" placeholder="단백질 (g)"><button id="todayProteinAdd" type="button">추가</button></div>
-          </section>
-	          <section class="stitch-card stitch-section stitch-budget-section" data-today-section="budget">
-              <div class="stitch-section-head"><div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 10h18"></path></svg><h3>가계부 요약</h3></div><button type="button" data-go="personal">가계부 이동 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>
-              <div class="stitch-budget-gauge"><div><span>이번 달 남은 예산</span><strong id="todayBudgetRemaining" aria-live="polite">예산 미설정</strong></div><progress id="todayBudgetProgress" max="100" value="0"></progress></div>
-              <div id="todayBudgetRows" class="budget-overview" role="group" aria-label="오늘 화면 분류별 예산 사용 현황"></div><p id="todayBudgetUnassigned"></p>
-              <div class="stitch-finance-form"><div class="stitch-finance-type" role="group" aria-label="거래 종류"><button type="button" class="active" data-today-finance-type="expense">지출</button><button type="button" data-today-finance-type="income">수입</button><select id="todayFinanceType" aria-label="거래 종류"><option value="expense">지출</option><option value="income">수입</option></select></div><input id="todayFinanceDate" type="date" aria-label="거래 날짜"><input id="todayFinanceTitle" maxlength="120" placeholder="내용 (예: 점심 식사)"><input id="todayFinanceAmount" inputmode="numeric" placeholder="금액 (원)"><select id="todayFinanceCategory" aria-label="분류"><option>식비</option><option>교통</option><option>쇼핑</option><option>생활</option><option>교육</option><option>세금</option><option>급여</option><option>용돈</option><option>기타</option></select><button id="todayFinanceAdd" type="button">지출 저장하기</button></div>
-	          </section>
-	          <section class="stitch-card stitch-section stitch-quick-record" data-today-section="records">
-	            <div class="stitch-section-head"><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><path d="M14 2v6h6"></path></svg><h3>하루 기록</h3></div><span class="stitch-private"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>나만 보기</span></div>
-            <div class="stitch-record-box"><textarea id="quickRecordText" rows="3" placeholder="스쳐 가는 생각이나 오늘 있었던 일을 가볍게 남겨보세요."></textarea><div><button id="quickRecordSave" type="button">기록 남기기</button></div></div>
-          </section>
-	          <div id="todayLayoutEmpty" class="stitch-layout-empty" hidden><p>표시할 오늘 화면 항목이 없습니다.</p><button type="button" data-go="today-settings">오늘 화면 설정으로 이동</button></div>
+            <!-- 7. Protein Tracker Card -->
+            <section data-today-section="protein" class="bg-white rounded-2xl p-4 shadow-subtle border border-[#E9E8E5]">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-baseline space-x-2 min-w-0"><h2 class="text-[15px] font-bold text-[#1A1C1A] shrink-0">단백질 섭취량</h2><span id="todayProteinTotal" class="text-[16px] font-bold text-[#1E3A2F] truncate">오늘 0 g</span></div>
+                <button id="todayProteinOpen" type="button" class="inline-flex items-center space-x-1 text-[12px] font-medium text-[#424844] hover:text-[#1E3A2F] tap-active shrink-0"><span>단백질 기록</span><svg class="w-3.5 h-3.5 text-[#8E928F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+              </div>
+              <div class="flex items-center gap-2 w-full"><input id="todayProteinLabel" maxlength="60" class="flex-1 min-w-0 bg-[#FAF9F6] border border-[#E9E8E5] rounded-xl px-3 py-2 text-[13px] text-[#1A1C1A] placeholder-[#8E928F] focus:outline-none focus:border-[#1E3A2F] transition-colors" placeholder="음식 이름 (선택)" type="text"><div class="relative shrink-0"><input id="todayProteinGrams" class="w-24 bg-[#FAF9F6] border border-[#E9E8E5] rounded-xl px-2.5 py-2 text-[13px] text-[#1A1C1A] placeholder-[#8E928F] focus:outline-none focus:border-[#1E3A2F] transition-colors text-right" placeholder="단백질 (g)" step="0.1" min="0" inputmode="decimal" type="number"></div><button id="todayProteinAdd" type="button" class="bg-[#1E3A2F] text-white px-3.5 py-2 rounded-xl text-[13px] font-medium tap-active hover:bg-[#2D5545] transition-colors shrink-0">추가</button></div>
+            </section>
+
+            <!-- 8. Budget & Expense Card -->
+            <section data-today-section="budget" class="bg-white rounded-2xl p-4 shadow-subtle border border-[#E9E8E5]">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2"><svg class="w-4 h-4 text-[#1E3A2F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><rect height="14" rx="2" width="18" x="3" y="5"></rect><line x1="3" x2="21" y1="10" y2="10"></line></svg><h2 class="text-[15px] font-bold text-[#1A1C1A]">가계부 요약</h2></div>
+                <button type="button" data-go="personal" class="inline-flex items-center space-x-1 text-[12px] font-medium text-[#424844] hover:text-[#1E3A2F] tap-active"><span>가계부 이동</span><svg class="w-3.5 h-3.5 text-[#8E928F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+              </div>
+              <div class="bg-[#FAF9F6] p-3 rounded-xl border border-[#EFEEEB] mb-3">
+                <div class="flex items-center justify-between text-[12.5px] mb-1.5 gap-2"><span class="text-[#424844] shrink-0">이번 달 남은 예산</span><span id="todayBudgetRemaining" class="font-bold text-[#1E3A2F] text-right">예산 미설정</span></div>
+                <div class="w-full h-2 rounded-full bg-[#E9E8E5] overflow-hidden"><div id="todayBudgetBar" class="h-full w-0 bg-[#1E3A2F] rounded-full"></div></div>
+              </div>
+              <div class="space-y-2.5">
+                <div class="flex p-0.5 rounded-lg bg-[#FAF9F6] border border-[#EFEEEB] max-w-[140px]">
+                  <button type="button" data-today-finance-type="expense" class="flex-1 py-1 text-[12px] rounded-md">지출</button>
+                  <button type="button" data-today-finance-type="income" class="flex-1 py-1 text-[12px] rounded-md">수입</button>
+                </div>
+                <input id="todayFinanceType" type="hidden" value="expense">
+                <div class="grid grid-cols-2 gap-2">
+                  <input id="todayFinanceTitle" maxlength="80" class="col-span-2 min-w-0 bg-[#FAF9F6] border border-[#E9E8E5] rounded-xl px-3 py-2 text-[13px] text-[#1A1C1A] placeholder-[#8E928F] focus:outline-none focus:border-[#1E3A2F]" placeholder="내용 (예: 점심 식사)" type="text">
+                  <input id="todayFinanceAmount" inputmode="numeric" class="min-w-0 bg-[#FAF9F6] border border-[#E9E8E5] rounded-xl px-3 py-2 text-[13px] text-[#1A1C1A] placeholder-[#8E928F] focus:outline-none focus:border-[#1E3A2F]" placeholder="금액 (원)" type="text">
+                  <select id="todayFinanceCategory" aria-label="분류" class="min-w-0 bg-[#FAF9F6] border border-[#E9E8E5] rounded-xl px-3 py-2 text-[13px] text-[#424844] focus:outline-none focus:border-[#1E3A2F]"><option value="식비">식비</option><option value="교통">교통</option><option value="생활">생활</option><option value="쇼핑">쇼핑</option><option value="기타">기타</option></select>
+                </div>
+                <button id="todayFinanceAdd" type="button" class="w-full bg-[#1E3A2F] text-white py-2 rounded-xl text-[13px] font-medium tap-active hover:bg-[#2D5545] transition-colors">지출 저장하기</button>
+              </div>
+            </section>
+
+            <!-- 9. Quick Journal Card -->
+            <section data-today-section="records" class="bg-white rounded-2xl p-4 shadow-subtle border border-[#E9E8E5]">
+              <div class="flex items-center justify-between mb-2.5">
+                <div class="flex items-center space-x-2"><svg class="w-4 h-4 text-[#1E3A2F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg><h2 class="text-[15px] font-bold text-[#1A1C1A]">하루 기록</h2></div>
+                <div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-[#FAF9F6] border border-[#EFEEEB] text-[11px] text-[#424844]"><svg class="w-3 h-3 text-[#1E3A2F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>나만 보기</span></div>
+              </div>
+              <div class="space-y-2.5">
+                <textarea id="quickRecordText" maxlength="12000" class="w-full bg-[#FAF9F6] border border-[#E9E8E5] rounded-xl p-3 text-[13px] text-[#1A1C1A] placeholder-[#8E928F] focus:outline-none focus:border-[#1E3A2F] resize-none transition-colors" placeholder="오늘 있었던 일이나 생각을 가볍게 남겨보세요." rows="3"></textarea>
+                <div class="flex justify-end"><button id="quickRecordSave" type="button" class="bg-[#1E3A2F] text-white px-4 py-2 rounded-xl text-[13px] font-medium tap-active hover:bg-[#2D5545] transition-colors">기록 남기기</button></div>
+              </div>
+            </section>
+
+            <!-- All optional blocks hidden in 오늘 화면 설정 -->
+            <section id="todayLayoutEmpty" hidden class="bg-white rounded-2xl p-4 shadow-subtle border border-[#E9E8E5] text-center space-y-2">
+              <p class="text-[13px] text-[#424844]">표시할 오늘 화면 항목이 없습니다.</p>
+              <button type="button" data-go="today-settings" class="inline-flex items-center space-x-1 text-[12px] font-medium text-[#1E3A2F] tap-active"><span>오늘 화면 설정으로 이동</span><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+            </section>
+          </main>
         </div>
       </section>
 
@@ -206,56 +265,118 @@
         </div>
       </section>
 
-      <section id="page-calendar" class="page wide stitch-calendar" data-page="calendar">
-        <div class="stitch-calendar-canvas">
-          <section class="calendar-card" aria-label="월간 달력">
-            <div class="month-head">
-              <h1 id="calendarMonth">2026년 11월</h1>
-              <div class="calendar-controls">
-                <button id="calPrev" type="button" class="calendar-arrow" aria-label="이전 달"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
-                <button id="calToday" type="button" class="calendar-today">오늘</button>
-                <button id="calNext" type="button" class="calendar-arrow" aria-label="다음 달"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      <section id="page-calendar" class="page" data-page="calendar">
+        <!-- Stitch final calendar (calendar.html, 2026-11-20). Dynamic parts are rendered by js/stitch-views.js with the Stitch templates. -->
+        <div class="stitch-cal-canvas w-full max-w-md mx-auto space-y-4">
+          <!-- 1. 캘린더 월간 그리드 카드 -->
+          <div class="bg-white rounded-2xl p-4 shadow-sm border border-[#F0EFEA]">
+            <div class="flex items-center justify-between mb-4">
+              <h2 id="calendarMonth" class="text-lg font-bold text-[#1C1D1B] tracking-tight">2026년 11월</h2>
+              <div class="flex items-center gap-1.5">
+                <button id="calPrev" type="button" aria-label="이전 달" class="w-8 h-8 rounded-full flex items-center justify-center text-[#555] hover:bg-[#F4F3F0] transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button id="calToday" type="button" class="px-2.5 py-1 text-xs font-medium rounded-lg bg-[#F4F3F0] text-[#1C1D1B] hover:bg-[#EBE9E3] transition-colors">오늘</button>
+                <button id="calNext" type="button" aria-label="다음 달" class="w-8 h-8 rounded-full flex items-center justify-center text-[#555] hover:bg-[#F4F3F0] transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </button>
               </div>
             </div>
-            <div class="week" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
-            <div id="calendarDays" class="days calendar-grid"></div>
-          </section>
 
-          <aside class="day-detail">
-            <div class="selected-day-head"><h2 id="selectedDayTitle">선택한 날짜</h2><span id="selectedEventCount">0건의 일정</span></div>
-            <div id="selectedHoliday" class="selected-holiday hidden"></div>
-            <div id="selectedEvents" class="selected-event-list"></div>
-            <details id="eventComposer" class="module-add calendar-disclosure">
-              <summary><span id="eventComposerTitle">일정 추가</span><svg class="chevron chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
-              <div class="calendar-form-panel calendar-form-stack">
-                <label class="calendar-field"><span>일정 내용</span><input id="eventName" maxlength="120" placeholder="예: 프로젝트 마감 / 가족 모임"></label>
-                <div class="date-range"><label class="calendar-field"><span>시작일</span><input id="eventStart" type="date"></label><label class="calendar-field"><span>종료일</span><input id="eventEnd" type="date"></label></div>
-                <fieldset class="event-color-field"><legend>색상 테마</legend><div id="eventColorPicker" class="event-color-picker"><label title="초록"><input type="radio" name="eventColor" value="forest" checked><span class="color-swatch color-forest"></span></label><label title="연두"><input type="radio" name="eventColor" value="sage"><span class="color-swatch color-sage"></span></label><label title="파랑"><input type="radio" name="eventColor" value="blue"><span class="color-swatch color-blue"></span></label><label title="주황"><input type="radio" name="eventColor" value="amber"><span class="color-swatch color-amber"></span></label><label title="분홍"><input type="radio" name="eventColor" value="rose"><span class="color-swatch color-rose"></span></label><label title="보라"><input type="radio" name="eventColor" value="violet"><span class="color-swatch color-violet"></span></label></div></fieldset>
-                <label class="calendar-check-label"><input id="eventImportant" type="checkbox"><span>중요한 날짜로 표시하고 D-Day 보기</span></label>
-                <div class="calendar-form-actions"><button id="eventAdd" type="button">일정 추가</button><button id="eventCancel" type="button" class="hidden">취소</button></div>
-              </div>
-            </details>
-          </aside>
+            <!-- 요일 헤더 -->
+            <div class="grid grid-cols-7 mb-2 text-center text-xs font-medium" aria-hidden="true">
+              <div class="text-[#B45650]">일</div>
+              <div class="text-[#78756F]">월</div>
+              <div class="text-[#78756F]">화</div>
+              <div class="text-[#78756F]">수</div>
+              <div class="text-[#78756F]">목</div>
+              <div class="text-[#78756F]">금</div>
+              <div class="text-[#4E70A0]">토</div>
+            </div>
 
-          <section class="checklist-section">
-            <div class="checklist-head"><h3>선택한 날짜의 습관 체크리스트</h3><span id="selectedHabitSubDate"></span></div>
-            <div id="selectedHabits" class="selected-habit-list"></div>
-            <details class="module-add habit-settings calendar-disclosure">
-              <summary><span>체크리스트 항목 설정</span><svg class="chevron chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
-              <div class="habit-settings-body">
-                <div class="habit-template-heading">등록된 습관 목록</div>
-                <div id="habitTemplateList" class="habit-template-list"></div>
-                <div class="calendar-form-stack habit-editor calendar-form-panel">
-                  <div id="habitComposerTitle" class="habit-composer-title">새 습관 추가</div>
-                  <label class="calendar-field"><span>습관 이름</span><input id="habitNewName" placeholder="예: 운동하기"></label>
-                  <label class="calendar-field"><span>반복 주기</span><select id="habitSchedule"><option value="daily">매일</option><option value="weekdays">평일</option><option value="selected_weekdays">요일 선택</option><option value="weekly_n">주 N회</option></select></label>
-                  <fieldset id="habitWeekdayPicker" class="weekday-picker hidden"><legend>실행 요일 선택</legend><label><input type="checkbox" value="0"><span>일</span></label><label><input type="checkbox" value="1"><span>월</span></label><label><input type="checkbox" value="2"><span>화</span></label><label><input type="checkbox" value="3"><span>수</span></label><label><input type="checkbox" value="4"><span>목</span></label><label><input type="checkbox" value="5"><span>금</span></label><label><input type="checkbox" value="6"><span>토</span></label></fieldset>
-                  <label id="habitWeeklyCountWrap" class="calendar-field hidden"><span>주간 목표 횟수</span><input id="habitWeeklyCount" type="number" min="1" max="7" value="3"></label>
-                  <div class="calendar-form-actions"><button id="habitAdd" type="button">추가</button><button id="habitCancel" type="button" class="hidden">취소</button></div>
+            <!-- 42칸 달력 그리드 -->
+            <div id="calendarDays" class="grid grid-cols-7 gap-px bg-[#F0EFEA] rounded-xl overflow-hidden border border-[#F0EFEA]"></div>
+          </div>
+
+          <!-- 2. 선택 날짜 일정 카드 -->
+          <div class="bg-white rounded-2xl p-4 shadow-sm border border-[#F0EFEA]">
+            <div class="flex items-center justify-between mb-3">
+              <h3 id="selectedDayTitle" class="text-sm font-bold text-[#1C1D1B]">선택한 날짜</h3>
+              <span id="selectedEventCount" class="text-xs px-2 py-0.5 rounded-full bg-[#F4F3F0] text-[#555] font-medium">0건의 일정</span>
+            </div>
+
+            <!-- 일정 리스트 -->
+            <div id="selectedEvents" class="space-y-2 mb-3"></div>
+
+            <!-- 일정 추가 접이식 섹션 (일정 수정도 같은 입력창을 사용) -->
+            <details id="eventComposer" class="stitch-disclosure border-t border-[#F4F3F0] pt-2">
+              <summary class="flex items-center justify-between w-full py-1 text-xs font-semibold text-[#555] hover:text-[#1E3A2F] transition-colors cursor-pointer">
+                <span id="eventComposerTitle">일정 추가</span>
+                <svg class="stitch-chevron w-4 h-4 text-[#888] transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <div class="mt-2.5 p-3 rounded-xl bg-[#FAF9F7] border border-[#F0EFEA] space-y-2.5">
+                <input id="eventName" maxlength="120" aria-label="일정 내용" class="w-full px-3 py-1.5 text-xs rounded-lg border border-[#E5E3DE] focus:border-[#1E3A2F] outline-none bg-white" placeholder="일정 내용을 입력하세요" />
+                <div class="grid grid-cols-2 gap-2">
+                  <label class="flex flex-col gap-1 min-w-0"><span class="text-[11px] text-[#666]">시작일</span><input id="eventStart" type="date" class="w-full min-w-0 px-2 py-1.5 text-xs rounded-lg border border-[#E5E3DE] focus:border-[#1E3A2F] outline-none bg-white" /></label>
+                  <label class="flex flex-col gap-1 min-w-0"><span class="text-[11px] text-[#666]">종료일</span><input id="eventEnd" type="date" class="w-full min-w-0 px-2 py-1.5 text-xs rounded-lg border border-[#E5E3DE] focus:border-[#1E3A2F] outline-none bg-white" /></label>
+                </div>
+                <label class="flex items-center gap-2 text-[11px] text-[#666]"><input id="eventImportant" type="checkbox" class="w-4 h-4 accent-[#1E3A2F]" /><span>중요한 날짜로 표시하고 D-Day 보기</span></label>
+                <div class="flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-[11px] text-[#666]">태그색상:</span>
+                    <select id="eventColor" aria-label="태그 색상" class="text-[11px] px-2 py-1 rounded border border-[#E5E3DE] bg-white text-[#333]">
+                      <option value="forest">포레스트 민트</option>
+                      <option value="amber">앰버</option>
+                      <option value="rose">코랄 레드</option>
+                      <option value="blue">스틸 블루</option>
+                    </select>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <button id="eventCancel" type="button" class="hidden px-3 py-1.5 text-xs bg-[#E5E3DE] text-[#333] rounded-lg">취소</button>
+                    <button id="eventAdd" type="button" class="px-3 py-1.5 text-xs bg-[#1E3A2F] text-white font-medium rounded-lg hover:bg-[#162C23] transition-colors">저장하기</button>
+                  </div>
                 </div>
               </div>
             </details>
-          </section>
+          </div>
+
+          <!-- 3. 습관 체크리스트 카드 -->
+          <div class="bg-white rounded-2xl p-4 shadow-sm border border-[#F0EFEA]">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-bold text-[#1C1D1B]">선택한 날짜의 습관 체크리스트</h3>
+              <span id="selectedHabitSubDate" class="text-xs text-[#888]"></span>
+            </div>
+            <div id="selectedHabits" class="space-y-2 mb-3"></div>
+
+            <!-- 습관 항목 관리 아코디언 -->
+            <details id="habitConfig" class="stitch-disclosure border-t border-[#F4F3F0] pt-2">
+              <summary class="flex items-center justify-between w-full py-1 text-xs font-semibold text-[#555] hover:text-[#1E3A2F] transition-colors cursor-pointer">
+                <span>체크리스트 항목 설정</span>
+                <svg class="stitch-chevron w-4 h-4 text-[#888] transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <div class="mt-2.5 p-3 rounded-xl bg-[#FAF9F7] border border-[#F0EFEA] space-y-2.5">
+                <div id="habitTemplateList" class="space-y-1.5"></div>
+                <div class="space-y-2 pt-1">
+                  <div id="habitComposerTitle" class="text-[11px] font-semibold text-[#555]">새 습관 추가</div>
+                  <div class="flex items-center gap-1.5">
+                    <input id="habitNewName" maxlength="60" aria-label="습관 이름" class="flex-1 min-w-0 px-2.5 py-1 text-xs rounded border border-[#E5E3DE] bg-white outline-none focus:border-[#1E3A2F]" placeholder="새 습관 이름 입력" />
+                    <select id="habitSchedule" aria-label="반복 주기" class="text-[11px] px-2 py-1 rounded border border-[#E5E3DE] bg-white text-[#333]">
+                      <option value="daily">매일</option>
+                      <option value="weekdays">평일</option>
+                      <option value="selected_weekdays">요일 선택</option>
+                      <option value="weekly_n">주 N회</option>
+                    </select>
+                  </div>
+                  <fieldset id="habitWeekdayPicker" class="hidden flex flex-wrap items-center gap-1"><legend class="sr-only">실행 요일 선택</legend><label class="stitch-day-chip"><input type="checkbox" value="1"><span>월</span></label><label class="stitch-day-chip"><input type="checkbox" value="2"><span>화</span></label><label class="stitch-day-chip"><input type="checkbox" value="3"><span>수</span></label><label class="stitch-day-chip"><input type="checkbox" value="4"><span>목</span></label><label class="stitch-day-chip"><input type="checkbox" value="5"><span>금</span></label><label class="stitch-day-chip"><input type="checkbox" value="6"><span>토</span></label><label class="stitch-day-chip"><input type="checkbox" value="0"><span>일</span></label></fieldset>
+                  <label id="habitWeeklyCountWrap" class="hidden flex items-center gap-1.5 text-[11px] text-[#666]"><span>주간 목표 횟수</span><input id="habitWeeklyCount" type="number" min="1" max="7" value="3" class="w-14 px-2 py-1 text-xs rounded border border-[#E5E3DE] bg-white outline-none focus:border-[#1E3A2F]" /><span>회</span></label>
+                  <div class="flex items-center justify-end gap-1.5">
+                    <button id="habitCancel" type="button" class="hidden px-3 py-1 text-xs bg-[#E5E3DE] text-[#333] rounded">취소</button>
+                    <button id="habitAdd" type="button" class="px-3 py-1 text-xs bg-[#1E3A2F] text-white font-medium rounded hover:bg-[#162C23]">추가</button>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
         </div>
       </section>
 
@@ -336,338 +457,287 @@
       </section>
 
       <section id="page-more" class="page" data-page="more">
-<div class="stitch-more-canvas space-y-6">
+<div class="stitch-more-canvas w-full max-w-[420px] mx-auto space-y-4">
+<!-- 1. 상단 헤더 (타이틀 + 알림함 버튼) -->
+        <header class="flex items-center justify-between pt-2 pb-1">
+          <h1 class="text-xl font-bold text-[#1C1D1B] tracking-tight">더보기</h1>
+          <button id="moreNotifications" type="button" data-go="notifications" aria-label="알림" class="w-10 h-10 rounded-full flex items-center justify-center text-[#1C1D1B] hover:bg-[#F0EFEA] transition-colors relative">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            
+              <span id="moreNotificationDot" class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-[#B45650] ring-2 ring-[#FAF9F6] hidden"></span>
+            
+          </button>
+        </header>
 
-      <!-- 2. Profile Card -->
-      <section id="profile-card" data-go="settings" role="button" tabindex="0" class="bg-white rounded-2xl p-4 shadow-sm border border-black/[0.04] flex items-center justify-between cursor-pointer tap-active transition-all">
-        <div class="flex items-center space-x-3.5">
-          <div id="user-avatar-initial" class="w-12 h-12 rounded-full bg-[#f4f3f0] flex items-center justify-center text-lg font-bold text-[#1e3a2f]">
-            민
+        <!-- 2. 프로필 카드 -->
+        <div id="profile-card" data-go="settings" role="button" tabindex="0" class="bg-white rounded-2xl p-4 shadow-sm border border-[#F0EFEA] flex items-center justify-between cursor-pointer tap-active transition-colors">
+          <div class="flex items-center gap-3.5">
+            <div id="user-avatar-initial" class="w-12 h-12 rounded-full bg-[#F4F3F0] text-[#1E3A2F] flex items-center justify-center text-base font-bold flex-shrink-0"></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span id="user-name" class="text-base font-bold text-[#1C1D1B]"></span>
+                <span id="user-streak" class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#F4F3F0] text-[#78756F]"></span>
+              </div>
+            </div>
           </div>
           <div>
-            <div class="flex items-center space-x-2">
-              <span id="user-name" class="text-[17px] font-bold text-gray-900">김민서 님</span>
-              <span id="user-streak" class="text-[11px] font-semibold text-[#1e3a2f] bg-[#1e3a2f]/10 px-2 py-0.5 rounded-full">
-                기록 128일째
-              </span>
-            </div>
+            <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
           </div>
         </div>
-        <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m9 18 6-6-6-6"/>
-        </svg>
-      </section>
 
-      <!-- 3. Section: 생활 (DAILY LIFE) -->
-      <section>
-        <h2 class="text-xs font-semibold text-gray-400 tracking-wider px-2 mb-2">생활 · DAILY LIFE</h2>
-        <div class="bg-white rounded-2xl shadow-sm border border-black/[0.04] divide-y divide-black/[0.03] overflow-hidden">
-
-          <!-- 오늘의 하루 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="today" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                  <polyline points="9 22 9 12 15 12 15 22"/>
-                </svg>
+        <!-- 3. 카테고리별 동적 메뉴 리스트 -->
+        <div class="space-y-4">
+          
+          <div class="space-y-1.5">
+            <div class="px-1 text-[11px] font-bold text-[#8C8880] tracking-wider uppercase">생활 · DAILY LIFE</div>
+            <div class="bg-white rounded-2xl shadow-sm border border-[#F0EFEA] overflow-hidden">
+              
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="today" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">오늘의 하루</span>
               </div>
-              <span class="text-[15px] font-medium text-gray-800">오늘의 하루</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 캘린더 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="calendar" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
-                  <line x1="16" x2="16" y1="2" y2="6"/>
-                  <line x1="8" x2="8" y1="2" y2="6"/>
-                  <line x1="3" x2="21" y1="10" y2="10"/>
-                </svg>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
               </div>
-              <span class="text-[15px] font-medium text-gray-800">캘린더</span>
             </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 일기 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="diary" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
-                  <path d="M8 7h8"/>
-                  <path d="M8 11h8"/>
-                </svg>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="calendar" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">캘린더</span>
               </div>
-              <span class="text-[15px] font-medium text-gray-800">일기</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 가계부 (미니멀 통장 형태) -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="personal" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="18" height="14" x="3" y="5" rx="2"/>
-                  <line x1="3" x2="21" y1="10" y2="10"/>
-                </svg>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
               </div>
-              <span class="text-[15px] font-medium text-gray-800">가계부</span>
             </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 운동 기록 (가로형 미니멀 덤벨 형태) -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="workout" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M6 5v14"/>
-                  <path d="M18 5v14"/>
-                  <path d="M4 8v8"/>
-                  <path d="M20 8v8"/>
-                  <path d="M6 12h12"/>
-                </svg>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="diary" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path><path d="M8 7h8"></path><path d="M8 11h8"></path></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">일기</span>
               </div>
-              <span class="text-[15px] font-medium text-gray-800">운동 기록</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 기록 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="records" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                  <line x1="16" x2="8" y1="13" y2="13"/>
-                  <line x1="16" x2="8" y1="17" y2="17"/>
-                </svg>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
               </div>
-              <span class="text-[15px] font-medium text-gray-800">기록</span>
             </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 독서록 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="books" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                </svg>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="personal" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">가계부</span>
               </div>
-              <span class="text-[15px] font-medium text-gray-800">독서록</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 아이디어 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="lab" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M9 18h6"/>
-                  <path d="M10 22h4"/>
-                  <path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/>
-                </svg>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
               </div>
-              <span class="text-[15px] font-medium text-gray-800">아이디어</span>
             </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="workout" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"></path></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">운동 기록</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="records" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">기록</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="books" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">독서록</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors" data-go="lab" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"></path></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">아이디어</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            </div>
           </div>
-
+        
+          <div class="space-y-1.5">
+            <div class="px-1 text-[11px] font-bold text-[#8C8880] tracking-wider uppercase">하루 쉼터 · PLAY</div>
+            <div class="bg-white rounded-2xl shadow-sm border border-[#F0EFEA] overflow-hidden">
+              
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="shelter" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"></rect><line x1="3" x2="21" y1="9" y2="9"></line><line x1="3" x2="21" y1="15" y2="15"></line><line x1="9" x2="9" y1="3" y2="21"></line><line x1="15" x2="15" y1="3" y2="21"></line></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">1 to 25</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors" data-go="forge" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" id="icon-forge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"></path><path d="M13 19l6-6"></path><path d="M16 16l4 4"></path><path d="M19 21l2-2"></path></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">검 강화하기</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            </div>
+          </div>
+        
+          <div class="space-y-1.5">
+            <div class="px-1 text-[11px] font-bold text-[#8C8880] tracking-wider uppercase">관리 · CONTROL & SOCIAL</div>
+            <div class="bg-white rounded-2xl shadow-sm border border-[#F0EFEA] overflow-hidden">
+              
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="today-settings" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7"></path><path d="M4 10V3"></path><path d="M12 21v-9"></path><path d="M12 8V3"></path><path d="M20 21v-5"></path><path d="M20 12V3"></path><circle cx="4" cy="12" r="2"></circle><circle cx="12" cy="10" r="2"></circle><circle cx="20" cy="14" r="2"></circle></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">오늘 화면 설정</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="goals" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">목표 설정</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="square" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">광장</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors" data-go="search" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">통합 검색</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            </div>
+          </div>
+        
+          <div class="space-y-1.5">
+            <div class="px-1 text-[11px] font-bold text-[#8C8880] tracking-wider uppercase">도움 · SUPPORT & SYSTEM</div>
+            <div class="bg-white rounded-2xl shadow-sm border border-[#F0EFEA] overflow-hidden">
+              
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="bug" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="12" x="8" y="7" rx="4"></rect><path d="M12 7V3"></path><path d="M6 10h4"></path><path d="M14 10h4"></path><path d="M6 15h4"></path><path d="M14 15h4"></path><path d="M4 6l4 2"></path><path d="M20 6l-4 2"></path></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">버그 제보</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="contact" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">운영자 1:1 문의</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors border-b border-[#F4F3F0]" data-go="support" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">창작자 후원하기</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            <div class="flex items-center justify-between p-3.5 cursor-pointer tap-active transition-colors" data-go="settings" role="button" tabindex="0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-[#1E3A2F] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </div>
+                <span class="text-sm font-medium text-[#1C1D1B] tracking-tight">앱 환경 설정</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-[#BFBCB5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            </div>
+          
+            </div>
+          </div>
+        
         </div>
-      </section>
-
-      <!-- 4. Section: 하루 쉼터 (PLAY) -->
-      <section>
-        <h2 class="text-xs font-semibold text-gray-400 tracking-wider px-2 mb-2">하루 쉼터 · PLAY</h2>
-        <div class="bg-white rounded-2xl shadow-sm border border-black/[0.04] divide-y divide-black/[0.03] overflow-hidden">
-
-          <!-- 1 to 25 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="shelter" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="18" height="18" x="3" y="3" rx="2"/>
-                  <line x1="9" x2="9" y1="3" y2="21"/>
-                  <line x1="15" x2="15" y1="3" y2="21"/>
-                  <line x1="3" x2="21" y1="9" y2="9"/>
-                  <line x1="3" x2="21" y1="15" y2="15"/>
-                </svg>
-              </div>
-              <span class="text-[15px] font-medium text-gray-800">1 to 25</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 검 강화하기 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="forge" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" fill="none" id="icon-forge" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"></path><path d="M13 19l6-6"></path><path d="M16 16l4 4"></path><path d="M19 21l2-2"></path></svg>
-              </div>
-              <span class="text-[15px] font-medium text-gray-800">검 강화하기</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- 5. Section: 관리 (CONTROL & SOCIAL) -->
-      <section>
-        <h2 class="text-xs font-semibold text-gray-400 tracking-wider px-2 mb-2">관리 · CONTROL & SOCIAL</h2>
-        <div class="bg-white rounded-2xl shadow-sm border border-black/[0.04] divide-y divide-black/[0.03] overflow-hidden">
-
-          <!-- 오늘 화면 설정 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="today-settings" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="4" x2="10" y1="6" y2="6"/>
-                  <line x1="14" x2="20" y1="6" y2="6"/>
-                  <circle cx="12" cy="6" r="2"/>
-                  <line x1="4" x2="14" y1="18" y2="18"/>
-                  <line x1="18" x2="20" y1="18" y2="18"/>
-                  <circle cx="16" cy="18" r="2"/>
-                </svg>
-              </div>
-              <span class="text-[15px] font-medium text-gray-800">오늘 화면 설정</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 목표 설정 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="goals" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <circle cx="12" cy="12" r="6"/>
-                  <circle cx="12" cy="12" r="2"/>
-                </svg>
-              </div>
-              <span class="text-[15px] font-medium text-gray-800">목표 설정</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 광장 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="square" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                </svg>
-              </div>
-              <span class="text-[15px] font-medium text-gray-800">광장</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 통합 검색 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="search" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="11" cy="11" r="8"/>
-                  <path d="m21 21-4.3-4.3"/>
-                </svg>
-              </div>
-              <span class="text-[15px] font-medium text-gray-800">통합 검색</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- 6. Section: 도움 (SUPPORT & SYSTEM) -->
-      <section>
-        <h2 class="text-xs font-semibold text-gray-400 tracking-wider px-2 mb-2">도움 · SUPPORT & SYSTEM</h2>
-        <div class="bg-white rounded-2xl shadow-sm border border-black/[0.04] divide-y divide-black/[0.03] overflow-hidden">
-
-          <!-- 버그 제보 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="bug" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="8" height="14" x="8" y="6" rx="4"/>
-                  <path d="m19 7-3 2"/>
-                  <path d="m5 7 3 2"/>
-                  <path d="m19 19-3-2"/>
-                  <path d="m5 19 3-2"/>
-                  <path d="M20 13h-4"/>
-                  <path d="M4 13h4"/>
-                  <path d="m10 4 1 2"/>
-                  <path d="m14 4-1 2"/>
-                </svg>
-              </div>
-              <span class="text-[15px] font-medium text-gray-800">버그 제보</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 운영자 1:1 문의 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="contact" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
-                  <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
-                </svg>
-              </div>
-              <span class="text-[15px] font-medium text-gray-800">운영자 1:1 문의</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 창작자 후원하기 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="support" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-                </svg>
-              </div>
-              <span class="text-[15px] font-medium text-gray-800">창작자 후원하기</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 앱 환경 설정 -->
-          <div class="flex items-center justify-between p-4 cursor-pointer tap-active transition-colors hover:bg-black/[0.01]" data-go="settings" role="button" tabindex="0">
-            <div class="flex items-center space-x-3.5">
-              <div class="w-9 h-9 rounded-xl bg-[#faf9f6] flex items-center justify-center text-[#1e3a2f]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
-              </div>
-              <span class="text-[15px] font-medium text-gray-800">앱 환경 설정</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- 7. Footer Meta -->
-      <footer class="pt-2 pb-6 text-center text-xs text-gray-400 space-y-1">
-        <p class="font-medium text-gray-500">하루를 담다 · v<span id="appVersionLabel"></span></p>
-        <p class="text-[11px] text-gray-400">나의 하루를 안전하고 고요하게 담는 일상 앱</p>
-      </footer>
-
-    </div>
+<footer class="pt-2 pb-6 text-center text-xs text-gray-400 space-y-1">
+  <p class="font-medium text-gray-500">하루를 담다 · v<span id="appVersionLabel"></span></p>
+  <p class="text-[11px] text-gray-400">나의 하루를 안전하고 고요하게 담는 일상 앱</p>
+</footer>
+</div>
 </section>
 
       <section id="page-shelter" class="page" data-page="shelter">
@@ -793,7 +863,8 @@
   <script src="./js/db.js?v=20261120-batch6-v1"></script>
   <script src="./js/storage.js?v=20261004-profile-photos-v1"></script>
   <script src="./js/telemetry.js?v=20260920-error-logs-v1"></script>
-  <script src="./js/calendar-utils.js?v=20261115-calendar-fix-v3"></script>
+  <script src="./js/calendar-utils.js?v=20261120-stitch-v1"></script>
+<script src="./js/stitch-views.js?v=20261120-stitch-v1"></script>
   <script src="./js/diary-utils.js?v=20261002-diary-search-v1"></script>
   <script src="./js/finance-utils.js?v=20261017-integration-v1"></script>
   <script src="./js/budget-ui.js?v=20261030-budget-preview-v1"></script>
@@ -806,7 +877,7 @@
 <script src="./js/forge-ui.js?v=20261104-forge-v5"></script>
 <script src="./js/app-version.js?v=20261119-version-v1"></script>
 <script src="./js/more-profile.js?v=20261108-more-v3"></script>
-<script src="./js/app.js?v=20261120-batch6-v1"></script>
+<script src="./js/app.js?v=20261120-stitch-v1"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>

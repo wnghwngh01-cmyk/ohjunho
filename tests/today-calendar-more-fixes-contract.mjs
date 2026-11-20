@@ -11,8 +11,10 @@ const gradle=fs.readFileSync('android/app/build.gradle','utf8');
 const sw=fs.readFileSync('sw.js','utf8');
 
 // #3 Today todos can be deleted (functional control; final visual comes with the Stitch pass).
+const views=fs.readFileSync('js/stitch-views.js','utf8');
 const renderTodos=app.match(/function renderTodos\(\)\{[^\n]*/)?.[0]||'';
-assert.match(renderTodos,/data-todo-delete="\$\{esc\(x\.id\)\}"/,'each todo row renders a delete control');
+assert.match(renderTodos,/rows\.map\(Views\.todayTodoRow\)/,'todo rows use the Stitch template');
+assert.match(views,/data-todo-delete="\$\{esc\(t\.id\)\}"/,'each todo row renders a delete control');
 assert.match(app,/closest\('\[data-todo-delete\]'\);if\(todoDelete\)\{if\(!confirm\('이 할 일을 삭제할까요\?'\)\)return;/,'todo deletion asks first');
 
 // #5 "요일 선택" with no weekday must not silently save Monday.
@@ -24,15 +26,12 @@ assert.match(app,/const schedule=habitScheduleValue\(\);if\(!schedule\)return to
 assert.match(app,/closest\('\[data-delete-event\]'\);if\(delEvent\)\{if\(!confirm\('이 일정을 삭제할까요\?'\)\)return;/);
 
 // V1 Today bell is centered like the approved Stitch file (flex items-center justify-center).
-const bell=todayCss.match(/\.topbar-notification-btn\{[^}]*\}/)?.[0]||'';
-assert.match(bell,/display:flex;align-items:center;justify-content:center;/);
+const todayBell=html.match(/<button[^>]*id="todayNotifications"[^>]*>/)?.[0]||'';
+assert.match(todayBell,/flex items-center justify-center/);
 
 // V3 checkboxes keep their Stitch size but get a 44px touch target.
-assert.match(todayCss,/#page-today \.stitch-check\{position:relative;width:20px;/);
-assert.match(todayCss,/#page-today \.stitch-check:before\{content:'';position:absolute;inset:-12px\}/);
-assert.match(calendarCss,/#page-calendar \.check \{ width: 16px !important; height: 16px !important;/);
-assert.match(calendarCss,/#page-calendar \.check::before \{ content: '' !important; position: absolute !important; inset: -14px !important; \}/);
-
+assert.match(todayCss,/#page-today \[data-habit-toggle\]::before,#page-today \[data-todo-toggle\]::before,#page-today \[data-event-toggle\]::before\{content:'';position:absolute;inset:-12px\}/);
+assert.match(calendarCss,/#page-calendar \[data-event-toggle\]::before\{content:'';position:absolute;inset:-14px\}/);
 // V2 one version source shown in More and used by Gradle.
 const sandbox={window:{},document:{readyState:'complete',querySelectorAll:()=>[]}};
 vm.runInNewContext(versionJs,sandbox);

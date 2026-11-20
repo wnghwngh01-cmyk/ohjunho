@@ -16,10 +16,11 @@ assert.match(app,/await loadTodayProtein\(\)/);
 assert.match(app,/title=\$\('#financeTitle'\)\.value\.trim\(\)\|\|category/);
 assert.match(app,/if\(state\.todayLayout\.find\(x=>x\.id==='budget'\)\?\.enabled\)await loadTodayBudget\(\)/);
 assert.match(app,/Finance\.budgetSummary\(rows,month,budget\.items\|\|\{\}\)/);
-assert.match(app,/설정된 분류별 예산이 없습니다\./);
-assert.match(app,/summary\.categories\.map\(item=>/);
-assert.match(app,/todayBudgetUnassigned/);
-assert.match(app,/remaining\.classList\.toggle\('budget-over',over\)/);
-assert.match(app,/money\(summary\.remaining\).*총 \$\{money\(summary\.budget\)\}/);
+// Stitch budget gauge: remaining / total, coral overage, bar width = remaining share.
+assert.match(app,/예산 미설정/);
+assert.match(app,/won\(Math\.abs\(summary\.remaining\)\)\} 초과/);
+assert.match(app,/\$\{won\(summary\.remaining\)\} <span[^`]*\/ \$\{won\(summary\.budget\)\}/);
+assert.match(app,/summary\.remaining\/summary\.budget\*100/);
+assert.match(app,/bar\.style\.width=/);
 assert.match(html,/data-today-section="budget"/);assert.match(html,/data-today-section="records"/);
 console.log('today layout behavior: PASS');

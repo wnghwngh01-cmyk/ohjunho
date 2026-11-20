@@ -1,54 +1,63 @@
 import fs from 'node:fs';
 
+// Today page contract for the final Stitch "1_1" screen (2026-11-20 re-implementation).
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const app=fs.readFileSync(new URL('../js/app.js',import.meta.url),'utf8');
 const db=fs.readFileSync(new URL('../js/db.js',import.meta.url),'utf8');
-const todayTheme=fs.readFileSync(new URL('../assets/today-stitch.css',import.meta.url),'utf8');
+const views=fs.readFileSync(new URL('../js/stitch-views.js',import.meta.url),'utf8');
+const todayShell=fs.readFileSync(new URL('../assets/today-stitch.css',import.meta.url),'utf8');
+const generated=fs.readFileSync(new URL('../assets/today-stitch.generated.css',import.meta.url),'utf8');
 const page=html.match(/<section id="page-today"[\s\S]*?<section id="page-records"/)?.[0]||'';
-const greeting=page.match(/<section class="stitch-intro">[\s\S]*?<\/section>/)?.[0]||'';
+const fail=message=>{throw new Error(message)};
 
-if(!page.includes('data-today-section="quote"')||!page.includes('id="todayQuote"'))throw new Error('Configurable daily quote block is missing from Today');
-if(greeting.includes('일정과 할 일, 습관과 기록을 한곳에서 챙기며 오늘을 차분히 이어가세요.'))throw new Error('Duplicate Today introduction must be removed');
-if(!greeting.includes('id="todayGoalCard"')||!greeting.includes('id="todayCountdowns"'))throw new Error('Goals and D-Day must share the Stitch goal card');
-if(!greeting.includes('class="stitch-goal-row"')||!greeting.includes('data-go="goals"'))throw new Error('Goal rows must navigate to goal management');
-if(!greeting.includes('id="todayDdayAction"'))throw new Error('D-Day row is missing');
-if(page.includes('id="memoryCard"')||page.includes('1년 전 오늘'))throw new Error('One-year-ago memory must not appear on Today');
-if(db.includes('memory:memory.data')||db.includes("x.setFullYear(x.getFullYear()-1)"))throw new Error('Removed memory card must not trigger a dashboard query');
-if(!app.includes('const quotes=')||!app.includes("$('#todayQuote')"))throw new Error('Daily quote rotation code is missing');
-if(!app.includes('const nearest=countdowns[0]')||!app.includes('countdowns.length-1'))throw new Error('D-Day must show the nearest item and remaining count');
-if(!app.includes('중요한 날짜가 없습니다')||app.includes('캘린더에서 설정하기 →'))throw new Error('D-Day empty state must be informational only');
-if(!app.includes('data-today-countdown-day')||!app.includes('state.calendarView=new Date(target.getFullYear(),target.getMonth(),1)'))throw new Error('D-Day must open its exact calendar date');
-if(!app.includes('DB.listImportantEvents(day)'))throw new Error('Today must load upcoming important days without an end-date cap');
+if(!page)fail('Today section is missing');
+if(/style\s*=/.test(page))fail('Today markup must not contain inline style attributes (CSP style-src self)');
+if(!page.includes('data-today-section="quote"')||!page.includes('id="todayQuote"'))fail('Configurable daily quote block is missing from Today');
+if(!page.includes('id="todayGoalCard"')||!page.includes('id="todayCountdowns"')||!page.includes('id="todayDdayAction"'))fail('Goals and D-Day must share the Stitch goal card');
+if(!page.includes('data-go="goals"'))fail('Goal rows must navigate to goal management');
+if(!page.includes('id="todayNotifications"')||!page.includes('data-go="notifications"')||!page.includes('id="todayNotificationDot"'))fail('Today header bell must open notifications and carry the unread dot');
+if(page.includes('id="memoryCard"')||page.includes('1년 전 오늘'))fail('One-year-ago memory must not appear on Today');
+if(db.includes('memory:memory.data')||db.includes("x.setFullYear(x.getFullYear()-1)"))fail('Removed memory card must not trigger a dashboard query');
+if(!app.includes('const quotes=')||!app.includes("$('#todayQuote')"))fail('Daily quote rotation code is missing');
+if(!app.includes('const nearest=countdowns[0]')||!app.includes('countdowns.length-1'))fail('D-Day must show the nearest item and remaining count');
+if(!app.includes('중요한 날짜가 없습니다')||app.includes('캘린더에서 설정하기 →'))fail('D-Day empty state must be informational only');
+if(!app.includes('data-today-countdown-day')&&!app.includes('dataset.todayCountdownDay'))fail('D-Day must open its exact calendar date');
+if(!app.includes('state.calendarView=new Date(target.getFullYear(),target.getMonth(),1)'))fail('D-Day must open its exact calendar month');
+if(!app.includes('DB.listImportantEvents(day)'))fail('Today must load upcoming important days without an end-date cap');
 const importantQuery=db.match(/async function listImportantEvents[\s\S]*?return data\|\|\[\]\}/)?.[0]||'';
-if(!importantQuery||importantQuery.includes('.limit('))throw new Error('Upcoming important days must not have a fixed row limit');
-if(!todayTheme.includes('--st-bg:#faf9f6')||!todayTheme.includes('--st-surface:#fff')||!todayTheme.includes('--st-line:#e9e8e5')||!todayTheme.includes('--st-primary:#1e3a2f'))throw new Error('Final Stitch color tokens must remain intact');
-if(!app.includes('class="stitch-row event-item ')||!app.includes('class="stitch-move"'))throw new Error('Mobile Today rows must use the Stitch list geometry');
-const todayEventsRender=app.match(/\$\('#todayEvents'\)\.innerHTML=[^\r\n]+/)?.[0]||'';
-if(!todayEventsRender||todayEventsRender.includes('data-move-event')||todayEventsRender.includes('>내일로<'))throw new Error('Today events must not include a move-to-tomorrow action');
-if(!todayEventsRender.includes('stitch-check-glyph')||!todayEventsRender.includes('✓'))throw new Error('Completed Today events must render a visible check glyph');
-if(todayTheme.includes('.stitch-events-section .stitch-check{width:8px'))throw new Error('Today event checkboxes must not collapse into status dots');
-if(app.includes('class="todo-delete"'))throw new Error('Today must not expose a delete X beside todos');
-if(!html.includes('today-stitch.css?v=20261119-batch3-v1'))throw new Error('Final Today Stitch stylesheet is not loaded');
-if(!todayTheme.includes('grid-template-columns:auto minmax(0,1fr) 16px')||!todayTheme.includes('gap:16px'))throw new Error('Final Stitch alignment and vertical rhythm must remain exact');
-if(!todayTheme.includes('max-width:480px')||!todayTheme.includes('border-radius:16px'))throw new Error('Final Stitch mobile canvas and card radius must remain exact');
-if(!page.includes('stroke-width="1.5"')&&!todayTheme.includes('stroke-width:1.5'))throw new Error('Today icons must use the Stitch 1.5px line weight');
-if(/style\s*=/.test(page))throw new Error('Today markup must not contain inline style attributes');
-if(!app.includes('stitch-habit-dots')||!app.includes('`주 ${progress.completed}/${progress.target}일`')||!app.includes("scheduleType==='weekdays'?5")||!app.includes("scheduleType==='selected_weekdays'"))throw new Error('Weekly habit progress dots must cover every schedule type');
-for(const hook of ['topbarTitle','topbarSub','syncState','page-today','todayDate','greetingTitle','todayGoalCard','todayFinalGoal','todayMonthlyGoal','todayDdayAction','todayCountdowns','todayEvents','todayTodoCount','todayTodoInput','todayTodoAdd','todayTodos','todayHabits','quickRecordText','quickRecordSave'])if(!html.includes(`id="${hook}"`))throw new Error(`Today hook is missing: ${hook}`);
+if(!importantQuery||importantQuery.includes('.limit('))fail('Upcoming important days must not have a fixed row limit');
+
+// Stitch rows come from js/stitch-views.js.
+if(!app.includes('Views.todayEventRow')||!app.includes('Views.todayTodoRow')||!app.includes('Views.todayHabitRow'))fail('Today lists must use the Stitch row templates');
+const eventRow=views.match(/function todayEventRow[\s\S]*?\n  \}/)?.[0]||'';
+if(!eventRow.includes('data-event-toggle')||eventRow.includes('data-move-event')||eventRow.includes('내일로'))fail('Today events keep their checkbox and have no move-to-tomorrow action');
+const todoRow=views.match(/function todayTodoRow[\s\S]*?\n  \}/)?.[0]||'';
+if(!todoRow.includes('data-todo-move')||!todoRow.includes('data-todo-delete'))fail('Todo rows must offer 내일로 and 삭제');
+
+// Shell and generated Tailwind build.
+if(!todayShell.includes('max-width:480px')||!todayShell.includes('background:#FAF9F6'))fail('Today shell must keep the Stitch canvas');
+if(!todayShell.includes('body:has(#page-today.active) .topbar{display:none!important}'))fail('Today must hide the global topbar (the screen has its own header)');
+if(!generated.includes('#page-today'))fail('Generated Today Tailwind CSS must be scoped to #page-today');
+// Preflight is disabled, so each Stitch page restores the border defaults itself; otherwise every `border` class draws nothing.
+for(const name of ['today','calendar','more']){
+  const css=fs.readFileSync(new URL(`../assets/${name}-stitch.generated.css`,import.meta.url),'utf8');
+  if(!new RegExp(`#page-${name} \\*,[^{]*\\{[^}]*(border-style:solid|border:0 solid)`).test(css))fail(`${name} Stitch CSS must restore border-style:solid inside #page-${name}`);
+}
+for(const link of ['today-stitch.css?v=20261120-stitch-v1','today-stitch.generated.css?v=20261120-stitch-v2','stitch-views.js?v=20261120-stitch-v1'])if(!html.includes(link))fail(`Today asset is not loaded: ${link}`);
+if(html.indexOf('stitch-views.js')>html.indexOf('js/app.js'))fail('stitch-views.js must load before app.js');
+
+for(const hook of ['page-today','todayDate','greetingTitle','todayGoalCard','todayFinalGoal','todayMonthlyGoal','todayDdayAction','todayCountdowns','todayEvents','todayTodoCount','todayTodoInput','todayTodoAdd','todayTodos','todayHabits','todayHabitSettings','quickRecordText','quickRecordSave'])if(!html.includes(`id="${hook}"`))fail(`Today hook is missing: ${hook}`);
 
 const defaultIds=['quote','events','todos','habits','protein','budget','records'];
 let previous=-1;
-for(const id of defaultIds){const position=page.indexOf(`data-today-section="${id}"`);if(position<0||position<previous)throw new Error(`Unexpected default Today card order at: ${id}`);previous=position}
-if(!app.includes('applyTodayLayout()')||!app.includes('section.hidden=!item.enabled')||!app.includes('stack.insertBefore(section,empty)'))throw new Error('Today cards must support account-defined visibility and order');
-if(!page.includes('표시할 오늘 화면 항목이 없습니다.')||!page.includes('id="todayLayoutEmpty"'))throw new Error('Today all-disabled empty state is missing');
-if(!page.includes('id="todayHabitSettings"')||!app.includes("details.habit-settings")||!app.includes('settings.open=true'))throw new Error('Habit settings shortcut behavior is missing');
-for(const hook of ['todayProteinTotal','todayProteinLabel','todayProteinGrams','todayProteinAdd','todayFinanceType','todayFinanceDate','todayFinanceTitle','todayFinanceAmount','todayFinanceCategory','todayFinanceAdd','todayBudgetRemaining','todayBudgetRows','todayBudgetUnassigned'])if(!html.includes(`id="${hook}"`))throw new Error(`Today optional hook is missing: ${hook}`);
-const budgetCard=page.match(/<section class="stitch-card stitch-section stitch-budget-section" data-today-section="budget">[\s\S]*?<\/section>/)?.[0]||'';
-if(!budgetCard.includes('가계부 요약')||!budgetCard.includes('id="todayBudgetRemaining"')||!budgetCard.includes('id="todayBudgetProgress"'))throw new Error('Today budget card must show the final Stitch summary gauge');
-if(!app.includes('`\${money(summary.remaining)} 남음 · 총 \${money(summary.budget)}`')||!app.includes('`\${money(Math.abs(summary.remaining))} 초과 · 총 \${money(summary.budget)}`'))throw new Error('Collapsed Today budget preview must include remaining and total monthly budget');
-if(!budgetCard.includes('data-go="personal"')||!budgetCard.includes('id="todayBudgetRows"')||!budgetCard.includes('id="todayBudgetUnassigned"'))throw new Error('Today budget card must retain category detail and finance navigation hooks');
-for(const removed of ['<h3>오늘의 문장</h3>','<h3>중요한 날짜</h3>','<h3>오늘 할 일</h3>','<h3>반복 습관</h3>']){
-  if(page.includes(removed))throw new Error(`Removed Today card or label remains: ${removed}`);
-}
+for(const id of defaultIds){const position=page.indexOf(`data-today-section="${id}"`);if(position<0||position<previous)fail(`Unexpected default Today card order at: ${id}`);previous=position}
+if(!app.includes('applyTodayLayout()')||!app.includes('section.hidden=!item.enabled')||!app.includes('stack.insertBefore(section,empty)'))fail('Today cards must support account-defined visibility and order');
+if(!page.includes('표시할 오늘 화면 항목이 없습니다.')||!page.includes('id="todayLayoutEmpty"'))fail('Today all-disabled empty state is missing');
+if(!app.includes("$('#todayHabitSettings').addEventListener('click'")||!app.includes("$('#habitConfig')")||!app.includes('settings.open=true'))fail('Habit settings shortcut must open the calendar habit settings');
+for(const hook of ['todayProteinTotal','todayProteinLabel','todayProteinGrams','todayProteinAdd','todayFinanceType','todayFinanceTitle','todayFinanceAmount','todayFinanceCategory','todayFinanceAdd','todayBudgetRemaining','todayBudgetBar'])if(!html.includes(`id="${hook}"`))fail(`Today optional hook is missing: ${hook}`);
+const budgetCard=page.match(/data-today-section="budget"[\s\S]*?<\/section>/)?.[0]||'';
+if(!budgetCard.includes('id="todayBudgetRemaining"')||!budgetCard.includes('id="todayBudgetBar"')||!budgetCard.includes('data-today-finance-type="expense"')||!budgetCard.includes('data-today-finance-type="income"'))fail('Today budget card must show the Stitch gauge and expense/income toggle');
+if(!app.includes('bar.style.width='))fail('Budget bar width must be set through CSSOM (no style attribute)');
+for(const removed of ['<h3>오늘의 문장</h3>','<h3>중요한 날짜</h3>','<h3>오늘 할 일</h3>','<h3>반복 습관</h3>','id="todayFinanceDate"'])if(page.includes(removed))fail(`Removed Today element remains: ${removed}`);
 
 console.log('today page contract: PASS');

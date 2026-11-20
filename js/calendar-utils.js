@@ -106,5 +106,51 @@
     return cells;
   }
 
-  global.HaruCalendar={COLOR_KEYS,HOLIDAYS,sanitizeColor,holidayFor,holidayEvents,fixedHabitRunsOn,habitStartDay,weekBounds,weeklyProgress,habitRunsOn,habitMarker,compareEvents,buildEventLayout,shiftDay};
+  // Calendar day status for the Stitch calendar. Only fixed-schedule habits due that day are required (rest-day habits never
+  // block the check). 주 N회 habits are not required on a given day; a checked one still counts as activity.
+  // Past days keep the earlier rule that checklists may be filled in retroactively before a habit's start date.
+  // 'complete' = every required habit checked (or, with none required, a 주 N회 habit checked), 'partial' = some checked, '' = nothing.
+  function habitDayStatus(day,habits,checks,today=dateKey(new Date())){
+    if(day>today)return'';
+    const checkMap=new Map((checks||[]).filter(c=>c.day===day).map(c=>[c.habit_id,!!c.completed]));
+    const options={includeBeforeStart:day<today};
+    const due=(habits||[]).filter(h=>habitRunsOn(day,h,checks,options));
+    const required=due.filter(h=>h.schedule?.type!=='weekly_n');
+    const anyChecked=due.some(h=>checkMap.get(h.id));
+    if(!required.length)return anyChecked?'complete':'';
+    const done=required.filter(h=>checkMap.get(h.id)).length;
+    return done===required.length?'complete':anyChecked?'partial':'';
+  }
+
+  // A fixed-schedule habit (매일/평일/요일 선택) has a rest day when it is not scheduled on that date or has not started yet
+  // (options.includeBeforeStart lets past calendar days accept retroactive checks before the start date).
+  // 주 N회 habits never rest: they can be checked any day of the week.
+  function isHabitRestDay(day,habit,options={}){
+    if(!options.includeBeforeStart&&day<habitStartDay(habit))return true;
+    if(habit?.schedule?.type==='weekly_n')return false;
+    return !fixedHabitRunsOn(day,habit?.schedule);
+  }
+
+  // Consecutive completed scheduled days ending today (or yesterday while today is still open). Rest days are skipped.
+  function habitStreak(habit,checks,today=dateKey(new Date()),limit=400){
+    if(habit?.schedule?.type==='weekly_n')return 0;
+    const done=new Set((checks||[]).filter(c=>c.habit_id===habit.id&&c.completed).map(c=>c.day));
+    let day=today,streak=0;
+    if(!done.has(today))day=shiftDay(today,-1);
+    for(let i=0;i<limit;i++,day=shiftDay(day,-1)){
+      if(day<habitStartDay(habit))break;
+      if(!fixedHabitRunsOn(day,habit.schedule))continue;
+      if(!done.has(day))break;
+      streak++;
+    }
+    return streak;
+  }
+
+  // Monday..Sunday dots of the current week: 'done' (checked), 'today' (today, not yet checked), '' (otherwise).
+  function weekDots(habit,checks,today=dateKey(new Date())){
+    const [monday]=weekBounds(today),done=new Set((checks||[]).filter(c=>c.habit_id===habit.id&&c.completed).map(c=>c.day));
+    return Array.from({length:7},(_,i)=>{const day=shiftDay(monday,i);return done.has(day)?'done':day===today?'today':''});
+  }
+
+  global.HaruCalendar={COLOR_KEYS,HOLIDAYS,sanitizeColor,holidayFor,holidayEvents,fixedHabitRunsOn,habitStartDay,weekBounds,weeklyProgress,habitRunsOn,habitMarker,habitDayStatus,isHabitRestDay,habitStreak,weekDots,compareEvents,buildEventLayout,shiftDay};
 })(typeof window!=='undefined'?window:globalThis);

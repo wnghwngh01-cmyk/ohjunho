@@ -1,103 +1,14 @@
-:root{--st-bg:#faf9f6;--st-surface:#fff;--st-line:#e9e8e5;--st-divider:#efeeeb;--st-text:#1a1c1a;--st-secondary:#424844;--st-muted:#8e928f;--st-primary:#1e3a2f;--st-primary-hover:#2d5545;--st-primary-soft:#e8f1ec;--st-mint:#c3ecd6;--st-mint-text:#133e2b}
-html:not([data-theme="dark"]) body:has(#page-today.active),html:not([data-theme="dark"]) .app-main:has(#page-today.active){background:var(--st-bg)}
-html:not([data-theme="dark"]) .app-main:has(#page-today.active){padding-bottom:0}
-html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar{position:absolute;inset:0 0 auto;height:0;min-height:0;padding:0;border:0;background:transparent;overflow:visible;z-index:50}
-html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar>div,html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar>.sync-state{display:none}
-html:not([data-theme="dark"]) .app-main:has(#page-today.active)>.topbar .topbar-notification-btn{position:absolute;top:24px;right:max(20px,calc((100% - 480px)/2 + 20px));display:flex;align-items:center;justify-content:center;width:40px;height:40px;margin:0;padding:0;border:1px solid var(--st-line);border-radius:12px;background:#fff;color:var(--st-primary);box-shadow:0 1px 4px rgba(0,0,0,.04)}
-html:not([data-theme="dark"]) #page-today{width:100%;max-width:480px;margin:0 auto;padding:24px 16px calc(104px + env(safe-area-inset-bottom,0px));background:var(--st-bg);color:var(--st-text);font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;letter-spacing:-.025em}
-html:not([data-theme="dark"]) #page-today *{box-sizing:border-box}
-html:not([data-theme="dark"]) #page-today .stitch-today-stack{display:flex;flex-direction:column;gap:16px;width:100%}
-html:not([data-theme="dark"]) #page-today .stitch-intro{display:flex;flex-direction:column;gap:10px;padding:0}
-html:not([data-theme="dark"]) #page-today .stitch-greeting{padding:0 4px}
-html:not([data-theme="dark"]) #page-today .stitch-date{display:inline-flex;align-items:center;gap:6px;width:max-content;margin-bottom:8px;padding:4px 10px;border-radius:999px;background:var(--st-primary-soft);color:var(--st-primary);font-size:12px;line-height:18px;font-weight:500}
-html:not([data-theme="dark"]) #page-today .stitch-date svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-html:not([data-theme="dark"]) #page-today #greetingTitle{max-width:calc(100% - 50px);margin:0;color:var(--st-text);font:700 23px/1.38 inherit;letter-spacing:-.035em;word-break:keep-all}
-html:not([data-theme="dark"]) #page-today .stitch-goals{display:flex;flex-direction:column;padding:16px;border:1px solid var(--st-line);border-radius:16px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.02)}
-html:not([data-theme="dark"]) #page-today .stitch-goal-row{display:grid;grid-template-columns:auto minmax(0,1fr) 16px;align-items:center;gap:10px;width:100%;min-height:35px;margin:0;padding:8px 0;border:0;background:transparent;color:inherit;text-align:left;font:inherit;cursor:pointer}
-html:not([data-theme="dark"]) #page-today .stitch-goal-row:first-child{padding-top:0}
-html:not([data-theme="dark"]) #page-today .stitch-goal-row:last-child{padding-bottom:0}
-html:not([data-theme="dark"]) #page-today .stitch-goal-row+.stitch-goal-row{border-top:1px solid var(--st-divider)}
-html:not([data-theme="dark"]) #page-today .stitch-goal-label{display:inline-flex;align-items:center;justify-content:center;padding:2px 8px;border-radius:999px;background:var(--st-primary-soft);color:var(--st-primary);font-size:11px;line-height:17px;font-weight:600;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-goal-label.primary{background:var(--st-primary);color:#fff}
-html:not([data-theme="dark"]) #page-today .stitch-goal-value{min-width:0;color:var(--st-text);font-size:13.5px;line-height:21px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-chevron{width:16px;height:16px;fill:none;stroke:var(--st-muted);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-html:not([data-theme="dark"]) #page-today .stitch-countdowns{display:flex;align-items:center;gap:5px;min-width:0;overflow:hidden}
-html:not([data-theme="dark"]) #page-today .stitch-countdown{display:flex;align-items:center;gap:4px;min-width:0;color:var(--st-text);font-size:13.5px;font-weight:500}
-html:not([data-theme="dark"]) #page-today .stitch-countdown span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-countdown strong{color:var(--st-primary);white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-countdown-more,html:not([data-theme="dark"]) #page-today .stitch-countdown-empty{color:var(--st-muted);font-size:12px;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .today-quote-card{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;border:1px solid var(--st-line);border-radius:16px;background:#f4f3f0;color:var(--st-secondary)}
-html:not([data-theme="dark"]) #page-today .today-quote-card>span{margin-top:2px;color:var(--st-primary);font:400 18px/1 Georgia,serif}
-html:not([data-theme="dark"]) #page-today .today-quote-card blockquote{margin:0;font-size:13px;line-height:1.65;font-weight:500;white-space:pre-line;word-break:keep-all}
-html:not([data-theme="dark"]) #page-today .stitch-card{display:flex;flex-direction:column;gap:12px;padding:16px;border:1px solid var(--st-line);border-radius:16px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.025)}
-html:not([data-theme="dark"]) #page-today .stitch-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:20px}
-html:not([data-theme="dark"]) #page-today .stitch-section-head>div{display:flex;align-items:center;gap:8px;min-width:0}
-html:not([data-theme="dark"]) #page-today .stitch-section-head svg{width:16px;height:16px;fill:none;stroke:var(--st-primary);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
-html:not([data-theme="dark"]) #page-today .stitch-section-head h3{margin:0;color:var(--st-text);font-size:15px;line-height:22px;font-weight:700;letter-spacing:-.025em;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-section-head>button{display:inline-flex;align-items:center;gap:4px;min-height:28px;padding:3px 0 3px 8px;border:0;background:transparent;color:var(--st-secondary);font:500 12px/18px inherit;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-section-head>button svg{width:14px;height:14px;stroke:var(--st-muted)}
-html:not([data-theme="dark"]) #page-today .stitch-count{padding:2px 8px;border-radius:999px;background:var(--st-primary-soft);color:var(--st-primary);font-size:12px;line-height:18px;font-weight:600;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-list{display:flex;flex-direction:column;gap:10px}
-html:not([data-theme="dark"]) #page-today .stitch-row{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:36px;padding:8px;border:0;border-radius:12px;background:transparent}
-html:not([data-theme="dark"]) #page-today .stitch-events-section .stitch-row,html:not([data-theme="dark"]) #page-today .stitch-habits-section .stitch-row{padding:10px;border:1px solid var(--st-divider);background:var(--st-bg)}
-html:not([data-theme="dark"]) #page-today .stitch-habits-section .stitch-row{align-items:flex-start;padding:12px}
-html:not([data-theme="dark"]) #page-today .stitch-row-main{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
-html:not([data-theme="dark"]) #page-today .stitch-row-copy{display:flex;flex-direction:column;min-width:0;flex:1}
-html:not([data-theme="dark"]) #page-today .stitch-row-copy strong{color:var(--st-text);font-size:13.5px;line-height:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-row-copy>span{color:var(--st-muted);font-size:11px;line-height:17px}
-html:not([data-theme="dark"]) #page-today .stitch-row.done .stitch-row-copy strong{text-decoration:line-through;color:var(--st-muted)}
-html:not([data-theme="dark"]) #page-today .stitch-check{position:relative;width:20px;min-width:20px;height:20px;padding:0;border:1px solid var(--st-muted);border-radius:6px;background:#fff;color:transparent}
-html:not([data-theme="dark"]) #page-today .stitch-check:before{content:'';position:absolute;inset:-12px}
-html:not([data-theme="dark"]) #page-today .stitch-check.done{border-color:var(--st-primary);background:var(--st-primary)}
-html:not([data-theme="dark"]) #page-today .stitch-check.done:after{content:'✓';position:absolute;inset:0;color:#fff;font:700 13px/18px system-ui;text-align:center}
-html:not([data-theme="dark"]) #page-today .stitch-events-section .stitch-check.done:after{display:none}
-html:not([data-theme="dark"]) #page-today .stitch-events-section .stitch-check-glyph{display:block;color:#fff;font:700 13px/18px system-ui;text-align:center}
-html:not([data-theme="dark"]) #page-today .stitch-move{min-height:30px;padding:4px 3px;border:0;background:transparent;color:var(--st-muted);font-size:11px}
-html:not([data-theme="dark"]) #page-today .stitch-empty{padding:10px;color:var(--st-muted);font-size:13px;line-height:20px}
-html:not([data-theme="dark"]) #page-today .stitch-todo-entry,html:not([data-theme="dark"]) #page-today .stitch-inline-form{display:flex;align-items:center;gap:8px;width:100%}
-html:not([data-theme="dark"]) #page-today input,html:not([data-theme="dark"]) #page-today select,html:not([data-theme="dark"]) #page-today textarea{min-width:0;border:1px solid var(--st-line);border-radius:12px;background:var(--st-bg);color:var(--st-text);font:400 13px/20px inherit;outline:0}
-html:not([data-theme="dark"]) #page-today input:focus,html:not([data-theme="dark"]) #page-today select:focus,html:not([data-theme="dark"]) #page-today textarea:focus{border-color:var(--st-primary)}
-html:not([data-theme="dark"]) #page-today input::placeholder,html:not([data-theme="dark"]) #page-today textarea::placeholder{color:var(--st-muted)}
-html:not([data-theme="dark"]) #page-today .stitch-todo-entry input,html:not([data-theme="dark"]) #page-today .stitch-inline-form input{height:34px;padding:6px 12px;flex:1}
-html:not([data-theme="dark"]) #page-today .stitch-todo-entry button,html:not([data-theme="dark"]) #page-today .stitch-inline-form button,html:not([data-theme="dark"]) #page-today .stitch-record-box button,html:not([data-theme="dark"]) #page-today .stitch-finance-form button{height:34px;padding:0 14px;border:0;border-radius:12px;background:var(--st-primary);color:#fff;font:500 13px/34px inherit;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-inline-form #todayProteinGrams{width:96px;flex:0 0 96px;text-align:right}
-html:not([data-theme="dark"]) #page-today .stitch-protein-section #todayProteinTotal{color:var(--st-primary);font-size:16px;line-height:22px;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-habit-meta{display:flex;align-items:center;gap:8px;margin-top:8px}
-html:not([data-theme="dark"]) #page-today .stitch-habit-meta>span{padding:2px 8px;border-radius:999px;background:var(--st-primary-soft);color:var(--st-primary);font-size:11px;line-height:17px;font-weight:600}
-html:not([data-theme="dark"]) #page-today .stitch-habit-dots{display:flex;align-items:center;gap:6px}
-html:not([data-theme="dark"]) #page-today .stitch-habit-dots i{width:6px;height:6px;border-radius:50%;background:var(--st-line)}
-html:not([data-theme="dark"]) #page-today .stitch-habit-dots i.on{background:var(--st-primary)}
-html:not([data-theme="dark"]) #page-today .stitch-budget-gauge{padding:12px;border:1px solid var(--st-divider);border-radius:12px;background:var(--st-bg)}
-html:not([data-theme="dark"]) #page-today .stitch-budget-gauge>div{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px;font-size:12.5px;color:var(--st-secondary)}
-html:not([data-theme="dark"]) #page-today .stitch-budget-gauge strong{color:var(--st-primary);font-weight:700;text-align:right}
-html:not([data-theme="dark"]) #page-today .stitch-budget-gauge strong.budget-over{color:#a23f43}
-html:not([data-theme="dark"]) #page-today .stitch-budget-gauge progress{display:block;width:100%;height:8px;border:0;border-radius:999px;background:var(--st-line);overflow:hidden;appearance:none}
-html:not([data-theme="dark"]) #page-today .stitch-budget-gauge progress::-webkit-progress-bar{background:var(--st-line)}
-html:not([data-theme="dark"]) #page-today .stitch-budget-gauge progress::-webkit-progress-value{border-radius:999px;background:var(--st-primary)}
-html:not([data-theme="dark"]) #page-today .stitch-budget-gauge progress::-moz-progress-bar{border-radius:999px;background:var(--st-primary)}
-html:not([data-theme="dark"]) #page-today #todayBudgetRows{display:flex;flex-direction:column;gap:8px}
-html:not([data-theme="dark"]) #page-today #todayBudgetRows:empty,html:not([data-theme="dark"]) #page-today #todayBudgetUnassigned:empty{display:none}
-html:not([data-theme="dark"]) #page-today #todayBudgetRows .budget-row{padding:8px 10px;border:1px solid var(--st-divider);border-radius:10px;background:var(--st-bg)}
-html:not([data-theme="dark"]) #page-today #todayBudgetRows .budget-row-head,html:not([data-theme="dark"]) #page-today #todayBudgetRows .budget-row-bottom{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--st-muted)}
-html:not([data-theme="dark"]) #page-today #todayBudgetRows .budget-row-head strong{color:var(--st-text);font-size:12px}
-html:not([data-theme="dark"]) #page-today #todayBudgetRows progress{width:100%;height:6px;margin:6px 0;border:0;border-radius:999px;appearance:none;overflow:hidden}
-html:not([data-theme="dark"]) #page-today #todayBudgetUnassigned{margin:0;color:var(--st-muted);font-size:11px}
-html:not([data-theme="dark"]) #page-today .stitch-finance-form{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-html:not([data-theme="dark"]) #page-today .stitch-finance-form input,html:not([data-theme="dark"]) #page-today .stitch-finance-form select{width:100%;height:36px;padding:6px 11px}
-html:not([data-theme="dark"]) #page-today .stitch-finance-type{grid-column:1/-1;display:flex;width:140px;padding:2px;border:1px solid var(--st-divider);border-radius:8px;background:var(--st-bg)}
-html:not([data-theme="dark"]) #page-today .stitch-finance-type button{flex:1;height:27px;padding:0;border:0;border-radius:6px;background:transparent;color:var(--st-muted);font:500 12px/27px inherit}
-html:not([data-theme="dark"]) #page-today .stitch-finance-type button.active{background:#fff;color:var(--st-primary);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-html:not([data-theme="dark"]) #page-today .stitch-finance-type select{position:absolute;width:1px;height:1px;padding:0;border:0;clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today #todayFinanceTitle,html:not([data-theme="dark"]) #page-today .stitch-finance-form button{grid-column:1/-1}
-html:not([data-theme="dark"]) #page-today .stitch-finance-form button{width:100%}
-html:not([data-theme="dark"]) #page-today .stitch-private{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border:1px solid var(--st-divider);border-radius:999px;background:var(--st-bg);color:var(--st-secondary);font-size:11px;line-height:17px;white-space:nowrap}
-html:not([data-theme="dark"]) #page-today .stitch-private svg{width:12px;height:12px}
-html:not([data-theme="dark"]) #page-today .stitch-record-box{display:flex;flex-direction:column;gap:10px}
-html:not([data-theme="dark"]) #page-today .stitch-record-box textarea{width:100%;min-height:78px;padding:12px;resize:none}
-html:not([data-theme="dark"]) #page-today .stitch-record-box>div{display:flex;justify-content:flex-end}
-html:not([data-theme="dark"]) #page-today [data-today-section][hidden],html:not([data-theme="dark"]) #page-today .stitch-layout-empty[hidden]{display:none!important}
-html:not([data-theme="dark"]) #page-today .stitch-layout-empty{padding:22px 14px;border:1px dashed var(--st-muted);border-radius:16px;text-align:center;color:var(--st-muted)}
-html:not([data-theme="dark"]) #page-today .stitch-layout-empty p{margin:0 0 12px}
-html:not([data-theme="dark"]) #page-today .stitch-layout-empty button{min-height:38px;padding:0 13px;border:0;border-radius:10px;background:var(--st-primary);color:#fff;font-weight:600}
-@media(max-width:390px){html:not([data-theme="dark"]) #page-today{padding-left:14px;padding-right:14px}html:not([data-theme="dark"]) #page-today .stitch-goals,html:not([data-theme="dark"]) #page-today .stitch-card{padding:14px}html:not([data-theme="dark"]) #page-today .stitch-inline-form{gap:6px}html:not([data-theme="dark"]) #page-today .stitch-inline-form #todayProteinGrams{width:88px;flex-basis:88px}html:not([data-theme="dark"]) #page-today .stitch-inline-form button{padding:0 12px}}
-@media(max-width:360px){html:not([data-theme="dark"]) #page-today #greetingTitle{font-size:21px}html:not([data-theme="dark"]) #page-today .stitch-goal-row{gap:7px}html:not([data-theme="dark"]) #page-today .stitch-card{padding:13px}html:not([data-theme="dark"]) #page-today .stitch-section-head h3{font-size:14px}html:not([data-theme="dark"]) #page-today .stitch-protein-section .stitch-section-head{align-items:flex-start;flex-wrap:wrap}html:not([data-theme="dark"]) #page-today .stitch-inline-form{display:grid;grid-template-columns:minmax(0,1fr) 88px auto}}
+/* Shell for the final Stitch Today screen (1_1, 2026-11-20).
+   Mirrors the Stitch page (body bg #FAF9F6, text #1A1C1A, Noto Sans KR stack, .tap-active) and hides the global
+   top bar because the screen carries its own header bell. Component styles come from today-stitch.generated.css. */
+#page-today{width:100%;max-width:480px;margin:0 auto;padding:0 0 calc(96px + env(safe-area-inset-bottom,0px));background:#FAF9F6;color:#1A1C1A;font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-tap-highlight-color:transparent}
+#page-today *{box-sizing:border-box}
+#page-today .tap-active:active{transform:scale(.985);background-color:rgba(0,0,0,.02)}
+#page-today [hidden]{display:none!important}
+#page-today svg{display:block}
+#page-today button{font-family:inherit}
+body:has(#page-today.active),.app-main:has(#page-today.active){background:#FAF9F6}
+body:has(#page-today.active) .topbar{display:none!important}
+/* Small Stitch checkboxes keep their size but get a 44px invisible touch target. */
+#page-today [data-habit-toggle],#page-today [data-todo-toggle],#page-today [data-event-toggle],#page-today [aria-disabled="true"]{position:relative}
+#page-today [data-habit-toggle]::before,#page-today [data-todo-toggle]::before,#page-today [data-event-toggle]::before{content:'';position:absolute;inset:-12px}

@@ -16,7 +16,9 @@ if(JSON.stringify(bottomOrder)!==JSON.stringify(wantedBottom))throw new Error(`U
 
 const more=html.match(/<section id="page-more"[\s\S]*?<section id="page-shelter"/)?.[0]||'';
 for(const page of expectedPages.filter(x=>!['more','notifications'].includes(x)))if(!more.includes(`data-go="${page}"`))throw new Error(`More menu is missing: ${page}`);
-if(more.includes('data-go="notifications"'))throw new Error('Notifications must live in the top bar, not More');
+// The Stitch More v7 screen carries its own header bell (the global top bar is hidden there); nothing else in More may open notifications.
+const moreNotificationLinks=[...more.matchAll(/<[^>]*data-go="notifications"[^>]*>/g)].map(x=>x[0]);
+if(moreNotificationLinks.length!==1||!moreNotificationLinks[0].includes('id="moreNotifications"'))throw new Error('More may only open notifications from its header bell');
 if(!html.match(/<header class="topbar">[\s\S]*?data-go="notifications"[\s\S]*?<\/header>/))throw new Error('Top bar notification button is missing');
 
 const ids=[...html.matchAll(/\sid="([^"]+)"/g)].map(x=>x[1]);

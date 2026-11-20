@@ -1,5 +1,7 @@
 @tailwind base;
 @layer base {
+  /* Preflight is off, so restore its border defaults inside this page only: Stitch 'border' classes set just the width. */
+  #page-more *, #page-more ::before, #page-more ::after { border-width: 0; border-style: solid; border-color: #E5E7EB; }
   #page-more button {
     border-width: 0;
     background-color: transparent;

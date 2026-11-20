@@ -1,56 +1,60 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 
+// Final Stitch More screen v7 (static export of Stitch "_4", 2026-11-20), imported with scripts/import-stitch-more-v7.mjs.
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const app=fs.readFileSync(new URL('../js/app.js',import.meta.url),'utf8');
 const css=fs.readFileSync(new URL('../assets/more-stitch.css',import.meta.url),'utf8');
 const bottomNavCss=fs.readFileSync(new URL('../assets/bottom-nav.css',import.meta.url),'utf8');
 const generated=fs.readFileSync(new URL('../assets/more-stitch.generated.css',import.meta.url),'utf8');
 const config=fs.readFileSync(new URL('../scripts/tailwind.more-stitch.config.cjs',import.meta.url),'utf8');
+const importer=fs.readFileSync(new URL('../scripts/import-stitch-more-v7.mjs',import.meta.url),'utf8');
 const sw=fs.readFileSync(new URL('../sw.js',import.meta.url),'utf8');
-const section=html.match(/<section id="page-more"[\s\S]*?<\/section>\s*\n\s*<section id="page-shelter"/)?.[0]||'';
+const section=html.match(/<section id="page-more"[\s\S]*?<\/section>\s*\r?\n\s*<section id="page-shelter"/)?.[0]||'';
 const bottom=html.match(/<nav class="bottom-nav"[\s\S]*?<\/nav>/)?.[0]||'';
 
 assert.ok(section,'더보기 화면이 있어야 한다.');
-for(const label of ['생활 · DAILY LIFE','하루 쉼터 · PLAY','관리 · CONTROL & SOCIAL','도움 · SUPPORT & SYSTEM'])assert.match(section,new RegExp(label));
-for(const title of ['오늘의 하루','캘린더','일기','가계부','운동 기록','기록','독서록','아이디어','1 to 25','검 강화하기','오늘 화면 설정','목표 설정','광장','통합 검색','버그 제보','운영자 1:1 문의','창작자 후원하기','앱 환경 설정'])assert.match(section,new RegExp(`>${title.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}<`));
+assert.match(section,/<div class="stitch-more-canvas w-full max-w-\[420px\] mx-auto space-y-4">/,'Stitch #moreApp container classes are kept');
+// Stitch header with its own bell; unread dot starts hidden and is driven by setNotificationBadge.
+assert.match(section,/<h1 class="text-xl font-bold text-\[#1C1D1B\] tracking-tight">더보기<\/h1>/);
+assert.match(section,/<button id="moreNotifications" type="button" data-go="notifications" aria-label="알림" class="w-10 h-10 rounded-full flex items-center justify-center text-\[#1C1D1B\] hover:bg-\[#F0EFEA\] transition-colors relative">/);
+assert.match(section,/<span id="moreNotificationDot" class="absolute top-2\.5 right-2\.5 w-2 h-2 rounded-full bg-\[#B45650\] ring-2 ring-\[#FAF9F6\] hidden"><\/span>/);
+assert.match(app,/\$\('#moreNotificationDot'\)\?\.classList\.toggle\('hidden',!show\)/);
+// Profile card bound to real data.
+for(const id of ['profile-card','user-avatar-initial','user-name','user-streak'])assert.match(section,new RegExp(`id="${id}"`));
+assert.match(app,/MoreProfile\.view\(p,u\)/);
+// Sections and the 18 Stitch rows, in order, each routed.
+for(const label of ['생활 · DAILY LIFE','하루 쉼터 · PLAY','관리 · CONTROL (&amp;|&) SOCIAL','도움 · SUPPORT (&amp;|&) SYSTEM'])assert.match(section,new RegExp(label));
+for(const title of ['오늘의 하루','캘린더','일기','가계부','운동 기록','기록','독서록','아이디어','1 to 25','검 강화하기','오늘 화면 설정','목표 설정','광장','통합 검색','버그 제보','운영자 1:1 문의','창작자 후원하기','앱 환경 설정'])assert.match(section,new RegExp(`tracking-tight">${title.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}<`));
 const routes=[...section.matchAll(/data-go="([^"]+)" role="button"/g)].map(match=>match[1]);
 assert.deepEqual(routes,['settings','today','calendar','diary','personal','workout','records','books','lab','shelter','forge','today-settings','goals','square','search','bug','contact','support','settings']);
-assert.deepEqual([...bottom.matchAll(/data-go="([^"]+)"/g)].map(match=>match[1]),['today','calendar','personal','square','more']);
-assert.equal((bottom.match(/<svg\b/g)||[]).length,5);
-assert.equal((bottom.match(/<svg\b[^>]*width="20"[^>]*height="20"/g)||[]).length,5);
-assert.equal((bottom.match(/<svg\b[^>]*stroke-width="1\.5"/g)||[]).length,5);
-// The footer keeps the Stitch wording; the number comes from js/app-version.js (single version source).
+assert.equal((section.match(/p-3\.5 cursor-pointer tap-active transition-colors/g)||[]).length,18,'Stitch row markup (p-3.5) is used for every menu row');
+// The user's chosen sword icon is kept for 검 강화하기.
+assert.match(section,/id="icon-forge"[^>]*><path d="M14\.5 17\.5L3 6V3h3l11\.5 11\.5"><\/path>/);
+assert.doesNotMatch(section,/M14\.5 4\.5L19\.5 9\.5L10 19L5 20L6 15L14\.5 4\.5Z/);
+// Version footer kept by user decision (1.1.0 until release).
 assert.match(section,/하루를 담다 · v<span id="appVersionLabel"><\/span>/);
-assert.match(section,/나의 하루를 안전하고 고요하게 담는 일상 앱/);
-assert.doesNotMatch(section,/NEW|미니멀 벡터 디자인 시스템|Made with Pure Minimal Vector Geometry/);
-assert.match(app,/more:\['더보기',''\]/);
-assert.match(app,/MoreProfile\.view\(p,u\)/);
-assert.match(app,/\[data-go\]\[role="button"\]/);
-assert.doesNotMatch(app,/data-copy-svg/);
-assert.match(config,/forest:'#1e3a2f'/);
-assert.match(config,/cream:'#faf9f6'/);
-assert.match(config,/fontFamily:\{sans:\['Noto Sans KR'/);
-assert.match(generated,/space-y-6/);
-assert.match(css,/max-width:430px/);
-assert.match(css,/font-size:22px/);
-assert.match(css,/#topbarNotifications\{width:40px;height:40px;margin-left:auto/);
-assert.match(css,/#topbarNotifications:before\{content:none!important;display:none!important\}/);
-assert.match(css,/#topbarNotifications svg\{display:block;width:20px;height:20px/);
-assert.doesNotMatch(css,/bottom-nav[^}]*display\s*:\s*none/is);
-assert.doesNotMatch(css,/body:has\(#page-more\.active\) \.bottom-nav/);
-assert.match(bottomNavCss,/height:calc\(64px \+ env\(safe-area-inset-bottom,0px\)\)/);
-assert.match(bottomNavCss,/background:rgba\(250,249,246,\.95\)/);
-assert.match(bottomNavCss,/color:#66716b;font-size:10px;line-height:14px;font-weight:500;gap:4px/);
-assert.match(bottomNavCss,/width:20px;height:20px;min-width:20px;max-width:20px/);
+assert.doesNotMatch(section,/NEW|김민서|기록 128일째|onclick=/,'no sample data or demo handlers');
+// Theme and shell mirror the Stitch file.
+assert.match(config,/important:'#page-more'/);
+assert.match(config,/fontFamily:\{sans:\['Pretendard'/);
+assert.match(config,/coral:'#B45650'/);
+assert.match(generated,/space-y-4/);
+assert.match(generated,/p-3\\\.5/);
+assert.match(css,/background:#FAF9F6;color:#1C1D1B;/);
+assert.match(css,/#page-more \.tap-active:active\{transform:scale\(\.98\);background-color:#F5F4F0\}/);
+assert.match(css,/body:has\(#page-more\.active\) \.topbar\{display:none!important\}/,'global top bar is hidden because the screen has its own header');
+assert.doesNotMatch(css,/bottom-nav/);
+assert.match(importer,/userForge/);
+// Shared bottom navigation unchanged.
+assert.deepEqual([...bottom.matchAll(/data-go="([^"]+)"/g)].map(match=>match[1]),['today','calendar','personal','square','more']);
+assert.equal((bottom.match(/<svg\b[^>]*width="20"[^>]*height="20"/g)||[]).length,5);
 assert.match(bottomNavCss,/color:#1e3a2f;font-weight:600/);
-assert.match(html,/bottom-nav\.css\?v=20261119-native-v1/);
-assert.match(html,/more-stitch\.generated\.css\?v=20261110-more-v5/);
-assert.match(html,/more-stitch\.css\?v=20261110-more-v5/);
-assert.match(sw,/daily-life-shell-v129/);
-assert.match(sw,/bottom-nav\.css\?v=20261119-native-v1/);
-assert.match(sw,/more-stitch\.generated\.css\?v=20261110-more-v5/);
-assert.match(sw,/more-stitch\.css\?v=20261110-more-v5/);
-assert.match(sw,/more-profile\.js\?v=20261108-more-v3/);
+assert.match(app,/\[data-go\]\[role="button"\]/);
+// Cache busting.
+assert.match(html,/more-stitch\.generated\.css\?v=20261120-more-v8/);
+assert.match(html,/more-stitch\.css\?v=20261120-more-v7/);
+assert.match(sw,/more-stitch\.generated\.css\?v=20261120-more-v8/);
+assert.match(sw,/more-stitch\.css\?v=20261120-more-v7/);
 
-console.log('More Stitch final single-file contract PASS');
+console.log('More Stitch v7 contract PASS');

@@ -1,0 +1,20 @@
+@tailwind base;
+@layer base {
+  /* Preflight is off, so restore its border defaults inside this page only: Stitch 'border' classes set just the width. */
+  #page-calendar *, #page-calendar ::before, #page-calendar ::after { border-width: 0; border-style: solid; border-color: #E5E7EB; }
+  #page-calendar button {
+    border-width: 0;
+    background-color: transparent;
+    background-image: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: 100%;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+    text-transform: none;
+  }
+  #page-calendar input, #page-calendar select, #page-calendar textarea { margin: 0; font-family: inherit; }
+  #page-calendar h1, #page-calendar h2, #page-calendar h3, #page-calendar p { margin: 0; }
+}
+@tailwind utilities;

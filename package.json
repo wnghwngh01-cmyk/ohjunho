@@ -5,7 +5,10 @@
   "description": "하루를 담다 Android 앱",
   "scripts": {
     "build:more-css": "tailwindcss -c scripts/tailwind.more-stitch.config.cjs -i assets/more-stitch-input.css -o assets/more-stitch.generated.css --minify",
-    "build:web": "pnpm run build:more-css && node scripts/build-web.mjs",
+    "build:today-css": "tailwindcss -c scripts/tailwind.today-stitch.config.cjs -i assets/today-stitch-input.css -o assets/today-stitch.generated.css --minify",
+    "build:calendar-css": "tailwindcss -c scripts/tailwind.calendar-stitch.config.cjs -i assets/calendar-stitch-input.css -o assets/calendar-stitch.generated.css --minify",
+    "build:stitch-css": "pnpm run build:more-css && pnpm run build:today-css && pnpm run build:calendar-css",
+    "build:web": "pnpm run build:stitch-css && node scripts/build-web.mjs",
     "android:sync": "pnpm run build:web && cap sync android",
     "android:open": "pnpm run android:sync && cap open android"
   },

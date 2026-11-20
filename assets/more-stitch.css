@@ -1,28 +1,21 @@
-/* Integration shell for the user-provided final single-file More design. */
+/* Integration shell for the final Stitch More screen (v7, 2026-11-20).
+   Mirrors the Stitch page body (bg #FAF9F6, text #1C1D1B, py-4 px-4, Pretendard stack, .tap-active)
+   and hides the global topbar because the screen carries its own header with the notification bell. */
 #page-more{
-  width:100%;max-width:430px;margin:0 auto;padding:4px 16px calc(96px + var(--safe-bottom));
-  background:#faf9f6;color:#1f2937;
-  font-family:"Noto Sans KR",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  width:100%;max-width:452px;margin:0 auto;padding:16px 16px calc(96px + var(--safe-bottom));
+  background:#FAF9F6;color:#1C1D1B;
+  font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
   -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
 }
-#page-more .stitch-more-canvas{width:100%;min-width:0}
+#page-more .stitch-more-canvas{min-width:0}
 #page-more [data-go]{cursor:pointer}
-#page-more [data-go]:focus-visible{outline:2px solid #1e3a2f;outline-offset:2px}
-#page-more .tap-active:active{transform:scale(.985);background-color:rgba(0,0,0,.02)}
+#page-more [data-go]:focus-visible{outline:2px solid #1E3A2F;outline-offset:2px}
+#page-more .tap-active:active{transform:scale(.98);background-color:#F5F4F0}
 #user-avatar-initial{position:relative;overflow:hidden}
 #user-avatar-initial .avatar-letter{display:grid;width:100%;height:100%;place-items:center}
 #user-avatar-initial .avatar-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
-
-body:has(#page-more.active) .topbar-sub,
-body:has(#page-more.active) #syncState{display:none}
-body:has(#page-more.active) .topbar{height:64px;padding:0 20px;background:rgba(250,249,246,.9);border-bottom:0;backdrop-filter:blur(12px)}
-body:has(#page-more.active) .topbar-title{font-size:22px;line-height:28px;font-weight:700;letter-spacing:-.025em;color:#111827}
-body:has(#page-more.active) #topbarNotifications{width:40px;height:40px;margin-left:auto;color:#374151;border:0;background:transparent;border-radius:9999px}
-body:has(#page-more.active) #topbarNotifications:before{content:none!important;display:none!important}
-body:has(#page-more.active) #topbarNotifications:hover{background:rgba(0,0,0,.05)}
-body:has(#page-more.active) #topbarNotifications svg{display:block;width:20px;height:20px;stroke-width:1.5}
-body:has(#page-more.active) #notificationBadge{width:8px;height:8px;right:6px;top:6px;background:#1e3a2f;box-shadow:0 0 0 2px #faf9f6}
-
 #page-more svg{display:block}
+
+body:has(#page-more.active) .topbar{display:none!important}
 
 @media(max-width:359px){#page-more{padding-left:14px;padding-right:14px}}
