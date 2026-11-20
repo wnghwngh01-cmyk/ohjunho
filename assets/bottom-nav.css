@@ -58,3 +58,6 @@ html.native-app .app-shell .bottom-nav .quick-main{
 
 /* While the on-screen keyboard is open (js/app.js updateKeyboardState), give the space back to the input. */
 html.keyboard-open .app-shell .bottom-nav{visibility:hidden!important;pointer-events:none!important}
+/* User decision 2026-11-20: no page title bar and no bell at the top of pages. The notification bell lives only in the
+   Today page header, so the shared top bar (title, sync state, bell) is hidden everywhere. Its markup stays for the JS hooks. */
+.app-shell .topbar{display:none!important}

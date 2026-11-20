@@ -14,19 +14,21 @@
   <link rel="stylesheet" href="./assets/today-stitch.css?v=20261120-stitch-v1">
   <link rel="stylesheet" href="./assets/calendar-stitch.css?v=20261120-stitch-v1">
   <link rel="stylesheet" href="./assets/avatar-frame.css?v=20261024-avatar-frame-v13">
-  <link rel="stylesheet" href="./assets/budget.css?v=20261030-budget-preview-v1">
+  <link rel="stylesheet" href="./assets/budget.css?v=20261120-finance-v1">
 <link rel="stylesheet" href="./assets/writing-templates.css?v=20261014-h1">
-<link rel="stylesheet" href="./assets/recurring.css?v=20261014-i1">
+<link rel="stylesheet" href="./assets/recurring.css?v=20261120-finance-v1">
 <link rel="stylesheet" href="./assets/workout.css?v=20261027-workout-v1">
 <link rel="stylesheet" href="./assets/workout-layout.css?v=20261027-workout-v1">
 <link rel="stylesheet" href="./assets/shelter.css?v=20261030-shelter-v2">
 <link rel="stylesheet" href="./assets/forge.css?v=20261104-forge-v3">
 <link rel="stylesheet" href="./assets/cosmetics-support.css?v=20261106-customization-v1">
-  <link rel="stylesheet" href="./assets/more-stitch.generated.css?v=20261120-more-v8">
+  <link rel="stylesheet" href="./assets/more-stitch.generated.css?v=20261120-more-v9">
   <link rel="stylesheet" href="./assets/more-stitch.css?v=20261120-more-v7">
-<link rel="stylesheet" href="./assets/today-stitch.generated.css?v=20261120-stitch-v2">
-<link rel="stylesheet" href="./assets/calendar-stitch.generated.css?v=20261120-stitch-v2">
-  <link rel="stylesheet" href="./assets/bottom-nav.css?v=20261119-native-v1">
+<link rel="stylesheet" href="./assets/today-stitch.generated.css?v=20261120-stitch-v3">
+<link rel="stylesheet" href="./assets/calendar-stitch.generated.css?v=20261120-stitch-v3">
+<link rel="stylesheet" href="./assets/finance-stitch.css?v=20261120-finance-v1">
+<link rel="stylesheet" href="./assets/finance-stitch.generated.css?v=20261120-finance-v1">
+  <link rel="stylesheet" href="./assets/bottom-nav.css?v=20261120-no-header-v1">
 </head>
 <body>
   <section id="authShell" class="auth-shell hidden">
@@ -380,10 +382,244 @@
         </div>
       </section>
 
-      <section id="page-personal" class="page wide" data-page="personal"><div class="page-head"><div><p class="eyebrow">MY MONEY</p><h1>가계부</h1><p>수입과 지출을 기록하고 남은 예산과 월별 흐름을 확인해보세요.</p></div></div><div id="personalFinanceHost"></div></section>
+      <section id="page-personal" class="page" data-page="personal">
+<!-- Stitch "가계부 (Account 메인 최종 수정본)" 2026-11-20. Header (title + bell) removed by user decision; the bell lives only on Today. -->
+<div class="stitch-finance-canvas w-full max-w-[480px] mx-auto space-y-4">
+<div class="flex items-center justify-between px-1">
+<h2 id="financeMonthLabel" class="text-base font-bold text-[#1A1C1A] tracking-tight"></h2>
+<div class="flex items-center gap-1">
+<button id="financePrevMonth" aria-label="이전 달" class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#F4F3F0] text-[#424844] active:scale-95 transition-all" type="button"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<button id="financeThisMonth" class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-[#F4F3F0] text-[#1E3A2F] hover:bg-[#EAE8E3] active:scale-95 transition-all" type="button">이번 달</button>
+<button id="financeNextMonth" aria-label="다음 달" class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#F4F3F0] text-[#424844] active:scale-95 transition-all" type="button"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<section class="bg-white rounded-2xl p-4 border border-[#F0EFEA] shadow-[0_2px_8px_rgba(0,0,0,0.025)] space-y-3">
+<div>
+<div id="financeBudgetLabel" class="text-xs font-semibold text-[#8E928F] mb-1">이번 달 남은 예산</div>
+<div class="flex items-baseline gap-1.5">
+<button id="budgetOpen" type="button" aria-label="월별 예산 열기"><span id="financeBudgetRemaining" class="text-2xl font-bold text-[#1E3A2F] tracking-tight">불러오는 중</span></button>
+<span id="financeBudgetTotal" class="text-xs font-medium text-[#8E928F]"></span>
+</div>
+</div>
+<div class="w-full bg-[#F4F3F0] h-2 rounded-full overflow-hidden">
+<div id="financeBudgetBar" class="bg-[#1E3A2F] h-2 rounded-full w-0"></div>
+</div>
+<div class="pt-2 border-t border-[#F0EFEA] grid grid-cols-3 gap-2 text-center">
+<div class="flex flex-col">
+<span class="text-[11px] text-[#8E928F] font-medium">수입</span>
+<span id="financeIncome" class="text-xs font-bold text-[#1E3A2F] mt-0.5">0원</span>
+</div>
+<div class="flex flex-col border-x border-[#F0EFEA] px-1">
+<span class="text-[11px] text-[#8E928F] font-medium">지출</span>
+<span id="financeExpense" class="text-xs font-bold text-[#1A1C1A] mt-0.5">0원</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[11px] text-[#8E928F] font-medium">순흐름</span>
+<span id="financeNet" class="text-xs font-bold text-[#1E3A2F] mt-0.5">0원</span>
+</div>
+</div>
+</section>
+<section class="bg-white rounded-2xl p-4 border border-[#F0EFEA] shadow-[0_2px_8px_rgba(0,0,0,0.025)] space-y-4">
+<div class="space-y-3 pb-3 border-b border-[#F0EFEA]">
+<div class="grid grid-cols-2 p-1 bg-[#F4F3F0] rounded-xl gap-1">
+<button data-finance-type="expense" aria-pressed="true" class="py-2 text-xs font-bold rounded-lg bg-white text-[#1E3A2F] shadow-sm transition-all flex items-center justify-center min-h-[44px]" type="button">지출</button>
+<button data-finance-type="income" aria-pressed="false" class="py-2 text-xs font-semibold rounded-lg text-[#8E928F] hover:text-[#1A1C1A] transition-all flex items-center justify-center min-h-[44px]" type="button">수입</button>
+</div>
+<select id="financeType" hidden aria-hidden="true" tabindex="-1"><option value="expense">지출</option><option value="income">수입</option></select>
+<div>
+<label for="financeAmount" class="block text-[11px] font-semibold text-[#424844] mb-1">금액 (원)</label>
+<input id="financeAmount" class="w-full px-3 py-2.5 text-xs rounded-xl border border-[#E9E8E5] bg-white placeholder-[#8E928F] text-[#1A1C1A] focus:outline-none focus:ring-1 focus:ring-[#1E3A2F] min-h-[44px]" inputmode="numeric" placeholder="금액 (원)" type="text" value="">
+</div>
+<div>
+<label class="block text-[11px] font-semibold text-[#424844] mb-1.5">분류</label>
+<div id="financeCategoryChips" class="flex flex-wrap gap-1.5" role="group" aria-label="분류"></div>
+<select id="financeCategory" hidden aria-hidden="true" tabindex="-1"><option>식비</option><option>교통</option><option>쇼핑</option><option>생활</option><option>교육</option><option>세금</option><option>기타</option></select>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+<div>
+<label for="financeTitle" class="block text-[11px] font-semibold text-[#424844] mb-1">내용 (선택)</label>
+<input id="financeTitle" maxlength="120" class="w-full px-3 py-2 text-xs rounded-xl border border-[#E9E8E5] bg-white placeholder-[#8E928F] text-[#1A1C1A] focus:outline-none focus:ring-1 focus:ring-[#1E3A2F] min-h-[44px]" placeholder="메모 (비워두면 분류 이름으로 저장)" type="text">
+</div>
+<div>
+<label for="financeDate" class="block text-[11px] font-semibold text-[#424844] mb-1">날짜</label>
+<input id="financeDate" class="w-full px-3 py-2 text-xs rounded-xl border border-[#E9E8E5] bg-white text-[#1A1C1A] focus:outline-none focus:ring-1 focus:ring-[#1E3A2F] min-h-[44px]" type="date">
+</div>
+</div>
+<button id="financeAdd" class="w-full py-3 text-xs font-bold rounded-xl bg-[#1E3A2F] hover:bg-[#162C23] active:bg-[#162C23] text-white transition-all flex items-center justify-center min-h-[44px]" type="button">지출 저장하기</button>
+</div>
+<details id="financeSearchPanel" class="group border-b border-[#F0EFEA] pb-3">
+<summary class="flex items-center justify-between cursor-pointer py-1 text-xs font-semibold text-[#424844] hover:text-[#1E3A2F] select-none min-h-[36px]">
+<span class="flex items-center gap-1.5">
+<svg class="w-4 h-4 text-[#8E928F]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+<span id="financeSearchToggle">기록 검색</span>
+</span>
+<svg class="w-4 h-4 text-[#8E928F] chevron-arrow transition-transform duration-200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</summary>
+<div class="mt-2.5 p-3 rounded-xl bg-[#FAF9F6] border border-[#F0EFEA] space-y-2.5">
+<input id="financeSearchName" aria-label="기록 이름 검색" autocomplete="off" class="w-full px-3 py-2 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[40px] focus:outline-none focus:ring-1 focus:ring-[#1E3A2F]" placeholder="기록 이름 검색" type="text">
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label for="financeSearchDate" class="block text-[10.5px] font-medium text-[#8E928F] mb-1">날짜</label>
+<input id="financeSearchDate" type="date" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[38px]" value="">
+</div>
+<div>
+<label for="financeSearchType" class="block text-[10.5px] font-medium text-[#8E928F] mb-1">종류</label>
+<select id="financeSearchType" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[38px]">
+<option value="">모든 종류</option>
+<option value="income">수입</option>
+<option value="expense">지출</option>
+<option value="balance">이전 시작 잔액</option>
+</select>
+</div>
+</div>
+<div>
+<label for="financeSearchCategory" class="block text-[10.5px] font-medium text-[#8E928F] mb-1">분류</label>
+<select id="financeSearchCategory" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[38px]">
+<option value="">모든 분류</option>
+<option>식비</option>
+<option>교통</option>
+<option>쇼핑</option>
+<option>생활</option>
+<option>교육</option>
+<option>세금</option>
+<option>급여</option>
+<option>용돈</option>
+<option>기타</option>
+<option value="시작 잔액">이전 시작 잔액</option>
+</select>
+</div>
+<div class="flex justify-end pt-1">
+<button id="financeSearchReset" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-[#E9E8E5] text-[#424844] hover:bg-[#F4F3F0] min-h-[36px]" type="button">초기화</button>
+</div>
+</div>
+</details>
+<!-- User request 2026-11-20: the month's records can be collapsed (open by default). -->
+<details id="financeListPanel" class="group" open>
+<summary class="flex items-center justify-between text-xs font-semibold text-[#8E928F] cursor-pointer select-none min-h-[36px]">
+<span id="financeSearchSummary" aria-live="polite">선택한 달 0개</span>
+<svg class="w-4 h-4 text-[#8E928F] chevron-arrow transition-transform duration-200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</summary>
+<div id="transactionList" class="space-y-3 mt-2"></div>
+</details>
+</section>
+<details id="financeBudgetPanel" class="group bg-white rounded-2xl p-4 border border-[#F0EFEA] shadow-[0_2px_8px_rgba(0,0,0,0.025)]">
+<summary class="flex items-center justify-between cursor-pointer py-1 select-none min-h-[44px]">
+<div id="budgetSummary" class="text-sm font-bold text-[#1A1C1A]" tabindex="-1">월별 예산</div>
+<svg class="w-4 h-4 text-[#8E928F] chevron-arrow transition-transform duration-200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</summary>
+<div class="mt-3 pt-3 border-t border-[#F0EFEA] space-y-3.5">
+<div id="budgetHint" class="text-xs text-[#8E928F] leading-relaxed"></div>
+<div id="budgetRows" class="space-y-3" role="group" aria-label="분류별 예산 사용 현황"></div>
+<div id="budgetUnassigned" class="text-[11.5px] font-medium text-[#8E928F] pt-1"></div>
+<details id="budgetEditPanel" class="border-t border-[#F0EFEA] pt-2.5">
+<summary class="flex items-center justify-between cursor-pointer py-1 text-xs font-semibold text-[#424844] hover:text-[#1E3A2F] select-none min-h-[36px]">
+<span>예산 설정·수정</span>
+<svg class="w-4 h-4 text-[#8E928F] chevron-arrow transition-transform duration-200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</summary>
+<div class="mt-2.5 p-3 rounded-xl bg-[#FAF9F6] border border-[#F0EFEA] space-y-2.5">
+<div>
+<label for="budgetCategory" class="block text-[11px] font-semibold text-[#424844] mb-1">지출 분류 선택</label>
+<select id="budgetCategory" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[40px]"><option value="">분류 선택</option></select>
+</div>
+<div id="budgetSelected" class="space-y-2.5" hidden>
+<div id="budgetSelectedUsage" class="text-[11px] text-[#424844] font-medium"></div>
+<div>
+<label for="budgetAmount" class="block text-[11px] font-semibold text-[#424844] mb-1">월 예산 금액 (원)</label>
+<input id="budgetAmount" class="w-full px-3 py-2 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[40px] focus:outline-none focus:ring-1 focus:ring-[#1E3A2F]" inputmode="numeric" maxlength="15" placeholder="미설정" type="text">
+<p class="text-[10px] text-[#8E928F] mt-1">빈칸으로 저장하면 이 분류의 예산을 해제합니다. 0은 0원 예산입니다.</p>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<button id="budgetReload" class="text-xs font-medium text-[#8E928F] hover:text-[#1A1C1A] underline min-h-[36px] flex items-center" type="button">다시 불러오기</button>
+<button id="budgetSave" class="px-4 py-2 text-xs font-bold rounded-lg bg-[#1E3A2F] text-white hover:bg-[#162C23] min-h-[40px] flex items-center justify-center" type="button" disabled>이 분류 예산 저장</button>
+</div>
+<p id="budgetStatus" class="text-[10px] text-[#8E928F] mt-1" role="status" aria-live="polite"></p>
+</div>
+</details>
+</div>
+</details>
+<details id="recurringPanel" class="group bg-white rounded-2xl p-4 border border-[#F0EFEA] shadow-[0_2px_8px_rgba(0,0,0,0.025)]">
+<summary class="flex items-center justify-between cursor-pointer py-1 select-none min-h-[44px]">
+<div id="recurringSummary" class="text-sm font-bold text-[#1A1C1A]">정기 수입·지출</div>
+<svg class="w-4 h-4 text-[#8E928F] chevron-arrow transition-transform duration-200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</summary>
+<div class="mt-3 pt-3 border-t border-[#F0EFEA] space-y-3.5">
+<p class="text-xs text-[#8E928F] leading-relaxed">계좌에서 출금하지 않고 가계부에 자동으로 기록합니다. 매월 말일보다 큰 기록일은 말일에 기록합니다.</p>
+<div id="recurringList" class="space-y-2"></div>
+<div class="flex items-center justify-between pt-1">
+<button id="recurringRefresh" class="text-xs font-medium text-[#8E928F] hover:text-[#1A1C1A] underline min-h-[36px] flex items-center" type="button">다시 불러오기</button>
+<button id="recurringAdd" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-white border border-[#E9E8E5] text-[#1E3A2F] hover:bg-[#F4F3F0] min-h-[36px] flex items-center" type="button">추가</button>
+</div>
+<form id="recurringForm" class="p-3.5 rounded-xl bg-[#FAF9F6] border border-[#F0EFEA] space-y-2.5" hidden>
+<div id="recurringFormTitle" class="text-xs font-bold text-[#1E3A2F]">새 정기 거래 등록</div>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label for="recurring_tx_type" class="block text-[10.5px] font-semibold text-[#424844] mb-0.5">종류</label>
+<select id="recurring_tx_type" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[38px]"><option value="expense">지출</option><option value="income">수입</option></select>
+</div>
+<div>
+<label for="recurring_category" class="block text-[10.5px] font-semibold text-[#424844] mb-0.5">분류</label>
+<select id="recurring_category" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[38px]"><option>식비</option><option>교통</option><option>쇼핑</option><option>생활</option><option>교육</option><option>세금</option><option>기타</option></select>
+</div>
+</div>
+<div>
+<label for="recurring_title" class="block text-[10.5px] font-semibold text-[#424844] mb-0.5">이름</label>
+<input id="recurring_title" required maxlength="120" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[38px] focus:outline-none focus:ring-1 focus:ring-[#1E3A2F]" placeholder="예: 월세, 정기적금" type="text">
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label for="recurring_amount" class="block text-[10.5px] font-semibold text-[#424844] mb-0.5">금액 (원)</label>
+<input id="recurring_amount" required min="1" max="999999999999" step="1" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[38px] focus:outline-none focus:ring-1 focus:ring-[#1E3A2F]" inputmode="numeric" type="number">
+</div>
+<div>
+<label for="recurring_record_day" class="block text-[10.5px] font-semibold text-[#424844] mb-0.5">매월 기록일 (1~31)</label>
+<input id="recurring_record_day" required step="1" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[38px] focus:outline-none focus:ring-1 focus:ring-[#1E3A2F]" max="31" min="1" type="number">
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label for="recurring_start_date" class="block text-[10.5px] font-semibold text-[#424844] mb-0.5">시작일</label>
+<input id="recurring_start_date" required class="w-full px-2 py-1.5 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[38px]" type="date">
+</div>
+<div>
+<label for="recurring_end_date" class="block text-[10.5px] font-semibold text-[#424844] mb-0.5">종료일 (비워두면 계속)</label>
+<input id="recurring_end_date" class="w-full px-2 py-1.5 text-xs rounded-lg border border-[#E9E8E5] bg-white text-[#1A1C1A] min-h-[38px]" placeholder="비워두면 계속" type="date">
+</div>
+</div>
+<div>
+<label for="recurring_timezone" class="block text-[10.5px] font-semibold text-[#424844] mb-0.5">기준 시간대</label>
+<input id="recurring_timezone" required class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E9E8E5] bg-[#F4F3F0] text-[#424844] min-h-[38px]" readonly type="text">
+</div>
+<div class="flex items-center gap-2 pt-0.5">
+<button id="recurringPreview" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-white border border-[#E9E8E5] text-[#1E3A2F] hover:bg-[#F4F3F0] min-h-[36px] shrink-0 whitespace-nowrap" type="button">예정일 확인</button>
+<span id="recurringNext" class="text-[11px] font-medium text-[#1E3A2F]" aria-live="polite"></span>
+</div>
+<div class="flex gap-2 pt-1.5">
+<button id="recurringSave" class="flex-1 py-2 text-xs font-bold rounded-lg bg-[#1E3A2F] text-white hover:bg-[#162C23] min-h-[40px] flex items-center justify-center" type="submit" disabled>저장</button>
+<button id="recurringCancel" class="px-4 py-2 text-xs font-semibold rounded-lg bg-white border border-[#E9E8E5] text-[#424844] hover:bg-[#F4F3F0] min-h-[40px] flex items-center justify-center" type="button">취소</button>
+</div>
+</form>
+<p id="recurringStatus" class="text-[10px] text-[#8E928F]" role="status" aria-live="polite"></p>
+</div>
+</details>
+<details id="financeAnalysis" class="group bg-white rounded-2xl p-4 border border-[#F0EFEA] shadow-[0_2px_8px_rgba(0,0,0,0.025)]">
+<summary class="flex items-center justify-between cursor-pointer py-1 select-none min-h-[44px]">
+<div class="text-sm font-bold text-[#1A1C1A]">수입·지출 분석</div>
+<svg class="w-4 h-4 text-[#8E928F] chevron-arrow transition-transform duration-200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</summary>
+<div class="mt-3 pt-3 border-t border-[#F0EFEA] space-y-4">
+<div class="grid grid-cols-2 p-1 bg-[#F4F3F0] rounded-xl gap-1" role="group" aria-label="분석 종류">
+<button id="financeAnalysisExpense" aria-pressed="true" class="py-1.5 text-xs font-bold rounded-lg bg-white text-[#1E3A2F] shadow-sm min-h-[36px] flex items-center justify-center" type="button">지출</button>
+<button id="financeAnalysisIncome" aria-pressed="false" class="py-1.5 text-xs font-semibold rounded-lg text-[#8E928F] hover:text-[#1A1C1A] min-h-[36px] flex items-center justify-center" type="button">수입</button>
+</div>
+<div id="financeCategorySummary" aria-live="polite"></div>
+</div>
+</details>
+</div>
+</section>
       <section id="page-lab" class="page wide" data-page="lab">
         <div class="page-head"><div><p class="eyebrow">IDEA NOTE</p><h1>아이디어</h1><p>문득 떠오른 생각을 사진과 함께 저장하고 다시 발전시켜보세요.</p></div></div>
-        <label class="searchbox lab-search"><span class="sr-only">아이디어 검색</span><input id="labSearch" placeholder="아이디어 검색"></label><div class="module-tabs hidden" id="labTabs"><button class="module-tab" data-module="all">전체</button><button class="module-tab" data-module="projects">프로젝트</button><button class="module-tab active" data-module="ideas">아이디어</button><button class="module-tab" data-module="works">작업물</button><button class="module-tab hidden" data-module="finance">가계부</button></div>
+        <label class="searchbox lab-search"><span class="sr-only">아이디어 검색</span><input id="labSearch" placeholder="아이디어 검색"></label><div class="module-tabs hidden" id="labTabs"><button class="module-tab" data-module="all">전체</button><button class="module-tab" data-module="projects">프로젝트</button><button class="module-tab active" data-module="ideas">아이디어</button><button class="module-tab" data-module="works">작업물</button></div>
         <section id="module-all" class="module-pane hidden"><div id="labSearchResults" class="lab-grid"></div></section>
         <section id="module-projects" class="module-pane hidden">
           <details class="module-add"><summary>＋ 새 프로젝트</summary><div class="stack"><div class="two-col"><label class="field"><span>프로젝트 이름</span><input id="projectTitle" maxlength="120"></label><label class="field"><span>상태</span><select id="projectStatus"><option value="active">진행 중</option><option value="paused">일시정지</option><option value="completed">완료</option></select></label></div><label class="field"><span>한 줄 설명</span><input id="projectSummary" maxlength="400"></label><button id="projectAdd" class="btn primary">프로젝트 만들기</button></div></details>
@@ -396,18 +632,7 @@
         <section id="module-works" class="module-pane hidden">
           <details class="module-add"><summary>＋ 새 작업물</summary><div class="stack"><div class="two-col"><label class="field"><span>제목</span><input id="workTitle" maxlength="120"></label><label class="field"><span>분류</span><select id="workCategory"><option>과제</option><option>발표자료</option><option>보고서</option><option>글</option><option>기타</option></select></label></div><label class="field"><span>설명</span><input id="workDescription" maxlength="500"></label><label class="field"><span>관련 링크 · 선택</span><input id="workLink" type="url" placeholder="https://"></label><label class="photo-picker">문서 파일 추가 · 최대 20MB<input id="workFile" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.hwp,.hwpx"></label><button id="workAdd" class="btn primary">작업물 저장</button></div></details>
           <div id="workList" class="lab-grid"></div>
-        </section>
-        <section id="module-finance" class="module-pane">
-          <div class="finance-period"><button id="financePrevMonth" class="icon-btn" aria-label="이전 달">‹</button><strong id="financeMonthLabel"></strong><button id="financeNextMonth" class="icon-btn" aria-label="다음 달">›</button><button id="financeThisMonth" class="btn secondary small">이번 달</button></div>
-          <div class="finance-overview"><div class="money-card primary"><span id="financeBudgetLabel">이번 달 남은 예산</span><strong id="financeBudgetRemaining">불러오는 중</strong><button id="budgetOpen" class="link-btn" type="button">예산 보기</button></div><div class="money-card"><span>선택한 달 순흐름</span><strong id="financeNet">₩0</strong></div><div class="money-card"><span>선택한 달 수입</span><strong id="financeIncome">₩0</strong></div><div class="money-card"><span>선택한 달 지출</span><strong id="financeExpense">₩0</strong></div></div>
-          <details class="module-add"><summary>＋ 거래 기록</summary><div class="stack"><div class="two-col"><label class="field"><span>종류</span><select id="financeType"><option value="expense">지출</option><option value="income">수입</option></select></label><label class="field"><span>날짜</span><input id="financeDate" type="date"></label></div><label class="field"><span>내용</span><input id="financeTitle" maxlength="120" placeholder="예: 점심"></label><label class="field"><span>금액</span><input id="financeAmount" inputmode="numeric" placeholder="0"></label><label class="field"><span>분류</span><select id="financeCategory"><option>식비</option><option>교통</option><option>쇼핑</option><option>생활</option><option>교육</option><option>세금</option><option>급여</option><option>용돈</option><option>기타</option></select></label><button id="financeAdd" class="btn primary">저장</button></div></details>
-          <details id="financeBudgetPanel" class="finance-disclosure"><summary id="budgetSummary">월별 예산</summary><div class="budget-panel"><p id="budgetHint"></p><div id="budgetRows" class="budget-overview" role="group" aria-label="분류별 예산 사용 현황"></div><p id="budgetUnassigned"></p><details id="budgetEditPanel" class="budget-edit"><summary>예산 설정·수정</summary><div class="budget-edit-body"><label for="budgetCategory">지출 분류</label><select id="budgetCategory"><option value="">분류 선택</option></select><div id="budgetSelected" hidden><p id="budgetSelectedUsage"></p><label for="budgetAmount">월 예산 (원)</label><input id="budgetAmount" type="text" inputmode="numeric" maxlength="15" placeholder="미설정"><small>빈칸으로 저장하면 이 분류의 예산을 해제합니다. 0은 0원 예산입니다.</small><button id="budgetSave" class="btn primary" type="button" disabled>이 분류 예산 저장</button></div><div class="budget-actions"><button id="budgetReload" class="btn secondary" type="button">다시 불러오기</button></div></div></details><p id="budgetStatus" role="status" aria-live="polite"></p></div></details>
-          <details id="recurringPanel" class="finance-disclosure"><summary id="recurringSummary">정기 수입·지출</summary><div class="recurring-body"><p>계좌에서 출금하지 않고 가계부에 자동으로 기록합니다. 매월 말일보다 큰 기록일은 말일에 기록합니다.</p><div id="recurringList"></div><div class="recurring-actions"><button id="recurringAdd" type="button" class="btn secondary small">추가</button><button id="recurringRefresh" type="button" class="btn ghost small">다시 불러오기</button></div><form id="recurringForm" class="recurring-form" hidden><strong id="recurringFormTitle">정기 거래 추가</strong><label class="field"><span>종류</span><select id="recurring_tx_type"><option value="expense">지출</option><option value="income">수입</option></select></label><label class="field"><span>분류</span><select id="recurring_category"><option>식비</option></select></label><label class="field"><span>이름</span><input id="recurring_title" type="text" required maxlength="120"></label><label class="field"><span>금액 (원)</span><input id="recurring_amount" type="number" required min="1" max="999999999999" step="1"></label><label class="field"><span>매월 기록일 (1~31)</span><input id="recurring_record_day" type="number" required min="1" max="31" step="1"></label><label class="field"><span>시작일</span><input id="recurring_start_date" type="date" required ></label><label class="field"><span>종료일 (비워두면 계속)</span><input id="recurring_end_date" type="date"  ></label><label class="field"><span>기준 시간대</span><input id="recurring_timezone" type="text" required ></label><p id="recurringNext" aria-live="polite"></p><div class="recurring-actions"><button id="recurringPreview" type="button" class="btn secondary small">예정일 확인</button><button id="recurringSave" type="submit" class="btn primary small" disabled>저장</button><button id="recurringCancel" type="button" class="btn ghost small">취소</button></div></form><p id="recurringStatus" role="status" aria-live="polite"></p></div></details>
-          <details id="financeAnalysis" class="finance-disclosure"><summary>수입·지출 분석</summary><div class="finance-analysis-body"><h2>월별 수입·지출 <small id="financeAnalysisMonth"></small></h2><div class="finance-analysis-tabs" role="group" aria-label="분석 종류"><button id="financeAnalysisExpense" class="btn active" type="button" aria-pressed="true">지출</button><button id="financeAnalysisIncome" class="btn" type="button" aria-pressed="false">수입</button></div><div id="financeCategorySummary" class="finance-category-summary" aria-live="polite"></div></div></details>
-          <details id="financeSearchPanel" class="finance-disclosure"><summary id="financeSearchToggle">기록 검색</summary><section class="finance-filters" aria-label="가계부 기록 검색"><label class="finance-filter finance-filter-name"><span>이름</span><input id="financeSearchName" type="search" placeholder="기록 이름 검색" autocomplete="off"></label><label class="finance-filter"><span>날짜</span><input id="financeSearchDate" type="date"></label><label class="finance-filter"><span>종류</span><select id="financeSearchType"><option value="">모든 종류</option><option value="income">수입</option><option value="expense">지출</option><option value="balance">이전 시작 잔액</option></select></label><label class="finance-filter"><span>분류</span><select id="financeSearchCategory"><option value="">모든 분류</option><option>식비</option><option>교통</option><option>쇼핑</option><option>생활</option><option>교육</option><option>세금</option><option>급여</option><option>용돈</option><option>기타</option><option value="시작 잔액">이전 시작 잔액</option></select></label><button id="financeSearchReset" class="btn secondary finance-filter-reset" type="button">초기화</button></section></details>
-          <p id="financeSearchSummary" class="finance-search-summary" aria-live="polite"></p>
-          <div id="transactionList" class="transaction-list"></div>
-        </section>
+        </section>
       </section>
 
       <section id="page-diary" class="page" data-page="diary">
@@ -458,18 +683,7 @@
 
       <section id="page-more" class="page" data-page="more">
 <div class="stitch-more-canvas w-full max-w-[420px] mx-auto space-y-4">
-<!-- 1. 상단 헤더 (타이틀 + 알림함 버튼) -->
-        <header class="flex items-center justify-between pt-2 pb-1">
-          <h1 class="text-xl font-bold text-[#1C1D1B] tracking-tight">더보기</h1>
-          <button id="moreNotifications" type="button" data-go="notifications" aria-label="알림" class="w-10 h-10 rounded-full flex items-center justify-center text-[#1C1D1B] hover:bg-[#F0EFEA] transition-colors relative">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-            
-              <span id="moreNotificationDot" class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-[#B45650] ring-2 ring-[#FAF9F6] hidden"></span>
-            
-          </button>
-        </header>
-
-        <!-- 2. 프로필 카드 -->
+<!-- 2. 프로필 카드 -->
         <div id="profile-card" data-go="settings" role="button" tabindex="0" class="bg-white rounded-2xl p-4 shadow-sm border border-[#F0EFEA] flex items-center justify-between cursor-pointer tap-active transition-colors">
           <div class="flex items-center gap-3.5">
             <div id="user-avatar-initial" class="w-12 h-12 rounded-full bg-[#F4F3F0] text-[#1E3A2F] flex items-center justify-center text-base font-bold flex-shrink-0"></div>
@@ -864,12 +1078,12 @@
   <script src="./js/storage.js?v=20261004-profile-photos-v1"></script>
   <script src="./js/telemetry.js?v=20260920-error-logs-v1"></script>
   <script src="./js/calendar-utils.js?v=20261120-stitch-v1"></script>
-<script src="./js/stitch-views.js?v=20261120-stitch-v1"></script>
+<script src="./js/stitch-views.js?v=20261120-finance-v1"></script>
   <script src="./js/diary-utils.js?v=20261002-diary-search-v1"></script>
   <script src="./js/finance-utils.js?v=20261017-integration-v1"></script>
-  <script src="./js/budget-ui.js?v=20261030-budget-preview-v1"></script>
+  <script src="./js/budget-ui.js?v=20261120-finance-v1"></script>
   <script src="./js/writing-templates.js?v=20261014-h1"></script>
-<script src="./js/recurring-ui.js?v=20261014-i1"></script>
+<script src="./js/recurring-ui.js?v=20261120-finance-v1"></script>
 <script src="./js/workout-ui.js?v=20261029-today-layout-v1"></script>
 <script src="./js/widget-bridge.js?v=20261030-widgets-v1"></script>
 <script src="./js/notification-ui.js?v=20261119-native-v1"></script>
@@ -877,7 +1091,7 @@
 <script src="./js/forge-ui.js?v=20261104-forge-v5"></script>
 <script src="./js/app-version.js?v=20261119-version-v1"></script>
 <script src="./js/more-profile.js?v=20261108-more-v3"></script>
-<script src="./js/app.js?v=20261120-stitch-v1"></script>
+<script src="./js/app.js?v=20261120-finance-v1"></script>
   <script src="./js/project-files-ui.js?v=20260918-community-inserts-v1"></script>
 </body>
 </html>

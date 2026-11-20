@@ -88,7 +88,7 @@ assert.match(html,/<select id="eventColor"/,'event color uses the Stitch select'
 for(const color of ['forest','amber','rose','blue'])assert.match(page,new RegExp(`<option value="${color}"`),`event color option ${color}`);
 assert.match(html,/calendar-utils\.js\?v=20261120-stitch-v1/);
 assert.match(html,/calendar-stitch\.css\?v=20261120-stitch-v1/);
-assert.match(html,/calendar-stitch\.generated\.css\?v=20261120-stitch-v2/);
+assert.match(html,/calendar-stitch\.generated\.css\?v=20261120-stitch-v3/);
 for(const id of ['calendarMonth','calPrev','calToday','calNext','calendarDays','selectedDayTitle','selectedEventCount','selectedEvents','eventComposer','eventName','eventStart','eventEnd','eventImportant','eventCancel','eventAdd','selectedHabitSubDate','selectedHabits','habitConfig','habitTemplateList','habitNewName','habitSchedule','habitWeeklyCountWrap','habitWeeklyCount','habitCancel','habitAdd'])assert.match(page,new RegExp(`id="${id}"`),`calendar hook ${id}`);
 assert.match(html,/id="habitWeekdayPicker"[^]*?value="6"[^]*?value="0"/,'weekday picker covers Monday..Sunday');
 assert.equal((html.match(/id="habitWeekdayPicker"/g)||[]).length,1,'weekday picker id must not be duplicated');

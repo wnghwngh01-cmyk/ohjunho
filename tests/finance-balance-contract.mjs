@@ -35,21 +35,21 @@ assert.deepEqual(Array.from(filterRows(searchRows,{query:'국민'}),x=>x.id),['3
 assert.deepEqual(Array.from(filterRows(searchRows,{category:'식비'}),x=>x.id),['1'],'분류로 거래를 찾아야 한다.');
 assert.deepEqual(Array.from(filterRows(searchRows,{date:'2026-10-03',type:'expense',query:'점심',category:'식비'}),x=>x.id),['1'],'검색 조건을 함께 적용해야 한다.');
 
-const html=fs.readFileSync('index.html','utf8'),app=fs.readFileSync('js/app.js','utf8'),css=fs.readFileSync('assets/light-theme.css','utf8');
+const html=fs.readFileSync('index.html','utf8'),app=fs.readFileSync('js/app.js','utf8'),views=fs.readFileSync('js/stitch-views.js','utf8');
 assert.match(html,/<option>세금<\/option>/);
 assert.match(html,/<option value="balance">이전 시작 잔액<\/option>/,'기존 잔액 기록은 검색할 수 있어야 한다.');
-assert.doesNotMatch(html.match(/<select id="financeType">[\s\S]*?<\/select>/)[0],/value="balance"/,'신규 시작 잔액 입력은 제외한다.');
+assert.doesNotMatch(html.match(/<select id="financeType"[^>]*>[\s\S]*?<\/select>/)[0],/value="balance"/,'신규 시작 잔액 입력은 제외한다.');
 assert.match(html,/id="financeSearchDate" type="date"/);
 assert.match(html,/id="financeSearchType"/);
 assert.match(html,/id="financeSearchName"/);
 assert.match(html,/id="financeSearchCategory"/);
 assert.match(html,/id="financeBudgetRemaining"/);
-assert.match(html,/선택한 달 순흐름<\/span><strong id="financeNet"/);
+assert.match(html,/>순흐름<\/span>\s*<span id="financeNet"/);
 assert.doesNotMatch(app,/Finance\.currentBalance\(state\.finance/,'과거 잔액 계산을 새 예산 요약에 사용하지 않는다.');
 assert.match(app,/budgetUI\.render\(mk,state\.finance/,'검색으로 거른 목록 대신 해당 계정의 거래 원본으로 월 예산을 계산한다.');
 assert.match(app,/Finance\.filterRows\(month,filters\)/);
-assert.match(app,/class="link-btn danger" data-delete-finance/);
-assert.match(css,/\.transaction-copy strong\{font-size:15px/);
-assert.match(css,/grid-template-areas:'copy amount' 'copy actions'/);
+// Stitch 가계부 rows: legacy balance rows stay visible, labelled and without a +/- sign.
+assert.match(views,/balance\?'이전 시작 잔액'/);
+assert.match(views,/data-delete-finance="\$\{esc\(x\.id\)\}"/);
 
 console.log('finance balance contract: PASS');

@@ -15,11 +15,12 @@ const bottom=html.match(/<nav class="bottom-nav"[\s\S]*?<\/nav>/)?.[0]||'';
 
 assert.ok(section,'더보기 화면이 있어야 한다.');
 assert.match(section,/<div class="stitch-more-canvas w-full max-w-\[420px\] mx-auto space-y-4">/,'Stitch #moreApp container classes are kept');
-// Stitch header with its own bell; unread dot starts hidden and is driven by setNotificationBadge.
-assert.match(section,/<h1 class="text-xl font-bold text-\[#1C1D1B\] tracking-tight">더보기<\/h1>/);
-assert.match(section,/<button id="moreNotifications" type="button" data-go="notifications" aria-label="알림" class="w-10 h-10 rounded-full flex items-center justify-center text-\[#1C1D1B\] hover:bg-\[#F0EFEA\] transition-colors relative">/);
-assert.match(section,/<span id="moreNotificationDot" class="absolute top-2\.5 right-2\.5 w-2 h-2 rounded-full bg-\[#B45650\] ring-2 ring-\[#FAF9F6\] hidden"><\/span>/);
-assert.match(app,/\$\('#moreNotificationDot'\)\?\.classList\.toggle\('hidden',!show\)/);
+// User decision 2026-11-20: no title header and no bell on More (the bell lives only on Today), so the Stitch header is dropped.
+assert.doesNotMatch(section,/<header\b/,'More has no header');
+assert.doesNotMatch(section,/>더보기<\/h1>/,'More has no page title');
+assert.doesNotMatch(section,/data-go="notifications"|moreNotification/,'More has no notification bell');
+assert.doesNotMatch(app,/moreNotificationDot/);
+assert.match(importer,/Missing Stitch markup: header/,'the importer removes the Stitch header');
 // Profile card bound to real data.
 for(const id of ['profile-card','user-avatar-initial','user-name','user-streak'])assert.match(section,new RegExp(`id="${id}"`));
 assert.match(app,/MoreProfile\.view\(p,u\)/);
@@ -65,9 +66,9 @@ assert.doesNotMatch(section,/<path d="M6 10h4"><\/path><path d="M14 10h4"><\/pat
 assert.match(importer,/bug icon \(previous More page\)/);
 assert.match(app,/\[data-go\]\[role="button"\]/);
 // Cache busting.
-assert.match(html,/more-stitch\.generated\.css\?v=20261120-more-v8/);
+assert.match(html,/more-stitch\.generated\.css\?v=20261120-more-v9/);
 assert.match(html,/more-stitch\.css\?v=20261120-more-v7/);
-assert.match(sw,/more-stitch\.generated\.css\?v=20261120-more-v8/);
+assert.match(sw,/more-stitch\.generated\.css\?v=20261120-more-v9/);
 assert.match(sw,/more-stitch\.css\?v=20261120-more-v7/);
 
 console.log('More Stitch v7 contract PASS');

@@ -1,40 +1,6 @@
-.budget-panel{padding:14px 16px 16px;min-width:0;border-top:1px solid var(--line)}
+/* 가계부 budget panel. Visual styles come from the Stitch markup (finance-stitch.generated.css); only behavior helpers stay here. */
 #financeBudgetPanel{scroll-margin-top:84px}
-.budget-panel>p{font-size:13px;line-height:1.5;margin:0 0 12px;color:var(--muted);overflow-wrap:anywhere}
-#budgetUnassigned:empty{display:none}
-.budget-overview{min-width:0}
-.budget-empty{margin:8px 0 14px;font-size:13px;color:var(--muted)}
-.budget-row{padding:9px 0;border-top:1px solid var(--line);min-width:0}
-.budget-row-head,.budget-row-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 8px;min-width:0}
-.budget-row-head strong{font-size:14px;line-height:1.35;overflow-wrap:anywhere;min-width:0}
-.budget-row-head span{font-size:13px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;color:var(--ink)}
-.budget-row-bottom{margin-top:5px;font-size:12px;color:var(--muted)}
-.budget-row-bottom span:last-child{flex:none}
-.budget-meter{height:8px;margin-top:7px;border-radius:99px;background:#e6ede8;overflow:hidden}
-.budget-meter-fill{display:block;height:100%;border-radius:inherit;background:#4f806a;max-width:100%}
-.budget-over{color:var(--danger)}
-.budget-meter.budget-over{background:#f5e7e4}
-.budget-meter.budget-over .budget-meter-fill{background:var(--danger)}
-.budget-edit{margin-top:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);overflow:hidden}
-.budget-edit>summary{list-style:none;cursor:pointer;min-height:44px;padding:11px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700}
-.budget-edit>summary::-webkit-details-marker{display:none}
-.budget-edit>summary:after{content:'⌄';font-size:18px;line-height:1;color:var(--muted)}
-.budget-edit[open]>summary:after{transform:rotate(180deg)}
-.budget-edit>summary:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
-.budget-edit-body{padding:12px 14px 14px;border-top:1px solid var(--line)}
-.budget-edit-body label{display:block;margin-bottom:6px;font-size:13px;font-weight:700}
-.budget-edit-body select,.budget-edit-body input{box-sizing:border-box;width:100%;min-width:0;min-height:44px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card,#fff);color:var(--ink);font-size:16px}
-.budget-edit-body input{font-variant-numeric:tabular-nums}
+#budgetUnassigned:empty,#budgetStatus:empty,#budgetHint:empty{display:none}
 #budgetSelected[hidden]{display:none}
-#budgetSelected{margin-top:12px}
-#budgetSelectedUsage{font-size:13px;line-height:1.5;color:var(--ink);margin:0 0 12px;overflow-wrap:anywhere}
-#budgetSelected small{display:block;margin:6px 0 12px;font-size:12px;line-height:1.45;color:var(--muted)}
-#budgetSave{min-height:44px;width:100%}
-.budget-actions{display:flex;justify-content:flex-end;margin-top:8px}
-.budget-actions button{min-height:44px}
-#financeBudgetRemaining{white-space:normal;overflow-wrap:anywhere;font-size:clamp(16px,4.6vw,23px)}
-#budgetOpen{padding:4px 0;min-height:44px;text-align:left;font-size:13px}
-#budgetStatus{min-height:0;color:var(--ink);margin:8px 0 0}
-#budgetStatus:empty{display:none}
 #todayBudgetUnassigned:empty{display:none}
 @media(max-width:760px){#financeBudgetPanel{scroll-margin-top:calc(124px + var(--safe-top, 0px))}}

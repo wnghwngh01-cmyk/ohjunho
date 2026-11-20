@@ -3,7 +3,7 @@
   'use strict';
   function create({db,finance,root=document,onChange=()=>{}}){
     const entries=new Map();let owner='',activeMonth='',activeRows=[],activeCategories=[];
-    const q=s=>root.querySelector(s),money=n=>`${n<0?'-':''}₩${Math.abs(n).toLocaleString('ko-KR')}`;
+    const q=s=>root.querySelector(s),money=n=>`${n<0?'-':''}${Math.abs(Math.round(Number(n)||0)).toLocaleString('ko-KR')}원`;
     function scope(){const id=db.user()?.id||'';if(owner!==id){entries.clear();owner=id}return id}
     function entry(month){scope();if(!entries.has(month))entries.set(month,{phase:'idle',draft:null,data:null,busy:false,message:'',request:0,selected:''});return entries.get(month)}
     async function load(month,force=false){
@@ -14,6 +14,16 @@
       onChange();
     }
     function node(tag,text,className){const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el}
+    // Summary card (Stitch): remaining amount (coral "N원 초과" when over), "/ 총 N원", and a bar of the remaining share.
+    function setSummary(stats){
+      const remaining=q('#financeBudgetRemaining'),total=q('#financeBudgetTotal'),bar=q('#financeBudgetBar');
+      const over=!!stats&&stats.configured&&stats.remaining<0;
+      remaining.classList.toggle('text-[#B45650]',over);remaining.classList.toggle('text-[#1E3A2F]',!over);
+      if(!stats){total.textContent='';bar.style.width='0%';return}
+      remaining.textContent=stats.configured?(over?`${money(-stats.remaining)} 초과`:money(stats.remaining)):'예산 설정하기';
+      total.textContent=stats.configured?`/ 총 ${money(stats.budget)}`:'';
+      bar.style.width=`${stats.configured&&stats.budget>0?Math.min(100,Math.max(0,stats.remaining/stats.budget*100)):0}%`;
+    }
     function render(month,rows,categories){
       activeMonth=month;activeRows=rows;activeCategories=categories;
       const e=entry(month),host=q('#budgetRows'),summary=q('#budgetSummary'),status=q('#budgetStatus');
@@ -25,34 +35,32 @@
       q('#budgetAmount').disabled=e.busy;
       q('#budgetSave').textContent=e.busy?'저장 중…':'이 분류 예산 저장';
       if(e.phase!=='ready'){
-        q('#financeBudgetRemaining').classList.toggle('budget-over',false);
+        setSummary(null);
         summary.textContent='월별 예산';q('#financeBudgetRemaining').textContent=e.phase==='error'?'조회 실패':'불러오는 중';
         q('#budgetUnassigned').textContent='';q('#budgetHint').textContent=e.phase==='error'?'예산 설정·수정을 펼쳐 다시 불러오기를 눌러 주세요. 입력 중인 값은 유지됩니다.':'저장된 예산을 확인하고 있습니다.';
         q('#budgetSelected').hidden=true;
         if(e.phase==='idle')void load(month);return;
       }
       const stats=finance.budgetSummary(rows,month,e.data.items);
-      const remaining=q('#financeBudgetRemaining');remaining.textContent=stats.configured?(stats.remaining<0?`${money(-stats.remaining)} 초과`:money(stats.remaining)):'예산 설정하기';
-      remaining.classList.toggle('budget-over',stats.remaining<0);
-      summary.textContent=`월별 예산 · ${stats.configured?money(stats.budget)+' 설정':'미설정'}`;
+      setSummary(stats);
+      summary.textContent=`월별 예산 · ${stats.configured?stats.categories.length+'개 분류 설정':'미설정'}`;
       q('#budgetHint').textContent=e.data.status==='inherited'?`${e.data.source_month.slice(0,7)} 예산을 이어받을 예정입니다. 미래 월은 저장 전까지 미리보기입니다.`:e.data.status==='none'?'아직 이 달의 예산이 없습니다.':`${month} 저장된 예산입니다.`;
       if(e.draft&&Object.keys(e.draft).length)q('#budgetHint').textContent+=' 입력 중인 값은 저장하기 전까지 아래 사용 현황에 반영되지 않습니다.';
       q('#budgetUnassigned').textContent=stats.unbudgeted?`예산 미설정 분류 지출 ${money(stats.unbudgeted)}`:'';
-      if(!stats.configured)host.append(node('p','설정된 예산이 없습니다. 아래에서 지출 분류를 골라 추가해 주세요.','budget-empty'));
+      if(!stats.configured)host.append(node('p','설정된 예산이 없습니다. 아래에서 지출 분류를 골라 추가해 주세요.','text-xs text-[#8E928F] leading-relaxed'));
+      // Stitch rows: [name + remaining] / [usage + percent] / meter. Over-budget rows use the coral variant.
       stats.categories.forEach(item=>{
-        const row=node('div',undefined,'budget-row'),head=node('div',undefined,'budget-row-head');
-        const label=node('strong',item.category),value=node('span',`${money(item.used)} / ${money(item.budget)}`);
-        const meter=node('div',undefined,'budget-meter'),fill=node('span',undefined,'budget-meter-fill');
-        const bottom=node('div',undefined,'budget-row-bottom');
         const over=item.remaining<0;
-        row.classList.toggle('budget-over',over);
-        meter.classList.toggle('budget-over',over);
+        const row=node('div',undefined,over?'space-y-1 p-2 rounded-xl bg-[#FDF0EE] border border-[#FAD4D1]':'space-y-1');
+        const head=node('div',undefined,'flex items-center justify-between text-xs');
+        head.append(node('span',item.category,over?'font-bold text-[#B45650]':'font-bold text-[#1A1C1A]'),node('span',over?`${money(-item.remaining)} 초과`:`${money(item.remaining)} 남음`,over?'font-bold text-[#B45650]':'font-semibold text-[#1E3A2F]'));
+        const usage=node('div',undefined,over?'flex items-center justify-between text-[11px] text-[#B45650]':'flex items-center justify-between text-[11px] text-[#8E928F]');
+        usage.append(node('span',`${money(item.budget)} 중 ${money(item.used)} 사용`),node('span',item.budget?`${Math.round(item.used/item.budget*100)}% 사용`:item.used?'예산 초과':'0% 사용'));
+        const meter=node('div',undefined,over?'w-full bg-[#FAD4D1] h-1.5 rounded-full overflow-hidden':'w-full bg-[#F4F3F0] h-1.5 rounded-full overflow-hidden'),fill=node('div',undefined,over?'bg-[#B45650] h-1.5 rounded-full':'bg-[#1E3A2F] h-1.5 rounded-full');
         fill.style.width=`${item.percent}%`;
         meter.setAttribute('role','img');
         meter.setAttribute('aria-label',`${item.category} 예산 ${money(item.budget)} 중 ${money(item.used)} 사용${over?`, ${money(-item.remaining)} 초과`:`, ${money(item.remaining)} 남음`}`);
-        head.append(label,value);
-        bottom.append(node('span',over?`${money(-item.remaining)} 초과`:`${money(item.remaining)} 남음`),node('span',item.budget?`${Math.round(item.used/item.budget*100)}% 사용`:item.used?'예산 초과':'0% 사용'));
-        meter.append(fill);row.append(head,meter,bottom);host.append(row);
+        meter.append(fill);row.append(head,usage,meter);host.append(row);
       });
       const all=[...new Set([...categories,...Object.keys(e.data.items)])];
       const select=q('#budgetCategory');select.replaceChildren(node('option','분류 선택'));

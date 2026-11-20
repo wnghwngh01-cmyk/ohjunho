@@ -1,6 +1,6 @@
 // Imports the final Stitch More screen (static export of Stitch screen "_4", 2026-11-20) into index.html.
 // The Stitch markup is kept as-is; only app hooks are added:
-//   - ids for live profile data, the in-page notification bell and its unread dot
+//   - ids for live profile data (the Stitch header with title + bell is removed: bell only on Today)
 //   - data-go routes on the 18 menu rows and the profile card
 //   - the forge row keeps the sword icon the user picked earlier (commits 687aa8e / 329bc82)
 // Usage: node scripts/import-stitch-more-v7.mjs <static More code.html> [index.html]
@@ -25,9 +25,11 @@ const replaceOnce = (from, to, label) => {
   content = content.replace(from, to);
 };
 
-// In-page header bell (the global topbar is hidden on this page).
-replaceOnce('<button aria-label="알림" class="w-10 h-10 rounded-full', '<button id="moreNotifications" type="button" data-go="notifications" aria-label="알림" class="w-10 h-10 rounded-full', 'header bell');
-replaceOnce('<span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-[#B45650] ring-2 ring-[#FAF9F6]"></span>', '<span id="moreNotificationDot" class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-[#B45650] ring-2 ring-[#FAF9F6] hidden"></span>', 'bell dot');
+// User decision 2026-11-20: pages have no title header and no bell; the notification bell lives only on the Today page.
+// So the Stitch header ("더보기" title + bell) is dropped.
+const header = content.match(/(?:<!--[^>]*-->\s*)?<header\b[\s\S]*?<\/header>\s*/);
+if (!header || !header[0].includes('더보기') || !header[0].includes('aria-label="알림"')) throw new Error('Missing Stitch markup: header');
+content = content.replace(header[0], '');
 
 // Profile card with live data.
 replaceOnce('<div class="bg-white rounded-2xl p-4 shadow-sm border border-[#F0EFEA] flex items-center justify-between cursor-pointer tap-active transition-colors">', '<div id="profile-card" data-go="settings" role="button" tabindex="0" class="bg-white rounded-2xl p-4 shadow-sm border border-[#F0EFEA] flex items-center justify-between cursor-pointer tap-active transition-colors">', 'profile card');
@@ -56,4 +58,4 @@ const page = target.match(/<section id="page-more"[\s\S]*?<\/section>\s*\r?\n\s*
 if (!page) throw new Error('Current #page-more section not found');
 const replacement = `<section id="page-more" class="page" data-page="more">\n<div class="stitch-more-canvas w-full max-w-[420px] mx-auto space-y-4">\n${content}\n</div>\n</section>\n\n      <section id="page-shelter"`;
 fs.writeFileSync(targetPath, target.replace(page[0], replacement), 'utf8');
-console.log(`Imported Stitch More v7: ${routes.length} routes, profile + bell hooks, user forge icon kept`);
+console.log(`Imported Stitch More v7: ${routes.length} routes, profile hooks, header removed, user forge icon kept`);

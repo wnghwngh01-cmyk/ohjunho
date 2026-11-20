@@ -1,0 +1,18 @@
+/* Shell for the Stitch 가계부 screen ("가계부 (Account 메인 최종 수정본)", 2026-11-20).
+   Mirrors the Stitch page (bg #FAF9F6, text #1A1C1A, Pretendard stack, px-4 pt-4 pb-[96px]) and its details/chevron style.
+   The Stitch header (title + bell) is not used: no page titles, the bell lives only on Today. Components: finance-stitch.generated.css. */
+#page-personal{width:100%;max-width:480px;margin:0 auto;padding:16px 16px calc(96px + env(safe-area-inset-bottom,0px));background:#FAF9F6;color:#1A1C1A;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,system-ui,Roboto,'Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+#page-personal *{box-sizing:border-box}
+#page-personal svg{display:block}
+#page-personal button,#page-personal input,#page-personal select{font-family:inherit}
+#page-personal [hidden]{display:none!important}
+body:has(#page-personal.active),.app-main:has(#page-personal.active){background:#FAF9F6}
+#page-personal details>summary{list-style:none!important}
+#page-personal details>summary::-webkit-details-marker,#page-personal details>summary::marker,#page-personal details>summary::before,#page-personal details>summary::after{content:none!important;display:none!important}
+#page-personal details[open]>summary .chevron-arrow{transform:rotate(180deg)}
+#page-personal summary:focus{outline:none}
+#page-personal summary:focus-visible,#page-personal button:focus-visible{outline:2px solid #1E3A2F;outline-offset:2px}
+#page-personal button:disabled{opacity:.5;cursor:not-allowed}
+/* 32px Stitch row buttons keep their size but get a 44px touch target. */
+#page-personal [data-edit-finance],#page-personal [data-delete-finance],#page-personal #recurringList button{position:relative}
+#page-personal [data-edit-finance]::before,#page-personal [data-delete-finance]::before,#page-personal #recurringList button::before{content:'';position:absolute;inset:-6px -2px}
