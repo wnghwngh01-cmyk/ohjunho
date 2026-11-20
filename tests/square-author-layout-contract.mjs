@@ -29,10 +29,10 @@ assert.match(migration,/char_length\(new\.display_name\)>8/);
 assert.match(migration,/char_length\(new\.lab_name\)>12/);
 assert.match(migration,/is distinct from old\.display_name/);
 for(const token of ['enforce_profile_name_limits','profiles_name_limits','char_length(new.display_name)>8','char_length(new.lab_name)>12','step28_profile_name_probe'])assert.match(deployMigration,new RegExp(token.replace(/[().]/g,'\\$&')));
-assert.match(sw,/daily-life-shell-v127/);
+assert.match(sw,/daily-life-shell-v128/);
 assert.match(sw,/assets\/styles\.css\?v=20261107-notifications-v1/);
 assert.match(sw,/assets\/light-theme\.css\?v=20261030-square-author-v1/);
-assert.match(sw,/js\/db\.js\?v=20261115-calendar-order-v1/);
-assert.match(sw,/js\/app\.js\?v=20261119-batch4-v1/);
+assert.match(sw,/js\/db\.js\?v=20261120-batch5-v1/);
+assert.match(sw,/js\/app\.js\?v=20261120-batch5-v1/);
 
 console.log('square author layout contract: PASS');
