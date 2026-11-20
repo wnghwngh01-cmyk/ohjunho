@@ -43,8 +43,9 @@ const designForge = '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke
 const userForge = '<svg class="w-5 h-5" id="icon-forge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"></path><path d="M13 19l6-6"></path><path d="M16 16l4 4"></path><path d="M19 21l2-2"></path></svg>';
 replaceOnce(designForge, userForge, 'forge icon');
 
-// Bug-report icon: the Stitch legs (x 6→10 / 14→18) ran into the body (x 8–16); they now stop at the body edge.
-replaceOnce('<path d="M6 10h4"></path><path d="M14 10h4"></path><path d="M6 15h4"></path><path d="M14 15h4"></path>', '<path d="M4 10h4"></path><path d="M16 10h4"></path><path d="M4 15h4"></path><path d="M16 15h4"></path>', 'bug icon legs');
+// Bug-report icon: the Stitch drawing's legs crossed the body, so the bug icon from the previous More page
+// (used up to commit bcabc7d: diagonal legs, two short antennae) is kept instead (user decision 2026-11-20).
+replaceOnce('<rect width="8" height="12" x="8" y="7" rx="4"></rect><path d="M12 7V3"></path><path d="M6 10h4"></path><path d="M14 10h4"></path><path d="M6 15h4"></path><path d="M14 15h4"></path><path d="M4 6l4 2"></path><path d="M20 6l-4 2"></path>', '<rect width="8" height="14" x="8" y="6" rx="4"></rect><path d="m19 7-3 2"></path><path d="m5 7 3 2"></path><path d="m19 19-3-2"></path><path d="m5 19 3-2"></path><path d="M20 13h-4"></path><path d="M4 13h4"></path><path d="m10 4 1 2"></path><path d="m14 4-1 2"></path>', 'bug icon (previous More page)');
 
 // The Stitch screen drops the footer, but the user decided to show the app version (1.1.0) until release,
 // so the previously approved footer meta is kept below the menus (version comes from js/app-version.js).

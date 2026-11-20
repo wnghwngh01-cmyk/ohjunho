@@ -58,12 +58,11 @@ for(const go of ['today','calendar','personal','square']){
   assert.ok(navSvg&&rowSvg,`icon for ${go} exists in both places`);
   assert.equal(iconBody(navSvg),iconBody(rowSvg),`bottom-nav ${go} icon matches the Stitch More row icon`);
 }
-// 버그 제보 icon: legs stop at the body edge (body rect x 8–16) instead of crossing it.
+// 버그 제보 icon: the previous More page's bug (diagonal legs ending at the body edge, two short antennae).
 const bugSvg=section.match(/data-go="bug" role="button"[\s\S]*?(<svg\b[\s\S]*?<\/svg>)/)?.[1]||'';
-assert.match(bugSvg,/<rect width="8" height="12" x="8" y="7" rx="4"><\/rect>/);
-for(const [, x1, len] of bugSvg.matchAll(/<path d="M(\d+) (?:10|15)h(\d+)"><\/path>/g)){const a=Number(x1),b=a+Number(len);assert.ok(b<=8||a>=16,`bug leg ${a}→${b} must not cross the body`)}
-assert.equal((bugSvg.match(/<path d="M\d+ (?:10|15)h4"><\/path>/g)||[]).length,4,'four legs');
-assert.match(importer,/bug icon legs/);
+assert.equal(iconBody(bugSvg),'<rect width="8" height="14" x="8" y="6" rx="4"></rect><path d="m19 7-3 2"></path><path d="m5 7 3 2"></path><path d="m19 19-3-2"></path><path d="m5 19 3-2"></path><path d="M20 13h-4"></path><path d="M4 13h4"></path><path d="m10 4 1 2"></path><path d="m14 4-1 2"></path>');
+assert.doesNotMatch(section,/<path d="M6 10h4"><\/path><path d="M14 10h4"><\/path>/,'Stitch bug legs that crossed the body are gone');
+assert.match(importer,/bug icon \(previous More page\)/);
 assert.match(app,/\[data-go\]\[role="button"\]/);
 // Cache busting.
 assert.match(html,/more-stitch\.generated\.css\?v=20261120-more-v8/);
