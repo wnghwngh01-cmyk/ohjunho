@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const app=fs.readFileSync('js/app.js','utf8');
+const views=fs.readFileSync('js/stitch-views.js','utf8');
 
 // #7 Category options follow the transaction type (both the 가계부 form and the Today quick entry).
 const cats=app.match(/const FINANCE_CATEGORIES=(\{[^;]*\});/)?.[1];
@@ -26,8 +27,8 @@ assert.match(app,/syncFinanceCategories\('todayFinanceCategory',value\)\}/,'Toda
 assert.match(app,/\$\('#financeType'\)\.addEventListener\('change',syncFinanceCategories\)/);
 
 // #12 Comment Enter submits through a form (no submit while a Korean IME composition is active) and cannot double-post.
-assert.match(app,/<form class="comment-compose" data-comment-form="\$\{p\.id\}" novalidate><input class="input" data-comment-input="\$\{p\.id\}"[^>]*enterkeyhint="send"/);
-assert.match(app,/<button type="button" class="btn primary small" data-submit-comment="\$\{p\.id\}"/,'the 등록 button stays a click path, not a second submit');
+assert.match(views,/<form data-comment-form="\$\{esc\(p\.id\)\}" novalidate[^>]*><input data-comment-input="\$\{esc\(p\.id\)\}"[^>]*enterkeyhint="send"/);
+assert.match(views,/<button type="button" data-submit-comment="\$\{esc\(p\.id\)\}"/,'the 등록 button stays a click path, not a second submit');
 assert.match(app,/document\.addEventListener\('submit',event=>\{const form=event\.target\.closest\?\.\('\[data-comment-form\]'\);if\(!form\)return;event\.preventDefault\(\);void submitComment\(form\.dataset\.commentForm\)\}\)/);
 assert.match(app,/if\(!body\|\|commentInFlight\.has\(pubId\)\)return;/,'concurrent Enter + tap cannot post twice');
 assert.match(app,/finally\{commentInFlight\.delete\(pubId\)\}/);

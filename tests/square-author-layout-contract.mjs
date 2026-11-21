@@ -3,6 +3,7 @@ import fs from 'node:fs';
 
 const html=fs.readFileSync('index.html','utf8');
 const app=fs.readFileSync('js/app.js','utf8');
+const views=fs.readFileSync('js/stitch-views.js','utf8');
 const db=fs.readFileSync('js/db.js','utf8');
 const styles=fs.readFileSync('assets/styles.css','utf8');
 const light=fs.readFileSync('assets/light-theme.css','utf8');
@@ -16,10 +17,12 @@ assert.match(db,/limitedName\(displayName,8,'이름'\)/);
 assert.match(db,/limitedName\(labName,12,'공간 이름'\)/);
 assert.match(db,/display_name:name,lab_name:name/);
 assert.doesNotMatch(db,/lab_name:`\$\{name\}의 하루`/);
-assert.match(app,/class="pub-author-name-line"[\s\S]*?esc\(p\.display_name\)[\s\S]*?Shelter\.titleBadge\(p\.active_title\)/);
-assert.match(app,/class="pub-lab-name">\$\{esc\(p\.lab_name\)\}/);
-assert.match(app,/collapsibleCopy\(p\.body,'',fmtTime\(p\.published_at\)\)/);
-assert.match(app,/class="publication-time"[\s\S]*?data-toggle-copy/);
+// 광장 Stitch card (2026-11-21): name + title badge on one line, lab name below, time under the 4-line body.
+assert.match(views,/leading-tight min-w-0"><a href="\$\{esc\(c\.profileUrl\)\}" class="text-xs font-bold text-\[#1A1C1A\] truncate">\$\{esc\(p\.display_name\)\}<\/a>\$\{c\.title\|\|''\}/);
+assert.match(app,/title:Shelter\.titleBadge\(p\.active_title\)/);
+assert.match(views,/text-\[10\.5px\] text-\[#8E928F\] mt-0\.5 truncate">\$\{esc\(p\.lab_name\)\}/);
+assert.match(views,/data-square-text class="[^"]*line-clamp-4[^"]*">\$\{esc\(p\.body\)\}<\/p><button type="button" data-square-more[\s\S]*?\$\{esc\(c\.time\)\}/);
+assert.match(app,/time:fmtTime\(p\.published_at\)/);
 assert.doesNotMatch(app,/esc\(p\.lab_name\)[\s\S]{0,160}fmtTime\(p\.published_at\)/);
 assert.match(styles,/\.pub-author-name-line \.title-badge\{[^}]*flex:0 0 78px[^}]*width:78px/);
 assert.match(styles,/\.pub-author-name-line strong\{[^}]*text-overflow:ellipsis[^}]*white-space:nowrap/);
@@ -29,10 +32,10 @@ assert.match(migration,/char_length\(new\.display_name\)>8/);
 assert.match(migration,/char_length\(new\.lab_name\)>12/);
 assert.match(migration,/is distinct from old\.display_name/);
 for(const token of ['enforce_profile_name_limits','profiles_name_limits','char_length(new.display_name)>8','char_length(new.lab_name)>12','step28_profile_name_probe'])assert.match(deployMigration,new RegExp(token.replace(/[().]/g,'\\$&')));
-assert.match(sw,/daily-life-shell-v131/);
+assert.match(sw,/daily-life-shell-v132/);
 assert.match(sw,/assets\/styles\.css\?v=20261107-notifications-v1/);
 assert.match(sw,/assets\/light-theme\.css\?v=20261030-square-author-v1/);
 assert.match(sw,/js\/db\.js\?v=20261120-batch6-v1/);
-assert.match(sw,/js\/app\.js\?v=20261120-finance-v1/);
+assert.match(sw,/js\/app\.js\?v=20261121-square-v1/);
 
 console.log('square author layout contract: PASS');

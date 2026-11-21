@@ -43,7 +43,7 @@ for(const name of ['today','calendar','more']){
   const css=fs.readFileSync(new URL(`../assets/${name}-stitch.generated.css`,import.meta.url),'utf8');
   if(!new RegExp(`#page-${name} \\*,[^{]*\\{[^}]*(border-style:solid|border:0 solid)`).test(css))fail(`${name} Stitch CSS must restore border-style:solid inside #page-${name}`);
 }
-for(const link of ['today-stitch.css?v=20261120-stitch-v1','today-stitch.generated.css?v=20261120-stitch-v3','stitch-views.js?v=20261120-finance-v1'])if(!html.includes(link))fail(`Today asset is not loaded: ${link}`);
+for(const link of ['today-stitch.css?v=20261120-stitch-v1','today-stitch.generated.css?v=20261120-stitch-v3','stitch-views.js?v=20261121-square-v1'])if(!html.includes(link))fail(`Today asset is not loaded: ${link}`);
 if(html.indexOf('stitch-views.js')>html.indexOf('js/app.js'))fail('stitch-views.js must load before app.js');
 
 for(const hook of ['page-today','todayDate','greetingTitle','todayGoalCard','todayFinalGoal','todayMonthlyGoal','todayDdayAction','todayCountdowns','todayEvents','todayTodoCount','todayTodoInput','todayTodoAdd','todayTodos','todayHabits','todayHabitSettings','quickRecordText','quickRecordSave'])if(!html.includes(`id="${hook}"`))fail(`Today hook is missing: ${hook}`);

@@ -1,0 +1,24 @@
+/* Shell for the Stitch 광장 screens ("광장 (발견)", "광장 (앱 개선)", "광장 - 상태 모음", 2026-11-20).
+   Mirrors the Stitch page (bg #FAF9F6, text #1A1C1A, Pretendard stack, px-4 pt-4 pb-[96px]). No page header: the bell
+   lives only on Today. Components: square-stitch.generated.css. Forge certificates keep forge.css (placeholder for now). */
+#page-square{width:100%;max-width:480px;margin:0 auto;padding:16px 16px calc(96px + env(safe-area-inset-bottom,0px));background:#FAF9F6;color:#1A1C1A;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,system-ui,Roboto,'Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+#page-square *{box-sizing:border-box}
+#page-square .stitch-square-canvas svg{display:block;flex-shrink:0}
+body:has(#page-square.active),.app-main:has(#page-square.active){background:#FAF9F6}
+#page-square details>summary{list-style:none!important}
+#page-square details>summary::-webkit-details-marker,#page-square details>summary::marker,#page-square details>summary::before,#page-square details>summary::after{content:none!important;display:none!important}
+#page-square summary:focus,#page-square input:focus,#page-square textarea:focus{outline:none}
+#page-square summary:focus-visible,#page-square button:focus-visible,#page-square a:focus-visible{outline:2px solid #1E3A2F;outline-offset:2px}
+#page-square button:disabled{opacity:.5;cursor:not-allowed}
+#page-square .no-scrollbar{scrollbar-width:none}
+#page-square .no-scrollbar::-webkit-scrollbar{display:none}
+/* Existing avatar (photo, frame tier) sized to the Stitch 36px face + ring (40px) and 20px in comments. */
+#page-square .avatar.square-avatar{width:40px;height:40px;flex:0 0 40px;font-size:12px}
+#page-square .avatar.square-comment-avatar{width:20px;height:20px;flex:0 0 20px;font-size:9px}
+#page-square [data-publication-card] .title-badge{flex-shrink:0}
+/* Comment action buttons are 32px tall in Stitch; give them a 44px touch target without changing the look. */
+#page-square [data-reply-comment],#page-square [data-delete-comment],#page-square [data-comment-id] [data-report-type],#page-square [data-reply-cancel]{position:relative}
+#page-square [data-reply-comment]::before,#page-square [data-delete-comment]::before,#page-square [data-comment-id] [data-report-type]::before,#page-square [data-reply-cancel]::before{content:'';position:absolute;inset:-6px -4px}
+#page-square [data-comment-arrow]{transition:transform .2s ease}
+#page-square [data-square-menu][open] summary{color:#1A1C1A}
+#page-square [data-lightbox] img{display:block}

@@ -10,7 +10,9 @@ for(const copy of subtitles){
 
 // 가계부 uses the Stitch screen without a page title/description (user decision 2026-11-20).
 if(html.includes('수입과 지출을 기록하고 남은 예산과 월별 흐름을 확인해보세요.'))throw new Error('가계부 must not show the old page description');
-const descriptions=['스쳐 가는 생각과 기억을 형식 없이 편하게 남겨보세요.','문득 떠오른 생각을 사진과 함께 저장하고 다시 발전시켜보세요.','오늘의 기분과 이야기를 날짜별로 기록하고 지난 하루를 찾아보세요.','읽고 싶은 책부터 완독한 책까지 감상과 함께 차곡차곡 정리해보세요.','기록과 일기, 독서록, 자유로운 생각을 선택해 다른 사용자와 나눠보세요.'];
+// 광장 too (Stitch screen, 2026-11-21).
+if(html.includes('기록과 일기, 독서록, 자유로운 생각을 선택해 다른 사용자와 나눠보세요.'))throw new Error('광장 must not show the old page description');
+const descriptions=['스쳐 가는 생각과 기억을 형식 없이 편하게 남겨보세요.','문득 떠오른 생각을 사진과 함께 저장하고 다시 발전시켜보세요.','오늘의 기분과 이야기를 날짜별로 기록하고 지난 하루를 찾아보세요.','읽고 싶은 책부터 완독한 책까지 감상과 함께 차곡차곡 정리해보세요.'];
 for(const copy of descriptions){
   if(!html.includes(copy))throw new Error(`Missing page description: ${copy}`);
 }
