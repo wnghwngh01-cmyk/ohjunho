@@ -661,9 +661,9 @@
         action.addEventListener('click',async()=>{if(page==='diary'&&state.diaryEdit){try{await preserveDiaryDraft()}catch{toast('수정 중인 임시저장을 보관하지 못했습니다. 다시 시도해 주세요.');return}await resetDiary(false);await restoreDiaryDraft()}if(page==='books'&&state.bookEdit)resetBook();details.open=true;details.scrollIntoView({behavior:'smooth',block:'start'});form.querySelector('input,textarea')?.focus({preventScroll:true})});
       }
     }
-    document.addEventListener('click',e=>{document.querySelectorAll('.action-menu[open]').forEach(menu=>{if(!menu.contains(e.target)){menu.open=false}else if(e.target.closest('button')){menu.open=false;menu.querySelector('summary').focus()}})});
-    document.addEventListener('toggle',e=>{if(e.target.matches?.('.action-menu'))e.target.querySelector('summary').setAttribute('aria-expanded',String(e.target.open))},true);
-    document.addEventListener('keydown',e=>{if(e.key==='Escape'){const menu=document.querySelector('.action-menu[open]');if(menu){menu.open=false;menu.querySelector('summary').focus();e.preventDefault()}}});
+    document.addEventListener('click',e=>{document.querySelectorAll('.action-menu[open],[data-square-menu][open]').forEach(menu=>{if(!menu.contains(e.target)){menu.open=false}else if(e.target.closest('button')){menu.open=false;menu.querySelector('summary').focus()}})});
+    document.addEventListener('toggle',e=>{if(e.target.matches?.('.action-menu,[data-square-menu]'))e.target.querySelector('summary').setAttribute('aria-expanded',String(e.target.open))},true);
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){const menu=document.querySelector('.action-menu[open],[data-square-menu][open]');if(menu){menu.open=false;menu.querySelector('summary').focus();e.preventDefault()}}});
     document.querySelectorAll('[data-support-amount]').forEach(button=>{const tier={1000:'spectrum',5000:'blossom',10000:'crown',30000:'crown'}[button.dataset.supportAmount];button.insertAdjacentHTML('afterbegin',avatarMarkup('하루',null,'support-avatar',tier,'sage','gold'))});
   }
 

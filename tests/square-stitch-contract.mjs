@@ -35,6 +35,10 @@ assert.match(shell,/#page-square \.avatar\.square-comment-avatar\{width:20px;hei
 
 // App wiring.
 for(const token of ['syncSquareCategories()','function syncCounter(el)',"$$('#page-square [data-count-target]')",'function startReply(pubId,commentId,name)','function clearReply(pubId)','[data-reply-cancel]','[data-square-more]',"confirm('이 댓글을 삭제할까요?')",'Forge.publicationCard(p)','Views.squareEmpty(\'광장을 준비하고 있습니다.\',true)','Views.squareFeature(f,fmtShortDate(f.created_at))','Views.SQ_TAB_ON','setCommentToggle(pubId,opening)'])assert.ok(app.includes(token),token);
+// The ··· menu closes on outside click, after choosing an item and on Escape, and reports aria-expanded (2026-11-21 web QA).
+assert.ok(app.includes("document.querySelectorAll('.action-menu[open],[data-square-menu][open]')"),'outside click closes the square menu');
+assert.ok(app.includes("e.target.matches?.('.action-menu,[data-square-menu]')"),'square menu toggles aria-expanded');
+assert.ok(app.includes("document.querySelector('.action-menu[open],[data-square-menu][open]')"),'Escape closes the square menu');
 assert.match(app,/님에게 답글 남기는 중/);assert.match(app,/님에게 답글 남기기/);
 
 // Render the templates with sample rows.
