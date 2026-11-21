@@ -25,7 +25,7 @@ for(const file of ['assets/square-stitch.css','assets/square-stitch.generated.cs
   assert.ok(url,`${file} is linked`);assert.ok(sw.includes(`'${url}'`),`${file} is in the SW shell`);
 }
 assert.match(pkg,/"build:square-css": "tailwindcss -c scripts\/tailwind\.square-stitch\.config\.cjs -i assets\/square-stitch-input\.css -o assets\/square-stitch\.generated\.css --minify"/);
-assert.match(pkg,/"build:stitch-css": "[^"]*pnpm run build:square-css"/);
+assert.match(pkg,/"build:stitch-css": "[^"]*pnpm run build:square-css[^"]*"/);
 assert.match(config,/important:'#page-square'/);assert.match(config,/preflight:false/);assert.match(config,/subtle:'0 2px 8px rgba\(0, 0, 0, 0\.025\)'/);
 assert.match(input,/:where\(#page-square\) \*/,'resets stay at zero specificity so forge/avatar/title styles survive');
 assert.doesNotMatch(input,/(^|[^(])#page-square[ ,{]/m,'no id-specific base resets');

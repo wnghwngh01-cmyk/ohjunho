@@ -9,7 +9,8 @@
     "build:calendar-css": "tailwindcss -c scripts/tailwind.calendar-stitch.config.cjs -i assets/calendar-stitch-input.css -o assets/calendar-stitch.generated.css --minify",
     "build:finance-css": "tailwindcss -c scripts/tailwind.finance-stitch.config.cjs -i assets/finance-stitch-input.css -o assets/finance-stitch.generated.css --minify",
     "build:square-css": "tailwindcss -c scripts/tailwind.square-stitch.config.cjs -i assets/square-stitch-input.css -o assets/square-stitch.generated.css --minify",
-    "build:stitch-css": "pnpm run build:more-css && pnpm run build:today-css && pnpm run build:calendar-css && pnpm run build:finance-css && pnpm run build:square-css",
+    "build:workout-css": "tailwindcss -c scripts/tailwind.workout-stitch.config.cjs -i assets/workout-stitch-input.css -o assets/workout-stitch.generated.css --minify",
+    "build:stitch-css": "pnpm run build:more-css && pnpm run build:today-css && pnpm run build:calendar-css && pnpm run build:finance-css && pnpm run build:square-css && pnpm run build:workout-css",
     "build:web": "pnpm run build:stitch-css && node scripts/build-web.mjs",
     "android:sync": "pnpm run build:web && cap sync android",
     "android:open": "pnpm run android:sync && cap open android"
